@@ -1,0 +1,52 @@
+name: Inspect SEC data (maintenance)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: "Ticker, e.g. ING"
+        required: true
+      concepts:
+        description: "Comma-separated XBRL concepts (empty = list concepts)"
+        required: false
+        default: ""
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - env:
+          SEC_CONTACT: ${{ secrets.SEC_CONTACT }}
+          TICKER: ${{ inputs.ticker }}
+          CONCEPTS: ${{ inputs.concepts }}
+        run: |
+          python - <<'EOF'
+          import os, json
+          from engine.sources import SEC
+          from engine.fundamentals import extract
+          sec = SEC()
+          t = os.environ["TICKER"].upper()
+          row = next(r for r in sec.tickers() if r["ticker"] == t)
+          facts = sec.facts(row["cik"])
+          f = extract(facts)
+          print("fy_end", f["fy_end"], "currency", f["currency"])
+          print("t", json.dumps(f["t"])[:3000])
+          print("p", json.dumps(f["p"])[:3000])
+          want = [c for c in os.environ.get("CONCEPTS", "").split(",") if c]
+          for tax, cs in facts["facts"].items():
+              for name, c in cs.items():
+                  if want and name not in want:
+                      continue
+                  if not want:
+                      if any(k in name for k in ("ProfitLoss", "Revenue", "Interest", "Loans", "Deposits", "Equity", "Assets")):
+                          print(tax, name)
+                      continue
+                  for u, rows in c["units"].items():
+                      for r in sorted(rows, key=lambda r: r["end"])[-12:]:
+                          print(tax, name, u, r.get("start"), r["end"], r["val"], r.get("form"), r.get("fy"), r.get("fp"), r.get("filed"))
+          EOF
