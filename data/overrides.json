@@ -1,0 +1,6 @@
+{
+  "_help": "Editorial corrections, by ticker. They win over Wikidata. Fields: ceo {name, since, bio}, chair, website, employees, name, country, city. Remove a line to go back to automatic data.",
+  "HSBC": {
+    "ceo": {"name": "Georges Elhedery", "since": "2024", "bio": "Group Chief Executive since September 2024; previously Group Chief Financial Officer."}
+  }
+}

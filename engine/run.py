@@ -289,8 +289,37 @@ def _clean(ms):
     return out
 
 
+OVERRIDES_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "overrides.json")
+
+
+def _overrides():
+    try:
+        return json.load(open(OVERRIDES_PATH))
+    except Exception:
+        return {}
+
+
 def _common(r, lead):
-    L = lead or {}
+    L = dict(lead or {})
+    ov = _overrides().get(r["ticker"]) or {}
+    if ov.get("ceo"):
+        o = ov["ceo"]
+        if o.get("name") != L.get("ceoLabel"):
+            for k in ("ceoImg", "photo", "photoCredit", "ceoDesc"):
+                L.pop(k, None)  # the Wikidata portrait would show the wrong person
+        L["ceoLabel"] = o.get("name")
+        L["ceoStart"] = str(o.get("since") or "")
+        if o.get("bio"):
+            L["ceoDesc"] = o["bio"].rstrip(".")
+    if ov.get("chair"):
+        L["chairLabel"] = ov["chair"]
+    for k, lk in (("website", "web"), ("employees", "emp"), ("name", "itemLabel")):
+        if ov.get(k):
+            L[lk] = ov[k]
+    if ov.get("country"):
+        r = {**r, "country": ov["country"]}
+    if ov.get("city"):
+        r = {**r, "city": ov["city"]}
     ceo = None
     if L.get("ceoLabel") and not L["ceoLabel"].startswith("Q"):
         ceo = {"name": L["ceoLabel"], "title": "Chief Executive Officer"}
@@ -304,7 +333,7 @@ def _common(r, lead):
     if L.get("chairLabel") and not L["chairLabel"].startswith("Q") and (not ceo or L["chairLabel"] != ceo["name"]):
         team.append({"role": "Chair", "name": L["chairLabel"]})
     item = {
-        "name": L["itemLabel"] if same_company(L.get("itemLabel"), r["name"]) else T.nice_name(r["name"]),
+        "name": ov.get("name") or (L["itemLabel"] if same_company(L.get("itemLabel"), r["name"]) else T.nice_name(r["name"])),
         "ticker": r["ticker"],
         "exchange": r.get("exchange") or "",
         "country": r["country"] or L.get("cc") or "",
