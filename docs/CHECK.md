@@ -1,6 +1,6 @@
 # Contrôle automatique — semaine 46 (données au 2026-11-13)
 
-Généré le 2026-11-15 23:23 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
+Généré le 2026-11-15 23:43 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
 
 **EB Market Regime :** Risk-on 65/100 — Credit spreads calm, volatility low
 
@@ -10,7 +10,7 @@ Généré le 2026-11-15 23:23 UTC. Aucune action manuelle n'est nécessaire : to
 
 - Total assets : $80.4bn · exercice clos le 2025-12-31 · [dépôts SEC](https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1069157&type=10-K&dateb=&owner=include&count=10)
 - Chiffres clés : Pre-tax profit $1.7bn (+16.4%) · Tangible equity / assets 10.5% · Return on equity 15.9% (+0.9 pt) · Cost of risk 0.29%
-- ✅ CEO Dominic Ng confirmé par : SEC Form 4 (2026-11-13).
+- ✅ CEO Dominic Ng confirmé par : SEC Form 4 (2026-11-13). Photo et date d'entrée confirmées via Wikidata.
 
 ### 2. First Citizens BancShares (FCNCA) — score 61/100
 
@@ -54,7 +54,7 @@ Généré le 2026-11-15 23:23 UTC. Aucune action manuelle n'est nécessaire : to
 
 - Market value : $881bn · exercice clos le 2026-09-03 · [dépôts SEC](https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=723125&type=10-K&dateb=&owner=include&count=10)
 - Chiffres clés : Revenue $133bn (+256.3%) · Operating profit $99.3bn (+916.8%) · Free cash flow $59.0bn (+3435.0%) · Net debt / EBITDA -0.3x (-0.5 pt)
-- ✅ CEO Sanjay Mehrotra confirmé par : SEC Form 4 (2026-10-15).
+- ✅ CEO Sanjay Mehrotra confirmé par : SEC Form 4 (2026-10-15). Photo et date d'entrée confirmées via Wikidata.
 - ℹ️ Revenue : variation de +256.3%, chiffre tel que déposé à la SEC.
 - ℹ️ Operating profit : variation de +916.8%, chiffre tel que déposé à la SEC.
 - ℹ️ Free cash flow : variation de +3435.0%, chiffre tel que déposé à la SEC.

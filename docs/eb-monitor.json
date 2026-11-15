@@ -1,7 +1,7 @@
 {
  "week": "46",
  "asOf": "2026-11-13",
- "generated": "2026-11-15T23:23:08+00:00",
+ "generated": "2026-11-15T23:43:45+00:00",
  "nextUpdate": "2026-11-16T12:00:00+00:00",
  "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
  "regime": {
@@ -26,7 +26,10 @@
    "website": "https://www.eastwestbank.com",
    "ceo": {
     "name": "Dominic Ng",
-    "title": "Chief Executive Officer"
+    "title": "Chief Executive Officer",
+    "bio": "Hong Kongese-American businessman.",
+    "photo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Dominic_Ng%2C_Chairman_and_CEO_of_East_West_Bank.png/250px-Dominic_Ng%2C_Chairman_and_CEO_of_East_West_Bank.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "photoCredit": "UnitedWayLA, CC BY-SA 4.0, via Wikimedia Commons"
    },
    "sector": "Banking",
    "headline": {
@@ -583,7 +586,10 @@
    "website": "https://www.micron.com/",
    "ceo": {
     "name": "Sanjay Mehrotra",
-    "title": "Chief Executive Officer"
+    "title": "Chief Executive Officer",
+    "bio": "Indian American business executive and CEO of Micron.",
+    "photo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Sanjay_Mehrotra.png/250px-Sanjay_Mehrotra.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "photoCredit": "SanDisk Corporation, Attribution, via Wikimedia Commons"
    },
    "sector": "Technology",
    "headline": {
