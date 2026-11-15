@@ -1,7 +1,7 @@
 {
  "week": "46",
  "asOf": "2026-11-13",
- "generated": "2026-11-15T22:12:19+00:00",
+ "generated": "2026-11-15T22:26:53+00:00",
  "nextUpdate": "2026-11-16T12:00:00+00:00",
  "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
  "regime": {
@@ -221,6 +221,12 @@
    ],
    "employees": 64298,
    "website": "https://ing.com",
+   "ceo": {
+    "name": "Steven van Rijswijk",
+    "title": "Chief Executive Officer",
+    "since": "2020",
+    "bio": "Dutch banking manager."
+   },
    "team": [
     {
      "role": "Chair",
@@ -382,6 +388,14 @@
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
    "website": "https://hsbc.com/",
+   "ceo": {
+    "name": "Noel Quinn",
+    "title": "Chief Executive Officer",
+    "since": "2020",
+    "bio": "Former Group Chief Executive of HSBC.",
+    "photo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Noel_Quinn_%28born_1962%29_at_World_Economic_Forum_Davos_2021.png/250px-Noel_Quinn_%28born_1962%29_at_World_Economic_Forum_Davos_2021.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "photoCredit": "World Economic Forum, CC BY 3.0, via Wikimedia Commons"
+   },
    "team": [
     {
      "role": "Chair",

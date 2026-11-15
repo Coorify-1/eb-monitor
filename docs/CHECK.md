@@ -1,6 +1,6 @@
 # Contrôle automatique — semaine 46 (données au 2026-11-13)
 
-Généré le 2026-11-15 22:12 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
+Généré le 2026-11-15 22:26 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
 
 **EB Market Regime :** Risk-on 65/100 — Credit spreads calm, volatility low
 
@@ -22,7 +22,7 @@ Généré le 2026-11-15 22:12 UTC. Aucune action manuelle n'est nécessaire : to
 
 - Total assets : $1.2tn · exercice clos le 2025-12-31 · [dépôts SEC](https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1039765&type=&dateb=&owner=include&count=10)
 - Chiffres clés : Pre-tax profit $13.0bn (+51.7%) · Tangible equity / assets 5.1% · Return on equity 15.6% (+5.5 pt) · Loans / deposits 100.9%
-- ➖ CEO non affiché : not confirmed by an official filing.
+- ✅ CEO Steven van Rijswijk confirmé par : 20-F annual report (2026-02-26). Photo et date d'entrée confirmées via Wikidata.
 - ℹ️ Pre-tax profit : variation de +51.7%, chiffre tel que déposé à la SEC.
 - ℹ️ Return on equity : variation de +5.5 pt, chiffre tel que déposé à la SEC.
 - ℹ️ Pilier(s) sans données publiées : Asset quality ; le score utilise les autres piliers.
@@ -39,7 +39,7 @@ Généré le 2026-11-15 22:12 UTC. Aucune action manuelle n'est nécessaire : to
 
 - Total assets : $3.2tn · exercice clos le 2025-12-31 · [dépôts SEC](https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1089113&type=&dateb=&owner=include&count=10)
 - Chiffres clés : Pre-tax profit $29.9bn (-7.4%) · Tangible equity / assets 6.1% · Return on equity 12.1% (-1.4 pt) · Cost / income 75.7%
-- ➖ CEO non affiché : not confirmed by an official filing.
+- ✅ CEO Noel Quinn confirmé par : 20-F annual report (2026-02-26). Photo et date d'entrée confirmées via Wikidata.
 - ℹ️ Pilier(s) sans données publiées : Asset quality ; le score utilise les autres piliers.
 
 ## Company Monitor
