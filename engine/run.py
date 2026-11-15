@@ -56,37 +56,84 @@ US_STATES = set(
 )
 
 
-def country_from_sec(sub):
+CA_CODES = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "Z4"}
+
+
+def _iso(name):
     try:
         import pycountry
     except ImportError:
-        pycountry = None
+        return ""
+    name = name.strip().title()
+    for cand in [name] + [p.strip() for p in name.split(",")]:
+        if not cand:
+            continue
+        try:
+            return pycountry.countries.lookup(cand).alpha_2
+        except LookupError:
+            pass
+        try:
+            return pycountry.countries.search_fuzzy(cand)[0].alpha_2
+        except LookupError:
+            pass
+    return ""
+
+
+def country_from_sec(sub):
+    """Country of the head office from SEC addresses ('' if unknown)."""
     for kind in ("business", "mailing"):
         a = ((sub.get("addresses") or {}).get(kind)) or {}
         code = (a.get("stateOrCountry") or "").upper()
         desc = (a.get("stateOrCountryDescription") or "").strip()
+        city = (a.get("city") or "").title()
         if code in US_STATES:
-            return "US", (a.get("city") or "").title()
+            return "US", city
+        if code in CA_CODES or "CANADA" in desc.upper():
+            return "CA", city
         if desc:
-            name = desc.split(",")[-1].strip()
-            if "CANADA" in desc.upper():
-                return "CA", (a.get("city") or "").title()
-            if pycountry:
-                try:
-                    return pycountry.countries.search_fuzzy(name)[0].alpha_2, (a.get("city") or "").title()
-                except LookupError:
-                    pass
+            cc = _iso(desc)
+            if cc:
+                return cc, city
+    inc = (sub.get("stateOfIncorporation") or "").upper()
+    if inc in US_STATES:
+        return "US", ""
+    if inc in CA_CODES:
+        return "CA", ""
     return "", ""
+
+
+GENERIC = {"bank", "banks", "group", "corp", "corporation", "holdings", "holding", "financial", "inc", "company",
+           "limited", "the", "and", "plc", "international", "technologies", "services", "trust"}
+
+
+def same_company(label, sec_name):
+    """Use the Wikidata name only if it clearly names the same company (shares a distinctive word)."""
+    import re as _re
+    w = lambda x: {t for t in _re.findall(r"[a-z0-9]+", x.lower()) if len(t) >= 3 and t not in GENERIC}
+    return bool(label and w(label) & w(sec_name))
 
 
 # ---------------------------------------------------------------- previous week
 
-def load_prev(path):
-    try:
-        j = json.load(open(path))
-    except Exception:
-        return {"banking": {}, "company": {}}, None
-    if j.get("sample"):
+def load_prev(path, before=None):
+    """Picks of the last published week (before the given data date, so a re-run compares with last week)."""
+    j = None
+    hist = os.path.join(os.path.dirname(path) or ".", "history")
+    if before and os.path.isdir(hist):
+        for fn in sorted(os.listdir(hist), reverse=True):
+            try:
+                h = json.load(open(os.path.join(hist, fn)))
+            except Exception:
+                continue
+            if h.get("asOf", "") < before:
+                j = h
+                break
+    elif not before:
+        try:
+            j = json.load(open(path))
+        except Exception:
+            j = None
+    if not j or j.get("sample"):
         return {"banking": {}, "company": {}}, None
     return {
         "banking": {i["ticker"]: i["rank"] for i in j.get("banking") or []},
@@ -251,10 +298,10 @@ def _common(r, lead):
     if L.get("chairLabel") and not L["chairLabel"].startswith("Q") and (not ceo or L["chairLabel"] != ceo["name"]):
         team.append({"role": "Chair", "name": L["chairLabel"]})
     item = {
-        "name": L.get("itemLabel") or T.nice_name(r["name"]),
+        "name": L["itemLabel"] if same_company(L.get("itemLabel"), r["name"]) else T.nice_name(r["name"]),
         "ticker": r["ticker"],
         "exchange": r.get("exchange") or "",
-        "country": L.get("cc") or r["country"],
+        "country": r["country"] or L.get("cc") or "",
         "city": L.get("hqLabel") if L.get("hqLabel") and not L["hqLabel"].startswith("Q") else r.get("city") or "",
         "score": round(float(r["score"])),
         "why": r["why"],
@@ -282,13 +329,13 @@ def main():
     t0 = time.time()
     now = dt.datetime.now(NY)
     day = last_finished_day(now)
-    prev, prev_asof = load_prev(a.out)
+    _, published = load_prev(a.out)
     force = a.force or os.environ.get("FORCE") == "true"
     if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and not force:
         if now.hour < 7:
             log("Before 7:00 am New York: waiting for the next scheduled run.")
             return
-        if prev_asof and prev_asof >= day.isoformat():
+        if published and published >= day.isoformat():
             log("This week's ranking is already published.")
             return
 
@@ -300,6 +347,8 @@ def main():
     mom = P.momentum_table(wide, vol)
     as_of = str(mom["date"].max())
     log(f"  {len(mom)} tickers, data as of {as_of}")
+    prev, prev_asof = load_prev(a.out, before=as_of)
+    log(f"  compared with the week of {prev_asof}" if prev_asof else "  first published week")
 
     log("2/7 Universe")
     tick = pd.DataFrame(sec.tickers())
@@ -316,7 +365,7 @@ def main():
     det_path = os.path.join(a.cache, "details.json")
     details = json.load(open(det_path)) if os.path.exists(det_path) else {}
     det_budget = 150 if not details else 40
-    recs = []
+    recs, diags = [], []
     for i, c in enumerate(cand.itertuples()):
         if (i + 1) % 100 == 0:
             log(f"    {i + 1}/{len(cand)}")
@@ -327,7 +376,7 @@ def main():
             sic = int(sub.get("sic") or 0)
         except ValueError:
             sic = 0
-        if not sic or (C.is_financial(sic) and sic not in C.BANK_SIC):
+        if not sic or sic == 6770:  # 6770 = blank-check shells
             continue
         forms = set((sub.get("filings") or {}).get("recent", {}).get("form", [])[:200])
         foreign = bool(forms & {"20-F", "40-F", "6-K"})
@@ -335,8 +384,20 @@ def main():
         if not facts:
             continue
         f = extract(facts)
+        diag = {"ticker": c.ticker, "sic": sic, "foreign": foreign, "fy_end": f["fy_end"], "cur": f["currency"]}
+        diags.append(diag)
         if not f["fy_end"] or f["fy_end"] < (now.date() - dt.timedelta(days=560)).isoformat():
+            diag["drop"] = "old or no annual data"
             continue
+        t = f["t"]
+        dep = t.get("deposits")
+        is_bank = sic in C.BANK_SIC or (
+            C.is_financial(sic) and dep and t.get("loans") and t.get("assets") and dep / t["assets"] > 0.3
+        )
+        if C.is_financial(sic) and not is_bank:
+            diag["drop"] = "financial, not a bank"
+            continue
+        diag["bank"] = bool(is_bank)
         country, city = country_from_sec(sub)
         sh = None if foreign else shares_outstanding(facts)
         mcap = sh * c.close if sh else None
@@ -354,13 +415,17 @@ def main():
                 det_budget -= 1
             if d and d.get("mc"):
                 mcap = d["mc"] * c.close / d["close"]
-        recs.append({
+        diag["mcap_bn"] = None if not mcap else round(mcap / 1e9, 1)
+        diag["country"] = country
+        diag["missing"] = [k for k in ("revenue", "operating_income", "cfo", "equity", "net_income", "loans", "deposits", "cet1_ratio") if k not in t]
+        recs.append({"bank": bool(is_bank),
             "ticker": c.ticker, "cik": int(c.cik), "name": c.name, "exchange": c.exchange, "sic": sic,
-            "sector": C.sector_of(sic), "country": country or "US", "city": city, "foreign": foreign,
+            "sector": "Banks" if is_bank else C.sector_of(sic), "country": country or "", "city": city, "foreign": foreign,
             "close": c.close, "mcap_usd": mcap, "f": f,
             "mom": {k: getattr(c, k, None) for k in ("mom_12_1", "trend_200", "ret_12m")},
         })
     json.dump(details, open(det_path, "w"))
+    json.dump(diags, open(os.path.join(a.cache, "diagnostics.json"), "w"), indent=0)
     log(f"  {len(recs)} companies with filings")
 
     log("4/7 Scores")
@@ -373,7 +438,7 @@ def main():
         if cur not in fx:
             continue  # cannot compare values without an exchange rate
         r["mcap_local"] = r["mcap_usd"] * fx[cur]
-        r["kind"] = "banking" if r["sic"] in C.BANK_SIC else "company"
+        r["kind"] = "banking" if r["bank"] else "company"
         m = S.bank_metrics(r) if r["kind"] == "banking" else S.company_metrics(r)
         rows.append({**{k: r[k] for k in ("ticker", "kind", "sector", "country", "mcap_usd")}, **m, "_r": r})
     data = pd.DataFrame(rows)

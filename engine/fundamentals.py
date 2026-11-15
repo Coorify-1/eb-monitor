@@ -47,6 +47,18 @@ def series(facts, key):
         latest = max(pts)
         if best is None or latest > best[0]:
             best = (latest, pts)
+    if not best and key == "revenue":
+        # last resort: any reported revenue line, the largest one
+        for tax in ("us-gaap", "ifrs-full"):
+            for concept, c in ((facts.get("facts") or {}).get(tax) or {}).items():
+                if not concept.startswith("Revenue") or "Deferred" in concept or "Percentage" in concept:
+                    continue
+                pts = _annual_points(c.get("units") or {}, kind)
+                if not pts:
+                    continue
+                latest = max(pts)
+                if best is None or (latest, pts[latest][0]) > (best[0], best[1][best[0]][0]):
+                    best = (latest, pts)
     if not best:
         return []
     pts = best[1]

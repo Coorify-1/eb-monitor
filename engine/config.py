@@ -68,8 +68,12 @@ TAGS = {
         ("us-gaap", "RevenueFromContractWithCustomerExcludingAssessedTax"),
         ("us-gaap", "RevenueFromContractWithCustomerIncludingAssessedTax"),
         ("us-gaap", "SalesRevenueNet"),
+        ("us-gaap", "RevenuesNetOfInterestExpense"),
+        ("us-gaap", "OilAndGasRevenue"),
+        ("us-gaap", "RevenueFromContractWithCustomerProductAndServiceExcludingAssessedTax"),
         ("ifrs-full", "Revenue"),
         ("ifrs-full", "RevenueFromContractsWithCustomers"),
+        ("ifrs-full", "RevenueFromSaleOfGoods"),
     ],
     "gross_profit": [("us-gaap", "GrossProfit"), ("ifrs-full", "GrossProfit")],
     "operating_income": [

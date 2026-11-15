@@ -42,10 +42,12 @@ UPPER = {
 
 def nice_name(sec_name: str) -> str:
     n = re.sub(r"\s*/[A-Z]{2,}/?\s*$", "", sec_name.strip())  # "XYZ CORP /DE/"
+    if re.search(r"[a-z]", n):
+        return n  # already written in normal case by the company
     words = []
     for i, w in enumerate(n.split()):
         bare = w.strip(",.")
-        if bare.upper() in UPPER:
+        if bare.upper() in UPPER or (i == 0 and len(bare) <= 3 and bare.isalpha()):
             words.append(w.upper())
         elif i and bare.lower() in SMALL:
             words.append(w.lower())
@@ -90,8 +92,25 @@ def why(kind, row, pillars):
     return txt[0].upper() + txt[1:] + extra + "."
 
 
+SECTOR_RISK = {
+    "Banking": "Profits depend on interest rates and on borrowers repaying loans if the economy slows.",
+    "Energy": "Profits move with oil and gas prices, which can fall quickly.",
+    "Materials": "Profits move with commodity prices and global industrial demand.",
+    "Technology": "Demand for chips and technology can swing sharply, and expectations are high.",
+    "Health care": "Patent expiries and drug-pricing rules can cut future revenue.",
+    "Utilities": "Returns are set by regulators, and higher interest rates weigh on the share price.",
+    "Consumer staples": "Higher input costs and private-label competition can squeeze margins.",
+    "Consumer discretionary": "Sales depend on consumer spending, which falls in a downturn.",
+    "Industrials": "Orders depend on the economic cycle.",
+    "Communication": "Competition and regulation can pressure prices and margins.",
+}
+
+
 def risks(kind, row, currency):
     out = []
+    r12 = row.get("ret_12m")
+    if r12 is not None and math.isfinite(r12) and r12 > 0.5:
+        out.append(f"After a {r12 * 100:.0f}% rise in 12 months, the share price could swing sharply.")
     if (row.get("p_momentum") or 50) < 40:
         out.append("The share-price trend is weaker than for most peers.")
     if (row.get("p_valuation") or 50) < 40:
@@ -116,6 +135,9 @@ def risks(kind, row, currency):
             out.append("Balance-sheet strength is below most peers.")
     if currency and currency != "USD":
         out.append(f"Results are reported in {currency}: exchange-rate moves change returns in US dollars.")
+    sec = "Banking" if kind == "banking" else row.get("sector")
+    if len(out) < 3 and SECTOR_RISK.get(sec):
+        out.append(SECTOR_RISK[sec])
     if not out:
         out.append("Scores compare companies with each other: a falling market can still pull this share down.")
     return out[:3]

@@ -123,17 +123,17 @@ class SEC:
 WD = "https://query.wikidata.org/sparql"
 
 LEAD_QUERY = """
-SELECT ?cik ?itemLabel ?ceoLabel ?ceoDesc ?ceoStart ?ceoImg ?chairLabel ?emp ?empDate ?web ?hqLabel ?cc WHERE {
+SELECT ?cik ?itemLabel ?ceoLabel ?ceoDesc ?ceoStart ?ceoEnd ?ceoImg ?chairLabel ?chairEnd ?emp ?empDate ?web ?hqLabel ?cc WHERE {
   VALUES ?cik { %s }
   ?item wdt:P5531 ?cik .
   OPTIONAL {
     ?item p:P169 ?st . ?st ps:P169 ?ceo .
-    FILTER NOT EXISTS { ?st pq:P582 ?stEnd }
     OPTIONAL { ?st pq:P580 ?ceoStart }
+    OPTIONAL { ?st pq:P582 ?ceoEnd }
     OPTIONAL { ?ceo wdt:P18 ?ceoImg }
     OPTIONAL { ?ceo schema:description ?ceoDesc FILTER(LANG(?ceoDesc) = "en") }
   }
-  OPTIONAL { ?item p:P488 ?cs . ?cs ps:P488 ?chair . FILTER NOT EXISTS { ?cs pq:P582 ?csEnd } }
+  OPTIONAL { ?item p:P488 ?cs . ?cs ps:P488 ?chair . OPTIONAL { ?cs pq:P582 ?chairEnd } }
   OPTIONAL { ?item p:P1128 ?es . ?es ps:P1128 ?emp . OPTIONAL { ?es pq:P585 ?empDate } }
   OPTIONAL { ?item wdt:P856 ?web }
   OPTIONAL { ?item wdt:P159 ?hq }
@@ -143,12 +143,25 @@ SELECT ?cik ?itemLabel ?ceoLabel ?ceoDesc ?ceoStart ?ceoImg ?chairLabel ?emp ?em
 """
 
 
+def _pick_web(urls):
+    """Main website: no country sub-site, shortest domain."""
+    from urllib.parse import urlparse
+
+    def key(u):
+        host = urlparse(u).netloc.lower()
+        host = host[4:] if host.startswith("www.") else host
+        return (host.count(".") > 1, len(host), len(u))
+
+    urls = sorted(set(urls), key=key)
+    return urls[0] if urls else None
+
+
 def wikidata_leadership(ciks):
-    """Leadership facts by CIK from Wikidata (CC0)."""
-    out = {}
+    """Leadership facts by CIK from Wikidata (CC0). The current CEO is the one with the latest start and no end."""
+    raw = {}
     ciks = [int(c) for c in ciks]
-    for i in range(0, len(ciks), 60):
-        part = ciks[i : i + 60]
+    for i in range(0, len(ciks), 40):
+        part = ciks[i : i + 40]
         vals = " ".join(f'"{c}" "{c:010d}"' for c in part)
         try:
             r = get(
@@ -162,20 +175,47 @@ def wikidata_leadership(ciks):
             continue
         for b in r.json()["results"]["bindings"]:
             v = {k: x["value"] for k, x in b.items()}
-            cik = int(v["cik"])
-            d = out.setdefault(cik, {"emp": None, "empDate": ""})
-            for k in ("itemLabel", "ceoLabel", "ceoDesc", "ceoStart", "ceoImg", "chairLabel", "web", "hqLabel", "cc"):
-                if v.get(k) and not d.get(k):
-                    d[k] = v[k]
-            if v.get("emp"):
-                date = v.get("empDate", "")
+            raw.setdefault(int(v["cik"]), []).append(v)
+        time.sleep(1)
+    out = {}
+    for cik, rows in raw.items():
+        d = {"emp": None, "empDate": ""}
+        labels = {r["itemLabel"] for r in rows if r.get("itemLabel")}
+        d["itemLabel"] = sorted(labels, key=len)[0] if labels else None
+        # CEO: open statements, latest start wins; an ended or older mandate never wins over a newer one
+        ceos = {}
+        for r in rows:
+            if r.get("ceoLabel"):
+                c = ceos.setdefault(r["ceoLabel"], {"start": "", "end": "", "img": None, "desc": None})
+                c["start"] = max(c["start"], r.get("ceoStart", ""))
+                c["end"] = max(c["end"], r.get("ceoEnd", ""))
+                c["img"] = c["img"] or r.get("ceoImg")
+                c["desc"] = c["desc"] or r.get("ceoDesc")
+        latest = max((c["start"] for c in ceos.values()), default="")
+        cur = [(n, c) for n, c in ceos.items() if not c["end"] and c["start"] == latest]
+        if len(cur) == 1:
+            n, c = cur[0]
+            d.update({"ceoLabel": n, "ceoStart": c["start"], "ceoImg": c["img"], "ceoDesc": c["desc"]})
+        chairs = {r["chairLabel"] for r in rows if r.get("chairLabel") and not r.get("chairEnd")}
+        if len(chairs) == 1:
+            d["chairLabel"] = chairs.pop()
+        for r in rows:
+            if r.get("emp"):
+                date = r.get("empDate", "")
                 if d["emp"] is None or date > d["empDate"]:
                     try:
-                        d["emp"] = int(float(v["emp"]))
-                        d["empDate"] = date
+                        d["emp"], d["empDate"] = int(float(r["emp"])), date
                     except ValueError:
                         pass
-        time.sleep(1)
+        webs = [r["web"] for r in rows if r.get("web")]
+        d["web"] = _pick_web(webs)
+        hqs = {r["hqLabel"] for r in rows if r.get("hqLabel")}
+        if len(hqs) == 1:
+            d["hqLabel"] = hqs.pop()
+        ccs = {r["cc"] for r in rows if r.get("cc")}
+        if len(ccs) == 1:
+            d["cc"] = ccs.pop()
+        out[cik] = d
     return out
 
 

@@ -252,6 +252,12 @@ def pick(df: pd.DataFrame, prev: dict, sector_cap=True):
             break
         if r.ticker not in chosen and ok(r):
             take(r)
+    # not enough diversity in the data: fill the remaining places by score
+    for r in d.itertuples():
+        if len(chosen) >= C.PICKS:
+            break
+        if r.ticker not in chosen:
+            take(r)
     out = d[d.ticker.isin(chosen)].sort_values("score", ascending=False).copy()
     out["rank"] = range(1, len(out) + 1)
     return out
