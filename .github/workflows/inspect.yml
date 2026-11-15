@@ -30,6 +30,17 @@ jobs:
           from engine.sources import SEC
           from engine.fundamentals import extract
           sec = SEC()
+          if os.environ["TICKER"].startswith("PERSON:"):
+              from engine.sources import get, WD, PERSON_QUERY, commons_photo
+              for nm in os.environ["TICKER"][7:].split(";"):
+                  r = get(WD, params={"query": PERSON_QUERY % {"name": nm, "link": "false"}, "format": "json"},
+                          headers={"Accept": "application/sparql-results+json"})
+                  rows = [{k: x["value"] for k, x in b.items()} for b in r.json()["results"]["bindings"]]
+                  print("PERSON", nm, rows[:4])
+                  for row in rows:
+                      if row.get("img"):
+                          print("   license check:", commons_photo(row["img"]))
+              raise SystemExit(0)
           t = os.environ["TICKER"].upper()
           row = next(r for r in sec.tickers() if r["ticker"] == t)
           facts = sec.facts(row["cik"])
