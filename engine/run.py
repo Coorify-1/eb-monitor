@@ -359,53 +359,30 @@ REPO = os.environ.get("GITHUB_REPOSITORY", "Coorify-1/eb-monitor")
 
 
 def check_entry(kind, it, r, L, pillars, cur, prev_asof):
-    ov = _overrides().get(it["ticker"]) or {}
-    alerts = []
+    notes = []
     ceo = it.get("ceo") or {}
-    if ov.get("ceo"):
-        ceo_src = "correction éditoriale"
-    elif ceo:
-        ceo_src = "Wikidata"
-        alerts.append("Vérifier que le CEO est toujours en poste (Wikidata peut être en retard).")
-        if ceo.get("since") and str(ceo["since"]) < "2018":
-            alerts.append(f"⚠️ CEO en poste depuis {ceo['since']} selon Wikidata : vérifier en priorité.")
+    src = L.get("ceoSource") or "—"
+    if ceo:
+        notes.append(f"✅ CEO {ceo['name']} confirmé par : {src}." + (" Photo et date d'entrée confirmées via Wikidata." if ceo.get("photo") or ceo.get("since") else ""))
     else:
-        ceo_src = "absent"
-        alerts.append("CEO manquant : l'ajouter dans les corrections.")
-    if prev_asof and it.get("prevRank") is None:
-        alerts.append("Nouvelle entrée cette semaine.")
+        notes.append(f"➖ CEO non affiché : {src}.")
     for m in it.get("metrics") or []:
         ch = m.get("change")
-        if ch is None:
-            continue
-        big = abs(ch) > 40 if m.get("unit") == "%" else abs(ch) > 3
-        if big:
-            alerts.append(f"⚠️ {m['label']} : variation de {ch:+.1f}{' pt' if m.get('unit') == 'pt' else '%'} à vérifier dans le rapport annuel.")
-    if r.get("foreign"):
-        alerts.append(f"Comptes IFRS en {cur} : comparer le chiffre principal avec le rapport annuel de la société.")
+        if ch is not None and (abs(ch) > 40 if m.get("unit") == "%" else abs(ch) > 3):
+            notes.append(f"ℹ️ {m['label']} : variation de {ch:+.1f}{' pt' if m.get('unit') == 'pt' else '%'}, chiffre tel que déposé à la SEC.")
     missing = [lab for k, lab, _ in pillars if not any(p["key"] == k for p in it.get("pillars") or [])]
     if missing:
-        alerts.append("Pilier(s) sans données : " + ", ".join(missing) + " (score calculé sur les autres).")
-    if not it.get("country"):
-        alerts.append("Pays inconnu : l'ajouter dans les corrections.")
+        notes.append("ℹ️ Pilier(s) sans données publiées : " + ", ".join(missing) + " ; le score utilise les autres piliers.")
     sec = f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={r['cik']}&type={'' if r.get('foreign') else '10-K'}&dateb=&owner=include&count=10"
-    return {"kind": kind, "it": it, "ceo_src": ceo_src, "alerts": alerts, "sec": sec, "fy": r["f"]["fy_end"],
-            "wd": f"https://www.wikidata.org/wiki/{L['qid']}" if L.get("qid") else None}
+    return {"kind": kind, "it": it, "notes": notes, "sec": sec, "fy": r["f"]["fy_end"]}
 
 
 def write_check(path, out, checks, reg):
-    edit = f"https://github.com/{REPO}/edit/main/data/overrides.json"
-    run = f"https://github.com/{REPO}/actions/workflows/weekly.yml"
-    n_alert = sum(1 for c in checks for a in c["alerts"] if a.startswith("⚠️"))
     L = [
-        f"# Contrôle éditorial — semaine {out['week']} (données au {out['asOf']})",
+        f"# Contrôle automatique — semaine {out['week']} (données au {out['asOf']})",
         "",
-        f"Généré automatiquement le {out['generated'][:16].replace('T', ' ')} UTC. "
-        f"**{n_alert} point(s) prioritaire(s) ⚠️.**",
-        "",
-        "**Comment corriger :** modifier [data/overrides.json](" + edit + ") "
-        "(CEO, président, site web, nom, pays, ville), puis relancer le calcul : "
-        f"[Actions → EB Monitor weekly → Run workflow]({run}) en cochant *force*.",
+        f"Généré le {out['generated'][:16].replace('T', ' ')} UTC. Aucune action manuelle n'est nécessaire : "
+        "toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.",
         "",
     ]
     if reg:
@@ -414,26 +391,18 @@ def write_check(path, out, checks, reg):
         L += [f"## {title}", ""]
         for c in [c for c in checks if c["kind"] == kind]:
             it = c["it"]
-            ceo = it.get("ceo") or {}
             move = "" if "prevRank" not in it else (" · nouveau" if it["prevRank"] is None else f" · semaine passée : n°{it['prevRank']}")
             L += [
                 f"### {it['rank']}. {it['name']} ({it['ticker']}) — score {it['score']}/100{move}",
                 "",
-                f"- Pays / ville : {it.get('country') or '?'} / {it.get('city') or '?'} · secteur : {it.get('sector')}",
-                f"- CEO : **{ceo.get('name', '—')}**" + (f" (depuis {ceo['since']})" if ceo.get("since") else "") + f" · source : {c['ceo_src']}"
-                + (f" · [Wikidata]({c['wd']})" if c.get("wd") else ""),
-                f"- {it['headline']['label']} : {it['headline']['value']} ({it['headline'].get('period', '')}) · exercice clos le {c['fy']} · [dépôts SEC]({c['sec']})",
+                f"- {it['headline']['label']} : {it['headline']['value']} · exercice clos le {c['fy']} · [dépôts SEC]({c['sec']})",
                 "- Chiffres clés : " + " · ".join(
                     f"{m['label']} {m['value']}" + (f" ({m['change']:+.1f}{' pt' if m.get('unit') == 'pt' else '%'})" if m.get("change") is not None else "")
                     for m in (it.get("metrics") or [])[:4]
                 ),
-                f"- Why : {it.get('why')}",
-                "",
-            ]
-            L += [f"- [ ] {a}" for a in c["alerts"]] or ["- [ ] Rien à signaler."]
-            L += [""]
-    L += ["---", "", "*Les chiffres viennent des dépôts officiels à la SEC (XBRL). En cas d'écart avec un communiqué, "
-          "le rapport annuel déposé fait foi ; signaler l'écart plutôt que de le corriger à la main.*", ""]
+            ] + [f"- {n}" for n in c["notes"]] + [""]
+    L += ["---", "", "*Sources : dépôts officiels à la SEC (comptes XBRL, rapports annuels 10-K / 20-F / 40-F, déclarations Form 4), "
+          "Wikidata pour les compléments (photo libre, date d'entrée) uniquement quand ils concordent avec la SEC.*", ""]
     open(path, "w").write("\n".join(L))
 
 
@@ -537,7 +506,9 @@ def main():
         diag["mcap_bn"] = None if not mcap else round(mcap / 1e9, 1)
         diag["country"] = country
         diag["missing"] = [k for k in ("revenue", "operating_income", "cfo", "equity", "net_income", "loans", "deposits", "cet1_ratio") if k not in t]
-        recs.append({"bank": bool(is_bank),
+        rec_sub = {"filings": {"recent": {k: v[:400] for k, v in ((sub.get("filings") or {}).get("recent") or {}).items()
+                                          if k in ("form", "accessionNumber", "primaryDocument", "filingDate")}}}
+        recs.append({"sub": rec_sub, "bank": bool(is_bank),
             "ticker": c.ticker, "cik": int(c.cik), "name": c.name, "exchange": c.exchange, "sic": sic,
             "sector": "Banks" if is_bank else C.sector_of(sic), "country": country or "", "city": city, "foreign": foreign,
             "close": c.close, "mcap_usd": mcap, "f": f,
@@ -577,12 +548,34 @@ def main():
     log("5/7 Leadership (Wikidata, Wikimedia Commons)")
     picks = pb.to_dict("records") + pc.to_dict("records")
     lead = SRC.wikidata_leadership([p["_r"]["cik"] for p in picks])
-    for L in lead.values():
+    # every leader shown must be confirmed by an official SEC document
+    cutoff = (now.date() - dt.timedelta(days=3 * 365)).isoformat()
+    for p in picks:
+        r = p["_r"]
+        L = lead.setdefault(r["cik"], {})
+        try:
+            text, doc = SRC.annual_report_text(sec, r["cik"], r["sub"])
+            name, src, wd_ok = SRC.verified_ceo(sec, r["cik"], r["sub"], r["foreign"], L.get("ceoLabel"), text, doc)
+        except Exception as e:
+            log("    leadership check failed", r["ticker"], e)
+            text, name, src, wd_ok = "", None, "check failed", False
+        if not wd_ok:
+            for k in ("ceoImg", "photo", "photoCredit", "ceoDesc", "ceoStart"):
+                L.pop(k, None)
+        if name:
+            L["ceoLabel"] = name
+        else:
+            L.pop("ceoLabel", None)
+        L["ceoSource"] = src
+        if L.get("chairLabel") and not SRC.named_near(text, L["chairLabel"], "Chair"):
+            L.pop("chairLabel")
+        if L.get("emp") and (L.get("empDate") or "") < cutoff:
+            L.pop("emp")  # staff numbers older than three years are not shown
         if L.get("ceoImg"):
             ph = SRC.commons_photo(L["ceoImg"])
             if ph:
                 L.update(ph)
-    log(f"  leadership found for {sum(1 for p in picks if p['_r']['cik'] in lead)}/{len(picks)}")
+        log(f"    {r['ticker']}: CEO {name or '—'} ({src})")
 
     log("6/7 Market regime")
     reg = regime(wide)

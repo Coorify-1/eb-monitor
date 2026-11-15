@@ -201,3 +201,31 @@ def test_pick_stability_and_caps():
     assert p.country.value_counts().max() <= 2
     p2 = S.pick(d, {"L": 1}, sector_cap=False)  # L is 12th: replaced
     assert "L" not in set(p2.ticker)
+
+
+def test_verified_ceo_form4_and_annual_report():
+    class R:
+        def __init__(self, t):
+            self.text = t
+
+    form4 = "<reportingOwner><rptOwnerName>FRASER JANE NIND</rptOwnerName><officerTitle>Chief Executive Officer</officerTitle></reportingOwner>"
+    other = "<reportingOwner><rptOwnerName>SMITH JOHN</rptOwnerName><officerTitle>CFO</officerTitle></reportingOwner>"
+
+    class Sec:
+        def _get(self, url, ok404=True):
+            return R(other if "a1" in url else form4)
+
+    sub = {"filings": {"recent": {"form": ["4", "4", "10-K"], "accessionNumber": ["a1", "a2", "k1"],
+                                  "primaryDocument": ["xsl/f.xml", "xsl/g.xml", "k.htm"], "filingDate": ["2026-11-01", "2026-10-01", "2026-02-20"]}}}
+    text = "/s/ Jane Fraser Jane Fraser Chief Executive Officer"
+    name, src, wd = SRC.verified_ceo(Sec(), 1, sub, False, "Jane Fraser", text, {"form": "10-K", "date": "2026-02-20"})
+    assert name == "Jane Fraser" and wd and "Form 4" in src
+    # stale Wikidata name is replaced, its portrait must not be kept
+    name, src, wd = SRC.verified_ceo(Sec(), 1, sub, False, "Michael Corbat", text, {"form": "10-K", "date": "2026-02-20"})
+    assert name == "Jane Fraser" and not wd
+    # foreign filer: the annual report decides
+    t20 = "Georges Elhedery, Group Chief Executive, said ... Georges Elhedery, Group Chief Executive"
+    name, src, wd = SRC.verified_ceo(Sec(), 1, sub, True, "Noel Quinn", t20, {"form": "20-F", "date": "2026-02-25"})
+    assert name == "Georges Elhedery" and not wd
+    name, src, wd = SRC.verified_ceo(Sec(), 1, sub, True, None, "nothing here", {"form": "20-F", "date": "2026-02-25"})
+    assert name is None

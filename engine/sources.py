@@ -277,3 +277,134 @@ def fx_per_usd():
     except Exception as e:
         print("  fx failed:", e)
         return {"USD": 1.0}
+
+
+# ---------------- Leadership checked against official SEC documents ----------------
+
+CEO_TITLE = re.compile(
+    r"^\s*((executive\s+)?chair(man|woman|person)?(\s+of\s+the\s+board)?\s*(and|&|,)\s*)?"
+    r"(president\s*(and|&|,)\s*)?(group\s+)?(chief\s+executive(\s+officer)?|ceo)"
+    r"(\s*(and|&|,)\s*(president|chair(man|woman|person)?(\s+of\s+the\s+board)?|director))*\s*$",
+    re.I,
+)
+NAME_BEFORE_CEO = re.compile(
+    r"([A-Z][a-zA-Z'\-]+(?:\s+(?:van|von|de|der|den|da|di|du|le|la)?\s*(?!Group\b|Chief\b|Executive\b|Our\b|The\b)[A-Z][a-zA-Z'\-]+){1,3})\s*,?\s+"
+    r"(?:our\s+|the\s+)?(?:Group\s+)?Chief\s+Executive(?:\s+Officer)?\b"
+)
+SIGNATURE_CEO = re.compile(
+    r"/s/\s*([A-Za-z][A-Za-z.'\-]+(?:\s+[A-Za-z][A-Za-z.'\-]+){1,3}?)\s+(?:[A-Z][A-Za-z.'\- ]{3,45}?\s+)?"
+    r"(?:Chair(?:man|woman)?(?: of the Board)?,?\s*(?:and\s+)?)?(?:President,?\s*(?:and\s+)?)?Chief Executive Officer"
+)
+
+
+def _recent(sub, forms, n):
+    r = (sub.get("filings") or {}).get("recent") or {}
+    out = []
+    for f, acc, doc, date in zip(r.get("form", []), r.get("accessionNumber", []), r.get("primaryDocument", []), r.get("filingDate", [])):
+        if f in forms:
+            out.append((f, acc, doc, date))
+            if len(out) >= n:
+                break
+    return out
+
+
+def _doc_url(cik, acc, doc):
+    return f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{acc.replace('-', '')}/{doc}"
+
+
+def _text(html):
+    t = re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", html)
+    t = re.sub(r"<[^>]+>", " ", t)
+    return re.sub(r"\s+", " ", unescape(t))
+
+
+def _form4_name(raw):
+    """'FRASER JANE NIND' (last, first, middle) -> 'Jane Fraser'."""
+    parts = [p for p in re.split(r"[\s,]+", raw.strip()) if p]
+    if len(parts) < 2:
+        return raw.title()
+    return f"{parts[1].title()} {parts[0].title()}"
+
+
+def ceo_from_form4(sec, cik, sub, max_docs=25):
+    """Latest insider filing (Form 4) whose official title is CEO. Domestic companies only."""
+    for f, acc, doc, date in _recent(sub, {"4", "4/A"}, max_docs):
+        raw_doc = doc.split("/")[-1]  # drop the xsl viewer folder
+        r = sec._get(_doc_url(cik, acc, raw_doc))
+        if r is None:
+            continue
+        x = r.text
+        for owner in re.findall(r"(?s)<reportingOwner>(.*?)</reportingOwner>", x):
+            title = re.search(r"<officerTitle>\s*(.*?)\s*</officerTitle>", owner, re.S)
+            name = re.search(r"<rptOwnerName>\s*(.*?)\s*</rptOwnerName>", owner, re.S)
+            if title and name and CEO_TITLE.match(unescape(title.group(1))):
+                return {"raw": unescape(name.group(1)), "name": _form4_name(unescape(name.group(1))), "date": date}
+    return None
+
+
+def annual_report_text(sec, cik, sub):
+    rows = _recent(sub, {"10-K", "20-F", "40-F", "10-K/A", "20-F/A", "40-F/A"}, 1)
+    if not rows:
+        return "", None
+    f, acc, doc, date = rows[0]
+    r = sec._get(_doc_url(cik, acc, doc))
+    return (_text(r.text) if r is not None else ""), {"form": f, "date": date, "url": _doc_url(cik, acc, doc)}
+
+
+def _last(name):
+    return re.sub(r"[^a-z]", "", (name or "").split()[-1].lower()) if name else ""
+
+
+def named_as_ceo(text, name):
+    """True if the annual report names this person next to 'Chief Executive'."""
+    if not text or not name:
+        return False
+    last = re.escape(name.split()[-1])
+    pat = re.compile(rf"{last}.{{0,120}}Chief Executive|Chief Executive.{{0,120}}{last}", re.I)
+    return bool(pat.search(text))
+
+
+def ceo_from_text(text):
+    """Most cited name in front of 'Chief Executive' in the annual report."""
+    if not text:
+        return None
+    counts = {}
+    for m in NAME_BEFORE_CEO.finditer(text):
+        n = m.group(1).strip()
+        if len(n.split()) < 2 or n.split()[0].lower() in {"the", "our", "former", "interim", "deputy", "and", "group"}:
+            continue
+        counts[n] = counts.get(n, 0) + 1
+    for m in SIGNATURE_CEO.finditer(text):
+        n = m.group(1).strip().title()
+        counts[n] = counts.get(n, 0) + 3
+    if not counts:
+        return None
+    best = max(counts.items(), key=lambda kv: kv[1])
+    return best[0] if best[1] >= 2 else None
+
+
+def named_near(text, name, word):
+    if not text or not name:
+        return False
+    last = re.escape(name.split()[-1])
+    return bool(re.search(rf"{last}.{{0,100}}{word}|{word}.{{0,100}}{last}", text, re.I))
+
+
+def verified_ceo(sec, cik, sub, foreign, wd_name, text, doc):
+    """Returns (name, source, wikidata_matches) or (None, reason, False). Nothing unconfirmed is returned."""
+    doc = doc or {"form": "annual report", "date": ""}
+    if not foreign:
+        f4 = ceo_from_form4(sec, cik, sub)
+        if f4:
+            if wd_name and _last(wd_name) == _last(f4["raw"].split()[0]):
+                return wd_name, f"SEC Form 4 ({f4['date']})", True
+            sig = ceo_from_text(text)
+            if sig and _last(sig) == _last(f4["raw"].split()[0]):
+                return sig, f"SEC Form 4 ({f4['date']})", False
+            return f4["name"], f"SEC Form 4 ({f4['date']})", False
+    if wd_name and named_as_ceo(text, wd_name):
+        return wd_name, f"{doc['form']} annual report ({doc['date']})", True
+    found = ceo_from_text(text)
+    if found:
+        return found, f"{doc['form']} annual report ({doc['date']})", bool(wd_name and _last(wd_name) == _last(found))
+    return None, "not confirmed by an official filing", False
