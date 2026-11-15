@@ -1,7 +1,7 @@
 {
  "week": "46",
  "asOf": "2026-11-13",
- "generated": "2026-11-15T21:36:10+00:00",
+ "generated": "2026-11-15T21:58:24+00:00",
  "nextUpdate": "2026-11-16T12:00:00+00:00",
  "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
  "regime": {
@@ -23,6 +23,10 @@
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
    "website": "https://www.eastwestbank.com",
+   "ceo": {
+    "name": "Dominic Ng",
+    "title": "Chief Executive Officer"
+   },
    "sector": "Banking",
    "headline": {
     "label": "Total assets",
@@ -115,6 +119,10 @@
    "risks": [
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
+   "ceo": {
+    "name": "Frank Holding",
+    "title": "Chief Executive Officer"
+   },
    "sector": "Banking",
    "headline": {
     "label": "Total assets",
@@ -213,12 +221,6 @@
    ],
    "employees": 64298,
    "website": "https://ing.com",
-   "ceo": {
-    "name": "Steven van Rijswijk",
-    "title": "Chief Executive Officer",
-    "since": "2020",
-    "bio": "Dutch banking manager."
-   },
    "team": [
     {
      "role": "Chair",
@@ -379,14 +381,7 @@
     "Capital buffer is thinner than at most peer banks.",
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
-   "employees": 219697,
    "website": "https://hsbc.com/",
-   "ceo": {
-    "name": "Georges Elhedery",
-    "title": "Chief Executive Officer",
-    "since": "2024",
-    "bio": "Group Chief Executive since September 2024; previously Group Chief Financial Officer."
-   },
    "team": [
     {
      "role": "Chair",
@@ -475,6 +470,10 @@
     "After a 103% rise in 12 months, the share price could swing sharply.",
     "Profits move with oil and gas prices, which can fall quickly."
    ],
+   "ceo": {
+    "name": "John J.",
+    "title": "Chief Executive Officer"
+   },
    "sector": "Energy",
    "headline": {
     "label": "Market value",
@@ -564,6 +563,10 @@
    ],
    "employees": 48000,
    "website": "https://www.micron.com/",
+   "ceo": {
+    "name": "Sanjay Mehrotra",
+    "title": "Chief Executive Officer"
+   },
    "sector": "Technology",
    "headline": {
     "label": "Market value",
