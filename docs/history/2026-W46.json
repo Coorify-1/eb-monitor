@@ -1,7 +1,7 @@
 {
  "week": "46",
  "asOf": "2026-11-13",
- "generated": "2026-11-15T20:35:57+00:00",
+ "generated": "2026-11-15T20:55:28+00:00",
  "nextUpdate": "2026-11-16T12:00:00+00:00",
  "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
  "regime": {
@@ -294,7 +294,7 @@
    "ticker": "BBD",
    "exchange": "NYSE",
    "country": "",
-   "city": "",
+   "city": "Sao Paulo",
    "score": 60,
    "why": "Priced below peer banks and high returns on equity.",
    "risks": [
@@ -371,7 +371,7 @@
    "ticker": "HSBC",
    "exchange": "NYSE",
    "country": "GB",
-   "city": "8 Canada Square",
+   "city": "London",
    "score": 54,
    "why": "A strong share-price trend and priced below peer banks (shares +22% in 12 months).",
    "risks": [
@@ -565,7 +565,7 @@
     "Demand for chips and technology can swing sharply, and expectations are high."
    ],
    "employees": 48000,
-   "website": "https://micron.cn",
+   "website": "https://www.micron.com/",
    "sector": "Technology",
    "headline": {
     "label": "Market value",
@@ -649,11 +649,11 @@
    ]
   },
   {
-   "name": "CANADIAN NATURAL RESOURCES Ltd",
+   "name": "Canadian Natural Resources Ltd",
    "ticker": "CNQ",
    "exchange": "NYSE",
    "country": "CA",
-   "city": "",
+   "city": "Calgary",
    "score": 77,
    "why": "High returns on capital and a strong share-price trend (shares +53% in 12 months).",
    "risks": [
@@ -742,11 +742,11 @@
    ]
   },
   {
-   "name": "Ambev S.a.",
+   "name": "Ambev S.A.",
    "ticker": "ABEV",
    "exchange": "NYSE",
-   "country": "",
-   "city": "",
+   "country": "BR",
+   "city": "Sao Paulo",
    "score": 76,
    "why": "Attractively priced cash flows and high returns on capital.",
    "risks": [
@@ -841,7 +841,7 @@
    "ticker": "BUD",
    "exchange": "NYSE",
    "country": "BE",
-   "city": "",
+   "city": "Leuven",
    "score": 72,
    "why": "Attractively priced cash flows and high returns on capital.",
    "risks": [

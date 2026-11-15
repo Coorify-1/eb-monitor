@@ -281,7 +281,7 @@
   {
    "place": 25,
    "ticker": "UBS",
-   "country": "",
+   "country": "CH",
    "sector": "Banks",
    "score": 47,
    "valuation": 37,
@@ -452,7 +452,7 @@
   {
    "place": 10,
    "ticker": "ABEV",
-   "country": "",
+   "country": "BR",
    "sector": "Consumer staples",
    "score": 76,
    "valuation": 91,
@@ -606,7 +606,7 @@
   {
    "place": 24,
    "ticker": "BUD",
-   "country": "",
+   "country": "BE",
    "sector": "Consumer staples",
    "score": 72,
    "valuation": 79,
