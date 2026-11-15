@@ -384,13 +384,21 @@ def _last(name):
     return re.sub(r"[^a-z]", "", (name or "").split()[-1].lower()) if name else ""
 
 
-def named_as_ceo(text, name):
-    """True if the annual report names this person next to 'Chief Executive'."""
+FORMER = re.compile(r"\b(former|previous|retired|outgoing|predecessor|until|stepped down|succeeded)\b", re.I)
+
+
+def named_as_ceo(text, name, min_hits=3):
+    """True if the annual report repeatedly names this person as Chief Executive (not as a former one)."""
     if not text or not name:
         return False
     last = re.escape(name.split()[-1])
-    pat = re.compile(rf"{last}.{{0,120}}(Chief Executive|\bCEO\b)|(Chief Executive|\bCEO\b).{{0,120}}{last}", re.I)
-    return bool(pat.search(text))
+    pat = re.compile(rf"{last}.{{0,120}}?(Chief Executive|\bCEO\b)|(Chief Executive|\bCEO\b).{{0,120}}?{last}", re.I)
+    hits = 0
+    for m in pat.finditer(text):
+        around = text[max(0, m.start() - 60): m.end()]
+        if not FORMER.search(around):
+            hits += 1
+    return hits >= min_hits
 
 
 def ceo_from_text(text):
@@ -399,11 +407,15 @@ def ceo_from_text(text):
         return None
     counts = {}
     for m in NAME_BEFORE_CEO.finditer(text):
+        if FORMER.search(text[max(0, m.start() - 40): m.end()]):
+            continue
         n = m.group(1).strip()
         if len(n.split()) < 2 or n.split()[0].lower() in {"the", "our", "former", "interim", "deputy", "and", "group"}:
             continue
         counts[n] = counts.get(n, 0) + 1
     for m in TITLE_BEFORE_NAME.finditer(text):
+        if FORMER.search(text[max(0, m.start() - 40): m.end()]):
+            continue
         n = m.group(1).strip()
         if len(n.split()) >= 2 and n.split()[0].lower() not in {"the", "our", "former", "interim", "deputy"}:
             counts[n] = counts.get(n, 0) + 1
@@ -436,9 +448,10 @@ def verified_ceo(sec, cik, sub, foreign, wd_name, text, doc):
             if sig and _last(sig) == _last(f4["raw"].split()[0]):
                 return sig, f"SEC Form 4 ({f4['date']})", False
             return f4["name"], f"SEC Form 4 ({f4['date']})", False
-    if wd_name and named_as_ceo(text, wd_name):
-        return wd_name, f"{doc['form']} annual report ({doc['date']})", True
     found = ceo_from_text(text)
     if found:
-        return found, f"{doc['form']} annual report ({doc['date']})", bool(wd_name and _last(wd_name) == _last(found))
+        same = bool(wd_name and _last(wd_name) == _last(found))
+        return (wd_name if same else found), f"{doc['form']} annual report ({doc['date']})", same
+    if wd_name and named_as_ceo(text, wd_name):
+        return wd_name, f"{doc['form']} annual report ({doc['date']})", True
     return None, "not confirmed by an official filing", False
