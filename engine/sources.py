@@ -289,7 +289,11 @@ CEO_TITLE = re.compile(
 )
 NAME_BEFORE_CEO = re.compile(
     r"([A-Z][a-zA-Z'\-]+(?:\s+(?:van|von|de|der|den|da|di|du|le|la)?\s*(?!Group\b|Chief\b|Executive\b|Our\b|The\b)[A-Z][a-zA-Z'\-]+){1,3})\s*,?\s+"
-    r"(?:our\s+|the\s+)?(?:Group\s+)?Chief\s+Executive(?:\s+Officer)?\b"
+    r"(?:our\s+|the\s+)?(?:Group\s+)?(?:Chief\s+Executive(?:\s+Officer)?|CEO)\b"
+)
+TITLE_BEFORE_NAME = re.compile(
+    r"\b(?:Group\s+)?(?:Chief\s+Executive(?:\s+Officer)?|CEO)\s*[,:\-–]?\s+"
+    r"((?!Officer\b|Committee\b|Group\b|Board\b|and\b|of\b)[A-Z][a-zA-Z'\-]+(?:\s+(?:van|von|de|der|den|da|di|du|le|la)?\s*[A-Z][a-zA-Z'\-]+){1,2})\b"
 )
 SIGNATURE_CEO = re.compile(
     r"/s/\s*([A-Za-z.'\- ]{3,90}?)\s*,?\s*"
@@ -385,7 +389,7 @@ def named_as_ceo(text, name):
     if not text or not name:
         return False
     last = re.escape(name.split()[-1])
-    pat = re.compile(rf"{last}.{{0,120}}Chief Executive|Chief Executive.{{0,120}}{last}", re.I)
+    pat = re.compile(rf"{last}.{{0,120}}(Chief Executive|\bCEO\b)|(Chief Executive|\bCEO\b).{{0,120}}{last}", re.I)
     return bool(pat.search(text))
 
 
@@ -399,6 +403,10 @@ def ceo_from_text(text):
         if len(n.split()) < 2 or n.split()[0].lower() in {"the", "our", "former", "interim", "deputy", "and", "group"}:
             continue
         counts[n] = counts.get(n, 0) + 1
+    for m in TITLE_BEFORE_NAME.finditer(text):
+        n = m.group(1).strip()
+        if len(n.split()) >= 2 and n.split()[0].lower() not in {"the", "our", "former", "interim", "deputy"}:
+            counts[n] = counts.get(n, 0) + 1
     for m in SIGNATURE_CEO.finditer(text):
         n = _sig_name(m.group(1))
         if n:
