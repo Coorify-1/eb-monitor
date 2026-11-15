@@ -1,0 +1,463 @@
+"""Weekly EB Monitor run.
+
+python -m engine.run --out docs/eb-monitor.json --cache cache
+Needs the GitHub secrets MASSIVE_API_KEY and SEC_CONTACT.
+"""
+import argparse
+import datetime as dt
+import json
+import math
+import os
+import sys
+import time
+from zoneinfo import ZoneInfo
+
+import numpy as np
+import pandas as pd
+
+from . import config as C
+from . import prices as P
+from . import scoring as S
+from . import sources as SRC
+from . import texts as T
+from .fundamentals import extract, shares_outstanding
+
+NY = ZoneInfo("America/New_York")
+
+
+def log(*a):
+    print(*a, flush=True)
+
+
+# ---------------------------------------------------------------- dates
+
+def last_finished_day(now_ny: dt.datetime) -> dt.date:
+    """Free price data never includes the current New York day."""
+    d = now_ny.date() - dt.timedelta(days=1)
+    while d.weekday() >= 5:
+        d -= dt.timedelta(days=1)
+    return d
+
+
+def next_monday_7(now_ny: dt.datetime) -> dt.datetime:
+    d = now_ny.date()
+    add = (0 - d.weekday()) % 7
+    t = dt.datetime.combine(d + dt.timedelta(days=add), dt.time(7, 0), NY)
+    if t <= now_ny:
+        t += dt.timedelta(days=7)
+    return t
+
+
+# ---------------------------------------------------------------- country
+
+US_STATES = set(
+    "AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND "
+    "OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC PR".split()
+)
+
+
+def country_from_sec(sub):
+    try:
+        import pycountry
+    except ImportError:
+        pycountry = None
+    for kind in ("business", "mailing"):
+        a = ((sub.get("addresses") or {}).get(kind)) or {}
+        code = (a.get("stateOrCountry") or "").upper()
+        desc = (a.get("stateOrCountryDescription") or "").strip()
+        if code in US_STATES:
+            return "US", (a.get("city") or "").title()
+        if desc:
+            name = desc.split(",")[-1].strip()
+            if "CANADA" in desc.upper():
+                return "CA", (a.get("city") or "").title()
+            if pycountry:
+                try:
+                    return pycountry.countries.search_fuzzy(name)[0].alpha_2, (a.get("city") or "").title()
+                except LookupError:
+                    pass
+    return "", ""
+
+
+# ---------------------------------------------------------------- previous week
+
+def load_prev(path):
+    try:
+        j = json.load(open(path))
+    except Exception:
+        return {"banking": {}, "company": {}}, None
+    if j.get("sample"):
+        return {"banking": {}, "company": {}}, None
+    return {
+        "banking": {i["ticker"]: i["rank"] for i in j.get("banking") or []},
+        "company": {i["ticker"]: i["rank"] for i in j.get("company") or []},
+    }, j.get("asOf")
+
+
+# ---------------------------------------------------------------- regime
+
+def regime(wide):
+    parts = []
+
+    def last(series, lag=0):
+        return series[-1 - lag][1] if len(series) > lag else None
+
+    try:
+        curve = SRC.fred("T10Y2Y")
+        v = last(curve)
+        parts.append(("curve", max(0, min(100, 50 + 40 * v)), "yield curve positive" if v > 0 else "yield curve inverted"))
+    except Exception as e:
+        log("  regime curve:", e)
+    try:
+        baa = SRC.fred("BAA10Y")
+        v = last(baa)
+        s = max(0, min(100, 100 - (v - 1.5) * 40))
+        parts.append(("credit", s, "credit spreads calm" if s >= 55 else "credit spreads wide"))
+    except Exception as e:
+        log("  regime credit:", e)
+    try:
+        vix = SRC.fred("VIXCLS")
+        v = last(vix)
+        s = max(0, min(100, 100 - (v - 12) * 4))
+        parts.append(("vol", s, "volatility low" if s >= 55 else "volatility high"))
+    except Exception as e:
+        log("  regime vix:", e)
+    try:
+        usd = SRC.fred("DTWEXBGS")
+        v, v3 = last(usd), last(usd, 63)
+        chg = (v / v3 - 1) * 100
+        parts.append(("dollar", max(0, min(100, 50 - 10 * chg)), "dollar weakening" if chg < 0 else "dollar strengthening"))
+    except Exception as e:
+        log("  regime dollar:", e)
+    if "SPY" in wide:
+        s = wide["SPY"].dropna()
+        if len(s) >= 150:
+            gap = (s.iloc[-1] / s.iloc[-200:].mean() - 1) * 100
+            parts.append(("trend", max(0, min(100, 50 + 5 * gap)), "trend up" if gap > 0 else "trend down"))
+    if not parts:
+        return None
+    sc = float(np.mean([p[1] for p in parts]))
+    label = "Risk-on" if sc >= 60 else "Risk-off" if sc <= 40 else "Neutral"
+    # explain with the two signals that agree most with the label
+    key = sorted(parts, key=lambda p: -abs(p[1] - 50))
+    agree = [p for p in key if (p[1] >= 50) == (sc >= 50)][:2] or key[:2]
+    note = ", ".join(p[2] for p in agree)
+    return {"label": label, "score": round(sc), "note": note[:1].upper() + note[1:]}
+
+
+# ---------------------------------------------------------------- reader items
+
+def bank_item(r, lead, cur, fx):
+    t = r["f"]["t"]
+    usd = lambda v: None if v is None or cur not in fx else v / fx[cur]
+    ta = usd(t.get("assets"))
+    pt = t.get("pretax_income") if t.get("pretax_income") is not None else t.get("net_income")
+    metrics = [
+        {"label": "Pre-tax profit" if t.get("pretax_income") is not None else "Net profit", "sub": "Latest fiscal year",
+         "value": T.money(usd(pt)) if usd(pt) is not None else T.money(pt, cur), "change": _pc(r.get("pretax_chg")), "unit": "%"},
+    ]
+    if r.get("cet1") is not None:
+        metrics.append({"label": "CET1 ratio", "sub": "Core capital strength", "value": T.pct(r["cet1"]),
+                        "change": _pt(r["cet1"], r.get("cet1_prev")), "unit": "pt"})
+    elif r.get("tang_lev") is not None:
+        metrics.append({"label": "Tangible equity / assets", "sub": "Capital cushion", "value": T.pct(r["tang_lev"]),
+                        "note": "Shareholders' tangible capital as a share of total assets. Higher means a thicker cushion."})
+    if r.get("roe") is not None:
+        metrics.append({"label": "Return on equity", "sub": "Profitability", "value": T.pct(r["roe"]),
+                        "change": _pt(r["roe"], r.get("roe_prev")), "unit": "pt"})
+    if r.get("npl") is not None:
+        metrics.append({"label": "Bad loans (NPL)", "sub": "Share of loans", "value": T.pct(r["npl"], 2),
+                        "change": _pt(r["npl"], r.get("npl_prev")), "unit": "pt", "good": "down"})
+    elif r.get("cost_of_risk") is not None:
+        metrics.append({"label": "Cost of risk", "sub": "Provisions / loans", "value": T.pct(r["cost_of_risk"], 2), "good": "down",
+                        "note": "New provisions for bad loans as a share of all loans. Lower is better."})
+    for lab, k, f in (("Cost / income", "cost_income", T.pct), ("Loans / deposits", "loans_deposits", T.pct),
+                      ("Price / tangible book", "ptb", lambda v: T.mult(v, 2).replace("x", ""))):
+        if r.get(k) is not None:
+            metrics.append({"label": lab, "value": f(r[k])})
+    item = _common(r, lead)
+    item.update({
+        "sector": "Banking",
+        "headline": {"label": "Total assets", "value": T.money(ta) if ta else T.money(t.get("assets"), cur),
+                     "period": "FY " + (r["f"]["fy_end"] or "")[:4]},
+        "metrics": _clean(metrics),
+    })
+    return item
+
+
+def company_item(r, lead, cur, fx, as_of):
+    t = r["f"]["t"]
+    usd = lambda v: None if v is None or cur not in fx else v / fx[cur]
+    metrics = [
+        {"label": "Revenue", "sub": "Latest fiscal year", "value": T.money(usd(t.get("revenue"))) if usd(t.get("revenue")) is not None else T.money(t.get("revenue"), cur),
+         "change": _pc(r.get("revenue_chg")), "unit": "%"},
+        {"label": "Operating profit", "sub": "Core business", "value": T.money(usd(r.get("ebit"))) if usd(r.get("ebit")) is not None else T.money(r.get("ebit"), cur),
+         "change": _pc(r.get("ebit_chg")), "unit": "%"},
+        {"label": "Free cash flow", "sub": "Cash after investment", "value": T.money(usd(r.get("fcf"))) if usd(r.get("fcf")) is not None else T.money(r.get("fcf"), cur),
+         "change": _pc(r.get("fcf_chg")), "unit": "%"},
+        {"label": "Net debt / EBITDA", "sub": "Debt burden", "value": T.mult(r.get("nd_ebitda")),
+         "change": _diff(r.get("nd_ebitda"), r.get("nd_ebitda_prev")), "unit": "pt", "good": "down"},
+        {"label": "ROIC", "value": T.pct(r.get("roic"))},
+        {"label": "FCF yield", "value": T.pct(r.get("fcf_yield"))},
+        {"label": "EV / EBIT", "value": T.mult(r.get("ev_ebit"))},
+        {"label": "Piotroski F-score", "value": "—" if r.get("piotroski") is None else f"{r['piotroski']:.0f} / 9",
+         "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."},
+    ]
+    item = _common(r, lead)
+    item.update({
+        "sector": r["sector"],
+        "headline": {"label": "Market value", "value": T.money(r["mcap_usd"]),
+                     "period": dt.date.fromisoformat(as_of).strftime("%b %-d")},
+        "metrics": _clean(metrics),
+    })
+    return item
+
+
+def _pc(v):
+    return None if v is None or not math.isfinite(v) else round(v * 100, 1)
+
+
+def _pt(a, b):
+    return None if a is None or b is None else round((a - b) * 100, 1)
+
+
+def _diff(a, b):
+    if a is None or b is None or not math.isfinite(a) or not math.isfinite(b):
+        return None
+    return round(a - b, 1)
+
+
+def _clean(ms):
+    out = []
+    for m in ms:
+        if m.get("value") in (None, "—", "n/m%"):
+            continue
+        out.append({k: v for k, v in m.items() if v is not None})
+    return out
+
+
+def _common(r, lead):
+    L = lead or {}
+    ceo = None
+    if L.get("ceoLabel") and not L["ceoLabel"].startswith("Q"):
+        ceo = {"name": L["ceoLabel"], "title": "Chief Executive Officer"}
+        if L.get("ceoStart"):
+            ceo["since"] = L["ceoStart"][:4]
+        if L.get("ceoDesc"):
+            ceo["bio"] = L["ceoDesc"][:1].upper() + L["ceoDesc"][1:] + "."
+        if L.get("photo"):
+            ceo["photo"], ceo["photoCredit"] = L["photo"], L["photoCredit"]
+    team = []
+    if L.get("chairLabel") and not L["chairLabel"].startswith("Q") and (not ceo or L["chairLabel"] != ceo["name"]):
+        team.append({"role": "Chair", "name": L["chairLabel"]})
+    item = {
+        "name": L.get("itemLabel") or T.nice_name(r["name"]),
+        "ticker": r["ticker"],
+        "exchange": r.get("exchange") or "",
+        "country": L.get("cc") or r["country"],
+        "city": L.get("hqLabel") if L.get("hqLabel") and not L["hqLabel"].startswith("Q") else r.get("city") or "",
+        "score": round(float(r["score"])),
+        "why": r["why"],
+        "risks": r["risks"],
+    }
+    if L.get("emp"):
+        item["employees"] = L["emp"]
+    if L.get("web"):
+        item["website"] = L["web"]
+    if ceo:
+        item["ceo"] = ceo
+    if team:
+        item["team"] = team
+    return item
+
+
+# ---------------------------------------------------------------- main
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", default="docs/eb-monitor.json")
+    ap.add_argument("--cache", default="cache")
+    ap.add_argument("--force", action="store_true")
+    a = ap.parse_args()
+    t0 = time.time()
+    now = dt.datetime.now(NY)
+    day = last_finished_day(now)
+    prev, prev_asof = load_prev(a.out)
+    force = a.force or os.environ.get("FORCE") == "true"
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and not force:
+        if now.hour < 7:
+            log("Before 7:00 am New York: waiting for the next scheduled run.")
+            return
+        if prev_asof and prev_asof >= day.isoformat():
+            log("This week's ranking is already published.")
+            return
+
+    massive, sec = SRC.Massive(), SRC.SEC()
+
+    log("1/7 Prices")
+    df = P.update(a.cache, massive, day, log=log)
+    wide, vol = P.series_by_ticker(df)
+    mom = P.momentum_table(wide, vol)
+    as_of = str(mom["date"].max())
+    log(f"  {len(mom)} tickers, data as of {as_of}")
+
+    log("2/7 Universe")
+    tick = pd.DataFrame(sec.tickers())
+    tick = tick[tick["exchange"].isin(["NYSE", "Nasdaq"])]
+    tick = tick.rename(columns={"cik": "cik"}).dropna(subset=["ticker"])
+    tick["ticker_m"] = tick["ticker"].str.replace("-", ".", regex=False)
+    u = tick.merge(mom, left_on="ticker_m", right_index=True)
+    u = u.sort_values("adv", ascending=False).drop_duplicates("cik")
+    keep = set(prev["banking"]) | set(prev["company"])
+    cand = pd.concat([u.head(C.CANDIDATES), u[u["ticker"].isin(keep)]]).drop_duplicates("cik")
+    log(f"  {len(cand)} candidates")
+
+    log("3/7 Company filings (SEC)")
+    det_path = os.path.join(a.cache, "details.json")
+    details = json.load(open(det_path)) if os.path.exists(det_path) else {}
+    det_budget = 150 if not details else 40
+    recs = []
+    for i, c in enumerate(cand.itertuples()):
+        if (i + 1) % 100 == 0:
+            log(f"    {i + 1}/{len(cand)}")
+        sub = sec.submissions(c.cik)
+        if not sub:
+            continue
+        try:
+            sic = int(sub.get("sic") or 0)
+        except ValueError:
+            sic = 0
+        if not sic or (C.is_financial(sic) and sic not in C.BANK_SIC):
+            continue
+        forms = set((sub.get("filings") or {}).get("recent", {}).get("form", [])[:200])
+        foreign = bool(forms & {"20-F", "40-F", "6-K"})
+        facts = sec.facts(c.cik)
+        if not facts:
+            continue
+        f = extract(facts)
+        if not f["fy_end"] or f["fy_end"] < (now.date() - dt.timedelta(days=560)).isoformat():
+            continue
+        country, city = country_from_sec(sub)
+        sh = None if foreign else shares_outstanding(facts)
+        mcap = sh * c.close if sh else None
+        if mcap is None:
+            d = details.get(c.ticker)
+            stale = not d or d.get("at", "") < (now.date() - dt.timedelta(days=90)).isoformat()
+            if stale and det_budget > 0:
+                try:
+                    x = massive.details(c.ticker_m)
+                    if x.get("market_cap"):
+                        d = {"mc": x["market_cap"], "close": c.close, "at": now.date().isoformat()}
+                        details[c.ticker] = d
+                except Exception as e:
+                    log("    details failed", c.ticker, e)
+                det_budget -= 1
+            if d and d.get("mc"):
+                mcap = d["mc"] * c.close / d["close"]
+        recs.append({
+            "ticker": c.ticker, "cik": int(c.cik), "name": c.name, "exchange": c.exchange, "sic": sic,
+            "sector": C.sector_of(sic), "country": country or "US", "city": city, "foreign": foreign,
+            "close": c.close, "mcap_usd": mcap, "f": f,
+            "mom": {k: getattr(c, k, None) for k in ("mom_12_1", "trend_200", "ret_12m")},
+        })
+    json.dump(details, open(det_path, "w"))
+    log(f"  {len(recs)} companies with filings")
+
+    log("4/7 Scores")
+    fx = SRC.fx_per_usd()
+    rows = []
+    for r in recs:
+        if not r["mcap_usd"] or r["mcap_usd"] < C.MIN_MARKET_CAP_USD:
+            continue
+        cur = r["f"]["currency"] or "USD"
+        if cur not in fx:
+            continue  # cannot compare values without an exchange rate
+        r["mcap_local"] = r["mcap_usd"] * fx[cur]
+        r["kind"] = "banking" if r["sic"] in C.BANK_SIC else "company"
+        m = S.bank_metrics(r) if r["kind"] == "banking" else S.company_metrics(r)
+        rows.append({**{k: r[k] for k in ("ticker", "kind", "sector", "country", "mcap_usd")}, **m, "_r": r})
+    data = pd.DataFrame(rows)
+    banks = data[data.kind == "banking"].copy()
+    comps = data[data.kind == "company"].copy()
+    log(f"  eligible: {len(banks)} banks, {len(comps)} companies (market value > $10bn)")
+    for name, d, parts in (("banks", banks, S.BANK_PARTS), ("companies", comps, S.COMPANY_PARTS)):
+        cov = {m: f"{d[m].notna().mean() * 100:.0f}%" for items in parts.values() for m, _, _ in items if m in d}
+        log(f"  data coverage {name}: {cov}")
+    banks = S.score(banks, S.BANK_PARTS, C.BANK_PILLARS)
+    comps = S.score(comps, S.COMPANY_PARTS, C.COMPANY_PILLARS, group_col="sector")
+    pb = S.pick(banks, prev["banking"], sector_cap=False)
+    pc = S.pick(comps, prev["company"], sector_cap=True)
+    log("  banks:", ", ".join(f"{r.ticker} {r.score:.0f}" for r in pb.itertuples()))
+    log("  companies:", ", ".join(f"{r.ticker} {r.score:.0f}" for r in pc.itertuples()))
+
+    log("5/7 Leadership (Wikidata, Wikimedia Commons)")
+    picks = pb.to_dict("records") + pc.to_dict("records")
+    lead = SRC.wikidata_leadership([p["_r"]["cik"] for p in picks])
+    for L in lead.values():
+        if L.get("ceoImg"):
+            ph = SRC.commons_photo(L["ceoImg"])
+            if ph:
+                L.update(ph)
+    log(f"  leadership found for {sum(1 for p in picks if p['_r']['cik'] in lead)}/{len(picks)}")
+
+    log("6/7 Market regime")
+    reg = regime(wide)
+    log("  ", reg)
+
+    log("7/7 Writing")
+
+    def build(df, kind, pillars, prevmap):
+        items = []
+        for p in df.to_dict("records"):
+            p = {k: (None if isinstance(v, float) and v != v else v) for k, v in p.items()}
+            r = p["_r"]
+            cur = r["f"]["currency"] or "USD"
+            p["why"] = T.why(kind, p, pillars)
+            p["risks"] = T.risks(kind, p, cur)
+            p.update({k: r[k] for k in ("name", "exchange", "city", "f")})
+            it = bank_item(p, lead.get(r["cik"]), cur, fx) if kind == "banking" else company_item(p, lead.get(r["cik"]), cur, fx, as_of)
+            it["rank"] = int(p["rank"])
+            if prev_asof:
+                it["prevRank"] = prevmap.get(p["ticker"])
+            it["pillars"] = [
+                {"key": k, "label": lab, "weight": w, "score": round(float(p["p_" + k]))}
+                for k, lab, w in pillars if p.get("p_" + k) == p.get("p_" + k) and p.get("p_" + k) is not None
+            ]
+            items.append(it)
+        return items
+
+    asd = dt.date.fromisoformat(as_of)
+    out = {
+        "week": str(asd.isocalendar()[1]),
+        "asOf": as_of,
+        "generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+        "nextUpdate": next_monday_7(now).astimezone(dt.timezone.utc).isoformat(timespec="seconds"),
+        "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
+        "regime": reg,
+        "banking": build(pb, "banking", C.BANK_PILLARS, prev["banking"]),
+        "company": build(pc, "company", C.COMPANY_PILLARS, prev["company"]),
+    }
+    if not out["regime"]:
+        del out["regime"]
+    os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
+    json.dump(out, open(a.out, "w"), indent=1, ensure_ascii=False)
+    hist = os.path.join(os.path.dirname(a.out) or ".", "history")
+    os.makedirs(hist, exist_ok=True)
+    y, w, _ = asd.isocalendar()
+    json.dump(out, open(os.path.join(hist, f"{y}-W{w:02d}.json"), "w"), indent=1, ensure_ascii=False)
+
+    # transparency: the full ranking (scores only, no prices)
+    full = {}
+    for name, d in (("banking", banks), ("company", comps)):
+        d = d.dropna(subset=["score"]).sort_values("score", ascending=False).head(30)
+        full[name] = [
+            {"place": i + 1, "ticker": r.ticker, "country": r.country, "sector": r.sector, "score": round(r.score),
+             **{c[2:]: round(getattr(r, c)) for c in d.columns if c.startswith("p_") and getattr(r, c) == getattr(r, c)}}
+            for i, r in enumerate(d.itertuples())
+        ]
+    json.dump({"asOf": as_of, **full}, open(os.path.join(os.path.dirname(a.out) or ".", "eb-ranking-full.json"), "w"), indent=1)
+    log(f"Done in {(time.time() - t0) / 60:.0f} min, {massive.calls} price calls.")
+
+
+if __name__ == "__main__":
+    sys.exit(main())

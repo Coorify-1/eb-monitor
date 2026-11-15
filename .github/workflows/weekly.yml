@@ -1,0 +1,68 @@
+name: EB Monitor weekly
+
+on:
+  schedule:
+    # Monday 7:05 am New York. Two times because New York changes clocks;
+    # the engine skips the run that is too early or already done.
+    - cron: "5 11 * * 1"
+    - cron: "5 12 * * 1"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Recalculate even if this week is already published"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eb-monitor
+  cancel-in-progress: false
+
+jobs:
+  rank:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore data cache (branch "cache")
+        run: |
+          git clone --depth 1 --branch cache "https://github.com/${{ github.repository }}" cache || mkdir -p cache
+          rm -rf cache/.git
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt pytest
+
+      - name: Test the method on simulated data
+        run: python -m pytest -q tests
+
+      - name: Calculate this week's ranking
+        env:
+          MASSIVE_API_KEY: ${{ secrets.MASSIVE_API_KEY }}
+          SEC_CONTACT: ${{ secrets.SEC_CONTACT }}
+          FORCE: ${{ inputs.force }}
+        run: python -m engine.run --out docs/eb-monitor.json --cache cache
+
+      - name: Save data cache
+        if: always()
+        run: |
+          [ -n "$(ls -A cache 2>/dev/null)" ] || exit 0
+          cd cache
+          git init -q -b cache
+          git add -A
+          git -c user.name="eb-monitor-bot" -c user.email="eb-monitor-bot@users.noreply.github.com" commit -qm "Data cache $(date -u +%F)"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" cache
+
+      - name: Publish
+        run: |
+          git add docs
+          git diff --cached --quiet && { echo "Nothing new to publish."; exit 0; }
+          git -c user.name="eb-monitor-bot" -c user.email="eb-monitor-bot@users.noreply.github.com" commit -m "EB Monitor: week $(python -c "import json;print(json.load(open('docs/eb-monitor.json'))['week'])")"
+          git push
