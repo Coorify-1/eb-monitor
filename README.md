@@ -45,6 +45,8 @@ Price history is kept on the `cache` branch so each week only fetches a few new 
 
 Secrets needed: `MASSIVE_API_KEY`, `SEC_CONTACT`.
 
-Files published in `docs/`: `eb-monitor.json` (this week), `history/` (every week, for the track record), `eb-ranking-full.json` (top 30 scores).
+Files published in `docs/`: `eb-monitor.json` (this week), `history/` (every week, for the track record), `eb-ranking-full.json` (top 30 scores), `CHECK.md` (weekly editorial check list with links to the sources).
+
+Editorial corrections (CEO, chair, website, name, country, city) go in `data/overrides.json`; they win over automatic data.
 
 *Educational content ranked by a published method, not investment advice.*

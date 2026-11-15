@@ -353,6 +353,90 @@ def _common(r, lead):
     return item
 
 
+# ---------------------------------------------------------------- editorial check page
+
+REPO = os.environ.get("GITHUB_REPOSITORY", "Coorify-1/eb-monitor")
+
+
+def check_entry(kind, it, r, L, pillars, cur, prev_asof):
+    ov = _overrides().get(it["ticker"]) or {}
+    alerts = []
+    ceo = it.get("ceo") or {}
+    if ov.get("ceo"):
+        ceo_src = "correction éditoriale"
+    elif ceo:
+        ceo_src = "Wikidata"
+        alerts.append("Vérifier que le CEO est toujours en poste (Wikidata peut être en retard).")
+        if ceo.get("since") and str(ceo["since"]) < "2018":
+            alerts.append(f"⚠️ CEO en poste depuis {ceo['since']} selon Wikidata : vérifier en priorité.")
+    else:
+        ceo_src = "absent"
+        alerts.append("CEO manquant : l'ajouter dans les corrections.")
+    if prev_asof and it.get("prevRank") is None:
+        alerts.append("Nouvelle entrée cette semaine.")
+    for m in it.get("metrics") or []:
+        ch = m.get("change")
+        if ch is None:
+            continue
+        big = abs(ch) > 40 if m.get("unit") == "%" else abs(ch) > 3
+        if big:
+            alerts.append(f"⚠️ {m['label']} : variation de {ch:+.1f}{' pt' if m.get('unit') == 'pt' else '%'} à vérifier dans le rapport annuel.")
+    if r.get("foreign"):
+        alerts.append(f"Comptes IFRS en {cur} : comparer le chiffre principal avec le rapport annuel de la société.")
+    missing = [lab for k, lab, _ in pillars if not any(p["key"] == k for p in it.get("pillars") or [])]
+    if missing:
+        alerts.append("Pilier(s) sans données : " + ", ".join(missing) + " (score calculé sur les autres).")
+    if not it.get("country"):
+        alerts.append("Pays inconnu : l'ajouter dans les corrections.")
+    sec = f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={r['cik']}&type={'' if r.get('foreign') else '10-K'}&dateb=&owner=include&count=10"
+    return {"kind": kind, "it": it, "ceo_src": ceo_src, "alerts": alerts, "sec": sec, "fy": r["f"]["fy_end"],
+            "wd": f"https://www.wikidata.org/wiki/{L['qid']}" if L.get("qid") else None}
+
+
+def write_check(path, out, checks, reg):
+    edit = f"https://github.com/{REPO}/edit/main/data/overrides.json"
+    run = f"https://github.com/{REPO}/actions/workflows/weekly.yml"
+    n_alert = sum(1 for c in checks for a in c["alerts"] if a.startswith("⚠️"))
+    L = [
+        f"# Contrôle éditorial — semaine {out['week']} (données au {out['asOf']})",
+        "",
+        f"Généré automatiquement le {out['generated'][:16].replace('T', ' ')} UTC. "
+        f"**{n_alert} point(s) prioritaire(s) ⚠️.**",
+        "",
+        "**Comment corriger :** modifier [data/overrides.json](" + edit + ") "
+        "(CEO, président, site web, nom, pays, ville), puis relancer le calcul : "
+        f"[Actions → EB Monitor weekly → Run workflow]({run}) en cochant *force*.",
+        "",
+    ]
+    if reg:
+        L += [f"**EB Market Regime :** {reg['label']} {reg['score']}/100 — {reg['note']}", ""]
+    for kind, title in (("banking", "Banking Monitor"), ("company", "Company Monitor")):
+        L += [f"## {title}", ""]
+        for c in [c for c in checks if c["kind"] == kind]:
+            it = c["it"]
+            ceo = it.get("ceo") or {}
+            move = "" if "prevRank" not in it else (" · nouveau" if it["prevRank"] is None else f" · semaine passée : n°{it['prevRank']}")
+            L += [
+                f"### {it['rank']}. {it['name']} ({it['ticker']}) — score {it['score']}/100{move}",
+                "",
+                f"- Pays / ville : {it.get('country') or '?'} / {it.get('city') or '?'} · secteur : {it.get('sector')}",
+                f"- CEO : **{ceo.get('name', '—')}**" + (f" (depuis {ceo['since']})" if ceo.get("since") else "") + f" · source : {c['ceo_src']}"
+                + (f" · [Wikidata]({c['wd']})" if c.get("wd") else ""),
+                f"- {it['headline']['label']} : {it['headline']['value']} ({it['headline'].get('period', '')}) · exercice clos le {c['fy']} · [dépôts SEC]({c['sec']})",
+                "- Chiffres clés : " + " · ".join(
+                    f"{m['label']} {m['value']}" + (f" ({m['change']:+.1f}{' pt' if m.get('unit') == 'pt' else '%'})" if m.get("change") is not None else "")
+                    for m in (it.get("metrics") or [])[:4]
+                ),
+                f"- Why : {it.get('why')}",
+                "",
+            ]
+            L += [f"- [ ] {a}" for a in c["alerts"]] or ["- [ ] Rien à signaler."]
+            L += [""]
+    L += ["---", "", "*Les chiffres viennent des dépôts officiels à la SEC (XBRL). En cas d'écart avec un communiqué, "
+          "le rapport annuel déposé fait foi ; signaler l'écart plutôt que de le corriger à la main.*", ""]
+    open(path, "w").write("\n".join(L))
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -506,6 +590,8 @@ def main():
 
     log("7/7 Writing")
 
+    checks = []
+
     def build(df, kind, pillars, prevmap):
         items = []
         for p in df.to_dict("records"):
@@ -524,6 +610,7 @@ def main():
                 for k, lab, w in pillars if p.get("p_" + k) == p.get("p_" + k) and p.get("p_" + k) is not None
             ]
             items.append(it)
+            checks.append(check_entry(kind, it, r, lead.get(r["cik"]) or {}, pillars, cur, prev_asof))
         return items
 
     asd = dt.date.fromisoformat(as_of)
@@ -556,6 +643,7 @@ def main():
             for i, r in enumerate(d.itertuples())
         ]
     json.dump({"asOf": as_of, **full}, open(os.path.join(os.path.dirname(a.out) or ".", "eb-ranking-full.json"), "w"), indent=1)
+    write_check(os.path.join(os.path.dirname(a.out) or ".", "CHECK.md"), out, checks, reg)
     log(f"Done in {(time.time() - t0) / 60:.0f} min, {massive.calls} price calls.")
 
 

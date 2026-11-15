@@ -123,7 +123,7 @@ class SEC:
 WD = "https://query.wikidata.org/sparql"
 
 LEAD_QUERY = """
-SELECT ?cik ?itemLabel ?ceoLabel ?ceoDesc ?ceoStart ?ceoEnd ?ceoImg ?chairLabel ?chairEnd ?emp ?empDate ?web ?hqLabel ?cc WHERE {
+SELECT ?cik ?item ?itemLabel ?ceoLabel ?ceoDesc ?ceoStart ?ceoEnd ?ceoImg ?chairLabel ?chairEnd ?emp ?empDate ?web ?hqLabel ?cc WHERE {
   VALUES ?cik { %s }
   ?item wdt:P5531 ?cik .
   OPTIONAL {
@@ -182,6 +182,8 @@ def wikidata_leadership(ciks):
         d = {"emp": None, "empDate": ""}
         labels = {r["itemLabel"] for r in rows if r.get("itemLabel")}
         d["itemLabel"] = sorted(labels, key=len)[0] if labels else None
+        items = {r["item"].rsplit("/", 1)[-1] for r in rows if r.get("item")}
+        d["qid"] = sorted(items)[0] if len(items) == 1 else None
         # CEO: open statements, latest start wins; an ended or older mandate never wins over a newer one
         ceos = {}
         for r in rows:
