@@ -1,7 +1,7 @@
 {
  "week": "46",
  "asOf": "2026-11-13",
- "generated": "2026-11-15T22:42:55+00:00",
+ "generated": "2026-11-15T23:01:08+00:00",
  "nextUpdate": "2026-11-16T12:00:00+00:00",
  "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
  "regime": {
@@ -862,8 +862,10 @@
    "employees": 136805,
    "website": "https://www.ab-inbev.com/",
    "ceo": {
-    "name": "South America Zone",
-    "title": "Chief Executive Officer"
+    "name": "Michel Doukeris",
+    "title": "Chief Executive Officer",
+    "since": "2021",
+    "bio": "Brazilian businessman."
    },
    "sector": "Consumer staples",
    "headline": {
