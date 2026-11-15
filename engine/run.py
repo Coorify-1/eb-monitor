@@ -95,11 +95,17 @@ def country_from_sec(sub):
             if cc:
                 return cc, city
     inc = (sub.get("stateOfIncorporation") or "").upper()
+    city = ((sub.get("addresses") or {}).get("business") or {}).get("city") or ""
     if inc in US_STATES:
-        return "US", ""
+        return "US", city.title()
     if inc in CA_CODES:
-        return "CA", ""
-    return "", ""
+        return "CA", city.title()
+    desc = sub.get("stateOfIncorporationDescription") or ""
+    if desc:
+        cc = _iso(desc)
+        if cc:
+            return cc, city.title()
+    return "", city.title()
 
 
 GENERIC = {"bank", "banks", "group", "corp", "corporation", "holdings", "holding", "financial", "inc", "company",
@@ -302,7 +308,7 @@ def _common(r, lead):
         "ticker": r["ticker"],
         "exchange": r.get("exchange") or "",
         "country": r["country"] or L.get("cc") or "",
-        "city": L.get("hqLabel") if L.get("hqLabel") and not L["hqLabel"].startswith("Q") else r.get("city") or "",
+        "city": r.get("city") or (L.get("hqLabel") if L.get("hqLabel") and not L["hqLabel"].startswith("Q") else ""),
         "score": round(float(r["score"])),
         "why": r["why"],
         "risks": r["risks"],

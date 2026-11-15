@@ -37,12 +37,14 @@ UPPER = {
     "PLC", "AG", "SA", "NV", "SE", "ASA", "AB", "ADR", "LLC", "LP", "II", "III", "US", "USA",
     "UBS", "HSBC", "ING", "BBVA", "ICICI", "HDFC", "BNP", "UK", "KB", "NA", "TD", "IBM", "AMD",
     "ASML", "SAP", "BHP", "BP", "NXP", "RELX", "ABB", "CRH", "TSMC", "ADP", "AT&T",
+    "S.A", "N.V", "S.P.A", "A.G", "S.E", "LTD.", "AB",
 }
 
 
 def nice_name(sec_name: str) -> str:
     n = re.sub(r"\s*/[A-Z]{2,}/?\s*$", "", sec_name.strip())  # "XYZ CORP /DE/"
-    if re.search(r"[a-z]", n):
+    letters = [ch for ch in n if ch.isalpha()]
+    if letters and sum(ch.islower() for ch in letters) / len(letters) > 0.5:
         return n  # already written in normal case by the company
     words = []
     for i, w in enumerate(n.split()):

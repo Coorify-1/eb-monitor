@@ -150,7 +150,7 @@ def _pick_web(urls):
     def key(u):
         host = urlparse(u).netloc.lower()
         host = host[4:] if host.startswith("www.") else host
-        return (host.count(".") > 1, len(host), len(u))
+        return (host.count(".") > 1, not host.endswith((".com", ".org", ".net")), len(host), len(u))
 
     urls = sorted(set(urls), key=key)
     return urls[0] if urls else None
