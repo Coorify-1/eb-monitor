@@ -6,137 +6,137 @@
    "ticker": "KEY",
    "country": "US",
    "sector": "Banks",
-   "score": 64,
-   "valuation": 76,
-   "momentum": 41,
-   "capital": 92,
+   "score": 65,
+   "valuation": 78,
+   "momentum": 47,
+   "capital": 88,
    "quality": 69,
-   "profit": 38
+   "profit": 40
   },
   {
    "place": 2,
    "ticker": "FCNCA",
    "country": "US",
    "sector": "Banks",
-   "score": 63,
-   "valuation": 89,
-   "momentum": 64,
-   "capital": 64,
+   "score": 64,
+   "valuation": 90,
+   "momentum": 68,
+   "capital": 63,
    "quality": 41,
-   "profit": 35
+   "profit": 36
   },
   {
    "place": 3,
    "ticker": "PNC",
    "country": "US",
    "sector": "Banks",
-   "score": 61,
-   "valuation": 52,
-   "momentum": 54,
-   "capital": 81,
-   "profit": 62
+   "score": 63,
+   "valuation": 56,
+   "momentum": 59,
+   "capital": 78,
+   "profit": 60
   },
   {
    "place": 4,
    "ticker": "NTRS",
    "country": "US",
    "sector": "Banks",
-   "score": 59,
-   "valuation": 25,
-   "momentum": 85,
-   "capital": 31,
+   "score": 60,
+   "valuation": 28,
+   "momentum": 87,
+   "capital": 32,
    "quality": 95,
-   "profit": 71
+   "profit": 68
   },
   {
    "place": 5,
    "ticker": "RF",
    "country": "US",
    "sector": "Banks",
-   "score": 56,
-   "valuation": 64,
-   "momentum": 38,
-   "capital": 69,
+   "score": 58,
+   "valuation": 68,
+   "momentum": 45,
+   "capital": 68,
    "quality": 36,
-   "profit": 74
+   "profit": 72
   },
   {
    "place": 6,
    "ticker": "USB",
    "country": "US",
    "sector": "Banks",
-   "score": 55,
-   "valuation": 47,
-   "momentum": 72,
-   "capital": 25,
+   "score": 58,
+   "valuation": 52,
+   "momentum": 75,
+   "capital": 28,
    "quality": 64,
-   "profit": 73
+   "profit": 70
   },
   {
    "place": 7,
    "ticker": "TFC",
    "country": "US",
    "sector": "Banks",
-   "score": 55,
-   "valuation": 84,
-   "momentum": 32,
-   "capital": 75,
+   "score": 57,
+   "valuation": 86,
+   "momentum": 39,
+   "capital": 72,
    "quality": 48,
    "profit": 26
   },
   {
    "place": 8,
+   "ticker": "WFC",
+   "country": "US",
+   "sector": "Banks",
+   "score": 52,
+   "valuation": 72,
+   "momentum": 31,
+   "capital": 48,
+   "profit": 62
+  },
+  {
+   "place": 9,
+   "ticker": "C",
+   "country": "US",
+   "sector": "Banks",
+   "score": 52,
+   "valuation": 78,
+   "momentum": 58,
+   "capital": 42,
+   "profit": 10
+  },
+  {
+   "place": 10,
    "ticker": "BNY",
    "country": "US",
    "sector": "Banks",
    "score": 51,
-   "valuation": 9,
-   "capital": 48,
-   "quality": 94,
-   "profit": 81
-  },
-  {
-   "place": 9,
-   "ticker": "WFC",
-   "country": "US",
-   "sector": "Banks",
-   "score": 50,
-   "valuation": 68,
-   "momentum": 27,
+   "valuation": 14,
    "capital": 47,
-   "profit": 64
-  },
-  {
-   "place": 10,
-   "ticker": "C",
-   "country": "US",
-   "sector": "Banks",
-   "score": 49,
-   "valuation": 75,
-   "momentum": 54,
-   "capital": 42,
-   "profit": 8
+   "quality": 94,
+   "profit": 78
   },
   {
    "place": 11,
    "ticker": "FITB",
    "country": "US",
    "sector": "Banks",
-   "score": 47,
-   "valuation": 17,
-   "momentum": 62,
-   "capital": 53,
+   "score": 49,
+   "valuation": 20,
+   "momentum": 66,
+   "capital": 52,
    "quality": 37,
-   "profit": 76
+   "profit": 74
   },
   {
    "place": 12,
    "ticker": "STT",
    "country": "US",
    "sector": "Banks",
-   "score": 46,
-   "valuation": 33,
-   "momentum": 95,
+   "score": 47,
+   "valuation": 36,
+   "momentum": 96,
    "capital": 8,
    "quality": 50,
    "profit": 34
@@ -146,71 +146,93 @@
    "ticker": "CFG",
    "country": "US",
    "sector": "Banks",
-   "score": 42,
-   "valuation": 61,
-   "momentum": 64,
+   "score": 44,
+   "valuation": 64,
+   "momentum": 67,
    "capital": 41,
    "quality": 5,
-   "profit": 16
+   "profit": 18
   },
   {
    "place": 14,
    "ticker": "COF",
    "country": "US",
    "sector": "Banks",
-   "score": 41,
-   "valuation": 36,
-   "momentum": 6,
-   "capital": 93,
+   "score": 43,
+   "valuation": 38,
+   "momentum": 13,
+   "capital": 91,
    "quality": 77,
-   "profit": 3
+   "profit": 2
   },
   {
    "place": 15,
    "ticker": "BAC",
    "country": "US",
    "sector": "Banks",
-   "score": 41,
-   "valuation": 82,
-   "momentum": 7,
-   "capital": 19,
+   "score": 43,
+   "valuation": 84,
+   "momentum": 12,
+   "capital": 22,
    "quality": 59,
-   "profit": 37
+   "profit": 36
   },
   {
    "place": 16,
-   "ticker": "RY",
-   "country": "US",
-   "sector": "Banks",
-   "score": 40,
-   "valuation": 8,
-   "momentum": 86,
-   "capital": 3,
-   "profit": 65
-  },
-  {
-   "place": 17,
    "ticker": "JPM",
    "country": "US",
    "sector": "Banks",
-   "score": 39,
-   "valuation": 21,
-   "momentum": 46,
-   "capital": 36,
+   "score": 41,
+   "valuation": 26,
+   "momentum": 52,
+   "capital": 38,
    "quality": 6,
-   "profit": 95
+   "profit": 90
+  },
+  {
+   "place": 17,
+   "ticker": "RY",
+   "country": "CA",
+   "sector": "Banks",
+   "score": 41,
+   "valuation": 12,
+   "momentum": 87,
+   "capital": 2,
+   "profit": 62
   },
   {
    "place": 18,
    "ticker": "HBAN",
    "country": "US",
    "sector": "Banks",
-   "score": 36,
-   "valuation": 53,
-   "momentum": 17,
-   "capital": 32,
+   "score": 38,
+   "valuation": 58,
+   "momentum": 21,
+   "capital": 31,
    "quality": 41,
-   "profit": 43
+   "profit": 44
+  },
+  {
+   "place": 19,
+   "ticker": "SOFI",
+   "country": "US",
+   "sector": "Banks",
+   "score": 35,
+   "valuation": 26,
+   "momentum": 3,
+   "capital": 98,
+   "profit": 20
+  },
+  {
+   "place": 20,
+   "ticker": "SCHW",
+   "country": "US",
+   "sector": "Banks",
+   "score": 33,
+   "valuation": 14,
+   "momentum": 26,
+   "capital": 18,
+   "profit": 98
   }
  ],
  "company": [
@@ -256,7 +278,7 @@
    "valuation": 85,
    "momentum": 90,
    "quality": 86,
-   "health": 56
+   "health": 55
   },
   {
    "place": 5,
@@ -267,21 +289,10 @@
    "valuation": 78,
    "momentum": 86,
    "quality": 76,
-   "health": 78
+   "health": 77
   },
   {
    "place": 6,
-   "ticker": "SNDK",
-   "country": "US",
-   "sector": "Technology",
-   "score": 80,
-   "valuation": 97,
-   "momentum": 71,
-   "quality": 70,
-   "health": 78
-  },
-  {
-   "place": 7,
    "ticker": "LNG",
    "country": "US",
    "sector": "Utilities",
@@ -292,20 +303,20 @@
    "health": 87
   },
   {
-   "place": 8,
-   "ticker": "NVS",
-   "country": "CH",
-   "sector": "Health care",
+   "place": 7,
+   "ticker": "SNDK",
+   "country": "US",
+   "sector": "Technology",
    "score": 78,
-   "valuation": 85,
-   "momentum": 54,
-   "quality": 93,
-   "health": 89
+   "valuation": 100,
+   "momentum": 71,
+   "quality": 70,
+   "health": 65
   },
   {
-   "place": 9,
+   "place": 8,
    "ticker": "CNQ",
-   "country": "US",
+   "country": "CA",
    "sector": "Energy",
    "score": 77,
    "valuation": 68,
@@ -314,7 +325,7 @@
    "health": 78
   },
   {
-   "place": 10,
+   "place": 9,
    "ticker": "V",
    "country": "US",
    "sector": "Industrials",
@@ -325,7 +336,7 @@
    "health": 61
   },
   {
-   "place": 11,
+   "place": 10,
    "ticker": "COP",
    "country": "US",
    "sector": "Energy",
@@ -336,7 +347,7 @@
    "health": 78
   },
   {
-   "place": 12,
+   "place": 11,
    "ticker": "CAH",
    "country": "US",
    "sector": "Health care",
@@ -344,21 +355,21 @@
    "valuation": 66,
    "momentum": 73,
    "quality": 94,
-   "health": 70
+   "health": 71
   },
   {
-   "place": 13,
+   "place": 12,
    "ticker": "MO",
    "country": "US",
    "sector": "Consumer staples",
-   "score": 74,
+   "score": 75,
    "valuation": 79,
-   "momentum": 69,
+   "momentum": 70,
    "quality": 88,
    "health": 62
   },
   {
-   "place": 14,
+   "place": 13,
    "ticker": "AU",
    "country": "US",
    "sector": "Materials",
@@ -369,18 +380,7 @@
    "health": 82
   },
   {
-   "place": 15,
-   "ticker": "FFIV",
-   "country": "US",
-   "sector": "Technology",
-   "score": 74,
-   "valuation": 85,
-   "momentum": 70,
-   "quality": 66,
-   "health": 71
-  },
-  {
-   "place": 16,
+   "place": 14,
    "ticker": "BBY",
    "country": "US",
    "sector": "Consumer discretionary",
@@ -391,7 +391,18 @@
    "health": 66
   },
   {
-   "place": 17,
+   "place": 15,
+   "ticker": "FFIV",
+   "country": "US",
+   "sector": "Technology",
+   "score": 74,
+   "valuation": 85,
+   "momentum": 70,
+   "quality": 66,
+   "health": 72
+  },
+  {
+   "place": 16,
    "ticker": "CF",
    "country": "US",
    "sector": "Materials",
@@ -402,7 +413,7 @@
    "health": 55
   },
   {
-   "place": 18,
+   "place": 17,
    "ticker": "MCK",
    "country": "US",
    "sector": "Health care",
@@ -413,7 +424,7 @@
    "health": 61
   },
   {
-   "place": 19,
+   "place": 18,
    "ticker": "EXPD",
    "country": "US",
    "sector": "Industrials",
@@ -424,7 +435,7 @@
    "health": 86
   },
   {
-   "place": 20,
+   "place": 19,
    "ticker": "OKE",
    "country": "US",
    "sector": "Utilities",
@@ -435,7 +446,7 @@
    "health": 76
   },
   {
-   "place": 21,
+   "place": 20,
    "ticker": "PAYC",
    "country": "US",
    "sector": "Technology",
@@ -446,18 +457,7 @@
    "health": 37
   },
   {
-   "place": 22,
-   "ticker": "THC",
-   "country": "US",
-   "sector": "Health care",
-   "score": 72,
-   "valuation": 99,
-   "momentum": 81,
-   "quality": 58,
-   "health": 33
-  },
-  {
-   "place": 23,
+   "place": 21,
    "ticker": "DECK",
    "country": "US",
    "sector": "Materials",
@@ -468,7 +468,18 @@
    "health": 80
   },
   {
-   "place": 24,
+   "place": 22,
+   "ticker": "THC",
+   "country": "US",
+   "sector": "Health care",
+   "score": 72,
+   "valuation": 99,
+   "momentum": 81,
+   "quality": 57,
+   "health": 33
+  },
+  {
+   "place": 23,
    "ticker": "NEM",
    "country": "US",
    "sector": "Materials",
@@ -479,18 +490,18 @@
    "health": 75
   },
   {
-   "place": 25,
+   "place": 24,
    "ticker": "AAPL",
    "country": "US",
    "sector": "Technology",
    "score": 72,
-   "valuation": 56,
+   "valuation": 55,
    "momentum": 72,
    "quality": 95,
    "health": 74
   },
   {
-   "place": 26,
+   "place": 25,
    "ticker": "EOG",
    "country": "US",
    "sector": "Energy",
@@ -501,9 +512,9 @@
    "health": 65
   },
   {
-   "place": 27,
+   "place": 26,
    "ticker": "BUD",
-   "country": "US",
+   "country": "",
    "sector": "Consumer staples",
    "score": 72,
    "valuation": 83,
@@ -512,18 +523,18 @@
    "health": 65
   },
   {
-   "place": 28,
-   "ticker": "HPQ",
-   "country": "US",
-   "sector": "Technology",
+   "place": 27,
+   "ticker": "NVS",
+   "country": "CH",
+   "sector": "Health care",
    "score": 72,
-   "valuation": 97,
-   "momentum": 69,
-   "quality": 90,
-   "health": 18
+   "valuation": 85,
+   "momentum": 54,
+   "quality": 82,
+   "health": 68
   },
   {
-   "place": 29,
+   "place": 28,
    "ticker": "VRSN",
    "country": "US",
    "sector": "Technology",
@@ -532,6 +543,17 @@
    "momentum": 66,
    "quality": 93,
    "health": 55
+  },
+  {
+   "place": 29,
+   "ticker": "HPQ",
+   "country": "US",
+   "sector": "Technology",
+   "score": 72,
+   "valuation": 97,
+   "momentum": 69,
+   "quality": 90,
+   "health": 18
   },
   {
    "place": 30,
