@@ -1,7 +1,7 @@
 {
  "week": "46",
  "asOf": "2026-11-13",
- "generated": "2026-11-15T23:01:08+00:00",
+ "generated": "2026-11-15T23:23:08+00:00",
  "nextUpdate": "2026-11-16T12:00:00+00:00",
  "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
  "regime": {
@@ -22,6 +22,7 @@
     "Priced above most peers, which leaves less room for disappointment.",
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
+   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/East_West_Bank_logo.svg/250px-East_West_Bank_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
    "website": "https://www.eastwestbank.com",
    "ceo": {
     "name": "Dominic Ng",
@@ -109,7 +110,7 @@
    ]
   },
   {
-   "name": "First Citizens Bancshares Inc",
+   "name": "First Citizens BancShares",
    "ticker": "FCNCA",
    "exchange": "Nasdaq",
    "country": "US",
@@ -119,6 +120,7 @@
    "risks": [
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
+   "website": "https://ir.firstcitizens.com/",
    "ceo": {
     "name": "Frank Holding",
     "title": "Chief Executive Officer"
@@ -298,10 +300,10 @@
    ]
   },
   {
-   "name": "Bank Bradesco",
+   "name": "Bradesco",
    "ticker": "BBD",
    "exchange": "NYSE",
-   "country": "",
+   "country": "BR",
    "city": "Sao Paulo",
    "score": 60,
    "why": "Priced below peer banks and high returns on equity.",
@@ -310,6 +312,8 @@
     "Results are reported in BRL: exchange-rate moves change returns in US dollars.",
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
+   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Banco_Bradesco_logo.svg/250px-Banco_Bradesco_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "website": "https://banco.bradesco/",
    "sector": "Banking",
    "headline": {
     "label": "Total assets",
@@ -387,6 +391,7 @@
     "Capital buffer is thinner than at most peer banks.",
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
+   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/250px-HSBC_logo_%282018%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
    "website": "https://hsbc.com/",
    "ceo": {
     "name": "Georges Elhedery",
@@ -469,7 +474,7 @@
  ],
  "company": [
   {
-   "name": "APA Corp",
+   "name": "APA Corporation",
    "ticker": "APA",
    "exchange": "Nasdaq",
    "country": "US",
@@ -480,6 +485,8 @@
     "After a 103% rise in 12 months, the share price could swing sharply.",
     "Profits move with oil and gas prices, which can fall quickly."
    ],
+   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Apache_Corporation_Logo.svg/250px-Apache_Corporation_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "website": "http://www.apachecorp.com",
    "ceo": {
     "name": "John Christmann",
     "title": "Chief Executive Officer"
@@ -572,6 +579,7 @@
     "Demand for chips and technology can swing sharply, and expectations are high."
    ],
    "employees": 48000,
+   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Micron_Technology_logo_2024.svg/250px-Micron_Technology_logo_2024.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
    "website": "https://www.micron.com/",
    "ceo": {
     "name": "Sanjay Mehrotra",
@@ -660,7 +668,7 @@
    ]
   },
   {
-   "name": "Canadian Natural Resources Ltd",
+   "name": "Canadian Natural Resources",
    "ticker": "CNQ",
    "exchange": "NYSE",
    "country": "CA",
@@ -672,6 +680,7 @@
     "Results are reported in CAD: exchange-rate moves change returns in US dollars.",
     "Profits move with oil and gas prices, which can fall quickly."
    ],
+   "website": "http://www.cnrl.com/",
    "sector": "Energy",
    "headline": {
     "label": "Market value",
@@ -753,7 +762,7 @@
    ]
   },
   {
-   "name": "Ambev S.A.",
+   "name": "AmBev",
    "ticker": "ABEV",
    "exchange": "NYSE",
    "country": "BR",
@@ -765,6 +774,8 @@
     "Results are reported in BRL: exchange-rate moves change returns in US dollars.",
     "Higher input costs and private-label competition can squeeze margins."
    ],
+   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Logotipo_da_Ambev_%282024%29.svg/250px-Logotipo_da_Ambev_%282024%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "website": "http://www.ambev.com.br",
    "sector": "Consumer staples",
    "headline": {
     "label": "Market value",
@@ -860,6 +871,7 @@
     "Higher input costs and private-label competition can squeeze margins."
    ],
    "employees": 136805,
+   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Anheuser-Busch_InBev_-_logo_%28Belgium%2C_2022-%29.svg/250px-Anheuser-Busch_InBev_-_logo_%28Belgium%2C_2022-%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
    "website": "https://www.ab-inbev.com/",
    "ceo": {
     "name": "Michel Doukeris",
