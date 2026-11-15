@@ -1,7 +1,7 @@
 {
  "week": "46",
  "asOf": "2026-11-13",
- "generated": "2026-11-15T19:56:26+00:00",
+ "generated": "2026-11-15T20:35:57+00:00",
  "nextUpdate": "2026-11-16T12:00:00+00:00",
  "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
  "regime": {
@@ -11,67 +11,63 @@
  },
  "banking": [
   {
-   "name": "Keycorp",
-   "ticker": "KEY",
-   "exchange": "NYSE",
+   "name": "East West Bank",
+   "ticker": "EWBC",
+   "exchange": "Nasdaq",
    "country": "US",
-   "city": "Cleveland",
-   "score": 65,
-   "why": "A strong capital buffer and priced below peer banks.",
+   "city": "Pasadena",
+   "score": 71,
+   "why": "A strong capital buffer and high returns on equity.",
    "risks": [
+    "Priced above most peers, which leaves less room for disappointment.",
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
-   "website": "https://www.key.com/",
-   "ceo": {
-    "name": "Beth E. Mooney",
-    "title": "Chief Executive Officer",
-    "bio": "American banking executive."
-   },
+   "website": "https://www.eastwestbank.com",
    "sector": "Banking",
    "headline": {
     "label": "Total assets",
-    "value": "$184bn",
+    "value": "$80.4bn",
     "period": "FY 2025"
    },
    "metrics": [
     {
      "label": "Pre-tax profit",
      "sub": "Latest fiscal year",
-     "value": "$2.3bn",
-     "change": 852.9,
+     "value": "$1.7bn",
+     "change": 16.4,
      "unit": "%"
     },
     {
      "label": "Tangible equity / assets",
      "sub": "Capital cushion",
-     "value": "9.6%",
+     "value": "10.5%",
      "note": "Shareholders' tangible capital as a share of total assets. Higher means a thicker cushion."
     },
     {
      "label": "Return on equity",
      "sub": "Profitability",
-     "value": "9.5%",
-     "change": 10.4,
+     "value": "15.9%",
+     "change": 0.9,
      "unit": "pt"
     },
     {
      "label": "Cost of risk",
      "sub": "Provisions / loans",
-     "value": "0.45%",
+     "value": "0.29%",
      "good": "down",
      "note": "New provisions for bad loans as a share of all loans. Lower is better."
     },
     {
      "label": "Cost / income",
-     "value": "62.9%"
+     "value": "35.7%"
     },
     {
      "label": "Loans / deposits",
-     "value": "70.7%"
+     "value": "83.6%"
     },
     {
      "label": "Price / tangible book",
-     "value": "1.29"
+     "value": "2.13"
     }
    ],
    "rank": 1,
@@ -80,31 +76,31 @@
      "key": "valuation",
      "label": "Valuation",
      "weight": 25,
-     "score": 78
+     "score": 39
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 47
+     "score": 70
     },
     {
      "key": "capital",
      "label": "Capital",
      "weight": 20,
-     "score": 88
+     "score": 96
     },
     {
      "key": "quality",
      "label": "Asset quality",
      "weight": 15,
-     "score": 69
+     "score": 68
     },
     {
      "key": "profit",
      "label": "Profitability",
      "weight": 15,
-     "score": 40
+     "score": 93
     }
    ]
   },
@@ -114,7 +110,7 @@
    "exchange": "Nasdaq",
    "country": "US",
    "city": "Raleigh",
-   "score": 64,
+   "score": 61,
    "why": "Priced below peer banks and a strong share-price trend (shares +27% in 12 months).",
    "risks": [
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
@@ -174,19 +170,19 @@
      "key": "valuation",
      "label": "Valuation",
      "weight": 25,
-     "score": 90
+     "score": 79
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 68
+     "score": 66
     },
     {
      "key": "capital",
      "label": "Capital",
      "weight": 20,
-     "score": 63
+     "score": 65
     },
     {
      "key": "quality",
@@ -198,67 +194,71 @@
      "key": "profit",
      "label": "Profitability",
      "weight": 15,
-     "score": 36
+     "score": 40
     }
    ]
   },
   {
-   "name": "PNC Financial Services",
-   "ticker": "PNC",
+   "name": "ING Group",
+   "ticker": "ING",
    "exchange": "NYSE",
-   "country": "US",
-   "city": "One PNC Plaza",
-   "score": 63,
-   "why": "A strong capital buffer and high returns on equity.",
+   "country": "NL",
+   "city": "Amsterdam",
+   "score": 61,
+   "why": "A strong share-price trend and priced below peer banks (shares +25% in 12 months).",
    "risks": [
+    "Capital buffer is thinner than at most peer banks.",
+    "Results are reported in EUR: exchange-rate moves change returns in US dollars.",
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
-   "employees": 52906,
-   "website": "https://www.pnc.com/",
+   "employees": 64298,
+   "website": "https://ing.com",
    "ceo": {
-    "name": "William S. Demchak",
+    "name": "Steven van Rijswijk",
     "title": "Chief Executive Officer",
-    "since": "2013",
-    "bio": "Business executive in the finance industry."
+    "since": "2020",
+    "bio": "Dutch banking manager."
    },
+   "team": [
+    {
+     "role": "Chair",
+     "name": "Karl Guha"
+    }
+   ],
    "sector": "Banking",
    "headline": {
     "label": "Total assets",
-    "value": "$574bn",
+    "value": "$1.2tn",
     "period": "FY 2025"
    },
    "metrics": [
     {
      "label": "Pre-tax profit",
      "sub": "Latest fiscal year",
-     "value": "$8.5bn",
-     "change": 17.2,
+     "value": "$13.0bn",
+     "change": 51.7,
      "unit": "%"
     },
     {
      "label": "Tangible equity / assets",
      "sub": "Capital cushion",
-     "value": "8.7%",
+     "value": "5.1%",
      "note": "Shareholders' tangible capital as a share of total assets. Higher means a thicker cushion."
     },
     {
      "label": "Return on equity",
      "sub": "Profitability",
-     "value": "11.4%",
-     "change": 1.3,
+     "value": "15.6%",
+     "change": 5.5,
      "unit": "pt"
     },
     {
-     "label": "Cost / income",
-     "value": "59.9%"
-    },
-    {
      "label": "Loans / deposits",
-     "value": "74.2%"
+     "value": "100.9%"
     },
     {
      "label": "Price / tangible book",
-     "value": "1.86"
+     "value": "1.58"
     }
    ],
    "rank": 3,
@@ -267,95 +267,75 @@
      "key": "valuation",
      "label": "Valuation",
      "weight": 25,
-     "score": 56
+     "score": 72
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 59
+     "score": 80
     },
     {
      "key": "capital",
      "label": "Capital",
      "weight": 20,
-     "score": 78
+     "score": 20
     },
     {
      "key": "profit",
      "label": "Profitability",
      "weight": 15,
-     "score": 60
+     "score": 66
     }
    ]
   },
   {
-   "name": "Northern Trust",
-   "ticker": "NTRS",
-   "exchange": "Nasdaq",
-   "country": "US",
-   "city": "Chicago",
+   "name": "Bank Bradesco",
+   "ticker": "BBD",
+   "exchange": "NYSE",
+   "country": "",
+   "city": "",
    "score": 60,
-   "why": "A clean loan book and a strong share-price trend (shares +35% in 12 months).",
+   "why": "Priced below peer banks and high returns on equity.",
    "risks": [
-    "Priced above most peers, which leaves less room for disappointment.",
-    "Bad loans rose over the last year.",
-    "Costs are high: 71 cents per dollar of income."
+    "The share-price trend is weaker than for most peers.",
+    "Results are reported in BRL: exchange-rate moves change returns in US dollars.",
+    "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
-   "employees": 20900,
-   "website": "http://www.northerntrust.com/",
-   "ceo": {
-    "name": "Michael G. O'Grady",
-    "title": "Chief Executive Officer",
-    "since": "2018",
-    "bio": "American business executive; chairman and CEO of Northern Trust."
-   },
    "sector": "Banking",
    "headline": {
     "label": "Total assets",
-    "value": "$177bn",
+    "value": "$411bn",
     "period": "FY 2025"
    },
    "metrics": [
     {
      "label": "Pre-tax profit",
      "sub": "Latest fiscal year",
-     "value": "$2.3bn",
-     "change": -12.0,
+     "value": "$3.7bn",
+     "change": 24.4,
      "unit": "%"
     },
     {
      "label": "Tangible equity / assets",
      "sub": "Capital cushion",
-     "value": "6.9%",
+     "value": "6.6%",
      "note": "Shareholders' tangible capital as a share of total assets. Higher means a thicker cushion."
     },
     {
      "label": "Return on equity",
      "sub": "Profitability",
-     "value": "13.5%",
-     "change": -2.4,
+     "value": "13.7%",
+     "change": 3.4,
      "unit": "pt"
     },
     {
-     "label": "Bad loans (NPL)",
-     "sub": "Share of loans",
-     "value": "0.18%",
-     "change": 0.1,
-     "unit": "pt",
-     "good": "down"
-    },
-    {
-     "label": "Cost / income",
-     "value": "71.2%"
-    },
-    {
      "label": "Loans / deposits",
-     "value": "29.4%"
+     "value": "103.2%"
     },
     {
      "label": "Price / tangible book",
-     "value": "2.64"
+     "value": "1.07"
     }
    ],
    "rank": 4,
@@ -364,83 +344,95 @@
      "key": "valuation",
      "label": "Valuation",
      "weight": 25,
-     "score": 28
+     "score": 95
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 87
+     "score": 31
     },
     {
      "key": "capital",
      "label": "Capital",
      "weight": 20,
-     "score": 32
-    },
-    {
-     "key": "quality",
-     "label": "Asset quality",
-     "weight": 15,
-     "score": 95
+     "score": 42
     },
     {
      "key": "profit",
      "label": "Profitability",
      "weight": 15,
-     "score": 68
+     "score": 74
     }
    ]
   },
   {
-   "name": "Royal Bank of Canada",
-   "ticker": "RY",
+   "name": "HSBC",
+   "ticker": "HSBC",
    "exchange": "NYSE",
-   "country": "CA",
-   "city": "",
-   "score": 41,
-   "why": "A strong share-price trend and high returns on equity (shares +36% in 12 months).",
+   "country": "GB",
+   "city": "8 Canada Square",
+   "score": 54,
+   "why": "A strong share-price trend and priced below peer banks (shares +22% in 12 months).",
    "risks": [
-    "Priced above most peers, which leaves less room for disappointment.",
+    "Costs are high: 76 cents per dollar of income.",
     "Capital buffer is thinner than at most peer banks.",
-    "Results are reported in CAD: exchange-rate moves change returns in US dollars."
+    "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
-   "website": "https://rbc.com",
+   "employees": 219697,
+   "website": "https://hsbc.com/",
    "ceo": {
-    "name": "Gordon Nixon",
+    "name": "Noel Quinn",
     "title": "Chief Executive Officer",
-    "bio": "Canadian businessman."
+    "since": "2020",
+    "bio": "Former Group Chief Executive of HSBC.",
+    "photo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Noel_Quinn_%28born_1962%29_at_World_Economic_Forum_Davos_2021.png/250px-Noel_Quinn_%28born_1962%29_at_World_Economic_Forum_Davos_2021.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "photoCredit": "World Economic Forum, CC BY 3.0, via Wikimedia Commons"
    },
+   "team": [
+    {
+     "role": "Chair",
+     "name": "Mark Tucker"
+    }
+   ],
    "sector": "Banking",
    "headline": {
     "label": "Total assets",
-    "value": "$1.6tn",
+    "value": "$3.2tn",
     "period": "FY 2025"
    },
    "metrics": [
     {
      "label": "Pre-tax profit",
      "sub": "Latest fiscal year",
-     "value": "$18.0bn",
-     "change": 29.1,
+     "value": "$29.9bn",
+     "change": -7.4,
      "unit": "%"
     },
     {
      "label": "Tangible equity / assets",
      "sub": "Capital cushion",
-     "value": "4.8%",
+     "value": "6.1%",
      "note": "Shareholders' tangible capital as a share of total assets. Higher means a thicker cushion."
     },
     {
      "label": "Return on equity",
      "sub": "Profitability",
-     "value": "15.3%",
-     "change": 2.5,
+     "value": "12.1%",
+     "change": -1.4,
      "unit": "pt"
     },
     {
+     "label": "Cost / income",
+     "value": "75.7%"
+    },
+    {
+     "label": "Loans / deposits",
+     "value": "55.3%"
+    },
+    {
      "label": "Price / tangible book",
-     "value": "3.56"
+     "value": "1.55"
     }
    ],
    "rank": 5,
@@ -449,25 +441,25 @@
      "key": "valuation",
      "label": "Valuation",
      "weight": 25,
-     "score": 12
+     "score": 60
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 87
+     "score": 67
     },
     {
      "key": "capital",
      "label": "Capital",
      "weight": 20,
-     "score": 2
+     "score": 37
     },
     {
      "key": "profit",
      "label": "Profitability",
      "weight": 15,
-     "score": 62
+     "score": 45
     }
    ]
   }
@@ -480,7 +472,7 @@
    "country": "US",
    "city": "Houston",
    "score": 89,
-   "why": "Attractively priced cash flows and high returns on capital.",
+   "why": "A strong share-price trend and attractively priced cash flows (shares +103% in 12 months).",
    "risks": [
     "After a 103% rise in 12 months, the share price could swing sharply.",
     "Profits move with oil and gas prices, which can fall quickly."
@@ -538,25 +530,25 @@
      "key": "valuation",
      "label": "Valuation",
      "weight": 30,
-     "score": 95
+     "score": 94
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 30,
-     "score": 93
+     "score": 94
     },
     {
      "key": "quality",
      "label": "Quality",
      "weight": 20,
-     "score": 93
+     "score": 94
     },
     {
      "key": "health",
      "label": "Health",
      "weight": 20,
-     "score": 71
+     "score": 69
     }
    ]
   },
@@ -566,7 +558,7 @@
    "exchange": "Nasdaq",
    "country": "US",
    "city": "Boise",
-   "score": 83,
+   "score": 82,
    "why": "Attractively priced cash flows and a strong share-price trend (shares +218% in 12 months).",
    "risks": [
     "After a 218% rise in 12 months, the share price could swing sharply.",
@@ -634,7 +626,7 @@
      "key": "valuation",
      "label": "Valuation",
      "weight": 30,
-     "score": 95
+     "score": 94
     },
     {
      "key": "momentum",
@@ -646,7 +638,7 @@
      "key": "quality",
      "label": "Quality",
      "weight": 20,
-     "score": 68
+     "score": 67
     },
     {
      "key": "health",
@@ -727,25 +719,120 @@
      "key": "valuation",
      "label": "Valuation",
      "weight": 30,
-     "score": 68
+     "score": 67
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 30,
-     "score": 78
+     "score": 80
     },
     {
      "key": "quality",
      "label": "Quality",
      "weight": 20,
-     "score": 89
+     "score": 90
     },
     {
      "key": "health",
      "label": "Health",
      "weight": 20,
-     "score": 78
+     "score": 77
+    }
+   ]
+  },
+  {
+   "name": "Ambev S.a.",
+   "ticker": "ABEV",
+   "exchange": "NYSE",
+   "country": "",
+   "city": "",
+   "score": 76,
+   "why": "Attractively priced cash flows and high returns on capital.",
+   "risks": [
+    "Revenue fell 1% last year.",
+    "Results are reported in BRL: exchange-rate moves change returns in US dollars.",
+    "Higher input costs and private-label competition can squeeze margins."
+   ],
+   "sector": "Consumer staples",
+   "headline": {
+    "label": "Market value",
+    "value": "$42.5bn",
+    "period": "Nov 13"
+   },
+   "metrics": [
+    {
+     "label": "Revenue",
+     "sub": "Latest fiscal year",
+     "value": "$15.6bn",
+     "change": -1.4,
+     "unit": "%"
+    },
+    {
+     "label": "Operating profit",
+     "sub": "Core business",
+     "value": "$4.1bn",
+     "change": 7.0,
+     "unit": "%"
+    },
+    {
+     "label": "Free cash flow",
+     "sub": "Cash after investment",
+     "value": "$3.5bn",
+     "change": -7.0,
+     "unit": "%"
+    },
+    {
+     "label": "Net debt / EBITDA",
+     "sub": "Debt burden",
+     "value": "-0.7x",
+     "change": 0.5,
+     "unit": "pt",
+     "good": "down"
+    },
+    {
+     "label": "ROIC",
+     "value": "25.4%"
+    },
+    {
+     "label": "FCF yield",
+     "value": "8.2%"
+    },
+    {
+     "label": "EV / EBIT",
+     "value": "9.7x"
+    },
+    {
+     "label": "Piotroski F-score",
+     "value": "7 / 9",
+     "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
+    }
+   ],
+   "rank": 4,
+   "pillars": [
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "weight": 30,
+     "score": 91
+    },
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 30,
+     "score": 57
+    },
+    {
+     "key": "quality",
+     "label": "Quality",
+     "weight": 20,
+     "score": 80
+    },
+    {
+     "key": "health",
+     "label": "Health",
+     "weight": 20,
+     "score": 79
     }
    ]
   },
@@ -823,134 +910,31 @@
      "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
     }
    ],
-   "rank": 4,
-   "pillars": [
-    {
-     "key": "valuation",
-     "label": "Valuation",
-     "weight": 30,
-     "score": 83
-    },
-    {
-     "key": "momentum",
-     "label": "Momentum",
-     "weight": 30,
-     "score": 66
-    },
-    {
-     "key": "quality",
-     "label": "Quality",
-     "weight": 20,
-     "score": 71
-    },
-    {
-     "key": "health",
-     "label": "Health",
-     "weight": 20,
-     "score": 65
-    }
-   ]
-  },
-  {
-   "name": "Novartis",
-   "ticker": "NVS",
-   "exchange": "NYSE",
-   "country": "CH",
-   "city": "Basel",
-   "score": 72,
-   "why": "Attractively priced cash flows and high returns on capital.",
-   "risks": [
-    "Patent expiries and drug-pricing rules can cut future revenue."
-   ],
-   "employees": 119418,
-   "website": "http://www.novartis.com/",
-   "ceo": {
-    "name": "Vasant Narasimhan",
-    "title": "Chief Executive Officer",
-    "since": "2017",
-    "bio": "Indian American doctor and CEO.",
-    "photo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Global_Investment_Game_Changers_Summit_I_2018_%2844788377434%29.jpg/250px-Global_Investment_Game_Changers_Summit_I_2018_%2844788377434%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-    "photoCredit": "UNCTAD, CC BY-SA 2.0, via Wikimedia Commons"
-   },
-   "sector": "Health care",
-   "headline": {
-    "label": "Market value",
-    "value": "$303bn",
-    "period": "Nov 13"
-   },
-   "metrics": [
-    {
-     "label": "Revenue",
-     "sub": "Latest fiscal year",
-     "value": "$54.5bn",
-     "change": 8.4,
-     "unit": "%"
-    },
-    {
-     "label": "Operating profit",
-     "sub": "Core business",
-     "value": "$17.6bn",
-     "change": 21.3,
-     "unit": "%"
-    },
-    {
-     "label": "Free cash flow",
-     "sub": "Cash after investment",
-     "value": "$17.6bn",
-     "change": 8.3,
-     "unit": "%"
-    },
-    {
-     "label": "Net debt / EBITDA",
-     "sub": "Debt burden",
-     "value": "-0.6x",
-     "change": 0.1,
-     "unit": "pt",
-     "good": "down"
-    },
-    {
-     "label": "ROIC",
-     "value": "39.4%"
-    },
-    {
-     "label": "FCF yield",
-     "value": "5.8%"
-    },
-    {
-     "label": "EV / EBIT",
-     "value": "16.6x"
-    },
-    {
-     "label": "Piotroski F-score",
-     "value": "8 / 9",
-     "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
-    }
-   ],
    "rank": 5,
    "pillars": [
     {
      "key": "valuation",
      "label": "Valuation",
      "weight": 30,
-     "score": 85
+     "score": 79
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 30,
-     "score": 54
+     "score": 67
     },
     {
      "key": "quality",
      "label": "Quality",
      "weight": 20,
-     "score": 82
+     "score": 76
     },
     {
      "key": "health",
      "label": "Health",
      "weight": 20,
-     "score": 68
+     "score": 67
     }
    ]
   }
