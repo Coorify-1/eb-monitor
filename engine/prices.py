@@ -40,20 +40,34 @@ def update(cache_dir, massive, last_day: dt.date, always=("SPY",), log=print):
     start = dt.date.fromisoformat(have) + dt.timedelta(days=1) if have else first
     start = max(start, first)
 
-    # 1) splits since the last update: adjust stored history
-    if have:
-        splits = massive.splits_since(have)
+    # 1) splits that took effect since the last update (never future ones): adjust stored history
+    done = set(meta.get("splits_done", []))
+    if have and not meta.get("split_fix_v1"):
+        # one-time repair: undo the future splits applied by mistake on 2026-11-15
         n = 0
-        for s in splits:
-            t, ex = s.get("ticker"), s.get("execution_date")
-            f, to = s.get("split_from"), s.get("split_to")
-            if not (t and ex and f and to) or ex <= have:
+        for s in massive.splits_since(have):
+            t, ex, f, to = s.get("ticker"), s.get("execution_date"), s.get("split_from"), s.get("split_to")
+            if t and ex and f and to and ex > have:
+                mask = (df["ticker"] == t) & (df["date"] < ex)
+                df.loc[mask, "close"] = df.loc[mask, "close"] * (float(to) / float(f))
+                df.loc[mask, "volume"] = df.loc[mask, "volume"] * (float(f) / float(to))
+                n += 1
+        meta["split_fix_v1"] = True
+        log(f"  repaired {n} split adjustments")
+    if have:
+        n = 0
+        for s in massive.splits_since(have):
+            t, ex, f, to = s.get("ticker"), s.get("execution_date"), s.get("split_from"), s.get("split_to")
+            sid = f"{t}|{ex}|{f}|{to}"
+            if not (t and ex and f and to) or not (have < ex <= last_day.isoformat()) or sid in done:
                 continue
             mask = (df["ticker"] == t) & (df["date"] < ex)
             if mask.any():
                 df.loc[mask, "close"] = df.loc[mask, "close"] * (float(f) / float(to))
                 df.loc[mask, "volume"] = df.loc[mask, "volume"] * (float(to) / float(f))
                 n += 1
+            done.add(sid)
+        meta["splits_done"] = sorted(done)[-2000:]
         log(f"  splits applied: {n}")
 
     # 2) new trading days

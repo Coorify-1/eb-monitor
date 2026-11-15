@@ -364,7 +364,7 @@ def main():
     log("3/7 Company filings (SEC)")
     det_path = os.path.join(a.cache, "details.json")
     details = json.load(open(det_path)) if os.path.exists(det_path) else {}
-    det_budget = 150 if not details else 40
+    det_budget = 150  # market values of foreign listings, refreshed every 90 days
     recs, diags = [], []
     for i, c in enumerate(cand.itertuples()):
         if (i + 1) % 100 == 0:

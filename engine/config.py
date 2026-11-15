@@ -1,7 +1,7 @@
 """EB Method settings: weights, filters, data tags. Change the method here."""
 
 MIN_MARKET_CAP_USD = 10e9      # only large companies
-CANDIDATES = 700               # most traded US listings checked each week
+CANDIDATES = 1500              # most traded US listings checked each week (foreign ADRs trade less)
 PICKS = 5
 KEEP_IF_IN_TOP = 10            # a pick keeps its place while it stays in the top 10
 MAX_PER_COUNTRY = 2
