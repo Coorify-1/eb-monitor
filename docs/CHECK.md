@@ -1,6 +1,6 @@
 # Contrôle automatique — semaine 46 (données au 2026-11-13)
 
-Généré le 2026-11-15 21:58 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
+Généré le 2026-11-15 22:12 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
 
 **EB Market Regime :** Risk-on 65/100 — Credit spreads calm, volatility low
 
@@ -48,7 +48,7 @@ Généré le 2026-11-15 21:58 UTC. Aucune action manuelle n'est nécessaire : to
 
 - Market value : $16.3bn · exercice clos le 2025-12-31 · [dépôts SEC](https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1841666&type=10-K&dateb=&owner=include&count=10)
 - Chiffres clés : Operating profit $3.1bn (+26.3%) · Free cash flow $4.5bn (+25.6%) · Net debt / EBITDA 0.7x (-0.4 pt) · ROIC 24.2%
-- ✅ CEO John J. confirmé par : 10-K annual report (2026-02-26).
+- ✅ CEO John Christmann confirmé par : 10-K annual report (2026-02-26).
 
 ### 2. Micron Technology (MU) — score 82/100
 
