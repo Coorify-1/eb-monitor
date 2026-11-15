@@ -123,7 +123,7 @@ class SEC:
 WD = "https://query.wikidata.org/sparql"
 
 LEAD_QUERY = """
-SELECT ?cik ?item ?itemLabel ?ceoLabel ?ceoDesc ?ceoStart ?ceoEnd ?ceoImg ?chairLabel ?chairEnd ?emp ?empDate ?web ?hqLabel ?cc WHERE {
+SELECT ?cik ?item ?itemLabel ?logo ?ceoLabel ?ceoDesc ?ceoStart ?ceoEnd ?ceoImg ?chairLabel ?chairEnd ?emp ?empDate ?web ?hqLabel ?cc WHERE {
   VALUES ?cik { %s }
   ?item wdt:P5531 ?cik .
   OPTIONAL {
@@ -136,6 +136,7 @@ SELECT ?cik ?item ?itemLabel ?ceoLabel ?ceoDesc ?ceoStart ?ceoEnd ?ceoImg ?chair
   OPTIONAL { ?item p:P488 ?cs . ?cs ps:P488 ?chair . OPTIONAL { ?cs pq:P582 ?chairEnd } }
   OPTIONAL { ?item p:P1128 ?es . ?es ps:P1128 ?emp . OPTIONAL { ?es pq:P585 ?empDate } }
   OPTIONAL { ?item wdt:P856 ?web }
+  OPTIONAL { ?item wdt:P154 ?logo }
   OPTIONAL { ?item wdt:P159 ?hq }
   OPTIONAL { ?item wdt:P17 ?c . ?c wdt:P297 ?cc }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
@@ -156,17 +157,27 @@ def _pick_web(urls):
     return urls[0] if urls else None
 
 
-def wikidata_leadership(ciks):
-    """Leadership facts by CIK from Wikidata (CC0). The current CEO is the one with the latest start and no end."""
+BY_TICKER = (
+    "VALUES ?cik { %s }\n  VALUES ?ex { wd:Q13677 wd:Q82059 }\n"
+    "  ?item p:P414 ?lst . ?lst ps:P414 ?ex ; pq:P249 ?cik ."
+)
+
+
+def wikidata_leadership(ciks, by_ticker=False):
+    """Leadership facts by CIK (or by NYSE/Nasdaq ticker) from Wikidata (CC0).
+    The current CEO is the one with the latest start and no end."""
     raw = {}
-    ciks = [int(c) for c in ciks]
-    for i in range(0, len(ciks), 40):
-        part = ciks[i : i + 40]
-        vals = " ".join(f'"{c}" "{c:010d}"' for c in part)
+    keys = [str(c) for c in ciks] if by_ticker else [int(c) for c in ciks]
+    query = LEAD_QUERY
+    if by_ticker:
+        query = LEAD_QUERY.replace("VALUES ?cik { %s }\n  ?item wdt:P5531 ?cik .", BY_TICKER)
+    for i in range(0, len(keys), 40):
+        part = keys[i : i + 40]
+        vals = " ".join(f'"{c}"' for c in part) if by_ticker else " ".join(f'"{c}" "{c:010d}"' for c in part)
         try:
             r = get(
                 WD,
-                params={"query": LEAD_QUERY % vals, "format": "json"},
+                params={"query": query % vals, "format": "json"},
                 headers={"Accept": "application/sparql-results+json"},
                 timeout=120,
             )
@@ -175,7 +186,7 @@ def wikidata_leadership(ciks):
             continue
         for b in r.json()["results"]["bindings"]:
             v = {k: x["value"] for k, x in b.items()}
-            raw.setdefault(int(v["cik"]), []).append(v)
+            raw.setdefault(v["cik"] if by_ticker else int(v["cik"]), []).append(v)
         time.sleep(1)
     out = {}
     for cik, rows in raw.items():
@@ -184,6 +195,9 @@ def wikidata_leadership(ciks):
         d["itemLabel"] = sorted(labels, key=len)[0] if labels else None
         items = {r["item"].rsplit("/", 1)[-1] for r in rows if r.get("item")}
         d["qid"] = sorted(items)[0] if len(items) == 1 else None
+        logos = {r["logo"] for r in rows if r.get("logo")}
+        if len(logos) == 1:
+            d["logoFile"] = logos.pop()
         # CEO: open statements, latest start wins; an ended or older mandate never wins over a newer one
         ceos = {}
         for r in rows:
@@ -224,10 +238,12 @@ def wikidata_leadership(ciks):
 FREE_LICENSE = re.compile(r"^(CC0|CC BY(-SA)? [0-9.]+|Public domain|PD\b)", re.I)
 
 
-def commons_photo(file_url, width=160):
+PUBLIC_DOMAIN = re.compile(r"^(CC0|Public domain|PD\b)", re.I)
+
+
+def commons_file(file_url, width=160, public_domain_only=False):
     """Thumbnail + credit for a Wikimedia Commons file, only if freely licensed."""
-    name = file_url.rsplit("/", 1)[-1]
-    name = requests.utils.unquote(name)
+    name = requests.utils.unquote(file_url.rsplit("/", 1)[-1])
     try:
         r = get(
             "https://commons.wikimedia.org/w/api.php",
@@ -243,13 +259,69 @@ def commons_photo(file_url, width=160):
     for p in pages.values():
         info = (p.get("imageinfo") or [{}])[0]
         meta = info.get("extmetadata") or {}
-        lic = (meta.get("LicenseShortName") or {}).get("value", "")
-        if not FREE_LICENSE.search(lic.strip()):
+        lic = (meta.get("LicenseShortName") or {}).get("value", "").strip()
+        ok = PUBLIC_DOMAIN if public_domain_only else FREE_LICENSE
+        if not ok.search(lic):
             return None
         artist = re.sub(r"<[^>]+>", "", unescape((meta.get("Artist") or {}).get("value", ""))).strip()
         artist = re.sub(r"\s+", " ", artist)[:60] or "Wikimedia Commons"
-        return {"photo": info.get("thumburl") or info.get("url"), "photoCredit": f"{artist}, {lic.strip()}, via Wikimedia Commons"}
+        return {"url": info.get("thumburl") or info.get("url"), "credit": f"{artist}, {lic}, via Wikimedia Commons"}
     return None
+
+
+def commons_photo(file_url, width=160):
+    x = commons_file(file_url, width)
+    return {"photo": x["url"], "photoCredit": x["credit"]} if x else None
+
+
+def commons_logo(file_url, width=240):
+    """Company logos: public-domain files only (no credit needed, free to reuse)."""
+    x = commons_file(file_url, width, public_domain_only=True)
+    return x["url"] if x else None
+
+
+PERSON_QUERY = """
+SELECT ?p ?img ?desc ?linked WHERE {
+  { ?p rdfs:label "%(name)s"@en } UNION { ?p skos:altLabel "%(name)s"@en }
+  ?p wdt:P31 wd:Q5 .
+  OPTIONAL { ?p wdt:P18 ?img }
+  OPTIONAL { ?p schema:description ?desc FILTER(LANG(?desc) = "en") }
+  BIND(%(link)s AS ?linked)
+}
+"""
+
+
+def person_photo(name, company_qid=None, company_words=()):
+    """Portrait of a confirmed CEO: the Wikidata person must be linked to the company
+    (employer, CEO, chair or board) or described with the company's name."""
+    if not name or '"' in name:
+        return None
+    link = "false"
+    if company_qid:
+        q = f"wd:{company_qid}"
+        link = (f"EXISTS {{ {{ ?p wdt:P108 {q} }} UNION {{ {q} p:P169/ps:P169 ?p }} UNION "
+                f"{{ {q} wdt:P488 ?p }} UNION {{ {q} wdt:P3320 ?p }} UNION {{ ?p p:P39/pq:P642 {q} }} }}")
+    try:
+        r = get(WD, params={"query": PERSON_QUERY % {"name": name, "link": link}, "format": "json"},
+                headers={"Accept": "application/sparql-results+json"}, timeout=90)
+    except Exception:
+        return None
+    people = {}
+    for b in r.json()["results"]["bindings"]:
+        v = {k: x["value"] for k, x in b.items()}
+        p = people.setdefault(v["p"], {"img": None, "desc": "", "linked": False})
+        p["img"] = p["img"] or v.get("img")
+        p["desc"] = p["desc"] or v.get("desc", "")
+        p["linked"] = p["linked"] or v.get("linked") == "true"
+    words = {w.lower() for w in company_words if len(w) >= 4}
+    good = [p for p in people.values()
+            if p["img"] and (p["linked"] or any(w in p["desc"].lower() for w in words))]
+    if len(good) != 1:
+        return None
+    ph = commons_photo(good[0]["img"])
+    if ph and good[0]["desc"]:
+        ph["desc"] = good[0]["desc"]
+    return ph
 
 
 # ---------------- FRED (market regime) + FX ----------------

@@ -135,7 +135,9 @@ class FakeSEC:
 def fake(monkeypatch, tmp_path):
     monkeypatch.setattr(SRC, "Massive", FakeMassive)
     monkeypatch.setattr(SRC, "SEC", FakeSEC)
-    monkeypatch.setattr(SRC, "wikidata_leadership", lambda ciks: {1000: {"itemLabel": "Test Bank Zero", "ceoLabel": "Jane Doe", "ceoStart": "2020-03-01T00:00:00Z", "ceoDesc": "banker", "emp": 1234, "web": "https://example.com", "cc": "US", "hqLabel": "Boston"}})
+    monkeypatch.setattr(SRC, "wikidata_leadership", lambda ciks, by_ticker=False: {} if by_ticker else {1000: {"itemLabel": "Test Bank Zero", "ceoLabel": "Jane Doe", "ceoStart": "2020-03-01T00:00:00Z", "ceoDesc": "banker", "emp": 1234, "web": "https://example.com", "cc": "US", "hqLabel": "Boston"}})
+    monkeypatch.setattr(SRC, "person_photo", lambda *a, **k: None)
+    monkeypatch.setattr(SRC, "commons_logo", lambda *a, **k: None)
     monkeypatch.setattr(SRC, "fred", lambda s: [("2026-01-01", 1.0), ("2026-01-02", 1.1)] * 40)
     monkeypatch.setattr(SRC, "fx_per_usd", lambda: {"USD": 1.0, "EUR": 0.9})
     monkeypatch.setattr(R.time, "sleep", lambda *_: None)

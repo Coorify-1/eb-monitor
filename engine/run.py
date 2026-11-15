@@ -8,6 +8,7 @@ import datetime as dt
 import json
 import math
 import os
+import re
 import sys
 import time
 from zoneinfo import ZoneInfo
@@ -344,6 +345,8 @@ def _common(r, lead):
     }
     if L.get("emp"):
         item["employees"] = L["emp"]
+    if L.get("logo"):
+        item["logo"] = L["logo"]
     if L.get("web"):
         item["website"] = L["web"]
     if ceo:
@@ -548,6 +551,14 @@ def main():
     log("5/7 Leadership (Wikidata, Wikimedia Commons)")
     picks = pb.to_dict("records") + pc.to_dict("records")
     lead = SRC.wikidata_leadership([p["_r"]["cik"] for p in picks])
+    # companies Wikidata does not link to their SEC number: find them by their New York ticker
+    missing = [p["_r"] for p in picks if not same_company((lead.get(p["_r"]["cik"]) or {}).get("itemLabel"), p["_r"]["name"])]
+    if missing:
+        by_t = SRC.wikidata_leadership([r["ticker"] for r in missing], by_ticker=True)
+        for r in missing:
+            d = by_t.get(r["ticker"])
+            if d and same_company(d.get("itemLabel"), r["name"]):
+                lead[r["cik"]] = d
     # every leader shown must be confirmed by an official SEC document
     cutoff = (now.date() - dt.timedelta(days=3 * 365)).isoformat()
     for p in picks:
@@ -575,7 +586,16 @@ def main():
             ph = SRC.commons_photo(L["ceoImg"])
             if ph:
                 L.update(ph)
-        log(f"    {r['ticker']}: CEO {name or '—'} ({src})")
+        if name and not L.get("photo"):
+            words = [w for w in re.findall(r"[A-Za-z]+", r["name"]) if w.lower() not in GENERIC]
+            ph = SRC.person_photo(name, L.get("qid") if same_company(L.get("itemLabel"), r["name"]) else None, words)
+            if ph:
+                L["photo"], L["photoCredit"] = ph["photo"], ph["photoCredit"]
+                if ph.get("desc") and not L.get("ceoDesc"):
+                    L["ceoDesc"] = ph["desc"]
+        if L.get("logoFile") and same_company(L.get("itemLabel"), r["name"]):
+            L["logo"] = SRC.commons_logo(L["logoFile"])
+        log(f"    {r['ticker']}: CEO {name or '—'} ({src}){' + photo' if L.get('photo') else ''}{' + logo' if L.get('logo') else ''}")
 
     log("6/7 Market regime")
     reg = regime(wide)
