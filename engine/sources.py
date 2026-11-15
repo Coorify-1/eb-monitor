@@ -387,6 +387,28 @@ def _last(name):
 FORMER = re.compile(r"\b(former|previous|retired|outgoing|predecessor|until|stepped down|succeeded)\b", re.I)
 
 
+NOT_A_PERSON = {
+    "zone", "america", "americas", "europe", "asia", "africa", "pacific", "middle", "east", "north", "south", "west",
+    "latin", "region", "division", "business", "officer", "committee", "bank", "banking", "group", "company", "board",
+    "global", "international", "corporate", "operations", "markets", "segment", "unit", "president", "executive",
+    "chief", "director", "management", "report", "annual", "financial", "services", "wealth", "retail", "commercial",
+    "investment", "holdings", "limited", "plc", "inc", "corporation", "statement", "letter", "message", "chair", "chairman",
+}
+
+
+def is_person(name):
+    words = (name or "").split()
+    return 2 <= len(words) <= 4 and not any(w.lower().strip(",.") in NOT_A_PERSON for w in words)
+
+
+def ceo_hits(text, name):
+    if not text or not name:
+        return 0
+    last = re.escape(name.split()[-1])
+    pat = re.compile(rf"{last}.{{0,120}}?(Chief Executive|\bCEO\b)|(Chief Executive|\bCEO\b).{{0,120}}?{last}", re.I)
+    return sum(1 for m in pat.finditer(text) if not FORMER.search(text[max(0, m.start() - 60): m.end()]))
+
+
 def named_as_ceo(text, name, min_hits=3):
     """True if the annual report repeatedly names this person as Chief Executive (not as a former one)."""
     if not text or not name:
@@ -423,6 +445,7 @@ def ceo_from_text(text):
         n = _sig_name(m.group(1))
         if n:
             counts[n] = counts.get(n, 0) + 3
+    counts = {n: c for n, c in counts.items() if is_person(n)}
     if not counts:
         return None
     best = max(counts.items(), key=lambda kv: kv[1])
@@ -451,6 +474,8 @@ def verified_ceo(sec, cik, sub, foreign, wd_name, text, doc):
     found = ceo_from_text(text)
     if found:
         same = bool(wd_name and _last(wd_name) == _last(found))
+        if not same and wd_name and ceo_hits(text, wd_name) > ceo_hits(text, found):
+            return wd_name, f"{doc['form']} annual report ({doc['date']})", True
         return (wd_name if same else found), f"{doc['form']} annual report ({doc['date']})", same
     if wd_name and named_as_ceo(text, wd_name):
         return wd_name, f"{doc['form']} annual report ({doc['date']})", True
