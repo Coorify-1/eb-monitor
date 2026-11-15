@@ -1,6 +1,6 @@
 # Contrôle automatique — semaine 46 (données au 2026-11-13)
 
-Généré le 2026-11-15 22:26 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
+Généré le 2026-11-15 22:42 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
 
 **EB Market Regime :** Risk-on 65/100 — Credit spreads calm, volatility low
 
@@ -39,7 +39,7 @@ Généré le 2026-11-15 22:26 UTC. Aucune action manuelle n'est nécessaire : to
 
 - Total assets : $3.2tn · exercice clos le 2025-12-31 · [dépôts SEC](https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1089113&type=&dateb=&owner=include&count=10)
 - Chiffres clés : Pre-tax profit $29.9bn (-7.4%) · Tangible equity / assets 6.1% · Return on equity 12.1% (-1.4 pt) · Cost / income 75.7%
-- ✅ CEO Noel Quinn confirmé par : 20-F annual report (2026-02-26). Photo et date d'entrée confirmées via Wikidata.
+- ✅ CEO Georges Elhedery confirmé par : 20-F annual report (2026-02-26).
 - ℹ️ Pilier(s) sans données publiées : Asset quality ; le score utilise les autres piliers.
 
 ## Company Monitor
@@ -75,7 +75,7 @@ Généré le 2026-11-15 22:26 UTC. Aucune action manuelle n'est nécessaire : to
 
 - Market value : $167bn · exercice clos le 2025-12-31 · [dépôts SEC](https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1668717&type=&dateb=&owner=include&count=10)
 - Chiffres clés : Revenue $59.3bn (-0.7%) · Operating profit $15.4bn (-0.5%) · Free cash flow $11.2bn (+0.3%) · Net debt / EBITDA -0.8x (-0.0 pt)
-- ✅ CEO Michel Doukeris confirmé par : 20-F annual report (2026-03-03). Photo et date d'entrée confirmées via Wikidata.
+- ✅ CEO South America Zone confirmé par : 20-F annual report (2026-03-03).
 
 ---
 
