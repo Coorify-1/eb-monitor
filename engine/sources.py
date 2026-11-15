@@ -260,8 +260,8 @@ def commons_file(file_url, width=160, public_domain_only=False):
         info = (p.get("imageinfo") or [{}])[0]
         meta = info.get("extmetadata") or {}
         lic = (meta.get("LicenseShortName") or {}).get("value", "").strip()
-        ok = PUBLIC_DOMAIN if public_domain_only else FREE_LICENSE
-        if not ok.search(lic):
+        # Wikimedia Commons only hosts freely licensed files; logos must also be public domain
+        if not lic or (public_domain_only and not PUBLIC_DOMAIN.search(lic)):
             return None
         artist = re.sub(r"<[^>]+>", "", unescape((meta.get("Artist") or {}).get("value", ""))).strip()
         artist = re.sub(r"\s+", " ", artist)[:60] or "Wikimedia Commons"
@@ -314,8 +314,18 @@ def person_photo(name, company_qid=None, company_words=()):
         p["desc"] = p["desc"] or v.get("desc", "")
         p["linked"] = p["linked"] or v.get("linked") == "true"
     words = {w.lower() for w in company_words if len(w) >= 4}
-    good = [p for p in people.values()
-            if p["img"] and (p["linked"] or any(w in p["desc"].lower() for w in words))]
+    business = re.compile(r"business|executive|banker|\bceo\b|chief|entrepreneur|manager|industrialist", re.I)
+
+    def evidence(p):
+        fname = requests.utils.unquote(p["img"].rsplit("/", 1)[-1]).lower()
+        return p["linked"] or any(w in p["desc"].lower() or w in fname for w in words)
+
+    good = [p for p in people.values() if p["img"] and evidence(p)]
+    if not good and len(people) == 1:
+        # a single person in Wikidata with exactly this name, described as a business leader
+        p = next(iter(people.values()))
+        if p["img"] and business.search(p["desc"]):
+            good = [p]
     if len(good) != 1:
         return None
     ph = commons_photo(good[0]["img"])
