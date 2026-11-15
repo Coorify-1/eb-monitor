@@ -562,3 +562,64 @@ def verified_ceo(sec, cik, sub, foreign, wd_name, text, doc):
     if wd_name and named_as_ceo(text, wd_name):
         return wd_name, f"{doc['form']} annual report ({doc['date']})", True
     return None, "not confirmed by an official filing", False
+
+
+# ---------------- Official site icon (company's own logo mark) ----------------
+
+BROWSER_UA = "Mozilla/5.0 (compatible; EconomicBearingsBot/1.0; +https://github.com/Coorify-1/eb-monitor)"
+LINK_TAG = re.compile(r"<link\b[^>]*>", re.I)
+
+
+def _attr(tag, name):
+    m = re.search(rf'\b{name}\s*=\s*["\']([^"\']+)["\']', tag, re.I)
+    return m.group(1) if m else ""
+
+
+def site_icon(website):
+    """The icon a company publishes on its own website (apple-touch-icon or largest icon).
+    Returns (bytes, extension) or None."""
+    from urllib.parse import urljoin, urlparse
+
+    if not website:
+        return None
+    base = website if website.startswith("http") else "https://" + website
+    h = {"User-Agent": BROWSER_UA, "Accept": "text/html,*/*"}
+    try:
+        page = _s.get(base, headers=h, timeout=30, allow_redirects=True)
+        html, base = page.text[:400000], page.url
+    except Exception:
+        html = ""
+    cands = []
+    for tag in LINK_TAG.findall(html):
+        rel = _attr(tag, "rel").lower()
+        href = _attr(tag, "href")
+        if "icon" not in rel or not href or href.startswith("data:"):
+            continue
+        sizes = _attr(tag, "sizes")
+        px = max((int(x) for x in re.findall(r"(\d+)x\d+", sizes)), default=0)
+        typ = (_attr(tag, "type") or href.rsplit(".", 1)[-1]).lower()
+        score = px + (500 if "apple-touch" in rel else 0) + (300 if "svg" in typ else 0) - (400 if href.lower().endswith(".ico") else 0)
+        cands.append((score, urljoin(base, href)))
+    root = f"{urlparse(base).scheme}://{urlparse(base).netloc}"
+    cands.append((150, root + "/apple-touch-icon.png"))
+    cands.append((-500, root + "/favicon.ico"))
+    for _, url in sorted(cands, reverse=True):
+        try:
+            r = _s.get(url, headers={"User-Agent": BROWSER_UA}, timeout=30)
+        except Exception:
+            continue
+        ct = r.headers.get("Content-Type", "").lower()
+        if r.status_code != 200 or len(r.content) < 300 or not ("image" in ct or url.lower().endswith((".png", ".svg", ".ico"))):
+            continue
+        if "svg" in ct or url.lower().endswith(".svg"):
+            return r.content, "svg"
+        if "png" in ct or r.content[:8] == b"\x89PNG\r\n\x1a\n":
+            w = int.from_bytes(r.content[16:20], "big") if r.content[:4] == b"\x89PNG" else 0
+            if w and w < 48:
+                continue  # too small to look good
+            return r.content, "png"
+        if "icon" in ct or url.lower().endswith(".ico"):
+            return r.content, "ico"
+        if "jpeg" in ct or "jpg" in ct:
+            return r.content, "jpg"
+    return None

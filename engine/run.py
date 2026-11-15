@@ -356,6 +356,32 @@ def _common(r, lead):
     return item
 
 
+# ---------------------------------------------------------------- official logos
+
+def official_logo(ticker, website, out_path):
+    folder = os.path.join(os.path.dirname(out_path) or ".", "logos")
+    os.makedirs(folder, exist_ok=True)
+    safe = re.sub(r"[^A-Za-z0-9.-]", "_", ticker)
+    for ext in ("svg", "png", "jpg", "ico"):
+        p = os.path.join(folder, f"{safe}.{ext}")
+        if os.path.exists(p) and time.time() - os.path.getmtime(p) < 90 * 86400:
+            return f"https://cdn.jsdelivr.net/gh/{REPO}@main/docs/logos/{safe}.{ext}"
+    try:
+        got = SRC.site_icon(website)
+    except Exception as e:
+        log("    icon failed", ticker, e)
+        got = None
+    if not got:
+        return None
+    data, ext = got
+    for old in os.listdir(folder):
+        if old.startswith(safe + "."):
+            os.remove(os.path.join(folder, old))
+    open(os.path.join(folder, f"{safe}.{ext}"), "wb").write(data)
+    # jsDelivr serves files from the repository with the right image type (raw GitHub does not for SVG)
+    return f"https://cdn.jsdelivr.net/gh/{REPO}@main/docs/logos/{safe}.{ext}"
+
+
 # ---------------------------------------------------------------- editorial check page
 
 REPO = os.environ.get("GITHUB_REPOSITORY", "Coorify-1/eb-monitor")
@@ -511,7 +537,7 @@ def main():
         diag["missing"] = [k for k in ("revenue", "operating_income", "cfo", "equity", "net_income", "loans", "deposits", "cet1_ratio") if k not in t]
         rec_sub = {"filings": {"recent": {k: v[:400] for k, v in ((sub.get("filings") or {}).get("recent") or {}).items()
                                           if k in ("form", "accessionNumber", "primaryDocument", "filingDate")}}}
-        recs.append({"sub": rec_sub, "bank": bool(is_bank),
+        recs.append({"sub": rec_sub, "website": sub.get("website") or "", "bank": bool(is_bank),
             "ticker": c.ticker, "cik": int(c.cik), "name": c.name, "exchange": c.exchange, "sic": sic,
             "sector": "Banks" if is_bank else C.sector_of(sic), "country": country or "", "city": city, "foreign": foreign,
             "close": c.close, "mcap_usd": mcap, "f": f,
@@ -595,6 +621,10 @@ def main():
                     L["ceoDesc"] = ph["desc"]
         if L.get("logoFile") and same_company(L.get("itemLabel"), r["name"]):
             L["logo"] = SRC.commons_logo(L["logoFile"])
+        if not L.get("logo"):
+            # the icon the company publishes on its own website, kept in docs/logos
+            site = L.get("web") or r.get("website")
+            L["logo"] = official_logo(r["ticker"], site, a.out)
         log(f"    {r['ticker']}: CEO {name or '—'} ({src}){' + photo' if L.get('photo') else ''}{' + logo' if L.get('logo') else ''}")
 
     log("6/7 Market regime")
