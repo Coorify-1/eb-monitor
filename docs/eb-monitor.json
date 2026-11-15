@@ -1,0 +1,681 @@
+{
+ "week": "46",
+ "asOf": "2026-11-13",
+ "generated": "2026-11-15T19:29:35+00:00",
+ "nextUpdate": "2026-11-16T12:00:00+00:00",
+ "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
+ "regime": {
+  "label": "Risk-on",
+  "score": 65,
+  "note": "Credit spreads calm, volatility low"
+ },
+ "banking": [
+  {
+   "name": "KeyBank",
+   "ticker": "KEY",
+   "exchange": "NYSE",
+   "country": "US",
+   "city": "Cleveland",
+   "score": 64,
+   "why": "A strong capital buffer and priced below peer banks.",
+   "risks": [
+    "Scores compare companies with each other: a falling market can still pull this share down."
+   ],
+   "website": "https://www.key.com/",
+   "ceo": {
+    "name": "Beth E. Mooney",
+    "title": "Chief Executive Officer",
+    "bio": "American banking executive."
+   },
+   "sector": "Banking",
+   "headline": {
+    "label": "Total assets",
+    "value": "$184bn",
+    "period": "FY 2025"
+   },
+   "metrics": [
+    {
+     "label": "Pre-tax profit",
+     "sub": "Latest fiscal year",
+     "value": "$2.3bn",
+     "change": 852.9,
+     "unit": "%"
+    },
+    {
+     "label": "Tangible equity / assets",
+     "sub": "Capital cushion",
+     "value": "9.6%",
+     "note": "Shareholders' tangible capital as a share of total assets. Higher means a thicker cushion."
+    },
+    {
+     "label": "Return on equity",
+     "sub": "Profitability",
+     "value": "9.5%",
+     "change": 10.4,
+     "unit": "pt"
+    },
+    {
+     "label": "Cost of risk",
+     "sub": "Provisions / loans",
+     "value": "0.45%",
+     "good": "down",
+     "note": "New provisions for bad loans as a share of all loans. Lower is better."
+    },
+    {
+     "label": "Cost / income",
+     "value": "62.9%"
+    },
+    {
+     "label": "Loans / deposits",
+     "value": "70.7%"
+    },
+    {
+     "label": "Price / tangible book",
+     "value": "1.29"
+    }
+   ],
+   "rank": 1,
+   "pillars": [
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "weight": 25,
+     "score": 76
+    },
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 25,
+     "score": 41
+    },
+    {
+     "key": "capital",
+     "label": "Capital",
+     "weight": 20,
+     "score": 92
+    },
+    {
+     "key": "quality",
+     "label": "Asset quality",
+     "weight": 15,
+     "score": 69
+    },
+    {
+     "key": "profit",
+     "label": "Profitability",
+     "weight": 15,
+     "score": 38
+    }
+   ]
+  },
+  {
+   "name": "First Citizens Bancshares Inc",
+   "ticker": "FCNCA",
+   "exchange": "Nasdaq",
+   "country": "US",
+   "city": "Raleigh",
+   "score": 63,
+   "why": "Priced below peer banks and a strong capital buffer.",
+   "risks": [
+    "Scores compare companies with each other: a falling market can still pull this share down."
+   ],
+   "sector": "Banking",
+   "headline": {
+    "label": "Total assets",
+    "value": "$230bn",
+    "period": "FY 2025"
+   },
+   "metrics": [
+    {
+     "label": "Pre-tax profit",
+     "sub": "Latest fiscal year",
+     "value": "$3.0bn",
+     "change": -17.3,
+     "unit": "%"
+    },
+    {
+     "label": "CET1 ratio",
+     "sub": "Core capital strength",
+     "value": "11.2%",
+     "change": -1.8,
+     "unit": "pt"
+    },
+    {
+     "label": "Return on equity",
+     "sub": "Profitability",
+     "value": "9.9%",
+     "change": -2.6,
+     "unit": "pt"
+    },
+    {
+     "label": "Bad loans (NPL)",
+     "sub": "Share of loans",
+     "value": "0.89%",
+     "change": 0.0,
+     "unit": "pt",
+     "good": "down"
+    },
+    {
+     "label": "Cost / income",
+     "value": "63.5%"
+    },
+    {
+     "label": "Loans / deposits",
+     "value": "90.6%"
+    },
+    {
+     "label": "Price / tangible book",
+     "value": "1.18"
+    }
+   ],
+   "rank": 2,
+   "pillars": [
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "weight": 25,
+     "score": 89
+    },
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 25,
+     "score": 64
+    },
+    {
+     "key": "capital",
+     "label": "Capital",
+     "weight": 20,
+     "score": 64
+    },
+    {
+     "key": "quality",
+     "label": "Asset quality",
+     "weight": 15,
+     "score": 41
+    },
+    {
+     "key": "profit",
+     "label": "Profitability",
+     "weight": 15,
+     "score": 35
+    }
+   ]
+  }
+ ],
+ "company": [
+  {
+   "name": "Apa Corp",
+   "ticker": "APA",
+   "exchange": "Nasdaq",
+   "country": "US",
+   "city": "Houston",
+   "score": 89,
+   "why": "Attractively priced cash flows and a strong share-price trend (shares +103% in 12 months).",
+   "risks": [
+    "Scores compare companies with each other: a falling market can still pull this share down."
+   ],
+   "sector": "Energy",
+   "headline": {
+    "label": "Market value",
+    "value": "$16.3bn",
+    "period": "Nov 13"
+   },
+   "metrics": [
+    {
+     "label": "Operating profit",
+     "sub": "Core business",
+     "value": "$3.1bn",
+     "change": 26.3,
+     "unit": "%"
+    },
+    {
+     "label": "Free cash flow",
+     "sub": "Cash after investment",
+     "value": "$4.5bn",
+     "change": 25.6,
+     "unit": "%"
+    },
+    {
+     "label": "Net debt / EBITDA",
+     "sub": "Debt burden",
+     "value": "0.7x",
+     "change": -0.4,
+     "unit": "pt",
+     "good": "down"
+    },
+    {
+     "label": "ROIC",
+     "value": "24.2%"
+    },
+    {
+     "label": "FCF yield",
+     "value": "27.9%"
+    },
+    {
+     "label": "EV / EBIT",
+     "value": "6.6x"
+    },
+    {
+     "label": "Piotroski F-score",
+     "value": "8 / 9",
+     "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
+    }
+   ],
+   "rank": 1,
+   "pillars": [
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "weight": 30,
+     "score": 95
+    },
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 30,
+     "score": 93
+    },
+    {
+     "key": "quality",
+     "label": "Quality",
+     "weight": 20,
+     "score": 93
+    },
+    {
+     "key": "health",
+     "label": "Health",
+     "weight": 20,
+     "score": 71
+    }
+   ]
+  },
+  {
+   "name": "Micron Technology",
+   "ticker": "MU",
+   "exchange": "Nasdaq",
+   "country": "US",
+   "city": "Boise",
+   "score": 83,
+   "why": "Attractively priced cash flows and a strong share-price trend (shares +218% in 12 months).",
+   "risks": [
+    "Scores compare companies with each other: a falling market can still pull this share down."
+   ],
+   "employees": 48000,
+   "website": "https://tw.micron.com",
+   "sector": "Technology",
+   "headline": {
+    "label": "Market value",
+    "value": "$881bn",
+    "period": "Nov 13"
+   },
+   "metrics": [
+    {
+     "label": "Revenue",
+     "sub": "Latest fiscal year",
+     "value": "$133bn",
+     "change": 256.3,
+     "unit": "%"
+    },
+    {
+     "label": "Operating profit",
+     "sub": "Core business",
+     "value": "$99.3bn",
+     "change": 916.8,
+     "unit": "%"
+    },
+    {
+     "label": "Free cash flow",
+     "sub": "Cash after investment",
+     "value": "$59.0bn",
+     "change": 3435.0,
+     "unit": "%"
+    },
+    {
+     "label": "Net debt / EBITDA",
+     "sub": "Debt burden",
+     "value": "-0.3x",
+     "change": -0.5,
+     "unit": "pt",
+     "good": "down"
+    },
+    {
+     "label": "ROIC",
+     "value": "76.0%"
+    },
+    {
+     "label": "FCF yield",
+     "value": "6.7%"
+    },
+    {
+     "label": "EV / EBIT",
+     "value": "8.5x"
+    },
+    {
+     "label": "Piotroski F-score",
+     "value": "9 / 9",
+     "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
+    }
+   ],
+   "rank": 2,
+   "pillars": [
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "weight": 30,
+     "score": 95
+    },
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 30,
+     "score": 83
+    },
+    {
+     "key": "quality",
+     "label": "Quality",
+     "weight": 20,
+     "score": 68
+    },
+    {
+     "key": "health",
+     "label": "Health",
+     "weight": 20,
+     "score": 79
+    }
+   ]
+  },
+  {
+   "name": "Novartis",
+   "ticker": "NVS",
+   "exchange": "NYSE",
+   "country": "CH",
+   "city": "Basel",
+   "score": 78,
+   "why": "High returns on capital and a solid balance sheet.",
+   "risks": [
+    "Scores compare companies with each other: a falling market can still pull this share down."
+   ],
+   "employees": 119418,
+   "website": "http://www.novartis.com/",
+   "ceo": {
+    "name": "Vasant Narasimhan",
+    "title": "Chief Executive Officer",
+    "since": "2017",
+    "bio": "Indian American doctor and CEO.",
+    "photo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Global_Investment_Game_Changers_Summit_I_2018_%2844788377434%29.jpg/250px-Global_Investment_Game_Changers_Summit_I_2018_%2844788377434%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "photoCredit": "UNCTAD, CC BY-SA 2.0, via Wikimedia Commons"
+   },
+   "sector": "Health care",
+   "headline": {
+    "label": "Market value",
+    "value": "$303bn",
+    "period": "Nov 13"
+   },
+   "metrics": [
+    {
+     "label": "Operating profit",
+     "sub": "Core business",
+     "value": "$17.6bn",
+     "change": 21.3,
+     "unit": "%"
+    },
+    {
+     "label": "Free cash flow",
+     "sub": "Cash after investment",
+     "value": "$17.6bn",
+     "change": 8.3,
+     "unit": "%"
+    },
+    {
+     "label": "Net debt / EBITDA",
+     "sub": "Debt burden",
+     "value": "-0.6x",
+     "change": 0.1,
+     "unit": "pt",
+     "good": "down"
+    },
+    {
+     "label": "ROIC",
+     "value": "39.4%"
+    },
+    {
+     "label": "FCF yield",
+     "value": "5.8%"
+    },
+    {
+     "label": "EV / EBIT",
+     "value": "16.6x"
+    },
+    {
+     "label": "Piotroski F-score",
+     "value": "9 / 9",
+     "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
+    }
+   ],
+   "rank": 3,
+   "pillars": [
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "weight": 30,
+     "score": 85
+    },
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 30,
+     "score": 54
+    },
+    {
+     "key": "quality",
+     "label": "Quality",
+     "weight": 20,
+     "score": 93
+    },
+    {
+     "key": "health",
+     "label": "Health",
+     "weight": 20,
+     "score": 89
+    }
+   ]
+  },
+  {
+   "name": "Equinor ASA",
+   "ticker": "EQNR",
+   "exchange": "NYSE",
+   "country": "NO",
+   "city": "Stavanger",
+   "score": 71,
+   "why": "A strong share-price trend and high returns on capital (shares +77% in 12 months).",
+   "risks": [
+    "Scores compare companies with each other: a falling market can still pull this share down."
+   ],
+   "employees": 20000,
+   "website": "https://equinorstorage.de/en",
+   "ceo": {
+    "name": "Anders Opedal",
+    "title": "Chief Executive Officer",
+    "since": "2020",
+    "bio": "President and Chief Executive Officer - Equinor ASA."
+   },
+   "sector": "Energy",
+   "headline": {
+    "label": "Market value",
+    "value": "$102bn",
+    "period": "Nov 13"
+   },
+   "metrics": [
+    {
+     "label": "Revenue",
+     "sub": "Latest fiscal year",
+     "value": "$106bn",
+     "change": 2.6,
+     "unit": "%"
+    },
+    {
+     "label": "Operating profit",
+     "sub": "Core business",
+     "value": "$25.4bn",
+     "change": -18.0,
+     "unit": "%"
+    },
+    {
+     "label": "Free cash flow",
+     "sub": "Cash after investment",
+     "value": "$6.0bn",
+     "change": -18.0,
+     "unit": "%"
+    },
+    {
+     "label": "Net debt / EBITDA",
+     "sub": "Debt burden",
+     "value": "0.6x",
+     "change": 0.2,
+     "unit": "pt",
+     "good": "down"
+    },
+    {
+     "label": "ROIC",
+     "value": "32.6%"
+    },
+    {
+     "label": "FCF yield",
+     "value": "5.9%"
+    },
+    {
+     "label": "EV / EBIT",
+     "value": "4.8x"
+    },
+    {
+     "label": "Piotroski F-score",
+     "value": "6 / 9",
+     "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
+    }
+   ],
+   "rank": 4,
+   "pillars": [
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "weight": 30,
+     "score": 61
+    },
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 30,
+     "score": 85
+    },
+    {
+     "key": "quality",
+     "label": "Quality",
+     "weight": 20,
+     "score": 79
+    },
+    {
+     "key": "health",
+     "label": "Health",
+     "weight": 20,
+     "score": 57
+    }
+   ]
+  },
+  {
+   "name": "FMC Technologies",
+   "ticker": "FTI",
+   "exchange": "NYSE",
+   "country": "JP",
+   "city": "Houston",
+   "score": 69,
+   "why": "A solid balance sheet and a strong share-price trend (shares +54% in 12 months).",
+   "risks": [
+    "Scores compare companies with each other: a falling market can still pull this share down."
+   ],
+   "employees": 37000,
+   "website": "https://www.fmctechnologies.com/",
+   "sector": "Industrials",
+   "headline": {
+    "label": "Market value",
+    "value": "$25.8bn",
+    "period": "Nov 13"
+   },
+   "metrics": [
+    {
+     "label": "Revenue",
+     "sub": "Latest fiscal year",
+     "value": "$9.9bn",
+     "change": 9.4,
+     "unit": "%"
+    },
+    {
+     "label": "Operating profit",
+     "sub": "Core business",
+     "value": "$1.4bn",
+     "change": 24.1,
+     "unit": "%"
+    },
+    {
+     "label": "Free cash flow",
+     "sub": "Cash after investment",
+     "value": "$1.4bn",
+     "change": 113.0,
+     "unit": "%"
+    },
+    {
+     "label": "Net debt / EBITDA",
+     "sub": "Debt burden",
+     "value": "-0.3x",
+     "change": -0.1,
+     "unit": "pt",
+     "good": "down"
+    },
+    {
+     "label": "ROIC",
+     "value": "41.1%"
+    },
+    {
+     "label": "FCF yield",
+     "value": "5.6%"
+    },
+    {
+     "label": "EV / EBIT",
+     "value": "17.5x"
+    },
+    {
+     "label": "Piotroski F-score",
+     "value": "9 / 9",
+     "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
+    }
+   ],
+   "rank": 5,
+   "pillars": [
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "weight": 30,
+     "score": 67
+    },
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 30,
+     "score": 69
+    },
+    {
+     "key": "quality",
+     "label": "Quality",
+     "weight": 20,
+     "score": 68
+    },
+    {
+     "key": "health",
+     "label": "Health",
+     "weight": 20,
+     "score": 74
+    }
+   ]
+  }
+ ]
+}
