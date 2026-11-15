@@ -292,9 +292,19 @@ NAME_BEFORE_CEO = re.compile(
     r"(?:our\s+|the\s+)?(?:Group\s+)?Chief\s+Executive(?:\s+Officer)?\b"
 )
 SIGNATURE_CEO = re.compile(
-    r"/s/\s*([A-Za-z][A-Za-z.'\-]+(?:\s+[A-Za-z][A-Za-z.'\-]+){1,3}?)\s+(?:[A-Z][A-Za-z.'\- ]{3,45}?\s+)?"
+    r"/s/\s*([A-Za-z.'\- ]{3,90}?)\s*,?\s*"
     r"(?:Chair(?:man|woman)?(?: of the Board)?,?\s*(?:and\s+)?)?(?:President,?\s*(?:and\s+)?)?Chief Executive Officer"
 )
+
+
+def _sig_name(seg):
+    """'John J. Christmann IV John J. Christmann IV' -> 'John Christmann'."""
+    words = [w for w in seg.split() if not re.fullmatch(r"[A-Za-z]\.?|Jr\.?|Sr\.?|I+|IV|V|VI", w, re.I)]
+    h = len(words) // 2
+    if h and len(words) % 2 == 0 and [w.lower() for w in words[:h]] == [w.lower() for w in words[h:]]:
+        words = words[:h]
+    words = words[:3]
+    return " ".join(w if any(c.islower() for c in w) else w.title() for w in words) if len(words) >= 2 else None
 
 
 def _recent(sub, forms, n):
@@ -342,13 +352,28 @@ def ceo_from_form4(sec, cik, sub, max_docs=25):
     return None
 
 
-def annual_report_text(sec, cik, sub):
+def annual_report_text(sec, cik, sub, deep=False):
+    """Text of the latest annual report. deep=True also reads the biggest attached documents
+    (foreign companies often file the annual report itself as an exhibit)."""
     rows = _recent(sub, {"10-K", "20-F", "40-F", "10-K/A", "20-F/A", "40-F/A"}, 1)
     if not rows:
         return "", None
     f, acc, doc, date = rows[0]
     r = sec._get(_doc_url(cik, acc, doc))
-    return (_text(r.text) if r is not None else ""), {"form": f, "date": date, "url": _doc_url(cik, acc, doc)}
+    parts = [_text(r.text)] if r is not None else []
+    if deep:
+        idx = sec._get(_doc_url(cik, acc, "index.json"))
+        try:
+            items = idx.json()["directory"]["item"] if idx is not None else []
+        except Exception:
+            items = []
+        htm = [i for i in items if i.get("name", "").lower().endswith((".htm", ".html")) and i.get("name") != doc]
+        htm.sort(key=lambda i: -int(i.get("size") or 0))
+        for i in htm[:3]:
+            x = sec._get(_doc_url(cik, acc, i["name"]))
+            if x is not None:
+                parts.append(_text(x.text))
+    return " ".join(parts), {"form": f, "date": date, "url": _doc_url(cik, acc, doc)}
 
 
 def _last(name):
@@ -375,8 +400,9 @@ def ceo_from_text(text):
             continue
         counts[n] = counts.get(n, 0) + 1
     for m in SIGNATURE_CEO.finditer(text):
-        n = m.group(1).strip().title()
-        counts[n] = counts.get(n, 0) + 3
+        n = _sig_name(m.group(1))
+        if n:
+            counts[n] = counts.get(n, 0) + 3
     if not counts:
         return None
     best = max(counts.items(), key=lambda kv: kv[1])

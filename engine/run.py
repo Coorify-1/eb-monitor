@@ -554,7 +554,7 @@ def main():
         r = p["_r"]
         L = lead.setdefault(r["cik"], {})
         try:
-            text, doc = SRC.annual_report_text(sec, r["cik"], r["sub"])
+            text, doc = SRC.annual_report_text(sec, r["cik"], r["sub"], deep=r["foreign"])
             name, src, wd_ok = SRC.verified_ceo(sec, r["cik"], r["sub"], r["foreign"], L.get("ceoLabel"), text, doc)
         except Exception as e:
             log("    leadership check failed", r["ticker"], e)
