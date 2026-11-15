@@ -34,6 +34,7 @@ jobs:
           row = next(r for r in sec.tickers() if r["ticker"] == t)
           facts = sec.facts(row["cik"])
           f = extract(facts)
+          print("entity", facts.get("entityName"), "cik", row["cik"], "sec name", row["name"])
           print("fy_end", f["fy_end"], "currency", f["currency"])
           print("t", json.dumps(f["t"])[:3000])
           print("p", json.dumps(f["p"])[:3000])
