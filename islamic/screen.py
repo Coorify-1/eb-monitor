@@ -164,7 +164,7 @@ def _latest(facts, tax, tags, flow=False):
     return best[:3] if best else None
 
 
-def facts_inputs(facts, fx, today):
+def facts_inputs(facts, fx, today, domestic=False):
     """Screen inputs from one company's facts (US GAAP or IFRS, any currency), in USD.
     Foreign companies report once a year, so balance sheets up to 25 months old are accepted
     (the page shows the balance-sheet date of every company)."""
@@ -212,7 +212,7 @@ def facts_inputs(facts, fx, today):
         cash_all = None if cash is None and sti is None else (cash or 0) + (sti or 0) + (lti or 0)
         got = {"debt": debt, "cash": cash_all, "revenue": rev, "interest": inc,
                "asOf": ca[0] if ca and cash is not None else None,
-               "noDebtTag": tax == "us-gaap" and debt is None and cash_all is not None}
+               "noDebtTag": domestic and tax == "us-gaap" and debt is None and cash_all is not None}
         if cash_all is not None or debt is not None:
             if best is None or (got["asOf"] or "") > (best["asOf"] or ""):
                 best = got

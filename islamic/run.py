@@ -30,7 +30,7 @@ from . import screen as S
 NY = ZoneInfo("America/New_York")
 
 
-SCREEN_VERSION = 4
+SCREEN_VERSION = 5
 
 
 def log(*a):
@@ -135,8 +135,9 @@ def refresh_universe(sec, massive, mom, today, state, cache_dir):
                      "cc": s["cc"], "shares": sh, "det": det})
     json.dump(details, open(det_path, "w"))
     fx = fx_rates()
-    state.pop("ffacts", None); state.pop("facts2", None)
-    facts_cache = state.setdefault("facts3", {})
+    for k in ("ffacts", "facts2", "facts3"):
+        state.pop(k, None)
+    facts_cache = state.setdefault("facts4", {})
     for r in rows:
         if not r["foreign"] and r["shares"] is not None:
             r["inp"] = S.domestic_ratios_inputs(got, r["cik"], today)
@@ -145,7 +146,7 @@ def refresh_universe(sec, massive, mom, today, state, cache_dir):
         fc = facts_cache.get(str(r["cik"]))
         if not fc or fc.get("at", "") < (today - dt.timedelta(days=6)).isoformat():
             facts = sec.facts(r["cik"])
-            inp = S.facts_inputs(facts, fx, today) if facts else {}
+            inp = S.facts_inputs(facts, fx, today, domestic=not r["foreign"]) if facts else {}
             facts_cache[str(r["cik"])] = {"at": today.isoformat(), "inp": inp}
         r["inp"] = facts_cache[str(r["cik"])]["inp"]
     log(f"  universe: {len(rows)} companies (market value > $9bn), {sum(r['foreign'] for r in rows)} foreign")

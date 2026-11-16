@@ -63,7 +63,8 @@ EXCLUDED_TICKERS = {
 DEBT_TAGS = {
     "lt_noncurrent": ["LongTermDebtNoncurrent", "LongTermDebtAndCapitalLeaseObligations",
                       "LongTermDebtAndFinanceLeaseObligationsNoncurrent", "LongTermDebtAndCapitalLeaseObligationsNoncurrent"],
-    "lt_total": ["LongTermDebt", "LongTermDebtAndFinanceLeasesObligations"],
+    "lt_total": ["LongTermDebt", "LongTermDebtAndFinanceLeasesObligations", "SeniorNotes", "UnsecuredLongTermDebt",
+                 "LongTermNotesPayable", "SecuredLongTermDebt", "ConvertibleNotesPayable", "LongTermLoansPayable"],
     "lt_current": ["LongTermDebtCurrent", "LongTermDebtAndCapitalLeaseObligationsCurrent"],
     "debt_current": ["DebtCurrent", "ShortTermBorrowingsAndCurrentPortionOfLongTermDebt"],
     "short": ["ShortTermBorrowings", "CommercialPaper"],
@@ -155,6 +156,9 @@ NEWS_FEEDS = [
     ("Free Malaysia Today business", "https://www.freemalaysiatoday.com/category/business/feed/"),
     ("Dawn business", "https://www.dawn.com/feeds/business"),
     ("Express Tribune business", "https://tribune.com.pk/feed/business"),
+    ("Business Today Malaysia", "https://www.businesstoday.com.my/feed/"),
+    ("Business Recorder", "https://www.brecorder.com/feeds/latest-news"),
+    ("Daily Sabah business", "https://www.dailysabah.com/rss/business"),
 ]
 NEWS_TAGS = [
     ("Sukuk", r"\bsukuk\b"),
