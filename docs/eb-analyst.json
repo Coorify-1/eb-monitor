@@ -6,7 +6,7 @@
   "mode": "weekahead",
   "basedOn": "Friday's close (2026-11-13)"
  },
- "generated": "2026-11-16T20:09:57+00:00",
+ "generated": "2026-11-16T20:34:04+00:00",
  "nextEdition": "2026-11-17T11:30:00+00:00",
  "writtenBy": "templates",
  "override": false,
@@ -36,16 +36,16 @@
   "headline": "Inflation scare: US 10-year yield +12 bp, US 2-year yield +13 bp",
   "tone": "Inflation scare session: US 10-year yield and US 2-year yield rose, while US large caps (EB US 100) fell.",
   "lead": [
-   "Markets showed a clear inflation scare pattern: US 10-year yield rose 12 bp to 5.10%; US 2-year yield rose 13 bp to 4.86%; US large caps (EB US 100) fell 0.6% to 114.69. Those moves fit together, which is what gives the pattern its weight. See the [[markets|Financial Markets dashboard]].",
-   "In bonds, the US 2-year yield moved +13 bp to 4.86% and the US 10-year yield moved +12 bp to 5.10%. Yields move with expectations for inflation and for the Federal Reserve's next steps; the [[markets|rates table]] has the full curve.",
-   "Among havens and currencies, Gold fell 0.5% to $3,867; USD/JPY fell 0.3% to 159.60; EUR/USD fell 0.3% to 1.1014. Gold and the yen tend to gain when investors look for safety, and to slip when risk appetite returns. See [[metals|Hard Assets]] and [[crypto|Crypto & Currencies]].",
-   "In risk assets, US large caps (EB US 100) fell 0.6% to 114.69; Bitcoin rose 1.0% to $64,764. The [[outlook|Market Outlook]] puts the wider trend in context."
+   "Markets showed a clear inflation scare pattern: US 10-year yield rose 12 bp to 5.10% (latest data: Nov 12); US 2-year yield rose 13 bp to 4.86% (latest data: Nov 12); US large caps (EB US 100) fell 0.6% to 114.69. Those moves fit together, which is what gives the pattern its weight. See the [[markets|Financial Markets dashboard]].",
+   "In bonds, the US 2-year yield moved +13 bp to 4.86% (latest data: Nov 12) and the US 10-year yield moved +12 bp to 5.10% (latest data: Nov 12). Yields move with expectations for inflation and for the Federal Reserve's next steps; the [[markets|rates table]] has the full curve.",
+   "Among havens and currencies, Gold fell 0.6% to $3,865; USD/JPY fell 0.3% to 159.60; EUR/USD fell 0.3% to 1.1014. Gold and the yen tend to gain when investors look for safety, and to slip when risk appetite returns. See [[metals|Hard Assets]] and [[crypto|Crypto & Currencies]].",
+   "In risk assets, US large caps (EB US 100) fell 0.6% to 114.69; Bitcoin rose 1.4% to $65,047. The [[outlook|Market Outlook]] puts the wider trend in context."
   ],
   "briefs": {
-   "markets": "US 10-year yield rose 12 bp to 5.10%, leaving the gap over the 2-year at +24 bp. The [[markets|Financial Markets]] page has yields, commodities and currencies.",
-   "energy": "Brent crude rose 2.2% to $92.14; US natural gas (Henry Hub) rose 3.8% to $3.00. Benchmarks, power prices and supply data on the [[energy|Energy Terminal]].",
-   "crypto": "Bitcoin rose 1.0% to $64,764; EUR/USD fell 0.3% to 1.1014. Live rates and a converter on [[crypto|Crypto & Currencies]].",
-   "metals": "Gold fell 0.5% to $3,867; Copper fell 0.7% to $13,610/t. Precious and base metals on the [[metals|Hard Assets Terminal]].",
+   "markets": "US 10-year yield rose 12 bp to 5.10% (latest data: Nov 12), leaving the gap over the 2-year at +24 bp. The [[markets|Financial Markets]] page has yields, commodities and currencies.",
+   "energy": "Brent crude rose 2.2% to $92.14 (latest data: Nov 11); US natural gas (Henry Hub) rose 3.8% to $3.00 (latest data: Nov 10). Benchmarks, power prices and supply data on the [[energy|Energy Terminal]].",
+   "crypto": "Bitcoin rose 1.4% to $65,047; EUR/USD fell 0.3% to 1.1014. Live rates and a converter on [[crypto|Crypto & Currencies]].",
+   "metals": "Gold fell 0.6% to $3,865; Copper fell 0.7% to $13,610/t. Precious and base metals on the [[metals|Hard Assets Terminal]].",
    "estate": "House prices are rising in 61 of the 69 countries we track over the past year; Moldova leads at +33.7%. Country data on the [[estate|Estate Index]].",
    "corporate": "This week's top-ranked bank is East West Bank and the top company is APA Corporation, under a risk-on backdrop. Rankings on the [[corporate|Corporate Monitor]].",
    "outlook": "Our quarterly outlook reads the backdrop as risk-on; Cybersecurity leads the five themes we follow. Full rankings on the [[outlook|Market Outlook]].",
@@ -53,8 +53,8 @@
   },
   "watch": [
    "US–China trade and tariffs: news coverage is up, but markets have not reacted yet.",
-   "Crypto regulation and flows: news coverage is up, but markets have not reacted yet.",
-   "How the next session confirms or reverses today's moves."
+   "How the next session confirms or reverses today's moves.",
+   "Central bank speakers and the next inflation data."
   ]
  },
  "kpis": [
@@ -74,7 +74,8 @@
    "z": -0.53,
    "size": "quiet",
    "asOf": "2026-11-13",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   {
    "id": "us10y",
@@ -92,7 +93,8 @@
    "z": 2.2,
    "size": "sharp",
    "asOf": "2026-11-12",
-   "stale": false
+   "stale": false,
+   "lagNote": "latest data: Nov 12"
   },
   {
    "id": "brent",
@@ -110,7 +112,8 @@
    "z": 0.45,
    "size": "quiet",
    "asOf": "2026-11-11",
-   "stale": false
+   "stale": false,
+   "lagNote": "latest data: Nov 11"
   },
   {
    "id": "gold",
@@ -119,16 +122,17 @@
    "class": "metals",
    "page": "metals",
    "kind": "price",
-   "last": 3867.1,
-   "lastText": "$3,867",
-   "d1": -0.494,
-   "d1Text": "−0.5%",
+   "last": 3864.7,
+   "lastText": "$3,865",
+   "d1": -0.556,
+   "d1Text": "−0.6%",
    "w1Text": "−6.0%",
    "m1Text": "−7.5%",
-   "z": -0.37,
+   "z": -0.42,
    "size": "quiet",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   {
    "id": "eurusd",
@@ -146,7 +150,8 @@
    "z": -1.09,
    "size": "notable",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   {
    "id": "btc",
@@ -155,16 +160,17 @@
    "class": "crypto",
    "page": "crypto",
    "kind": "price",
-   "last": 64763.7144,
-   "lastText": "$64,764",
-   "d1": 1.004,
-   "d1Text": "+1.0%",
-   "w1Text": "−12.2%",
-   "m1Text": "−19.1%",
-   "z": 0.46,
+   "last": 65047.4166,
+   "lastText": "$65,047",
+   "d1": 1.446,
+   "d1Text": "+1.4%",
+   "w1Text": "−11.8%",
+   "m1Text": "−18.7%",
+   "z": 0.67,
    "size": "quiet",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   }
  ],
  "bars": [
@@ -235,8 +241,8 @@
    "id": "gold",
    "name": "Gold",
    "class": "metals",
-   "z": -0.37,
-   "text": "−0.5%",
+   "z": -0.42,
+   "text": "−0.6%",
    "page": "metals",
    "stale": false
   },
@@ -244,8 +250,8 @@
    "id": "silver",
    "name": "Silver",
    "class": "metals",
-   "z": -1.78,
-   "text": "−4.1%",
+   "z": -1.88,
+   "text": "−4.4%",
    "page": "metals",
    "stale": false
   },
@@ -280,8 +286,8 @@
    "id": "btc",
    "name": "Bitcoin",
    "class": "crypto",
-   "z": 0.46,
-   "text": "+1.0%",
+   "z": 0.67,
+   "text": "+1.4%",
    "page": "crypto",
    "stale": false
   },
@@ -289,8 +295,8 @@
    "id": "eth",
    "name": "Ether",
    "class": "crypto",
-   "z": 0.95,
-   "text": "+2.6%",
+   "z": 1.16,
+   "text": "+3.1%",
    "page": "crypto",
    "stale": false
   }
@@ -522,15 +528,15 @@
      "date": "2026-11-16"
     },
     {
-     "title": "Trump administration moves to block China from indirect access to American AI technology",
-     "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1oYklzZE1USW5xOHFJRnpCbC1OY1ZCODJZZmtKUTJNVDVFRVZvOHEwbkFicnJNS3hTM3lfTzRzczh2Zjlqa1BkMU1HU3hkdWgya0wxZTY1Y0l5clFRdTFOMlpwMUo5QTdqSm5uX1Q3cW0zYzZRcl9QQg?oc=5",
-     "source": "The Morning Call",
+     "title": "Trump Looks to Flex Power at Xi, Putin Summit After Midterm Loss",
+     "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQQjZyMVJmbnhZSlBfVk8tanl0a2NxRXZWa0I3eGZwWmpUNi1yeDRCZ2tqaExmR0N6bkhoaW95NVg5a3RrVXZZdmIzdHIxSnRnTjFvM0dORERpbGc1a0FIazZORnhiNWpfWHZKYVBJdjY0UDl1QzF2V1hTazBVT0Z6cDZMTkt6RlJ5ZmVySkMtc1BhaERVMXRzRVZpYjM5NjljekQwS0o0QzNZVE41Umt6SzdB?oc=5",
+     "source": "Bloomberg.com",
      "date": "2026-11-16"
     },
     {
-     "title": "US tightens AI chip export controls to deter Chinese companies from accessing compute remotely",
-     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQMk1pUmhmX2dnNlhFZjFvM1NYbmpacVJULVNxWlgzcWpKLVNjTk8yWjREOWg5RFNqNEd0RGRfQTRJd3BNblpXNndTZVFlNzk0UnVZYkxUcjdMU0ZDVm1hWXVxR1JNcm5fUUkzN0luc3BmMzg1cU4xOEc1QXpuaDNxdnNaYU0yVzRmcXlzbU9mc1lxQ01Yd1ZkdklSeXI0NTJTTTNuOExSRlVlcU9HVUpQWVJrRk5qQXkwNVlRem04NUMtcHVPOVpwYw?oc=5",
-     "source": "TechCrunch",
+     "title": "Trump administration moves to block China from indirect access to American AI technology",
+     "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQWHJhSFhLcjdTMlNzSVhMNmtiWjZzcXRQR0RqVzZYZFhlQ0lhTGY0Z2hKWGtXWV91SWVUTk5rY1BXX2wwQnBtWVlSRjVaWGhXTHItbFNvSkhWYWhuUFVyT2kwLTdncjV0aUE3UmlabWNyMGJqeUsyX1NLSUlkUlY4OFRRTnMtUQ?oc=5",
+     "source": "The Standard-Speaker",
      "date": "2026-11-16"
     }
    ],
@@ -540,7 +546,7 @@
    "id": "fed",
    "label": "Federal Reserve policy",
    "status": "market_only",
-   "spike": null,
+   "spike": 0.6,
    "direction": "a more hawkish Fed",
    "consistent": [
     "us2y",
@@ -550,53 +556,21 @@
    "against": [],
    "headlines": [
     {
-     "title": "U.S. Treasury Yields Decline but Fed Rate-Hike Prospects in Focus",
-     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPT0dsM2ttY3ctRTRCZzZPRzE4aG1RNzBCeUQzUEFRbGk1VzRqZGF4Z2J6NFFXVExyX0xROFU1bWFGc3U5ZXpWR21YQmh6S096RXVFS25wcjY4QmxDTUJhdkh5eG51UjVrRVlfZHBpX0pKZkJMOFI4eVVvV1BvSWxIOWQ3aFZId2xOcXJXeGI2SlZvd0RqUUhzT2NVck1jQ3VKLUNXSEFaYXhuNzVtbm1vaQ?oc=5",
-     "source": "WSJ",
-     "date": "2026-11-16"
-    },
-    {
      "title": "Fed’s Schmid says central bank has ‘work to do’ on inflation",
      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9SNjBsLTJuWDZ1RHowSDZLTjNtbkkwSGc1T0xwWS1hWlZjZWtjN0NaQjBUTGkwQlNWZ3ltWi1iXzFHYXRyd3JsbmdrNURIRE0ycHpKM092ZWhxeGpleW5tY2wzQnJEY1pfQXZWdkhwQ1dFRVBS0gF6QVVfeXFMTjRTNXBnajRMdlFTa1ZucERwWEY5elNUcThVUXpWLVhneGRKNy00bGdzal9BUXpmaDd3LVNqMUthZFNSUDdoejdlR1ZvMmVaWWVqOW9YY0FEWHc4VGxWcXlQdXFHQzU0cnZLNVpjUjNzNGpNc2hUN0xLM3c?oc=5",
      "source": "The Hill",
      "date": "2026-11-16"
     },
     {
+     "title": "U.S. Treasury Yields Decline but Fed Rate-Hike Prospects in Focus",
+     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPT0dsM2ttY3ctRTRCZzZPRzE4aG1RNzBCeUQzUEFRbGk1VzRqZGF4Z2J6NFFXVExyX0xROFU1bWFGc3U5ZXpWR21YQmh6S096RXVFS25wcjY4QmxDTUJhdkh5eG51UjVrRVlfZHBpX0pKZkJMOFI4eVVvV1BvSWxIOWQ3aFZId2xOcXJXeGI2SlZvd0RqUUhzT2NVck1jQ3VKLUNXSEFaYXhuNzVtbm1vaQ?oc=5",
+     "source": "WSJ",
+     "date": "2026-11-16"
+    },
+    {
      "title": "Fed Chair Kevin Warsh Speaks Live Today on AI and Tech",
      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQUF80Vjl6WXY4cERrTWV1cnpkRFB1dUNNVDNDUEJuZFJVVVFPYzZJcnJDQXYtazZFTndNV0wyVEQ0UHN0ZExjYld1cG9RWDF3T0o5MEpHZ3VvSUYzYzdiRjQ1SEtEZmVyVnM1NnZKdFRVby1mQkxnVk5sdjB1Y0JiUHhyUWpkdzBi?oc=5",
      "source": "Barron's",
-     "date": "2026-11-16"
-    }
-   ],
-   "newsSource": null
-  },
-  {
-   "id": "crypto_policy",
-   "label": "Crypto regulation and flows",
-   "status": "news_only",
-   "spike": 1.68,
-   "direction": "supportive crypto news",
-   "consistent": [
-    "eth"
-   ],
-   "against": [],
-   "headlines": [
-    {
-     "title": "States, cities move to ban cryptocurrency kiosks as scams mount",
-     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQZ3VGb3JiYUNndlVGUjFBQll6NGpBSnNBQXllTjlkajFfTWRNT2NreGFOeXZQano0UFR6aDB2bHVhejNrbGtjWVZrek4xX0hGa3JsY2Z4elRHQ2JMRUhLUTdfUVJjd1BYcGx1RlJ3aXVrNzZYUEFDNVo3eWtXbW9tTkFsUDh3QndtSHg1M1NvLXVBV2lCYzlLSGtJNnQ?oc=5",
-     "source": "Stateline",
-     "date": "2026-11-16"
-    },
-    {
-     "title": "Crypto SWOT: Bitcoin ETF flows have turned negative in 2026",
-     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNd1l6d29qY2F4UHJieThpbm15Y3g0cGhXSWpXLWN1WHpzOEUzenNhd1hDcHN1am5MYkhoal9LaTc2RDFNbzZ1UVZ4X3Q1bjUxNzZZVGFfMExuWHNTN2tSWmhPaDFpUnNGYTlfR1NnTnc4dWktUU13WllxbGdrTTZ1NjJraGhSVjJCR3FOQ0FTcXRRUHpRVFUzZzhIX2k?oc=5",
-     "source": "Kitco",
-     "date": "2026-11-16"
-    },
-    {
-     "title": "Harvard Holds 3.04 Million Bitcoin ETF Shares Steady",
-     "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBWczFleWhLRWVxakRoS01yYlZhRG1LaU5DRTZJSTRMNTRmbk9yWFo5T0RUVi1nRktoaUNJb2tLUWE2emNTZWZsaXliMV9sakNIa1VRb1lXMF9fM3lFMFNTZDJRZ3JITThVaXdoZ2cwWG1MTDJBaFBVMkdBRUc?oc=5",
-     "source": "Bitcoin Magazine",
      "date": "2026-11-16"
     }
    ],
@@ -620,7 +594,8 @@
    "z": -0.53,
    "size": "quiet",
    "asOf": "2026-11-13",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "shariah": {
    "id": "shariah",
@@ -638,7 +613,8 @@
    "z": -0.58,
    "size": "quiet",
    "asOf": "2026-11-13",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "vix": {
    "id": "vix",
@@ -656,7 +632,8 @@
    "z": 0.31,
    "size": "quiet",
    "asOf": "2026-11-13",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "us2y": {
    "id": "us2y",
@@ -674,7 +651,8 @@
    "z": 2.0,
    "size": "sharp",
    "asOf": "2026-11-12",
-   "stale": false
+   "stale": false,
+   "lagNote": "latest data: Nov 12"
   },
   "us10y": {
    "id": "us10y",
@@ -692,7 +670,8 @@
    "z": 2.2,
    "size": "sharp",
    "asOf": "2026-11-12",
-   "stale": false
+   "stale": false,
+   "lagNote": "latest data: Nov 12"
   },
   "us30y": {
    "id": "us30y",
@@ -710,7 +689,8 @@
    "z": 1.61,
    "size": "notable",
    "asOf": "2026-11-12",
-   "stale": false
+   "stale": false,
+   "lagNote": "latest data: Nov 12"
   },
   "brent": {
    "id": "brent",
@@ -728,7 +708,8 @@
    "z": 0.45,
    "size": "quiet",
    "asOf": "2026-11-11",
-   "stale": false
+   "stale": false,
+   "lagNote": "latest data: Nov 11"
   },
   "wti": {
    "id": "wti",
@@ -746,7 +727,8 @@
    "z": -0.22,
    "size": "quiet",
    "asOf": "2026-11-10",
-   "stale": true
+   "stale": true,
+   "lagNote": "latest data: Nov 10"
   },
   "natgas": {
    "id": "natgas",
@@ -764,7 +746,8 @@
    "z": 0.91,
    "size": "quiet",
    "asOf": "2026-11-10",
-   "stale": true
+   "stale": true,
+   "lagNote": "latest data: Nov 10"
   },
   "gold": {
    "id": "gold",
@@ -773,16 +756,17 @@
    "class": "metals",
    "page": "metals",
    "kind": "price",
-   "last": 3867.1,
-   "lastText": "$3,867",
-   "d1": -0.494,
-   "d1Text": "−0.5%",
+   "last": 3864.7,
+   "lastText": "$3,865",
+   "d1": -0.556,
+   "d1Text": "−0.6%",
    "w1Text": "−6.0%",
    "m1Text": "−7.5%",
-   "z": -0.37,
+   "z": -0.42,
    "size": "quiet",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "silver": {
    "id": "silver",
@@ -791,16 +775,17 @@
    "class": "metals",
    "page": "metals",
    "kind": "price",
-   "last": 47.1,
-   "lastText": "$47.10",
-   "d1": -4.114,
-   "d1Text": "−4.1%",
-   "w1Text": "−10.4%",
-   "m1Text": "−17.4%",
-   "z": -1.78,
+   "last": 46.98,
+   "lastText": "$46.98",
+   "d1": -4.359,
+   "d1Text": "−4.4%",
+   "w1Text": "−10.6%",
+   "m1Text": "−17.5%",
+   "z": -1.88,
    "size": "notable",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "platinum": {
    "id": "platinum",
@@ -809,16 +794,17 @@
    "class": "metals",
    "page": "metals",
    "kind": "price",
-   "last": 1453.8,
-   "lastText": "$1,454",
-   "d1": -2.41,
-   "d1Text": "−2.4%",
-   "w1Text": "−6.9%",
-   "m1Text": "−10.4%",
-   "z": -1.18,
+   "last": 1449.2,
+   "lastText": "$1,449",
+   "d1": -2.719,
+   "d1Text": "−2.7%",
+   "w1Text": "−7.1%",
+   "m1Text": "−10.7%",
+   "z": -1.33,
    "size": "notable",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "copper": {
    "id": "copper",
@@ -836,7 +822,8 @@
    "z": -0.86,
    "size": "quiet",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "eurusd": {
    "id": "eurusd",
@@ -854,7 +841,8 @@
    "z": -1.09,
    "size": "notable",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "usdjpy": {
    "id": "usdjpy",
@@ -872,7 +860,8 @@
    "z": -0.52,
    "size": "quiet",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "gbpusd": {
    "id": "gbpusd",
@@ -890,7 +879,8 @@
    "z": -0.69,
    "size": "quiet",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "usdchf": {
    "id": "usdchf",
@@ -908,7 +898,8 @@
    "z": 0.28,
    "size": "quiet",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "usdcny": {
    "id": "usdcny",
@@ -926,7 +917,8 @@
    "z": -1.15,
    "size": "notable",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "btc": {
    "id": "btc",
@@ -935,16 +927,17 @@
    "class": "crypto",
    "page": "crypto",
    "kind": "price",
-   "last": 64763.7144,
-   "lastText": "$64,764",
-   "d1": 1.004,
-   "d1Text": "+1.0%",
-   "w1Text": "−12.2%",
-   "m1Text": "−19.1%",
-   "z": 0.46,
+   "last": 65047.4166,
+   "lastText": "$65,047",
+   "d1": 1.446,
+   "d1Text": "+1.4%",
+   "w1Text": "−11.8%",
+   "m1Text": "−18.7%",
+   "z": 0.67,
    "size": "quiet",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   },
   "eth": {
    "id": "eth",
@@ -953,16 +946,17 @@
    "class": "crypto",
    "page": "crypto",
    "kind": "price",
-   "last": 1813.6137,
-   "lastText": "$1,814",
-   "d1": 2.554,
-   "d1Text": "+2.6%",
-   "w1Text": "−11.5%",
-   "m1Text": "−22.1%",
-   "z": 0.95,
-   "size": "quiet",
+   "last": 1823.7736,
+   "lastText": "$1,824",
+   "d1": 3.128,
+   "d1Text": "+3.1%",
+   "w1Text": "−11.1%",
+   "m1Text": "−21.6%",
+   "z": 1.16,
+   "size": "notable",
    "asOf": "2026-11-16",
-   "stale": false
+   "stale": false,
+   "lagNote": null
   }
  },
  "pages": {
@@ -991,42 +985,39 @@
   "  brent     92.14  d1=+2.20  z=+0.45",
   "  wti       89.62  d1=-0.86  z=-0.22  STALE",
   "  natgas    3  d1=+3.81  z=+0.91  STALE",
-  "  gold      3867  d1=-0.49  z=-0.37",
-  "  silver    47.1  d1=-4.11  z=-1.78",
-  "  platinum  1454  d1=-2.41  z=-1.18",
+  "  gold      3865  d1=-0.56  z=-0.42",
+  "  silver    46.98  d1=-4.36  z=-1.88",
+  "  platinum  1449  d1=-2.72  z=-1.33",
   "  copper    1.361e+04  d1=-0.74  z=-0.86",
   "  eurusd    1.101  d1=-0.34  z=-1.09",
   "  usdjpy    159.6  d1=-0.25  z=-0.52",
   "  gbpusd    1.32  d1=-0.21  z=-0.69",
   "  usdchf    0.8393  d1=+0.11  z=+0.28",
   "  usdcny    6.667  d1=-0.08  z=-1.15",
-  "  btc       6.476e+04  d1=+1.00  z=+0.46",
-  "  eth       1814  d1=+2.55  z=+0.95",
+  "  btc       6.505e+04  d1=+1.45  z=+0.67",
+  "  eth       1824  d1=+3.13  z=+1.16",
   "Corporate Monitor, Market Outlook, Estate Index, Energy Terminal …",
   "  https://terminal.centreforenergy.org/api/v1/news.json -> HTTP 403",
   "  https://terminal.centreforenergy.org/api/v1/events.json -> HTTP 403",
   "Regime: Inflation scare (1.3)",
   "Geopolitics and themes (news x markets) …",
   "  middle_east     spike=1.56  quiet  +[] -[]",
-  "  russia_ukraine  spike=1.1  quiet  +['eurusd'] -[]",
+  "  GDELT: no answer for this theme",
+  "  russia_ukraine  spike=None  quiet  +['eurusd'] -[]",
   "  us_china        spike=1.91  news_only  +['copper'] -['usdcny']",
+  "  taiwan          spike=1.56  quiet  +[] -[]",
   "  GDELT: no answer for this theme",
-  "  https://news.google.com/rss/search -> HTTP 429",
-  "  taiwan          spike=None  quiet  +[] -[]",
-  "  GDELT: no answer for this theme",
-  "  https://news.google.com/rss/search -> HTTP 429",
   "  opec            spike=None  quiet  +[] -[]",
-  "  GDELT: no answer for this theme",
-  "  fed             spike=None  market_only  +['us2y', 'us10y', 'eurusd'] -[]",
+  "  fed             spike=0.6  market_only  +['us2y', 'us10y', 'eurusd'] -[]",
   "  GDELT: no answer for this theme",
   "  us_inflation    spike=None  quiet  +['us2y', 'us10y'] -[]",
+  "  https://news.google.com/rss/search -> HTTP 429",
   "  us_fiscal       spike=None  quiet  +['us30y', 'us10y'] -['eurusd']",
+  "  https://news.google.com/rss/search -> HTTP 429",
   "  china_economy   spike=None  quiet  +['usdcny'] -['copper']",
-  "  GDELT: no answer for this theme",
-  "  https://news.google.com/rss/search -> HTTP 429",
-  "  https://news.google.com/rss/search -> HTTP 429",
   "  europe          spike=None  quiet  +['eurusd'] -[]",
-  "  crypto_policy   spike=1.68  news_only  +['eth'] -[]",
+  "  GDELT: no answer for this theme",
+  "  crypto_policy   spike=None  quiet  +['eth'] -[]",
   "Lead: regime · Inflation scare",
   "Writer: using templates"
  ]
