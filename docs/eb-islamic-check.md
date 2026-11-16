@@ -1,8 +1,8 @@
 # EB Islamic Investment — run check
 
-Run 2026-11-16T14:50:25+00:00 (market close 2026-11-13), 787 s
+Run 2026-11-16T15:07:58+00:00 (market close 2026-11-13), 860 s
 
-Screen: 843 companies, {'Halal': 442, 'Watch': 52, 'Not halal': 182, 'Excluded': 156, 'No data': 11}, halal share 59.4%
+Screen: 843 companies, {'Halal': 433, 'Watch': 53, 'Not halal': 184, 'Excluded': 156, 'No data': 17}, halal share 58.8%
 
 | Ticker | Name | Sector | $bn | Debt % | Cash % | Income % | Status | Why |
 |---|---|---|---|---|---|---|---|---|
@@ -35,7 +35,7 @@ Screen: 843 companies, {'Halal': 442, 'Watch': 52, 'Not halal': 182, 'Excluded':
 | KO | Coca Cola Co | Consumer staples | 427.0 | 12.03 | 3.87 | 1.64 | Halal | All ratios within limits |
 | PLTR | Palantir Technologies Inc. | Technology | 404.7 | 0.0 | 2.77 | 5.12 | Not halal | Interest income 5.1% (limit 5%) |
 | PG | Procter & Gamble Co | Consumer staples | 393.6 | 11.28 | 4.45 | 0.56 | Halal | All ratios within limits |
-| ORCL | Oracle Corp | Technology | 379.0 | 1.46 | 7.52 | 1.16 | Halal | All ratios within limits |
+| ORCL | Oracle Corp | Technology | 379.0 | 26.27 | 7.52 | 1.16 | Watch | Debt close to the limit |
 | CSCO | Cisco Systems, Inc. | Technology | 377.1 | 7.72 | 4.16 | 1.77 | Halal | All ratios within limits |
 | UNH | Unitedhealth Group Inc | Financials | 365.1 | None | None | None | Excluded | Conventional finance or insurance |
 | MRK | Merck & Co., Inc. | Health care | 364.3 | 17.67 | 3.7 | 0.53 | Halal | All ratios within limits |
@@ -47,9 +47,9 @@ Screen: 843 companies, {'Halal': 442, 'Watch': 52, 'Not halal': 182, 'Excluded':
 | HSBC | HSBC Holdings PLC | Financials | 306.4 | None | None | None | Excluded | Conventional finance or insurance |
 | NVS | Novartis AG | Health care | 303.1 | 10.19 | 4.11 | None | Halal | All ratios within limits |
 
-Index: 277 days, returns {'1D': [-0.7, -0.61], '1W': [2.62, 2.61], '1M': [-5.9, -4.99], '3M': [-3.29, -3.16], '6M': [-0.91, -0.2], '1Y': [15.68, 14.17], 'YTD': [13.56, 12.15]}
+Index: 277 days, returns {'1D': [-0.69, -0.61], '1W': [2.73, 2.61], '1M': [-5.71, -4.99], '3M': [-2.94, -3.16], '6M': [-0.57, -0.2], '1Y': [16.47, 14.17], 'YTD': [14.21, 12.15]}
 
-Top weights: AAPL 8.0%, NVDA 7.54%, MSFT 7.48%, GOOGL 6.99%, AMZN 5.54%, TSM 3.97%, SPCX 3.63%, AVGO 3.18%, META 3.15%, TSLA 2.96%
+Top weights: AAPL 8.0%, NVDA 7.59%, MSFT 7.52%, GOOGL 7.03%, AMZN 5.58%, TSM 4.0%, SPCX 3.65%, AVGO 3.2%, META 3.17%, TSLA 2.98%
 
 - Fund SPUS: $3135.9m as of 2026-08-31, 48 months, 219 holdings
 - Fund HLAL: $944.5m as of 2026-08-31, 48 months, 211 holdings
