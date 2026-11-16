@@ -1204,107 +1204,93 @@ export default function TheAnalyst(props: any) {
         </Panel>
     )
 
-    // The weekly cartoon: shown only when an image is set in Framer.
-    // On wide screens it goes into the shorter column and is sized so both columns end
-    // on the same line, like a printed page.
-    const cImg =
+    // The weekly cartoon: shown only when an image is set in Framer, always at its own
+    // proportions (never cropped or stretched). On wide screens the page is balanced
+    // like a printed newspaper: the cartoon and the side blocks go where both columns end
+    // closest to the same line, then the shorter column spreads its spacing evenly.
+    const cSrc =
         typeof p.cartoonImage === "string"
             ? p.cartoonImage
             : p.cartoonImage?.src || ""
+    const cSet = typeof p.cartoonImage === "object" ? p.cartoonImage?.srcSet || "" : ""
     const lRef = React.useRef<HTMLDivElement>(null)
     const rRef = React.useRef<HTMLDivElement>(null)
-    const [ratio, setRatio] = React.useState(1.4)
-    const [bal, setBal] = React.useState({ side: "left", avail: 0, w: 600 })
-    React.useLayoutEffect(() => {
-        const l = lRef.current
-        const r = rRef.current
-        if (!l || !r) return
-        const measure = () => {
-            const lh = l.offsetHeight
-            const rh = r.offsetHeight
-            const side = lh <= rh ? "left" : "right"
-            const w = (side === "left" ? l : r).offsetWidth
-            setBal((b) => {
-                const n = { side, avail: Math.abs(rh - lh) - 62, w }
-                return b.side === n.side && Math.abs(b.avail - n.avail) < 2 && b.w === n.w ? b : n
-            })
-        }
-        measure()
-        if (typeof ResizeObserver === "undefined") return
-        const ro = new ResizeObserver(measure)
-        ro.observe(l)
-        ro.observe(r)
-        return () => ro.disconnect()
-    }, [W, cImg, data])
-    // Newspaper balance: "What we're watching" and the radar may move under the briefs,
-    // and the cartoon takes the shorter column, whichever arrangement ends both columns
-    // closest to the same line.
     const blk = React.useRef<Record<string, HTMLDivElement | null>>({})
+    const [ratio, setRatio] = React.useState(1.4)
     const [moveL, setMoveL] = React.useState<string[]>([])
+    const [cSide, setCSide] = React.useState<"left" | "right">("left")
+    const [just, setJust] = React.useState<"" | "left" | "right">("")
+    const decided = React.useRef("")
+    const capH = p.cartoonCaption || p.cartoonCredit ? 50 : 0
     React.useLayoutEffect(() => {
         const l = lRef.current
         const r = rRef.current
         if (!l || !r) return
         const id = setTimeout(() => {
-            const h = (k: string) => (blk.current[k]?.offsetHeight || 0) + 24
-            const lb = l.offsetHeight - moveL.reduce((a, k) => a + h(k), 0)
-            const rb = r.offsetHeight - ["watch", "radar"].filter((k) => !moveL.includes(k)).reduce((a, k) => a + h(k), 0)
-            const lw = l.offsetWidth
-            const rw = r.offsetWidth
-            let best: { m: string[]; s: number } | null = null
-            for (const m of [[], ["radar"], ["watch", "radar"], ["watch"]]) {
-                const L = lb + m.reduce((a, k) => a + h(k), 0)
-                const R = rb + ["watch", "radar"].filter((k) => !m.includes(k)).reduce((a, k) => a + h(k), 0)
-                const diff = Math.abs(L - R)
-                const nat = (L <= R ? lw : rw) / ratio + 62
-                const s = cImg ? Math.abs(diff - nat) : diff
-                if (!best || s < best.s - 20) best = { m, s }
+            const GAP = 24
+            const kids = (el: HTMLElement) =>
+                Array.from(el.children).map((c) => (c as HTMLElement).offsetHeight)
+            const sum = (xs: number[]) =>
+                xs.reduce((a, x) => a + x, 0) + GAP * Math.max(0, xs.length - 1)
+            const h = (k: string) => (blk.current[k]?.offsetHeight || 0) + GAP
+            const cart = (side: string) =>
+                cSrc ? ((side === "left" ? l : r).offsetWidth / ratio) + 46 + capH + GAP : 0
+            const lNow = sum(kids(l)) + (cSrc && cSide === "left" ? cart("left") : 0)
+            const rNow = sum(kids(r)) + (cSrc && cSide === "right" ? cart("right") : 0)
+            const key = [W, D.generated, cSrc, ratio.toFixed(2)].join("|")
+            let L = lNow
+            let R = rNow
+            if (decided.current !== key) {
+                decided.current = key
+                const lb = lNow - moveL.reduce((a, k) => a + h(k), 0) - (cSrc && cSide === "left" ? cart("left") : 0)
+                const rb = rNow - ["watch", "radar"].filter((k) => !moveL.includes(k)).reduce((a, k) => a + h(k), 0) - (cSrc && cSide === "right" ? cart("right") : 0)
+                let best: any = null
+                for (const m of [[], ["radar"], ["watch", "radar"], ["watch"]])
+                    for (const s of cSrc ? ["left", "right"] : ["left"]) {
+                        const LL = lb + m.reduce((a, k) => a + h(k), 0) + (s === "left" ? cart("left") : 0)
+                        const RR = rb + ["watch", "radar"].filter((k) => !m.includes(k)).reduce((a, k) => a + h(k), 0) + (s === "right" ? cart("right") : 0)
+                        const d = Math.abs(LL - RR)
+                        if (!best || d < best.d - 16) best = { m, s, d, LL, RR }
+                    }
+                if (best) {
+                    if (best.m.join() !== moveL.join()) setMoveL(best.m)
+                    if (best.s !== cSide) setCSide(best.s)
+                    L = best.LL
+                    R = best.RR
+                }
             }
-            if (best && best.m.join() !== moveL.join()) setMoveL(best.m)
-        }, 60)
+            // spread the remaining gap over the shorter column, if it stays discreet
+            const short = L < R ? "left" : "right"
+            const n = Math.max(1, (short === "left" ? l : r).children.length + (cSrc && cSide === short ? 1 : 0) - 1)
+            const extra = Math.abs(L - R)
+            setJust(extra > 4 && extra / n <= 60 ? short : "")
+        }, 80)
         return () => clearTimeout(id)
-    }, [W, data, cImg, ratio])
-    const natural = bal.w / ratio
-    const placeBelow = bal.avail < natural * 0.4
-    let imgH: number | undefined
-    if (!placeBelow) {
-        imgH =
-            p.cartoonFit === "whole"
-                ? Math.min(bal.avail, natural)
-                : clamp(bal.avail, natural * 0.6, natural * 1.4)
-    }
-    const cartoon = (h?: number) =>
-        cImg ? (
-            <Panel title={p.cartoonTitle || tx.cartoonTitle} note={p.cartoonDate || ""}>
-                <figure className="ean-cart">
-                    <img
-                        src={cImg}
-                        alt={p.cartoonAlt || p.cartoonCaption || p.cartoonTitle || tx.cartoonTitle}
-                        loading="lazy"
-                        onLoad={(e) => {
-                            const im = e.currentTarget
-                            if (im.naturalWidth && im.naturalHeight)
-                                setRatio(im.naturalWidth / im.naturalHeight)
-                        }}
-                        style={
-                            h
-                                ? {
-                                      height: Math.round(h),
-                                      objectFit: p.cartoonFit === "whole" ? "contain" : "cover",
-                                  }
-                                : undefined
-                        }
-                    />
-                    {(p.cartoonCaption || p.cartoonCredit) && (
-                        <figcaption>
-                            {p.cartoonCaption}
-                            {p.cartoonCredit && <small>{p.cartoonCredit}</small>}
-                        </figcaption>
-                    )}
-                </figure>
-            </Panel>
-        ) : null
-    const capH = p.cartoonCaption || p.cartoonCredit ? 46 : 0
+    }, [W, data, cSrc, ratio, moveL, cSide])
+    const cartoon = cSrc ? (
+        <Panel title={p.cartoonTitle || tx.cartoonTitle} note={p.cartoonDate || ""}>
+            <figure className="ean-cart">
+                <img
+                    src={cSrc}
+                    srcSet={cSet || undefined}
+                    sizes="(min-width: 980px) 60vw, 100vw"
+                    alt={p.cartoonAlt || p.cartoonCaption || p.cartoonTitle || tx.cartoonTitle}
+                    decoding="async"
+                    onLoad={(e) => {
+                        const im = e.currentTarget
+                        if (im.naturalWidth && im.naturalHeight)
+                            setRatio(im.naturalWidth / im.naturalHeight)
+                    }}
+                />
+                {(p.cartoonCaption || p.cartoonCredit) && (
+                    <figcaption>
+                        {p.cartoonCaption}
+                        {p.cartoonCredit && <small>{p.cartoonCredit}</small>}
+                    </figcaption>
+                )}
+            </figure>
+        </Panel>
+    ) : null
 
     const bars = (D.bars || []).filter((b) => !b.stale)
     const chart1 = bars.length > 0 && (
@@ -1394,39 +1380,36 @@ export default function TheAnalyst(props: any) {
     )
 
     const wide = W >= 980
-    const side = cImg && !placeBelow ? bal.side : ""
-    const fitH = imgH !== undefined ? Math.max(120, imgH - capH) : undefined
+    const wb = (k: string, node: React.ReactNode) =>
+        node ? <div key={k} ref={(e) => (blk.current[k] = e)}>{node}</div> : null
     const body = wide ? (
-        <>
-            <div className="ean-grid">
-                <div className="ean-col">
-                    <div ref={lRef} className="ean-col">
-                        {lead}
-                        {briefs}
-                        {moveL.includes("watch") && <div ref={(e) => (blk.current.watch = e)}>{watch}</div>}
-                        {moveL.includes("radar") && <div ref={(e) => (blk.current.radar = e)}>{radar}</div>}
-                    </div>
-                    {side === "left" && cartoon(fitH)}
+        <div className="ean-grid ean-paper">
+            <div className={"ean-col" + (just === "left" ? " ean-just" : "")}>
+                <div ref={lRef} className="ean-col ean-stack">
+                    {lead}
+                    {briefs}
+                    {moveL.includes("watch") && wb("watch", watch)}
+                    {moveL.includes("radar") && wb("radar", radar)}
                 </div>
-                <div className="ean-col">
-                    <div ref={rRef} className="ean-col">
-                        {chart1}
-                        {chart2}
-                        {!moveL.includes("watch") && <div ref={(e) => (blk.current.watch = e)}>{watch}</div>}
-                        {!moveL.includes("radar") && <div ref={(e) => (blk.current.radar = e)}>{radar}</div>}
-                    </div>
-                    {side === "right" && cartoon(fitH)}
-                </div>
+                {cSide === "left" && cartoon}
             </div>
-            {cImg && placeBelow && <div className="ean-below">{cartoon()}</div>}
-        </>
+            <div className={"ean-col" + (just === "right" ? " ean-just" : "")}>
+                <div ref={rRef} className="ean-col ean-stack">
+                    {chart1}
+                    {chart2}
+                    {!moveL.includes("watch") && wb("watch", watch)}
+                    {!moveL.includes("radar") && wb("radar", radar)}
+                </div>
+                {cSide === "right" && cartoon}
+            </div>
+        </div>
     ) : (
         <div className="ean-col">
             {lead}
             {chart1}
             {chart2}
             {briefs}
-            {cartoon()}
+            {cartoon}
             {watch}
             {radar}
         </div>
@@ -1686,8 +1669,10 @@ const CSS = `
 .ean-rl small{color:var(--mute);font-size:10.5px}
 /* weekly cartoon */
 .ean-cart{margin:4px 0 0}
-.ean-cart img{display:block;width:100%;height:auto;border:1px solid var(--rule);object-position:center}
-.ean-below{margin-top:24px}
+.ean-cart img{display:block;width:100%;height:auto;border:1px solid var(--rule)}
+.ean-paper{align-items:stretch}
+.ean-just{justify-content:space-between}
+.ean-just>.ean-stack{flex:1;justify-content:space-between}
 .ean-cart figcaption{font-family:var(--fh);font-style:italic;font-size:14px;line-height:1.45;margin-top:8px;display:flex;flex-direction:column;gap:2px}
 .ean-cart small{font-family:var(--fb);font-style:normal;font-size:10.5px;color:var(--mute)}
 /* footer */
@@ -1853,14 +1838,6 @@ const CONTROLS: Record<string, any> = {
     cartoonCredit: { type: ControlType.String, title: "Cartoon credit", placeholder: "Drawing: …" },
     cartoonDate: { type: ControlType.String, title: "Cartoon date", placeholder: "Week of Nov 16" },
     cartoonAlt: { type: ControlType.String, title: "Cartoon alt text" },
-    cartoonFit: {
-        type: ControlType.Enum,
-        title: "Cartoon fit",
-        options: ["fill", "whole"],
-        optionTitles: ["Fill (aligned)", "Whole image"],
-        displaySegmentedControl: true,
-        description: "Fill: the image is sized so both columns end on the same line (edges may be trimmed slightly). Whole: never trimmed.",
-    },
     chartHeight: {
         type: ControlType.Number,
         title: "Chart height",
