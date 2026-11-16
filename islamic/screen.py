@@ -164,6 +164,14 @@ def _latest(facts, tax, tags, flow=False):
     return best[:3] if best else None
 
 
+def _ever_debt(facts, tax):
+    """True when the company has tagged any borrowing in any of its filings (so a missing figure is a gap, not zero)."""
+    tags = set(sum(C.DEBT_TAGS.values(), [])) if tax == "us-gaap" else set(C.IFRS["debt_parts"] + C.IFRS["debt_alt"] + ["Borrowings"])
+    tags |= {"DebtInstrumentCarryingAmount", "DebtInstrumentFaceAmount", "LongTermDebtFairValue", "LineOfCredit"} if tax == "us-gaap" else {"BondsIssued", "LoansReceived"}
+    have = (facts.get("facts") or {}).get(tax) or {}
+    return any(t in have for t in tags)
+
+
 def facts_inputs(facts, fx, today, domestic=False):
     """Screen inputs from one company's facts (US GAAP or IFRS, any currency), in USD.
     Foreign companies report once a year, so balance sheets up to 25 months old are accepted
@@ -212,7 +220,8 @@ def facts_inputs(facts, fx, today, domestic=False):
         cash_all = None if cash is None and sti is None else (cash or 0) + (sti or 0) + (lti or 0)
         got = {"debt": debt, "cash": cash_all, "revenue": rev, "interest": inc,
                "asOf": ca[0] if ca and cash is not None else None,
-               "noDebtTag": domestic and tax == "us-gaap" and debt is None and cash_all is not None}
+               "noDebtTag": debt is None and cash_all is not None and (
+                   (domestic and tax == "us-gaap") or not _ever_debt(facts, tax))}
         if cash_all is not None or debt is not None:
             if best is None or (got["asOf"] or "") > (best["asOf"] or ""):
                 best = got
