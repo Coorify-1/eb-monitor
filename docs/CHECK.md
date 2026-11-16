@@ -1,6 +1,6 @@
 # Contrôle automatique — semaine 46 (données au 2026-11-13)
 
-Généré le 2026-11-16 00:11 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
+Généré le 2026-11-16 00:27 UTC. Aucune action manuelle n'est nécessaire : toute information qui n'est pas confirmée par un document officiel est masquée automatiquement.
 
 **EB Market Regime :** Risk-on 65/100 — Credit spreads calm, volatility low
 
