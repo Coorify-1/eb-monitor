@@ -95,7 +95,7 @@ CONFIRM_Z = 0.8
 # (GitHub Models, the first choice at design time, was shut down by GitHub on 30 July 2026.)
 LLM_PROVIDERS = [
     {"name": "Gemini", "url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
-     "env": "GEMINI_API_KEY", "models": ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-3-flash-preview"]},
+     "env": "GEMINI_API_KEY", "models": ["gemini-3-flash-preview", "gemini-flash-latest", "gemini-2.5-flash"]},
 ]
 
 # ------------------------------------------------------------------ schedule

@@ -147,7 +147,7 @@ def _call(provider: dict, model: str, messages: list[dict]):
     key = os.environ.get(provider["env"], "").strip()
     if not key:
         return None
-    body = {"model": model, "messages": messages, "temperature": 0.3, "max_tokens": 1800,
+    body = {"model": model, "messages": messages, "temperature": 0.3, "max_tokens": 8000, "reasoning_effort": "low",
             "response_format": {"type": "json_object"}}
     for attempt in range(2):
         try:
