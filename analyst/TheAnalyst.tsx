@@ -1245,7 +1245,7 @@ export default function TheAnalyst(props: any) {
                 const lb = lNow - moveL.reduce((a, k) => a + h(k), 0) - (cSrc && cSide === "left" ? cart("left") : 0)
                 const rb = rNow - ["watch", "radar"].filter((k) => !moveL.includes(k)).reduce((a, k) => a + h(k), 0) - (cSrc && cSide === "right" ? cart("right") : 0)
                 let best: any = null
-                for (const m of [[], ["radar"], ["watch", "radar"], ["watch"]])
+                for (const m of [[], ["watch", "radar"]]) // the two stay together, watch first
                     for (const s of cSrc ? ["left", "right"] : ["left"]) {
                         const LL = lb + m.reduce((a, k) => a + h(k), 0) + (s === "left" ? cart("left") : 0)
                         const RR = rb + ["watch", "radar"].filter((k) => !m.includes(k)).reduce((a, k) => a + h(k), 0) + (s === "right" ? cart("right") : 0)
