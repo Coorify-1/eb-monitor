@@ -99,6 +99,7 @@ type Data = {
     markets?: Record<string, Mkt>
     pages: Record<string, string>
     sources: string
+    news?: { theme: string; title: string; url: string; source: string; date: string }[]
 }
 
 /* ------------------------------------------------------------------ */
@@ -1223,11 +1224,16 @@ export default function TheAnalyst(props: any) {
     const ROWH = 27
     const decided = React.useRef("")
     const [cLoaded, setCLoaded] = React.useState(0)
-    // "Markets in figures": extra market rows that fill the shorter column
-    const extraMkts = Object.values(D.markets || {})
-        .filter((m) => m && m.ok && !m.stale && !(D.kpis || []).some((k) => k.id === m.id))
-        .sort((a, b) => Math.abs(b.z || 0) - Math.abs(a.z || 0))
-    const MAXROWS = extraMkts.length
+    // "Also in the news": today's other headlines (not already shown in the radar),
+    // used to fill the shorter column so both columns end on the same line.
+    const shownInRadar = new Set(
+        (D.themes || [])
+            .filter((t) => ["confirmed", "news_only", "market_only"].includes(t.status))
+            .slice(0, 4)
+            .map((t) => ((t.headlines || []).find((x) => x.url)?.title || "").toLowerCase())
+    )
+    const extraNews = (D.news || []).filter((n) => n.url && !shownInRadar.has(n.title.toLowerCase()))
+    const MAXROWS = extraNews.length
     const capH = p.cartoonCaption || p.cartoonCredit ? 50 : 0
     React.useLayoutEffect(() => {
         const l = lRef.current
@@ -1401,24 +1407,17 @@ export default function TheAnalyst(props: any) {
     const filler = (s: string) =>
         fill.side === s && fill.rows > 0 ? (
             <div data-filler="1">
-                <Panel title={tx.figuresTitle} note={tx.figuresNote}>
-                    <table className="ean-fig">
-                        <tbody>
-                            {extraMkts.slice(0, fill.rows).map((m) => (
-                                <tr key={m.id}>
-                                    <td>
-                                        <a href={href(m.page || "") || undefined} target="_blank" rel="noopener">
-                                            {m.name}
-                                        </a>
-                                    </td>
-                                    <td className="ean-fv">{m.lastText}</td>
-                                    <td className="ean-fv">
-                                        <Pct m={m} />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <Panel title={tx.alsoTitle} note={tx.alsoNote}>
+                    <ul className="ean-also">
+                        {extraNews.slice(0, fill.rows).map((n, i) => (
+                            <li key={i}>
+                                <a href={n.url} target="_blank" rel="noopener nofollow" title={n.title}>
+                                    {n.title}
+                                </a>
+                                <small>{n.source}</small>
+                            </li>
+                        ))}
+                    </ul>
                 </Panel>
             </div>
         ) : null
@@ -1717,12 +1716,12 @@ const CSS = `
 .ean-paper{align-items:stretch}
 .ean-just{justify-content:space-between}
 .ean-just>.ean-stack{flex:1;justify-content:space-between}
-.ean-fig{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-.ean-fig td{height:27px;padding:0;border-top:1px solid var(--rule);font-size:12.5px;white-space:nowrap}
-.ean-fig tr:first-child td{border-top:0}
-.ean-fig td:first-child{font-family:var(--fh);font-size:13.5px;overflow:hidden;text-overflow:ellipsis;max-width:0;width:55%}
-.ean-fig a:hover{color:var(--link)}
-.ean-fv{text-align:right;padding-left:10px!important;font-family:var(--fh)}
+.ean-also{list-style:none;margin:0;padding:0}
+.ean-also li{height:27px;display:flex;align-items:center;gap:10px;border-top:1px solid var(--rule);font-size:12.5px;min-width:0}
+.ean-also li:first-child{border-top:0}
+.ean-also a{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ean-also a:hover{color:var(--link)}
+.ean-also small{flex:none;font-size:10.5px;color:var(--mute);max-width:35%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ean-cart figcaption{font-family:var(--fh);font-style:italic;font-size:14px;line-height:1.45;margin-top:8px;display:flex;flex-direction:column;gap:2px}
 .ean-cart small{font-family:var(--fb);font-style:normal;font-size:10.5px;color:var(--mute)}
 /* footer */
@@ -1782,8 +1781,8 @@ const DEF_TEXTS: Record<string, string> = {
     contextNote: "Change since the first day shown",
     watchTitle: "What we're watching",
     cartoonTitle: "The Weekly Cartoon",
-    figuresTitle: "Markets in figures",
-    figuresNote: "Latest level and daily change",
+    alsoTitle: "Also in the news",
+    alsoNote: "Headlines linked to the themes we follow",
     radarTitle: "Geopolitical radar",
     radarNote: "News volume vs. its recent normal",
     coverage: "{x}× usual coverage",

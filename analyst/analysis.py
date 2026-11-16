@@ -220,7 +220,7 @@ def evaluate_theme(t: dict, news: dict | None, A: dict):
         "id": t["id"], "label": t["label"], "channel": t.get("channel", ""), "status": status,
         "spike": round(spike, 2) if spike else None, "direction": direction,
         "consistent": cons, "against": contra, "score": round(score, 2),
-        "headlines": ((news or {}).get("headlines") or [])[:3], "newsSource": (news or {}).get("source"),
+        "headlines": ((news or {}).get("headlines") or [])[:4], "newsSource": (news or {}).get("source"),
     }
 
 

@@ -239,6 +239,20 @@ def headline_hint(lead, A):
     return lead["label"] + (": " + ", ".join(_short(A[k]) for k in ids) if ids else "")
 
 
+def news_list(themes):
+    """Every headline found today, one list (titles + links only), newest first, no repeats."""
+    out, seen = [], set()
+    for t in themes:
+        for h in t.get("headlines") or []:
+            k = (h.get("title") or "").lower()[:70]
+            if not h.get("url") or not k or k in seen:
+                continue
+            seen.add(k)
+            out.append({"theme": t["label"], "title": h["title"], "url": h["url"],
+                        "source": h.get("source") or "", "date": h.get("date") or ""})
+    return sorted(out, key=lambda x: x["date"], reverse=True)[:30]
+
+
 def L(k, t):
     return f"[[{k}|{t}]]"
 
@@ -337,6 +351,7 @@ def build(today_ny: dt.datetime):
         "themes": [{k: t[k] for k in ("id", "label", "status", "spike", "direction", "consistent", "against",
                                       "headlines", "newsSource")} for t in themes if t["status"] != "quiet"],
         "markets": {k: AN.public(a) for k, a in A.items()},
+        "news": news_list(themes),
         "pages": C.PAGES,
         "sources": ("Economic Bearings pages and engines (Financial Markets, Energy Terminal, Crypto & Currencies, "
                     "Hard Assets, Estate Index, Corporate Monitor, Market Outlook, Islamic Investment). Underlying data: "
