@@ -1220,6 +1220,7 @@ export default function TheAnalyst(props: any) {
     const [ratio, setRatio] = React.useState(1.4)
     const [moveL, setMoveL] = React.useState<string[]>([])
     const [cSide, setCSide] = React.useState<"left" | "right">("left")
+    const [just, setJust] = React.useState<"" | "left" | "right">("")
     const [fill, setFill] = React.useState<{ side: string; rows: number }>({ side: "", rows: 0 })
     const ROWH = 27
     const decided = React.useRef("")
@@ -1240,6 +1241,8 @@ export default function TheAnalyst(props: any) {
         const r = rRef.current
         if (!l || !r) return
         const id = setTimeout(() => {
+            const grid = l.closest(".ean-grid") as HTMLElement | null
+            grid?.classList.add("ean-measure")
             const GAP = 24
             const kids = (el: HTMLElement) =>
                 Array.from(el.children).map((c) => (c as HTMLElement).offsetHeight)
@@ -1285,11 +1288,18 @@ export default function TheAnalyst(props: any) {
             const gap = Math.abs(RL - RRr)
             const side = RL < RRr ? "left" : "right"
             const rows = Math.min(MAXROWS, Math.floor((gap - GAP - 46) / ROWH))
-            const nf = rows >= 3 ? { side, rows } : { side: "", rows: 0 }
+            const nf = rows >= 1 ? { side, rows } : { side: "", rows: 0 }
             setFill((f) => (f.side === nf.side && f.rows === nf.rows ? f : nf))
+            // what is left is spread over the rows of the briefs / the moves chart,
+            // only while it stays discreet (a few pixels per row)
+            const left = gap - (nf.rows ? GAP + 46 + nf.rows * ROWH : 0)
+            const absorbRows = side === "left" ? 8 : 14
+            const nj = left > 2 && left / absorbRows <= 14 ? side : ""
+            setJust((j) => (j === nj ? j : (nj as any)))
+            grid?.classList.remove("ean-measure")
         }, 80)
         return () => clearTimeout(id)
-    }, [W, data, cSrc, ratio, moveL, cSide, cLoaded])
+    }, [W, data, cSrc, ratio, moveL, cSide, cLoaded, fill.rows, fill.side])
     const cartoon = cSrc ? (
         <Panel title={p.cartoonTitle || tx.cartoonTitle} note={p.cartoonDate || ""}>
             <figure className="ean-cart">
@@ -1425,19 +1435,19 @@ export default function TheAnalyst(props: any) {
         node ? <div key={k} ref={(e) => (blk.current[k] = e)}>{node}</div> : null
     const body = wide ? (
         <div className="ean-grid ean-paper">
-            <div className="ean-col ean-just">
+            <div className={"ean-col" + (just === "left" ? " ean-just" : "")}>
                 <div ref={lRef} className="ean-col ean-stack">
                     {lead}
-                    {briefs}
+                    <div className="ean-grow">{briefs}</div>
                     {moveL.includes("watch") && wb("watch", watch)}
                     {moveL.includes("radar") && wb("radar", radar)}
                 </div>
                 {cSide === "left" && cartoon}
                 {filler("left")}
             </div>
-            <div className="ean-col ean-just">
+            <div className={"ean-col" + (just === "right" ? " ean-just" : "")}>
                 <div ref={rRef} className="ean-col ean-stack">
-                    {chart1}
+                    <div className="ean-grow">{chart1}</div>
                     {chart2}
                     {!moveL.includes("watch") && wb("watch", watch)}
                     {!moveL.includes("radar") && wb("radar", radar)}
@@ -1715,7 +1725,14 @@ const CSS = `
 .ean-cart img{display:block;width:100%;height:auto;border:1px solid var(--rule)}
 .ean-paper{align-items:stretch}
 .ean-just{justify-content:space-between}
-.ean-just>.ean-stack{flex:1;justify-content:space-between}
+/* vertical justification: the rows of the briefs (left) and of the moves chart (right)
+   share any leftover height, so the gap is spread over many small steps */
+.ean-just>.ean-stack{flex:1}
+.ean-just .ean-grow{flex:1;display:flex;flex-direction:column}
+.ean-just .ean-grow>section{flex:1;display:flex;flex-direction:column}
+.ean-just .ean-grow .ean-briefs,.ean-just .ean-grow .ean-mb{flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.ean-measure .ean-stack,.ean-measure .ean-grow,.ean-measure .ean-grow>section,.ean-measure .ean-briefs,.ean-measure .ean-mb{flex:none!important}
+.ean-grow .ean-briefs li{align-items:center}
 .ean-also{list-style:none;margin:0;padding:0}
 .ean-also li{height:27px;display:flex;align-items:center;gap:10px;border-top:1px solid var(--rule);font-size:12.5px;min-width:0}
 .ean-also li:first-child{border-top:0}
