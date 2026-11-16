@@ -42,7 +42,8 @@ Structure of "lead" (exactly 4 paragraphs):
 
 Hard rules:
 1. Use ONLY the facts given. Never add a number, price, date, name or event that is not in the facts.
-2. Every number you write must be copied exactly as it appears in the facts (e.g. "+2.4%", "+8 bp", "$63.20"). You may drop a + sign.
+2. Every number you write must be copied exactly as it appears in the facts (e.g. "+2.4%", "+8 bp", "$63.20").
+   After "rose", "fell", "gained" or "lost", drop the + or − sign ("fell 0.6%", never "fell −0.6%").
 3. Causality: say a news theme moved markets ONLY if its status is "confirmed". For "market_only" use cautious words
    ("consistent with", "markets appear to price"). Mechanisms in "relationships" may be stated as explanations.
 4. No advice, no recommendations, no forecasts of prices. Do not write "will rise/fall".

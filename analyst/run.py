@@ -325,6 +325,8 @@ def build(today_ny: dt.datetime):
     wf = json.loads(json.dumps(facts))
     wf["assets"] = {k: v for k, v in wf["assets"].items() if not v.get("stale")}
     wf["lead"]["assets"] = [k for k in wf["lead"]["assets"] if k in wf["assets"]]
+    wf.pop("headlineHint", None)  # the AI writes its own headline (story + cause, not numbers)
+    wf.pop("toneHint", None)
 
     text, by = W.write_ai(wf)
     if not text:
