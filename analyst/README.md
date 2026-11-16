@@ -5,8 +5,8 @@ Economic Bearings, les analyse, fait rédiger un commentaire court en anglais pa
 gratuite, vérifie chaque chiffre, puis publie `docs/eb-analyst.json`. Le composant Framer
 **THE ANALYST** (`TheAnalyst.tsx`) affiche ce fichier.
 
-Coût : 0 €. GitHub Actions (dépôt public), GitHub Models (IA gratuite avec le jeton du
-workflow, aucune clé à créer), sources publiques et vos propres Workers.
+Coût : 0 €. GitHub Actions (dépôt public), l'offre gratuite de l'API Gemini de Google (une clé
+gratuite à créer une fois), sources publiques et vos propres Workers.
 
 ## Ce que le moteur réutilise (sans rien modifier)
 
@@ -20,7 +20,7 @@ workflow, aucune clé à créer), sources publiques et vos propres Workers.
 | Corporate Monitor `/corporate-monitor` | `docs/eb-monitor.json` |
 | Market Outlook `/market-outlook` | `eb-outlook/docs/eb-outlook.json` |
 | Islamic Investment `/islamic-investment` | `docs/eb-islamic.json` (EB US 100 et EB Shariah US 100) |
-| Géopolitique | Google News (volume d’actualité par thème, 2 derniers jours vs 12 jours précédents) |
+| Géopolitique | GDELT (volume d'actualité par thème) + Google News (titres et liens) |
 
 ## Comment l'analyse est faite
 
@@ -38,12 +38,13 @@ workflow, aucune clé à créer), sources publiques et vos propres Workers.
 ## Mise en route
 
 1. Envoyez le dossier `analyst/` et `.github/workflows/analyst-daily.yml` dans le dépôt `eb-monitor`.
-2. **Actions → THE ANALYST daily → Run workflow** pour publier une première édition tout de suite.
+2. Ajoutez la clé IA (ci-dessous), puis **Actions → THE ANALYST daily → Run workflow** pour publier une première édition tout de suite.
 3. Framer : *Assets → Code → New file* `TheAnalyst`, collez `TheAnalyst.tsx`, glissez le composant
    sur la page. Le **Data URL** est déjà rempli. Les liens vers vos pages se règlent dans **Page links**.
 
-Optionnel : si GitHub Models n'est pas disponible sur votre compte, créez une clé gratuite sur
-Google AI Studio et ajoutez-la comme secret `GEMINI_API_KEY` (Settings → Secrets → Actions).
+**Clé IA (une seule fois)** : sur https://aistudio.google.com créez une clé API gratuite, puis dans
+GitHub : *Settings → Secrets and variables → Actions → New repository secret*, nom `GEMINI_API_KEY`.
+Sans clé, l'édition est quand même publiée, rédigée avec des phrases types.
 
 ## Corriger une édition à la main
 

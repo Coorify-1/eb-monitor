@@ -19,6 +19,8 @@ import requests
 from . import config as C
 
 LOG: list[str] = []
+BROWSER = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+           "Chrome/124 Safari/537.36")
 
 
 def log(*a):
@@ -172,10 +174,6 @@ def _first(d: dict, keys):
     return None
 
 
-BROWSER = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-           "Chrome/124 Safari/537.36")
-
-
 def ceii_items(name: str, limit: int = 12):
     """Generic reader for CEII lists (news, events): title + link + date."""
     j = get(f"{C.CEII_API}/{name}.json", timeout=40, tries=2,
@@ -205,57 +203,48 @@ def ceii_items(name: str, limit: int = 12):
 
 # ------------------------------------------------------------------ Geopolitics: GDELT, Google News fallback
 
-_NEWS_MODE: str | None = None
+def gdelt_volume(query: str, days: int = 15):
+    """Daily share of world news coverage matching the query (GDELT DOC 2.0).
 
-
-def gdelt_volume(query: str, days: int = 21):
-    """Daily share of world news coverage matching the query (GDELT DOC 2.0)."""
+    GDELT allows one request every 5 seconds and often answers 429 to GitHub's shared
+    machines, so requests are spaced out and retried a few times."""
     end = dt.datetime.utcnow()
     start = end - dt.timedelta(days=days)
-    j = get("https://api.gdeltproject.org/api/v2/doc/doc", {
-        "query": f"{query} sourcelang:english", "mode": "timelinevol", "format": "json",
-        "startdatetime": start.strftime("%Y%m%d%H%M%S"), "enddatetime": end.strftime("%Y%m%d%H%M%S"),
-        "timelinesmooth": 0}, tries=2, timeout=40)
-    data = ((j or {}).get("timeline") or [{}])[0].get("data") or []
-    daily: dict[str, list[float]] = {}
-    for x in data:
-        d = str(x.get("date", ""))[:8]
-        v = _num(x.get("value"))
-        if len(d) == 8 and v is not None:
-            daily.setdefault(f"{d[:4]}-{d[4:6]}-{d[6:]}", []).append(v)
-    s = [(d, sum(v) / len(v)) for d, v in sorted(daily.items())]
-    return s if len(s) >= 7 else None
-
-
-def gdelt_articles(query: str, n: int = 4, span: str = "36h"):
-    j = get("https://api.gdeltproject.org/api/v2/doc/doc", {
-        "query": f"{query} sourcelang:english", "mode": "ArtList", "maxrecords": 40,
-        "format": "json", "timespan": span, "sort": "HybridRel"}, tries=2, timeout=40)
-    out, seen = [], set()
-    for a in (j or {}).get("articles") or []:
-        t = (a.get("title") or "").strip()
-        k = t.lower()[:60]
-        if not t or k in seen:
+    params = {"query": f"{query} sourcelang:english", "mode": "timelinevol", "format": "json",
+              "startdatetime": start.strftime("%Y%m%d%H%M%S"), "enddatetime": end.strftime("%Y%m%d%H%M%S")}
+    for i in range(4):
+        time.sleep(7 + 12 * i)
+        try:
+            r = requests.get("https://api.gdeltproject.org/api/v2/doc/doc", params=params, timeout=40,
+                             headers={"User-Agent": BROWSER})
+        except Exception as e:  # noqa: BLE001
+            log(f"  GDELT failed: {str(e)[:80]}")
             continue
-        seen.add(k)
-        sd = a.get("seendate") or ""
-        out.append({"title": t[:180], "url": a.get("url") or "", "source": (a.get("domain") or "").replace("www.", ""),
-                    "date": f"{sd[0:4]}-{sd[4:6]}-{sd[6:8]}" if len(sd) >= 8 else ""})
-        if len(out) >= n:
-            break
-    return out
+        if r.status_code != 200 or not r.text.lstrip().startswith("{"):
+            continue
+        data = ((r.json().get("timeline") or [{}])[0].get("data")) or []
+        daily: dict[str, list[float]] = {}
+        for x in data:
+            d = str(x.get("date", ""))[:8]
+            v = _num(x.get("value"))
+            if len(d) == 8 and v is not None:
+                daily.setdefault(f"{d[:4]}-{d[4:6]}-{d[6:]}", []).append(v)
+        s = [(d, sum(v) / len(v)) for d, v in sorted(daily.items())]
+        return s if len(s) >= 7 else None
+    log("  GDELT: no answer for this theme")
+    return None
 
 
-def _rss(query: str, window: bool = True):
+def _rss(query: str):
     txt = get("https://news.google.com/rss/search",
-              {"q": f"{query} when:14d" if window else query, "hl": "en-US", "gl": "US", "ceid": "US:en"},
-              tries=2, as_json=False, headers={"Accept": "application/rss+xml"})
+              {"q": f"{query} when:2d", "hl": "en-US", "gl": "US", "ceid": "US:en"},
+              tries=2, as_json=False, headers={"Accept": "application/rss+xml", "User-Agent": BROWSER})
     if not txt:
-        return None
+        return []
     try:
         root = ET.fromstring(txt)
     except ET.ParseError:
-        return None
+        return []
     items = []
     for it in root.iter("item"):
         t = (it.findtext("title") or "").strip()
@@ -270,33 +259,23 @@ def _rss(query: str, window: bool = True):
     return items
 
 
-def _rss_count(query: str, after: dt.date, before: dt.date):
-    items = _rss(f"{query} after:{after.isoformat()} before:{before.isoformat()}", window=False)
-    return items
-
-
 def theme_news(theme: dict, today: dt.date):
-    """News intensity of a theme: coverage of the last 2 days vs. the 12 days before.
-
-    Google News is used (GDELT rate-limits GitHub's machines). Each window is asked
-    separately so the busy recent days do not crowd out the baseline."""
+    """News intensity of a theme: GDELT coverage of the last 2 days vs. the days before,
+    plus the latest headlines from Google News (title + link to the original article)."""
     q = theme["query"]
-    recent = _rss_count(q, today - dt.timedelta(days=2), today + dt.timedelta(days=1))
-    time.sleep(2)
-    base = _rss_count(q, today - dt.timedelta(days=14), today - dt.timedelta(days=2))
-    time.sleep(2)
-    if recent is None or base is None:
+    vol = gdelt_volume(q)
+    spike = None
+    if vol:
+        recent = [v for d, v in vol[-2:]]
+        base = sorted(v for d, v in vol[:-2])
+        med = base[len(base) // 2] if base else 0
+        if med > 0:
+            spike = round(min(max(recent) / med, 6.0), 2)
+    heads = _rss(q)[:4]
+    time.sleep(3)
+    if spike is None and not heads:
         return None
-    r_day = len(recent) / 2
-    b_day = len(base) / 12
-    if len(recent) < 4:
-        spike = 1.0  # too little coverage to call anything
-    else:
-        spike = r_day / max(b_day, 1.0)
-    spike = min(spike, 6.0)
-    heads = sorted([i for i in recent if i["title"]], key=lambda x: x["date"], reverse=True)[:4]
-    return {"spike": round(spike, 2), "source": "Google News", "headlines": heads,
-            "counts": [len(recent), len(base)]}
+    return {"spike": spike, "source": "GDELT" if spike is not None else None, "headlines": heads}
 
 
 # ------------------------------------------------------------------ helpers

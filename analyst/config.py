@@ -90,13 +90,12 @@ CONFIRM_ASSETS = 2   # linked assets that must move the expected way to confirm 
 CONFIRM_Z = 0.8
 
 # ------------------------------------------------------------------ writing (free AI)
-# OpenAI-compatible endpoints tried in order. GitHub Models works with the workflow's own
-# GITHUB_TOKEN (no key to create). Gemini is used only if a GEMINI_API_KEY secret exists.
+# OpenAI-compatible endpoint of Google's Gemini API, free tier (key from Google AI Studio,
+# stored as the GitHub secret GEMINI_API_KEY). Models are tried in order.
+# (GitHub Models, the first choice at design time, was shut down by GitHub on 30 July 2026.)
 LLM_PROVIDERS = [
-    {"name": "GitHub Models", "url": "https://models.github.ai/inference/chat/completions",
-     "env": "GITHUB_TOKEN", "models": ["openai/gpt-4.1-mini", "openai/gpt-4o-mini"]},
     {"name": "Gemini", "url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
-     "env": "GEMINI_API_KEY", "models": ["gemini-2.5-flash", "gemini-2.0-flash"]},
+     "env": "GEMINI_API_KEY", "models": ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-3-flash-preview"]},
 ]
 
 # ------------------------------------------------------------------ schedule

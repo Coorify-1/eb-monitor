@@ -19,7 +19,6 @@ on:
 
 permissions:
   contents: write
-  models: read   # free AI writing through GitHub Models, with this workflow's own token
 
 concurrency:
   group: eb-analyst
@@ -28,7 +27,7 @@ concurrency:
 jobs:
   edition:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -43,7 +42,6 @@ jobs:
       - name: Write today's edition
         if: github.event_name != 'push'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FORCE: ${{ inputs.force }}
         run: python -m analyst.run --out docs/eb-analyst.json

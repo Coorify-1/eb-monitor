@@ -338,7 +338,7 @@ def build(today_ny: dt.datetime):
         "sources": ("Economic Bearings pages and engines (Financial Markets, Energy Terminal, Crypto & Currencies, "
                     "Hard Assets, Estate Index, Corporate Monitor, Market Outlook, Islamic Investment). Underlying data: "
                     "FRED, ECB (Frankfurter), CoinGecko, COMEX/NYMEX and LME via EB Metals, CEII, OECD. "
-                    "News volume and headlines: Google News; each headline links to the original article."),
+                    "News volume: GDELT. Headlines: Google News; each headline links to the original article."),
         "log": S.LOG[-60:],
     }
 
