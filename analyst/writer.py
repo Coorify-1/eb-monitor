@@ -208,7 +208,8 @@ def write_template(facts: dict) -> dict:
 
     def say(k):
         a = A[k]
-        return f"{a['name']} {_mv(a)} to {a['lastText']}"
+        lag = f" ({a['lagNote']})" if a.get("lagNote") else ""
+        return f"{a['name']} {_mv(a)} to {a['lastText']}{lag}"
 
     paras = []
     if lead["type"] == "theme":
@@ -234,7 +235,8 @@ def write_template(facts: dict) -> dict:
 
     rates = [k for k in ("us2y", "us10y") if ok(k)]
     if rates:
-        paras.append("In bonds, " + " and ".join(f"the {A[k]['name']} moved {A[k]['d1Text']} to {A[k]['lastText']}" for k in rates)
+        paras.append("In bonds, " + " and ".join(f"the {A[k]['name']} moved {A[k]['d1Text']} to {A[k]['lastText']}"
+                                                 + (f" ({A[k]['lagNote']})" if A[k].get("lagNote") else "") for k in rates)
                      + ". Yields move with expectations for inflation and for the Federal Reserve's next steps; "
                      f"the {_L('markets', 'rates table')} has the full curve.")
     hav = [k for k in ("gold", "usdjpy", "eurusd") if ok(k)]

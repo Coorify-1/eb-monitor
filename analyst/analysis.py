@@ -53,6 +53,20 @@ def fmt_move(a: dict, v):
     return fmt_bp(v) if a["kind"] == "yield" else fmt_pct(v)
 
 
+SESSION_DATE = ""  # date of the session the edition is about (set by run.py)
+
+
+def lag_note(asof) -> str:
+    """' (latest data: Nov 12)' when a market's data is older than the session analysed."""
+    if not asof or not SESSION_DATE or asof >= SESSION_DATE:
+        return ""
+    try:
+        d = dt.date.fromisoformat(asof)
+    except ValueError:
+        return ""
+    return f" (latest data: {d.strftime('%b')} {d.day})"
+
+
 # ------------------------------------------------------------------ per-asset statistics
 
 
@@ -123,6 +137,7 @@ def public(a: dict) -> dict:
         "d1": round(a["d1"], 3) if a["d1"] is not None else None, "d1Text": fmt_move(a, a["d1"]),
         "w1Text": fmt_move(a, a["w1"]), "m1Text": fmt_move(a, a["m1"]),
         "z": round(a["z"], 2), "size": a["zlabel"], "asOf": a["asof"], "stale": a["stale"],
+        "lagNote": lag_note(a["asof"]).strip(" ()") or None,
     }
 
 

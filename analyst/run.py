@@ -11,6 +11,7 @@ import datetime as dt
 import json
 import os
 import pathlib
+import re
 import sys
 from zoneinfo import ZoneInfo
 
@@ -112,10 +113,11 @@ def _say(a):
     if not a.get("ok"):
         return ""
     d = a["d1"] or 0
+    lag = AN.lag_note(a.get("asof"))
     if not d:
-        return f"{a['name']} was unchanged at {AN.fmt_level(a, a['last'])}"
+        return f"{a['name']} was unchanged at {AN.fmt_level(a, a['last'])}{lag}"
     verb = "rose" if d > 0 else "fell"
-    return f"{a['name']} {verb} {AN.fmt_move(a, a['d1']).lstrip('+−')} to {AN.fmt_level(a, a['last'])}"
+    return f"{a['name']} {verb} {AN.fmt_move(a, a['d1']).lstrip('+−')} to {AN.fmt_level(a, a['last'])}{lag}"
 
 
 def sections(A, raw, reg):
@@ -255,6 +257,7 @@ def edition_info(now_ny: dt.datetime):
 
 def build(today_ny: dt.datetime):
     ed = edition_info(today_ny)
+    AN.SESSION_DATE = re.search(r"\((\d{4}-\d{2}-\d{2})\)", ed["basedOn"]).group(1)
     today = today_ny.date()
     A, raw = collect(today)
     usable = sum(1 for a in A.values() if a.get("ok"))

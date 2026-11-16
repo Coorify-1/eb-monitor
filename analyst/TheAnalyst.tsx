@@ -1162,7 +1162,12 @@ export default function TheAnalyst(props: any) {
                     <div className="ean-kl">{tx["kpi_" + m.id] || m.name}</div>
                     <div className="ean-kv">{m.lastText}</div>
                     <div className="ean-ks">
-                        <Pct m={m} /> <span className="ean-mut">{tx.today}</span>
+                        <Pct m={m} />{" "}
+                        <span className="ean-mut">
+                            {m.asOf && D.edition?.basedOn && m.asOf < (D.edition.basedOn.match(/\d{4}-\d{2}-\d{2}/) || [""])[0]
+                                ? tx.onDate.replace("{d}", fmtDay(m.asOf, { month: "short", day: "numeric" }))
+                                : tx.today}
+                        </span>
                     </div>
                 </a>
             ))}
@@ -1603,6 +1608,7 @@ const DEF_TEXTS: Record<string, string> = {
     latest: "Latest edition",
     basedOn: "Based on {d}",
     today: "on the day",
+    onDate: "latest data {d}",
     kpi_us_eq: "US stocks (EB US 100)",
     kpi_us10y: "US 10-year yield",
     kpi_brent: "Brent crude",
