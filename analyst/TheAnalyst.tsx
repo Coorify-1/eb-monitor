@@ -175,7 +175,7 @@ function Rich({
         const url = href(m[1])
         parts.push(
             url ? (
-                <a key={i++} className="ean-a" href={url}>
+                <a key={i++} className="ean-a" href={url} target="_blank" rel="noopener">
                     {m[2]}
                 </a>
             ) : (
@@ -245,7 +245,7 @@ function MoveBars({
                         role="listitem"
                         title={`${r.name}: ${r.text} (${Math.abs(r.z).toFixed(1)}× its usual daily move)`}
                     >
-                        <a className="ean-mbn" href={href(r.page) || undefined}>
+                        <a className="ean-mbn" href={href(r.page) || undefined} target="_blank" rel="noopener">
                             {r.name.replace(/ \(.*\)$/, "")}
                         </a>
                         <span className="ean-mbt">
@@ -1158,6 +1158,8 @@ export default function TheAnalyst(props: any) {
                     key={m.id}
                     className="ean-kpi"
                     href={href(m.page || "") || undefined}
+                    target="_blank"
+                    rel="noopener"
                 >
                     <div className="ean-kl">{tx["kpi_" + m.id] || m.name}</div>
                     <div className="ean-kv">{m.lastText}</div>
@@ -1189,7 +1191,7 @@ export default function TheAnalyst(props: any) {
             <ul className="ean-briefs">
                 {SECTION_ORDER.filter((k) => D.text.briefs?.[k]).map((k) => (
                     <li key={k}>
-                        <a className="ean-bk" href={href(k) || undefined}>
+                        <a className="ean-bk" href={href(k) || undefined} target="_blank" rel="noopener">
                             {pageName(k)}
                             <span aria-hidden="true"> →</span>
                         </a>
@@ -1234,7 +1236,7 @@ export default function TheAnalyst(props: any) {
         <Panel title={tx.contextTitle} note={tx.contextNote}>
             <div className="ean-legend">
                 {ctx.map((s, k) => (
-                    <a key={s.id} href={href(s.page) || undefined}>
+                    <a key={s.id} href={href(s.page) || undefined} target="_blank" rel="noopener">
                         <i style={{ background: colors[k % colors.length] }} />
                         {s.name}
                     </a>
