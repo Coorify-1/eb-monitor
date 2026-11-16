@@ -1,8 +1,8 @@
 # EB Islamic Investment — run check
 
-Run 2026-11-16T14:34:58+00:00 (market close 2026-11-13), 1568 s
+Run 2026-11-16T14:50:25+00:00 (market close 2026-11-13), 787 s
 
-Screen: 842 companies, {'Halal': 449, 'Watch': 51, 'Not halal': 173, 'Excluded': 155, 'No data': 14}, halal share 60.4%
+Screen: 843 companies, {'Halal': 442, 'Watch': 52, 'Not halal': 182, 'Excluded': 156, 'No data': 11}, halal share 59.4%
 
 | Ticker | Name | Sector | $bn | Debt % | Cash % | Income % | Status | Why |
 |---|---|---|---|---|---|---|---|---|
@@ -11,7 +11,7 @@ Screen: 842 companies, {'Halal': 449, 'Watch': 51, 'Not halal': 173, 'Excluded':
 | MSFT | Microsoft Corp | Technology | 3890.4 | 1.06 | 1.93 | None | Halal | All ratios within limits |
 | GOOGL | Alphabet Inc. | Technology | 3636.2 | 3.07 | 6.46 | 1.08 | Halal | All ratios within limits |
 | AMZN | Amazon Com Inc | Consumer discretionary | 2883.4 | 6.89 | 4.36 | 0.61 | Halal | All ratios within limits |
-| TSM | Taiwan Semiconductor Manufac | Technology | 2068.0 | None | None | None | No data |  |
+| TSM | Taiwan Semiconductor Manufac | Technology | 2068.0 | 1.46 | 3.34 | 3.01 | Halal | All ratios within limits |
 | SPCX | Space Exploration Technologi | Technology | 1889.3 | 1.97 | 4.57 | None | Halal | All ratios within limits |
 | AVGO | Broadcom Inc. | Technology | 1656.5 | 3.41 | 1.38 | 0.54 | Halal | All ratios within limits |
 | META | Meta Platforms, Inc. | Technology | 1640.3 | 5.17 | 5.09 | 1.06 | Halal | All ratios within limits |
@@ -45,11 +45,11 @@ Screen: 842 companies, {'Halal': 449, 'Watch': 51, 'Not halal': 173, 'Excluded':
 | INTC | Intel Corp | Technology | 317.1 | 12.13 | 13.07 | 1.91 | Halal | All ratios within limits |
 | PM | Philip Morris International  | Consumer staples | 310.1 | None | None | None | Excluded | Tobacco |
 | HSBC | HSBC Holdings PLC | Financials | 306.4 | None | None | None | Excluded | Conventional finance or insurance |
-| NVS | Novartis AG | Health care | 303.1 | 0.24 | 4.11 | None | Halal | All ratios within limits |
+| NVS | Novartis AG | Health care | 303.1 | 10.19 | 4.11 | None | Halal | All ratios within limits |
 
-Index: 277 days, returns {'1D': [-0.67, -0.61], '1W': [2.55, 2.61], '1M': [-5.6, -4.99], '3M': [-3.02, -3.16], '6M': [-0.47, -0.2], '1Y': [15.17, 14.17], 'YTD': [13.26, 12.15]}
+Index: 277 days, returns {'1D': [-0.7, -0.61], '1W': [2.62, 2.61], '1M': [-5.9, -4.99], '3M': [-3.29, -3.16], '6M': [-0.91, -0.2], '1Y': [15.68, 14.17], 'YTD': [13.56, 12.15]}
 
-Top weights: AAPL 8.0%, NVDA 7.84%, MSFT 7.78%, GOOGL 7.27%, AMZN 5.76%, SPCX 3.78%, AVGO 3.31%, META 3.28%, TSLA 3.08%, LLY 2.71%
+Top weights: AAPL 8.0%, NVDA 7.54%, MSFT 7.48%, GOOGL 6.99%, AMZN 5.54%, TSM 3.97%, SPCX 3.63%, AVGO 3.18%, META 3.15%, TSLA 2.96%
 
 - Fund SPUS: $3135.9m as of 2026-08-31, 48 months, 219 holdings
 - Fund HLAL: $944.5m as of 2026-08-31, 48 months, 211 holdings
@@ -65,7 +65,7 @@ Top weights: AAPL 8.0%, NVDA 7.84%, MSFT 7.78%, GOOGL 7.27%, AMZN 5.76%, SPCX 3.
 - Fund AMAPX: $323.1m as of 2026-08-31, 48 months, 104 holdings
 - List MY: 859 as of 2025-11-28, sectors [['Industrial products and services', 264], ['Consumer products and services', 174], ['Technology', 97], ['Property', 86]], banks 2
 - List ID: 622 as of 2026-05-21, sectors [['Consumer discretionary', 110], ['Consumer staples', 91], ['Basic materials', 81], ['Energy', 63]], banks 6
-- List AE: 53 as of 2026-06-30, sectors [['DFM', 48], ['Nasdaq Dubai', 5]], banks 13
+- List AE: 53 as of 2026-06-30, sectors [['DFM', 48], ['Nasdaq Dubai', 5]], banks 12
 - Rates: 478 days, latest {'date': '2026-11-16', 'overnight': 2.76, '1_week': 2.83, '1_month': 3.03, '3_month': None}, OPR 2.75
 - News: 0 (fresh: False)
 
