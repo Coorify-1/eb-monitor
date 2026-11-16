@@ -1225,11 +1225,17 @@ export default function TheAnalyst(props: any) {
     const ROWH = 27
     const decided = React.useRef("")
     const [cLoaded, setCLoaded] = React.useState(0)
+    // The radar always shows the 4 themes that matter most today: themes moving markets
+    // first, then those heating up in the news, then the most covered of the rest.
+    const ORDER: Record<string, number> = { confirmed: 0, news_only: 1, market_only: 2, quiet: 3 }
+    const radarRows = (D.themes || [])
+        .filter((t) => t.status !== "quiet" || (t.headlines || []).some((x) => x.url))
+        .sort((a, b) => (ORDER[a.status] ?? 3) - (ORDER[b.status] ?? 3) || (b.spike || 0) - (a.spike || 0))
+
     // "Also in the news": today's other headlines (not already shown in the radar),
     // used to fill the shorter column so both columns end on the same line.
     const shownInRadar = new Set(
-        (D.themes || [])
-            .filter((t) => ["confirmed", "news_only", "market_only"].includes(t.status))
+        radarRows
             .slice(0, 4)
             .map((t) => ((t.headlines || []).find((x) => x.url)?.title || "").toLowerCase())
     )
@@ -1365,9 +1371,6 @@ export default function TheAnalyst(props: any) {
         </Panel>
     )
 
-    const radarRows = (D.themes || []).filter((t) =>
-        ["confirmed", "news_only", "market_only"].includes(t.status)
-    )
     const radar = p.showRadar && radarRows.length > 0 && (
         <Panel title={tx.radarTitle} note={tx.radarNote}>
             <ul className="ean-radar">
@@ -1806,6 +1809,7 @@ const DEF_TEXTS: Record<string, string> = {
     st_confirmed: "Moving markets",
     st_news_only: "In the news",
     st_market_only: "Priced, not in the news",
+    st_quiet: "Steady",
     page_markets: "Financial Markets",
     page_energy: "Energy Terminal",
     page_crypto: "Crypto & Currencies",

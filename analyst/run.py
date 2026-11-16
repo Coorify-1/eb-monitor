@@ -349,7 +349,7 @@ def build(today_ny: dt.datetime):
         "bars": AN.chart_bars(A),
         "context": AN.chart_context(lead, A),
         "themes": [{k: t[k] for k in ("id", "label", "status", "spike", "direction", "consistent", "against",
-                                      "headlines", "newsSource")} for t in themes if t["status"] != "quiet"],
+                                      "headlines", "newsSource")} for t in themes],
         "markets": {k: AN.public(a) for k, a in A.items()},
         "news": news_list(themes),
         "pages": C.PAGES,
