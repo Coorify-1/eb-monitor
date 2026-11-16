@@ -1,7 +1,7 @@
 {
  "week": "46",
  "asOf": "2026-11-13",
- "generated": "2026-11-15T23:43:45+00:00",
+ "generated": "2026-11-16T00:11:28+00:00",
  "nextUpdate": "2026-11-16T12:00:00+00:00",
  "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
  "regime": {
@@ -123,6 +123,7 @@
    "risks": [
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
+   "logo": "https://cdn.jsdelivr.net/gh/Coorify-1/eb-monitor@main/docs/logos/FCNCA.ico",
    "website": "https://ir.firstcitizens.com/",
    "ceo": {
     "name": "Frank Holding",
@@ -225,6 +226,7 @@
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
    "employees": 64298,
+   "logo": "https://cdn.jsdelivr.net/gh/Coorify-1/eb-monitor@main/docs/logos/ING.ico",
    "website": "https://ing.com",
    "ceo": {
     "name": "Steven van Rijswijk",
