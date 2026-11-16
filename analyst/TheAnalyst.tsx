@@ -1202,6 +1202,25 @@ export default function TheAnalyst(props: any) {
         </Panel>
     )
 
+    // The weekly cartoon: shown only when an image is set in Framer
+    const cImg =
+        typeof p.cartoonImage === "string"
+            ? p.cartoonImage
+            : p.cartoonImage?.src || ""
+    const cartoon = cImg ? (
+        <Panel title={p.cartoonTitle || tx.cartoonTitle} note={p.cartoonDate || ""}>
+            <figure className="ean-cart">
+                <img src={cImg} alt={p.cartoonAlt || p.cartoonCaption || p.cartoonTitle || tx.cartoonTitle} loading="lazy" />
+                {(p.cartoonCaption || p.cartoonCredit) && (
+                    <figcaption>
+                        {p.cartoonCaption}
+                        {p.cartoonCredit && <small>{p.cartoonCredit}</small>}
+                    </figcaption>
+                )}
+            </figure>
+        </Panel>
+    ) : null
+
     const bars = (D.bars || []).filter((b) => !b.stale)
     const chart1 = bars.length > 0 && (
         <Panel title={tx.barsTitle} note={tx.barsNote}>
@@ -1295,6 +1314,7 @@ export default function TheAnalyst(props: any) {
             <div className="ean-col">
                 {lead}
                 {briefs}
+                {cartoon}
             </div>
             <div className="ean-col">
                 {chart1}
@@ -1309,6 +1329,7 @@ export default function TheAnalyst(props: any) {
             {chart1}
             {chart2}
             {briefs}
+            {cartoon}
             {watch}
             {radar}
         </div>
@@ -1566,6 +1587,11 @@ const CSS = `
 .ean-rl{font-size:12px;line-height:1.4;color:var(--ink)}
 .ean-rl:hover{color:var(--link)}
 .ean-rl small{color:var(--mute);font-size:10.5px}
+/* weekly cartoon */
+.ean-cart{margin:4px 0 0}
+.ean-cart img{display:block;width:100%;height:auto;border:1px solid var(--rule)}
+.ean-cart figcaption{font-family:var(--fh);font-style:italic;font-size:14px;line-height:1.45;margin-top:8px;display:flex;flex-direction:column;gap:2px}
+.ean-cart small{font-family:var(--fb);font-style:normal;font-size:10.5px;color:var(--mute)}
 /* footer */
 .ean-foot{border-top:1px solid var(--rule);padding-top:10px;font-size:11px;color:var(--mute)}
 .ean-foot p{margin:0 0 6px}
@@ -1622,6 +1648,7 @@ const DEF_TEXTS: Record<string, string> = {
     contextTitle: "The lead story over one month",
     contextNote: "Change since the first day shown",
     watchTitle: "What we're watching",
+    cartoonTitle: "The Weekly Cartoon",
     radarTitle: "Geopolitical radar",
     radarNote: "News volume vs. its recent normal",
     coverage: "{x}× usual coverage",
@@ -1714,6 +1741,20 @@ const CONTROLS: Record<string, any> = {
     showRadar: { type: ControlType.Boolean, title: "Geopolitical radar" },
     showArchive: { type: ControlType.Boolean, title: "Previous editions" },
     showFooter: { type: ControlType.Boolean, title: "Footer" },
+    cartoonImage: {
+        type: ControlType.ResponsiveImage,
+        title: "Cartoon image",
+        description: "The Weekly Cartoon. No image = the block is hidden.",
+    },
+    cartoonTitle: {
+        type: ControlType.String,
+        title: "Cartoon title",
+        placeholder: "The Weekly Cartoon",
+    },
+    cartoonCaption: { type: ControlType.String, title: "Cartoon caption", displayTextArea: true },
+    cartoonCredit: { type: ControlType.String, title: "Cartoon credit", placeholder: "Drawing: …" },
+    cartoonDate: { type: ControlType.String, title: "Cartoon date", placeholder: "Week of Nov 16" },
+    cartoonAlt: { type: ControlType.String, title: "Cartoon alt text" },
     chartHeight: {
         type: ControlType.Number,
         title: "Chart height",
