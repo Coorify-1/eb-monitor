@@ -242,7 +242,7 @@ def write_template(facts: dict) -> dict:
     why = ""
     if lead["type"] == "theme":
         t = next(x for x in facts["themes"] if x["label"] == lead["label"])
-        why = (f"News coverage of {t['label'].lower()} ran at {t['newsVolume']}, and the markets most exposed to it "
+        why = (f"News coverage of {t['label']} ran at {t['newsVolume']}, and the markets most exposed to it "
                f"moved the way such news usually moves them, through {t['channel']}. ")
         heads = t.get("headlines") or []
         if heads:
