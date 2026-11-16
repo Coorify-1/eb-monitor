@@ -96,8 +96,10 @@ SECTOR_OVERRIDE = {
 FX_FALLBACK = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json"
 
 IFRS = {
-    "debt": ["NoncurrentPortionOfNoncurrentBorrowings", "CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings",
-             "LongtermBorrowings", "ShorttermBorrowings", "Borrowings"],
+    "debt_parts": ["NoncurrentPortionOfNoncurrentBorrowings", "CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings"],
+    "debt_alt": ["LongtermBorrowings", "ShorttermBorrowings", "NoncurrentPortionOfNoncurrentBondsIssued",
+                 "CurrentPortionOfNoncurrentBondsIssued", "NoncurrentPortionOfNoncurrentLoansReceived",
+                 "CurrentPortionOfNoncurrentLoansReceived"],
     "cash": ["CashAndCashEquivalents"],
     "inv": ["CurrentInvestments", "OtherCurrentFinancialAssets"],
     "revenue": ["Revenue", "RevenueFromContractsWithCustomers"],

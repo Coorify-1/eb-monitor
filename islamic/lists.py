@@ -357,7 +357,7 @@ def dubai(cache, log=print):
     periods.sort(key=lambda p: p.get("date") or "", reverse=True)
     head = periods[0]
     date = head.get("date") or f"{head['year']}-Q{head['quarter']}"
-    hist = {h[0]: h[1] for h in (prev.get("history") or [])}
+    hist = {h[0]: h[1] for h in (prev.get("history") or []) if h[1] and re.match(r"\d{4}-\d\d-\d\d$", h[0]) and h[0] <= date}
 
     def get_list(p, ex):
         try:
@@ -388,7 +388,7 @@ def dubai(cache, log=print):
             if n:
                 hist[d] = n
     if rows is None:
-        prev["history"] = sorted([[k, v] for k, v in hist.items()])[-20:]
+        prev["history"] = sorted([[k, v] for k, v in hist.items() if v])[-20:]
         prev["checked"] = dt.date.today().isoformat()
         return prev
     names = [x["n"] for x in rows]
@@ -406,7 +406,7 @@ def dubai(cache, log=print):
         "addedCount": len(a) if prev.get("_names") else None, "removedCount": len(rm) if prev.get("_names") else None,
         "added": a[:60], "removed": rm[:60],
         "sectors": sorted([[k, v] for k, v in ex.items()], key=lambda kv: -kv[1]), "sectorsBy": "exchange",
-        "history": sorted([[k, v] for k, v in hist.items()])[-20:],
+        "history": sorted([[k, v] for k, v in hist.items() if v])[-20:],
         "list": [[x["c"], x["n"], x["s"]] for x in rows],
         "next": "Quarterly, after companies publish their results",
         "_names": names,
@@ -418,4 +418,5 @@ def islamic_banks(lst):
     if not lst:
         return []
     pat = re.compile(r"islam|syariah|shariah|sharia|bank|takaful|muamalat|rajhi|financ", re.I)
-    return [row[1] for row in lst.get("list", []) if pat.search(row[1])][:40]
+    skip = re.compile(r"\betf\b|\bfund\b|share class|reit", re.I)
+    return [row[1] for row in lst.get("list", []) if pat.search(row[1]) and not skip.search(row[1])][:40]

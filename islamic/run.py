@@ -30,7 +30,7 @@ from . import screen as S
 NY = ZoneInfo("America/New_York")
 
 
-SCREEN_VERSION = 3
+SCREEN_VERSION = 4
 
 
 def log(*a):
@@ -135,8 +135,8 @@ def refresh_universe(sec, massive, mom, today, state, cache_dir):
                      "cc": s["cc"], "shares": sh, "det": det})
     json.dump(details, open(det_path, "w"))
     fx = fx_rates()
-    state.pop("ffacts", None)
-    facts_cache = state.setdefault("facts2", {})
+    state.pop("ffacts", None); state.pop("facts2", None)
+    facts_cache = state.setdefault("facts3", {})
     for r in rows:
         if not r["foreign"] and r["shares"] is not None:
             r["inp"] = S.domestic_ratios_inputs(got, r["cik"], today)

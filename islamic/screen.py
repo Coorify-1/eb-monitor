@@ -165,8 +165,10 @@ def _latest(facts, tax, tags, flow=False):
 
 
 def facts_inputs(facts, fx, today):
-    """Screen inputs from one company's facts (US GAAP or IFRS, any currency), in USD."""
-    min_bs = (today - dt.timedelta(days=560)).isoformat()
+    """Screen inputs from one company's facts (US GAAP or IFRS, any currency), in USD.
+    Foreign companies report once a year, so balance sheets up to 25 months old are accepted
+    (the page shows the balance-sheet date of every company)."""
+    min_bs = (today - dt.timedelta(days=760)).isoformat()
 
     def usd(x, old=min_bs):
         if not x or x[0] < old:
@@ -188,19 +190,29 @@ def facts_inputs(facts, fx, today):
                 debt = dcur if dcur is not None else st
             ca = g("cash")
             cash, sti, lti = usd(ca), usd(g("st_inv")), usd(g("lt_inv"))
-            rev = usd(_latest(facts, tax, C.REVENUE_TAGS, True), (today - dt.timedelta(days=820)).isoformat())
-            inc = usd(_latest(facts, tax, C.INTEREST_INCOME_TAGS, True), (today - dt.timedelta(days=820)).isoformat())
+            rev = usd(_latest(facts, tax, C.REVENUE_TAGS, True), (today - dt.timedelta(days=1000)).isoformat())
+            inc = usd(_latest(facts, tax, C.INTEREST_INCOME_TAGS, True), (today - dt.timedelta(days=1000)).isoformat())
         else:
             I = C.IFRS
-            parts = [usd(_latest(facts, tax, [t])) for t in I["debt"][:2]]
-            debt = sum(p for p in parts if p is not None) if any(p is not None for p in parts) else usd(_latest(facts, tax, I["debt"][2:]))
+            tot = usd(_latest(facts, tax, ["Borrowings"]))
+            parts = [usd(_latest(facts, tax, [t])) for t in I["debt_parts"]]
+            alt = [usd(_latest(facts, tax, [t])) for t in I["debt_alt"]]
+            if tot is not None:
+                debt = tot
+            elif any(p is not None for p in parts):
+                debt = sum(p for p in parts if p is not None)
+            elif any(p is not None for p in alt):
+                debt = sum(p for p in alt if p is not None)
+            else:
+                debt = None
             ca = _latest(facts, tax, I["cash"])
             cash, sti, lti = usd(ca), usd(_latest(facts, tax, I["inv"])), None
-            rev = usd(_latest(facts, tax, I["revenue"], True), (today - dt.timedelta(days=820)).isoformat())
-            inc = usd(_latest(facts, tax, I["interest"], True), (today - dt.timedelta(days=820)).isoformat())
+            rev = usd(_latest(facts, tax, I["revenue"], True), (today - dt.timedelta(days=1000)).isoformat())
+            inc = usd(_latest(facts, tax, I["interest"], True), (today - dt.timedelta(days=1000)).isoformat())
         cash_all = None if cash is None and sti is None else (cash or 0) + (sti or 0) + (lti or 0)
         got = {"debt": debt, "cash": cash_all, "revenue": rev, "interest": inc,
-               "asOf": ca[0] if ca and cash is not None else None, "noDebtTag": debt is None and cash_all is not None}
+               "asOf": ca[0] if ca and cash is not None else None,
+               "noDebtTag": tax == "us-gaap" and debt is None and cash_all is not None}
         if cash_all is not None or debt is not None:
             if best is None or (got["asOf"] or "") > (best["asOf"] or ""):
                 best = got
@@ -240,7 +252,7 @@ def classify(inp, mcap_avg, excluded):
     rev, inc = inp.get("revenue"), inp.get("interest")
     if rev and rev > 0 and inc is not None:
         out["npi"] = round(max(0.0, inc) / rev * 100, 2)
-    if out["debt"] is None and out["cash"] is None:
+    if out["debt"] is None:  # without the debt figure the screen cannot conclude
         return out
     fails, watch = [], []
     for k, lim, m, label in (("debt", C.DEBT_LIMIT, C.WATCH_MARGIN, "Debt"), ("cash", C.CASH_LIMIT, C.WATCH_MARGIN, "Cash"),
