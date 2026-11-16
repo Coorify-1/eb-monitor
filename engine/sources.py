@@ -602,24 +602,50 @@ def site_icon(website):
         cands.append((score, urljoin(base, href)))
     root = f"{urlparse(base).scheme}://{urlparse(base).netloc}"
     cands.append((150, root + "/apple-touch-icon.png"))
+    cands.append((140, root + "/apple-touch-icon-precomposed.png"))
+    cands.append((130, root + "/favicon.svg"))
+    cands.append((-100, root + "/favicon.png"))
     cands.append((-500, root + "/favicon.ico"))
+    best = None
     for _, url in sorted(cands, reverse=True):
         try:
             r = _s.get(url, headers={"User-Agent": BROWSER_UA}, timeout=30)
         except Exception:
             continue
-        ct = r.headers.get("Content-Type", "").lower()
-        if r.status_code != 200 or len(r.content) < 300 or not ("image" in ct or url.lower().endswith((".png", ".svg", ".ico"))):
+        if r.status_code != 200 or len(r.content) < 300:
             continue
-        if "svg" in ct or url.lower().endswith(".svg"):
-            return r.content, "svg"
-        if "png" in ct or r.content[:8] == b"\x89PNG\r\n\x1a\n":
-            w = int.from_bytes(r.content[16:20], "big") if r.content[:4] == b"\x89PNG" else 0
-            if w and w < 48:
-                continue  # too small to look good
-            return r.content, "png"
-        if "icon" in ct or url.lower().endswith(".ico"):
-            return r.content, "ico"
-        if "jpeg" in ct or "jpg" in ct:
-            return r.content, "jpg"
+        got = _clean_image(r.content)
+        if not got:
+            continue
+        data, ext, px = got
+        if ext == "svg":
+            return data, "svg"
+        if px >= 120:
+            return data, ext
+        if px >= 32 and (best is None or px > best[2]):
+            best = (data, ext, px)
+    if best:
+        return best[0], best[1]
     return None
+
+
+def _clean_image(b):
+    """Checks the bytes are a real image; returns (bytes, ext, size_px). Icons become PNG (largest frame)."""
+    head = b[:512].lstrip().lower()
+    if head.startswith(b"<svg") or (head.startswith(b"<?xml") and b"<svg" in b[:2000].lower()):
+        return b, "svg", 999
+    try:
+        from io import BytesIO
+        from PIL import Image
+        im = Image.open(BytesIO(b))
+        if im.format == "ICO":
+            sizes = sorted(im.info.get("sizes") or [im.size], key=lambda x: x[0])
+            im.size = sizes[-1]
+            im.load()
+        im = im.convert("RGBA")
+        px = min(im.size)
+        out = BytesIO()
+        im.save(out, "PNG")
+        return out.getvalue(), "png", px
+    except Exception:
+        return None
