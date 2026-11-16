@@ -1,0 +1,56 @@
+== zawya_ie 200 items=0 hits=0 first=
+
+== zawya_if 200 items=0 hits=0 first=
+
+== zawya_bus 200 items=0 hits=0 first=
+
+== salaam 200 items=0 hits=0 first=
+
+== salaam3 404 items=0 hits=0 first=
+
+== ethica 200 items=0 hits=0 first=
+
+== saudigazette 200 items=0 hits=0 first=
+
+== meed 200 items=0 hits=0 first=
+
+== bt_my 200 items=20 hits=0 first=Mon, 16 Nov 2026 14:50:55 +0000
+
+== btimes_my 404 items=0 hits=0 first=
+
+== thestar2 404 items=0 hits=0 first=
+
+== edge2 404 items=0 hits=0 first=
+
+== mubasher 404 items=0 hits=0 first=
+
+== arabnews 403 items=0 hits=0 first=
+
+== gulftimes 200 items=0 hits=0 first=
+
+== peninsula 200 items=0 hits=0 first=
+
+== kuwaittimes 404 items=0 hits=0 first=
+
+== omanobserver 200 items=0 hits=0 first=
+
+== brecorder 200 items=30 hits=0 first=Mon, 16 Nov 2026 19:30:00 +0500
+
+== thenews_pk 200 items=0 hits=0 first=
+
+== dailysabah 200 items=33 hits=0 first=Mon, 16 Nov 2026 17:13:00 +0300
+
+== jakpost 404 items=0 hits=0 first=
+
+== tempo 403 items=0 hits=0 first=
+
+== emirates247 200 items=0 hits=0 first=
+
+== wam 200 items=0 hits=0 first=
+
+== spa 200 items=0 hits=0 first=
+
+== ifnfintech 526 items=0 hits=0 first=
+
+== islamicmarkets ERR ConnectTimeout
+== cmo 200 items=0 hits=0 first=
