@@ -1,0 +1,23 @@
+name: Islamic probe (temporary)
+on:
+  push:
+    branches: [islamic-probe]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install requests pdfplumber
+      - env:
+          SEC_CONTACT: ${{ secrets.SEC_CONTACT }}
+        run: python islamic/probe.py
+      - name: Save results
+        if: always()
+        run: |
+          cd probe && git init -q -b probe-results && git add -A
+          git -c user.name=bot -c user.email=bot@users.noreply.github.com commit -qm probe
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" probe-results
