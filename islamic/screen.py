@@ -130,49 +130,84 @@ def shares_of(got, cik, today):
     return x[1]
 
 
-# ---------------------------------------------------------------- foreign filers (IFRS, annual)
+# ---------------------------------------------------------------- company facts (one company at a time)
 
-def _ifrs_latest(facts, tags):
+BS_FORMS = {"10-Q", "10-Q/A", "10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A", "6-K"}
+FY_FORMS = {"10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A"}
+
+
+def _days(a, b):
+    try:
+        return (dt.date.fromisoformat(b) - dt.date.fromisoformat(a)).days
+    except Exception:
+        return 0
+
+
+def _latest(facts, tax, tags, flow=False):
+    """(end, value, currency) of the freshest fact among tags; flows must cover about one year."""
     best = None
-    for tag in tags:
-        c = ((facts.get("facts") or {}).get("ifrs-full") or {}).get(tag)
+    for rank, tag in enumerate(tags):
+        c = ((facts.get("facts") or {}).get(tax) or {}).get(tag)
         if not c:
             continue
         for unit, rows in (c.get("units") or {}).items():
+            if "/" in unit or len(unit) != 3:
+                continue
             for r in rows:
-                if r.get("form") not in ("20-F", "20-F/A", "40-F", "40-F/A", "6-K"):
+                if r.get("form") not in (FY_FORMS if flow else BS_FORMS):
+                    continue
+                if flow and not 330 <= _days(r.get("start", ""), r.get("end", "")) <= 380:
                     continue
                 end = r.get("end") or ""
-                if best is None or end > best[0]:
-                    best = (end, float(r["val"]), unit)
-    return best
+                if best is None or end > best[0] or (end == best[0] and rank < best[3]):
+                    best = (end, float(r["val"]), unit, rank)
+    return best[:3] if best else None
 
 
-def foreign_inputs(facts, fx):
-    """Same inputs for a 20-F / 40-F filer, converted to USD (fx = units per USD)."""
-    def usd(x):
-        if not x:
+def facts_inputs(facts, fx, today):
+    """Screen inputs from one company's facts (US GAAP or IFRS, any currency), in USD."""
+    min_bs = (today - dt.timedelta(days=560)).isoformat()
+
+    def usd(x, old=min_bs):
+        if not x or x[0] < old:
             return None
         rate = fx.get(x[2])
         return x[1] / rate if rate else None
 
-    debt_parts = [_ifrs_latest(facts, [t]) for t in C.IFRS["debt"][:2]]
-    if any(debt_parts):
-        debt = sum(usd(p) or 0 for p in debt_parts if p)
-    else:
-        b = _ifrs_latest(facts, C.IFRS["debt"][2:])
-        debt = usd(b)
-    cash = usd(_ifrs_latest(facts, C.IFRS["cash"]))
-    inv = usd(_ifrs_latest(facts, C.IFRS["inv"]))
-    rev = usd(_ifrs_latest(facts, C.IFRS["revenue"]))
-    inc = usd(_ifrs_latest(facts, C.IFRS["interest"]))
-    if rev is None:  # some foreign filers report in US GAAP
-        s = annual_series(facts, "revenue")
-        rev = s[0][1] / (fx.get(s[0][2]) or 1) if s else None
-    cash_all = None if cash is None and inv is None else (cash or 0) + (inv or 0)
-    a = _ifrs_latest(facts, C.IFRS["cash"])
-    return {"debt": debt, "cash": cash_all, "revenue": rev, "interest": inc,
-            "asOf": a[0] if a else None, "noDebtTag": debt is None and cash_all is not None}
+    best = None
+    for tax in ("us-gaap", "ifrs-full"):
+        if tax == "us-gaap":
+            D, K = C.DEBT_TAGS, C.CASH_TAGS
+            g = lambda b, flow=False: _latest(facts, tax, D.get(b) or K.get(b) or b, flow)
+            ltn, ltt, ltc, dcur, st = (usd(g(b)) for b in ("lt_noncurrent", "lt_total", "lt_current", "debt_current", "short"))
+            if ltn is not None:
+                debt = ltn + (dcur if dcur is not None else (ltc or 0) + (st or 0))
+            elif ltt is not None:
+                debt = ltt + (st or 0)
+            else:
+                debt = dcur if dcur is not None else st
+            ca = g("cash")
+            cash, sti, lti = usd(ca), usd(g("st_inv")), usd(g("lt_inv"))
+            rev = usd(_latest(facts, tax, C.REVENUE_TAGS, True), (today - dt.timedelta(days=820)).isoformat())
+            inc = usd(_latest(facts, tax, C.INTEREST_INCOME_TAGS, True), (today - dt.timedelta(days=820)).isoformat())
+        else:
+            I = C.IFRS
+            parts = [usd(_latest(facts, tax, [t])) for t in I["debt"][:2]]
+            debt = sum(p for p in parts if p is not None) if any(p is not None for p in parts) else usd(_latest(facts, tax, I["debt"][2:]))
+            ca = _latest(facts, tax, I["cash"])
+            cash, sti, lti = usd(ca), usd(_latest(facts, tax, I["inv"])), None
+            rev = usd(_latest(facts, tax, I["revenue"], True), (today - dt.timedelta(days=820)).isoformat())
+            inc = usd(_latest(facts, tax, I["interest"], True), (today - dt.timedelta(days=820)).isoformat())
+        cash_all = None if cash is None and sti is None else (cash or 0) + (sti or 0) + (lti or 0)
+        got = {"debt": debt, "cash": cash_all, "revenue": rev, "interest": inc,
+               "asOf": ca[0] if ca and cash is not None else None, "noDebtTag": debt is None and cash_all is not None}
+        if cash_all is not None or debt is not None:
+            if best is None or (got["asOf"] or "") > (best["asOf"] or ""):
+                best = got
+    return best or {}
+
+
+foreign_inputs = None  # replaced by facts_inputs
 
 
 # ---------------------------------------------------------------- business and ratio tests
@@ -231,6 +266,8 @@ def purification(npi):
     return None if npi is None else round(npi, 2)
 
 
-def sector_of(sic):
+def sector_of(sic, ticker=None):
+    if ticker and ticker.upper() in C.SECTOR_OVERRIDE:
+        return C.SECTOR_OVERRIDE[ticker.upper()]
     s = EC.sector_of(sic)
     return "Financials" if s == "Banks" else s

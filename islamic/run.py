@@ -78,9 +78,31 @@ def refresh_universe(sec, massive, mom, today, state, cache_dir):
     budget = 40
     subs = state.setdefault("subs", {})
     rows = []
+    def sub_of(cik):
+        s = subs.get(str(cik))
+        if not s or s.get("at", "") < (today - dt.timedelta(days=30)).isoformat():
+            sub = sec.submissions(cik)
+            if not sub:
+                return None
+            forms = set((sub.get("filings") or {}).get("recent", {}).get("form", [])[:200])
+            try:
+                sic = int(sub.get("sic") or 0)
+            except ValueError:
+                sic = 0
+            country, _ = country_from_sec(sub)
+            s = {"sic": sic, "foreign": bool(forms & {"20-F", "40-F", "6-K"}), "cc": country or "",
+                 "at": today.isoformat(), "fund": sic == 0 or sic == 6770}
+            subs[str(cik)] = s
+        return s
+
     for c in u.itertuples():
         cik = int(c.cik)
         sh = S.shares_of(got, cik, today)
+        s = None
+        if sh and sh * c.close >= C.MIN_MARKET_CAP_USD * 0.9:
+            s = sub_of(cik)
+            if s and s.get("foreign"):
+                sh = None  # SEC share counts of foreign companies are ordinary shares, not the ADRs that trade here
         mc = sh * c.close if sh else None
         det = None
         if mc is None:
@@ -100,39 +122,41 @@ def refresh_universe(sec, massive, mom, today, state, cache_dir):
                 mc = d["mc"] * c.close / d["close"]
         if not mc or mc < C.MIN_MARKET_CAP_USD * 0.9:
             continue
-        s = subs.get(str(cik))
-        if not s or s.get("at", "") < (today - dt.timedelta(days=30)).isoformat():
-            sub = sec.submissions(cik)
-            if not sub:
-                continue
-            forms = set((sub.get("filings") or {}).get("recent", {}).get("form", [])[:200])
-            try:
-                sic = int(sub.get("sic") or 0)
-            except ValueError:
-                sic = 0
-            country, _ = country_from_sec(sub)
-            s = {"sic": sic, "foreign": bool(forms & {"20-F", "40-F"}), "cc": country or "",
-                 "at": today.isoformat(), "fund": sic == 0 or sic == 6770}
-            subs[str(cik)] = s
-        if s.get("fund") or not s.get("sic"):
+        s = s or sub_of(cik)
+        if not s or s.get("fund") or not s.get("sic"):
             continue
         rows.append({"t": c.ticker, "tm": c.tm, "cik": cik, "n": c.name, "sic": s["sic"], "foreign": s["foreign"],
                      "cc": s["cc"], "shares": sh, "det": det})
     json.dump(details, open(det_path, "w"))
-    fx = SRC.fx_per_usd()
-    facts_cache = state.setdefault("ffacts", {})
+    fx = fx_rates()
+    state.pop("ffacts", None)
+    facts_cache = state.setdefault("facts2", {})
     for r in rows:
-        if r["foreign"] or r["shares"] is None:
-            fc = facts_cache.get(str(r["cik"]))
-            if not fc or fc.get("at", "") < (today - dt.timedelta(days=6)).isoformat():
-                facts = sec.facts(r["cik"])
-                inp = S.foreign_inputs(facts, fx) if facts else {}
-                facts_cache[str(r["cik"])] = {"at": today.isoformat(), "inp": inp}
-            r["inp"] = facts_cache[str(r["cik"])]["inp"]
-        else:
+        if not r["foreign"] and r["shares"] is not None:
             r["inp"] = S.domestic_ratios_inputs(got, r["cik"], today)
+            if r["inp"].get("debt") is not None or r["inp"].get("cash") is not None:
+                continue
+        fc = facts_cache.get(str(r["cik"]))
+        if not fc or fc.get("at", "") < (today - dt.timedelta(days=6)).isoformat():
+            facts = sec.facts(r["cik"])
+            inp = S.facts_inputs(facts, fx, today) if facts else {}
+            facts_cache[str(r["cik"])] = {"at": today.isoformat(), "inp": inp}
+        r["inp"] = facts_cache[str(r["cik"])]["inp"]
     log(f"  universe: {len(rows)} companies (market value > $9bn), {sum(r['foreign'] for r in rows)} foreign")
     return rows
+
+
+def fx_rates():
+    """Units per USD: ECB rates, completed with a free daily feed for currencies the ECB does not publish (TWD, SAR...)."""
+    fx = SRC.fx_per_usd()
+    try:
+        r = SRC.get(C.FX_FALLBACK, timeout=30)
+        for k, v in (r.json().get("usd") or {}).items():
+            if v and k.upper() not in fx:
+                fx[k.upper()] = float(v)
+    except Exception as e:
+        log("  fx fallback failed:", e)
+    return fx
 
 
 def daily_screen(rows, wide, closes):
@@ -153,7 +177,7 @@ def daily_screen(rows, wide, closes):
         ex = S.business_exclusion(r["t"], r["sic"])
         k = S.classify(r.get("inp") or {}, avg, ex)
         out.append({
-            "t": r["t"], "tm": tm, "n": r["n"], "sec": S.sector_of(r["sic"]), "cc": r["cc"], "foreign": r["foreign"],
+            "t": r["t"], "tm": tm, "n": r["n"], "sec": S.sector_of(r["sic"], r["t"]), "cc": r["cc"], "foreign": r["foreign"],
             "mcap": mc, "mcapAvg": avg, **k, "pur": S.purification(k["npi"]) if k["status"] in ("Halal", "Watch") else None,
             "asOf": (r.get("inp") or {}).get("asOf"),
         })

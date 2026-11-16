@@ -84,14 +84,76 @@ def _diff(prev_names, names):
 
 # ---------------------------------------------------------------- Malaysia
 
-MY_SECTORS = [
-    "CONSTRUCTION", "CONSUMER PRODUCTS & SERVICES", "CONSUMER PRODUCTS AND SERVICES", "ENERGY", "FINANCIAL SERVICES",
-    "HEALTH CARE", "HEALTHCARE", "INDUSTRIAL PRODUCTS & SERVICES", "INDUSTRIAL PRODUCTS AND SERVICES", "PLANTATION",
-    "PROPERTY", "REAL ESTATE INVESTMENT TRUSTS", "TECHNOLOGY", "TELECOMMUNICATIONS & MEDIA",
-    "TELECOMMUNICATIONS AND MEDIA", "TRANSPORTATION & LOGISTICS", "TRANSPORTATION AND LOGISTICS", "UTILITIES",
-    "SPECIAL PURPOSE ACQUISITION COMPANY", "CLOSED-END FUND", "EXCHANGE-TRADED FUND", "BUSINESS TRUST",
-]
-MY_ROW = re.compile(r"^(\d{1,4})\.?\s+([0-9]{4}[A-Z0-9]{0,3})\s+(.{2,90}?)\s*$")
+MY_SECTORS = ["INDUSTRIAL PRODUCTS AND SERVICES", "CONSUMER PRODUCTS AND SERVICES", "TECHNOLOGY", "PROPERTY", "CONSTRUCTION",
+    "ENERGY", "PLANTATION", "TRANSPORTATION AND LOGISTICS", "HEALTH CARE", "HEALTHCARE", "TELECOMMUNICATIONS AND MEDIA",
+    "UTILITIES", "FINANCIAL SERVICES", "REAL ESTATE INVESTMENT TRUSTS", "CLOSED-END FUND", "EXCHANGE-TRADED FUND",
+    "BUSINESS TRUST", "SPECIAL PURPOSE ACQUISITION COMPANY"]
+ROW = re.compile(r"^(\d{1,4})\.\s+(\d{4,5}[A-Z0-9]{0,2})\s+(.+)$")
+TAIL = re.compile(r"(Bhd|Berhad|Ltd|Limited|Plc|Trust|REIT|Fund|ETF|Corporation|Group|Holdings)\.?\)?$", re.I)
+
+def undouble(l):
+    def w(x):
+        return x[::2] if len(x) >= 2 and len(x) % 2 == 0 and all(x[i] == x[i + 1] for i in range(0, len(x), 2)) else x
+    return " ".join(w(x) for x in l.split(" "))
+
+
+def columns(page):
+    w = page.width
+    nums = [x["x0"] for x in page.extract_words() if re.fullmatch(r"\d{1,4}\.", x["text"])]
+    right = [x for x in nums if x > w * 0.4]
+    split = (min(right) - 3) if right else w / 2
+    return [page.crop((0, 0, split, page.height)).extract_text() or "", page.crop((split, 0, w, page.height)).extract_text() or ""]
+
+def parse_full(pdf):
+    rows, sector, market, started, hdr = [], None, "Main", False, []
+    for page in pdf.pages:
+        full = page.extract_text() or ""
+        if "LIST OF SHARIAH-COMPLIANT SECURITIES –" in full or "LIST OF SHARIAH-COMPLIANT SECURITIES -" in full:
+            started = True
+        if not started:
+            continue
+        if re.search(r"Islamic exchange-traded funds|Islamic real estate investment trusts", full) and not ROW.search(full.split("\n")[5] if len(full.split("\n"))>5 else ""):
+            pass
+        for col in columns(page):
+            for l in col.split("\n"):
+                l = l.strip()
+                if not l:
+                    continue
+                m = ROW.match(l)
+                if m:
+                    hdr = []
+                    if sector:
+                        rows.append({"c": m.group(2), "n": m.group(3).strip(), "s": sector, "m": market})
+                    continue
+                l = undouble(l).replace("*", "").strip()
+                up = l.upper()
+                if l == up and re.search(r"[A-Z]", l):
+                    if re.fullmatch(r"(MAIN|ACE|LEAP) MARKET", up):
+                        market = {"MAIN": "Main", "ACE": "ACE", "LEAP": "LEAP"}[up.split()[0]]; hdr = []; continue
+                    hdr.append(up)
+                    for k in (1, 2, 3):
+                        j = " ".join(hdr[-k:])
+                        if j in MY_SECTORS:
+                            sector = j.capitalize().replace("Health care", "Healthcare"); hdr = []
+                            break
+                    continue
+                if rows and not TAIL.search(rows[-1]["n"]) and len(l) < 40 and not re.match(r"(No\.|Bil\.|Shariah|List of|Senarai)", l):
+                    rows[-1]["n"] += " " + l
+    return rows
+
+def parse_table3(lines):
+    out, cur, on = [], None, False
+    for l in lines:
+        if re.match(r"^Table 3", l): on = True; continue
+        if not on: continue
+        if l.upper() in MY_SECTORS or l.upper().replace(" ", "") == "HEALTHCARE": cur = l
+        m = re.search(r"(\d+|Nil)\s+([\d,]+|Nil)\s+(\d+)$", l)
+        if l.startswith("Total"): cur = "Total"
+        if m and cur:
+            out.append([cur, 0 if m.group(1) == "Nil" else int(m.group(1)), 0 if m.group(2)=="Nil" else int(m.group(2).replace(",", "")), int(m.group(3))])
+            if cur == "Total": break
+            cur = None
+    return out
 
 
 def latest_sc_document():
@@ -107,30 +169,7 @@ def latest_sc_document():
     return best
 
 
-def parse_sc(lines):
-    names, sectors, sector = [], {}, None
-    in_full = False
-    for i, l in enumerate(lines):
-        up = l.upper()
-        if re.match(r"^(LIST OF|SENARAI) SHARIAH", up) and i > 20:
-            in_full = True
-        for s in MY_SECTORS:
-            if up.startswith(s) and len(up) < len(s) + 25:
-                sector = s.title().replace("And", "&")
-                break
-        m = MY_ROW.match(l)
-        if m and sector:
-            name = re.sub(r"\s+\d+$", "", m.group(3)).strip()
-            names.append({"c": m.group(2), "n": name, "s": sector})
-            sectors[sector] = sectors.get(sector, 0) + 1
-    # the first tables list only the changes: keep the last occurrence of each code (full list comes last)
-    seen, full = {}, []
-    for x in names:
-        seen[x["c"]] = x
-    full = list(seen.values())
-    sectors = {}
-    for x in full:
-        sectors[x["s"]] = sectors.get(x["s"], 0) + 1
+def sc_intro(lines):
     text = " ".join(lines[:80])
     added = removed = None
     m = re.search(r"([A-Za-z\-]+|\d+)\s+securities have been classified as Shariah-compliant", text)
@@ -139,15 +178,7 @@ def parse_sc(lines):
     m = re.search(r"while\s+([A-Za-z\-]+|\d+)\s+securities have been classified as Shariah non-compliant", text)
     if m:
         removed = words_to_int(m.group(1))
-    total = None
-    m = re.search(r"total of\s+([\d,]+)\s+Shariah-compliant securities", text)
-    if m:
-        total = int(m.group(1).replace(",", ""))
-    pct = None
-    m = re.search(r"([\d.]+)\s*(?:per cent|%)\s+of the total\s+([\d,]+)\s+listed", text)
-    if m:
-        pct = float(m.group(1))
-    return full, sectors, added, removed, total, pct
+    return added, removed
 
 
 def malaysia(cache, log=print):
@@ -157,15 +188,25 @@ def malaysia(cache, log=print):
         return cache.get("MY")
     date, url, title = doc
     prev = cache.get("MY") or {}
-    if prev.get("asOf") == date and prev.get("count"):
+    if prev.get("asOf") == date and prev.get("count") and prev.get("v") == 2:
         return prev
     r = _get(url)
     if r is None or r.content[:4] != b"%PDF":
         log("    Malaysia: PDF not readable")
         return prev or None
-    lines = pdf_lines(r.content)
-    full, sectors, added, removed, total, pct = parse_sc(lines)
-    log(f"    Malaysia {date}: {len(full)} securities parsed, {len(sectors)} sectors, +{added} -{removed}")
+    import pdfplumber
+    pdf = pdfplumber.open(io.BytesIO(r.content))
+    lines = [l for pg in pdf.pages for l in (pg.extract_text() or "").split("\n")]
+    full = parse_full(pdf)
+    t3 = parse_table3(lines)
+    added, removed = sc_intro(lines)
+    tot = next((x for x in t3 if x[0] == "Total"), None)
+    total, pct, listed = (tot[1], tot[3], tot[2]) if tot else (None, None, None)
+    sectors = {x[0]: x[1] for x in t3 if x[0] != "Total"}
+    if not sectors:
+        for x in full:
+            sectors[x["s"]] = sectors.get(x["s"], 0) + 1
+    log(f"    Malaysia {date}: {len(full)} securities parsed, {len(sectors)} sectors, total {total}, +{added} -{removed}")
     if len(full) < 100:
         cache.setdefault("_debug", {})["MY"] = lines[:400]
         log("    Malaysia: too few rows parsed, keeping the last edition")
@@ -174,16 +215,18 @@ def malaysia(cache, log=print):
     a, rm = _diff(prev.get("_names"), names) if prev.get("_names") else ([], [])
     hist = [h for h in (prev.get("history") or []) if h[0] != date] + [[date, total or len(full)]]
     return {
-        "code": "MY", "market": "Bursa Malaysia", "country": "Malaysia",
+        "v": 2, "code": "MY", "market": "Bursa Malaysia", "country": "Malaysia",
         "authority": "Shariah Advisory Council, Securities Commission Malaysia",
         "asOf": date, "url": url, "page": C.SC_PAGE, "title": title,
-        "count": total or len(full), "share": pct,
+        "count": total or len(full), "share": pct, "listed": listed,
+        "sectorShare": [[x[0], x[1], x[2], x[3]] for x in t3 if x[0] != "Total"],
+        "markets": {m: sum(1 for x in full if x["m"] == m) for m in ("Main", "ACE", "LEAP")},
         "addedCount": added if added is not None else (len(a) if prev.get("_names") else None),
         "removedCount": removed if removed is not None else (len(rm) if prev.get("_names") else None),
         "added": a[:60], "removed": rm[:60],
         "sectors": sorted([[k, v] for k, v in sectors.items()], key=lambda kv: -kv[1]),
         "history": sorted(hist)[-20:],
-        "list": [[x["c"], x["n"], x["s"]] for x in full],
+        "list": [[x["c"], x["n"], x["s"], x["m"]] for x in full],
         "next": "Last Friday of May and November",
         "_names": names,
     }
@@ -292,77 +335,80 @@ def indonesia(cache, log=print):
 
 # ---------------------------------------------------------------- United Arab Emirates (Dubai)
 
+def _dfm(body):
+    r = _s.post(C.DFM_API, data=body, timeout=60, headers={
+        "User-Agent": BROWSER, "Origin": "https://www.dfm.ae", "Referer": "https://www.dfm.ae/",
+        "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded"})
+    return r.json() if r.status_code == 200 and r.text.strip()[:1] in "[{" else None
+
+
 def dubai(cache, log=print):
+    """DFM publishes each quarter the list of Shari'a-compliant companies on DFM and on Nasdaq Dubai."""
     prev = cache.get("AE") or {}
     try:
-        r = _s.post(C.DFM_API, data="Command=shariahlisting&Language=en", timeout=60, headers={
-            "User-Agent": BROWSER, "Origin": "https://www.dfm.ae", "Referer": "https://www.dfm.ae/",
-            "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded"})
-        data = r.json() if r.status_code == 200 else None
+        periods = _dfm("Command=shariahlisting&Language=en")
     except Exception as e:
         log("    Dubai: request failed", e)
-        data = None
-    if not isinstance(data, list) or len(data) < 3:
-        log(f"    Dubai: no list ({type(data).__name__}), keeping the last edition")
-        cache.setdefault("_debug", {})["AE"] = str(data)[:3000]
+        periods = None
+    if not isinstance(periods, list) or not periods:
+        log("    Dubai: no list, keeping the last edition")
         return prev or None
-    head, rows = data[0], data[1:]
-    cache.setdefault("_debug", {})["AE_sample"] = [head, rows[:3]]
+    periods = [p for p in periods if isinstance(p, dict) and p.get("year") and p.get("quarter")]
+    periods.sort(key=lambda p: p.get("date") or "", reverse=True)
+    head = periods[0]
+    date = head.get("date") or f"{head['year']}-Q{head['quarter']}"
+    hist = {h[0]: h[1] for h in (prev.get("history") or [])}
 
-    def field(row, *keys):
-        if isinstance(row, dict):
-            for k, v in row.items():
-                if any(x in k.lower() for x in keys):
-                    return v
-        return None
+    def get_list(p, ex):
+        try:
+            x = _dfm(f"Command=shariahlistingdetails&year={p['year']}&quarter={p['quarter']}&exchange={ex}&Language=en")
+            return x if isinstance(x, list) else []
+        except Exception as e:
+            log("    Dubai: details failed", p, ex, e)
+            return []
 
-    out = []
-    for row in rows:
-        if isinstance(row, dict):
-            sym = field(row, "symbol", "code", "ticker")
-            name = field(row, "name", "company")
-            cls = field(row, "classif", "status", "compl", "sharia")
-            mkt = field(row, "market", "exchange")
-            sec = field(row, "sector")
-        elif isinstance(row, list) and isinstance(head, list):
-            d = dict(zip([str(h).lower() for h in head], row))
-            sym = next((v for k, v in d.items() if "symbol" in k or "code" in k), None)
-            name = next((v for k, v in d.items() if "name" in k or "company" in k), None)
-            cls = next((v for k, v in d.items() if "class" in k or "status" in k or "compl" in k), None)
-            mkt = next((v for k, v in d.items() if "market" in k), None)
-            sec = next((v for k, v in d.items() if "sector" in k), None)
-        else:
-            continue
-        if not name:
-            continue
-        st = None if cls is None else str(cls)
-        ok = None if st is None else (not re.search(r"non|not|غير", st, re.I)
-                                      and bool(re.search(r"compl|yes|true|^1$|متوافق", st, re.I)))
-        out.append({"c": str(sym or ""), "n": str(name).strip(), "s": str(sec or mkt or "").strip(), "ok": ok})
-    comp = [x for x in out if x["ok"] is not False]
-    names = [x["n"] for x in comp]
-    today = dt.date.today().isoformat()
-    if prev.get("_names") and set(prev["_names"]) == set(names):
-        prev["checked"] = today
+    if prev.get("asOf") == date and prev.get("count") and prev.get("v") == 2:
+        rows = None
+    else:
+        rows = []
+        for ex, label in (("dfm", "DFM"), ("nasdaq", "Nasdaq Dubai")):
+            if ex in (head.get("exchanges") or []):
+                for x in get_list(head, ex):
+                    if x.get("name"):
+                        rows.append({"c": str(x.get("symbol") or "").strip(), "n": str(x["name"]).strip(), "s": label})
+        if not rows:
+            log("    Dubai: empty list, keeping the last edition")
+            return prev or None
+        hist[date] = len(rows)
+    # quarterly history: count the last eight editions once
+    for p in periods[1:9]:
+        d = p.get("date")
+        if d and d not in hist:
+            n = sum(len(get_list(p, ex)) for ex in ("dfm", "nasdaq") if ex in (p.get("exchanges") or []))
+            if n:
+                hist[d] = n
+    if rows is None:
+        prev["history"] = sorted([[k, v] for k, v in hist.items()])[-20:]
+        prev["checked"] = dt.date.today().isoformat()
         return prev
+    names = [x["n"] for x in rows]
     a, rm = _diff(prev.get("_names"), names) if prev.get("_names") else ([], [])
-    sectors = {}
-    for x in comp:
-        if x["s"]:
-            sectors[x["s"]] = sectors.get(x["s"], 0) + 1
-    hist = (prev.get("history") or []) + [[today, len(comp)]]
-    log(f"    Dubai: {len(out)} rows, {len(comp)} compliant")
+    ex = {}
+    for x in rows:
+        ex[x["s"]] = ex.get(x["s"], 0) + 1
+    log(f"    Dubai {date}: {len(rows)} compliant companies ({ex})")
     return {
-        "code": "AE", "market": "Dubai Financial Market and Nasdaq Dubai", "country": "United Arab Emirates",
+        "v": 2, "code": "AE", "market": "Dubai Financial Market and Nasdaq Dubai", "country": "United Arab Emirates",
         "authority": "DFM Fatwa and Shari'a Supervisory Board",
-        "asOf": today, "checked": today, "url": C.DFM_PAGE, "page": C.DFM_PAGE, "title": "Shari'a Classification List",
-        "count": len(comp), "total": len(out), "share": round(len(comp) / len(out) * 100, 1) if out else None,
+        "asOf": date, "quarter": f"Q{head['quarter']} {head['year']}", "checked": dt.date.today().isoformat(),
+        "url": C.DFM_PAGE, "page": C.DFM_PAGE, "title": "Shari'a Classification List",
+        "count": len(rows), "share": None,
         "addedCount": len(a) if prev.get("_names") else None, "removedCount": len(rm) if prev.get("_names") else None,
         "added": a[:60], "removed": rm[:60],
-        "sectors": sorted([[k, v] for k, v in sectors.items()], key=lambda kv: -kv[1]),
-        "history": hist[-20:],
-        "list": [[x["c"], x["n"], x["s"]] for x in comp],
-        "next": "Updated by DFM when companies publish results",
+        "sectors": sorted([[k, v] for k, v in ex.items()], key=lambda kv: -kv[1]), "sectorsBy": "exchange",
+        "history": sorted([[k, v] for k, v in hist.items()])[-20:],
+        "list": [[x["c"], x["n"], x["s"]] for x in rows],
+        "next": "Quarterly, after companies publish their results",
         "_names": names,
     }
 

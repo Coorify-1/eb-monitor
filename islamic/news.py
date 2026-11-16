@@ -11,19 +11,19 @@ from . import config as C
 BROWSER = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"
 
 
-def fetch(log=print, tries=6):
+def fetch(log=print, tries=8, span="48h"):
     for i in range(tries):
         try:
             r = requests.get("https://api.gdeltproject.org/api/v2/doc/doc", timeout=60,
                              headers={"User-Agent": BROWSER}, params={
                                  "query": C.NEWS_QUERY, "mode": "ArtList", "maxrecords": 75,
-                                 "format": "json", "timespan": "48h", "sort": "DateDesc"})
+                                 "format": "json", "timespan": span, "sort": "DateDesc"})
             if r.status_code == 200 and r.text.strip().startswith("{"):
                 return r.json().get("articles") or []
             log(f"    news: attempt {i + 1} -> {r.status_code}")
         except Exception as e:
             log(f"    news: attempt {i + 1} failed {e}")
-        time.sleep(20 + 10 * i)
+        time.sleep(15 + 15 * i)
     return None
 
 
@@ -63,6 +63,10 @@ def update(cache, log=print):
         log("    news: GDELT unavailable, keeping the last headlines")
         return cache.get("news") or [], False
     items = clean(arts, C.NEWS_MAX)
+    if len(items) < 4:
+        time.sleep(10)
+        more = fetch(log=log, tries=4, span="96h")
+        items = clean((arts or []) + (more or []), C.NEWS_MAX)
     if not items:
         return cache.get("news") or [], False
     cache["news"] = items
