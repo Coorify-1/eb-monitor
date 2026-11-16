@@ -37,6 +37,8 @@ Hard rules:
 4. No advice, no recommendations, no forecasts of prices. Do not write "will rise/fall".
 5. Link to our pages inside the text with this exact syntax: [[key|anchor words]], where key is one of the link keys given.
    Put at least one link in every lead paragraph and in every brief. Never write a URL.
+5b. Each market has an asOf date. If it is older than the session named in edition.basedOn (public data such as FRED
+   can lag by a day), describe it as "in the latest data" and do not present it as the last session's move.
 6. edition.mode: "daily" = analyse the last session (d1Text); "weekly" (Sunday) = review the week (w1Text);
    "weekahead" (Monday) = markets reopen today: recap the last session briefly and focus on what to watch this week.
 7. Explain relationships between assets (why oil, yields, gold, the dollar and stocks moved together or apart) in plain words.
@@ -138,12 +140,21 @@ def _call(provider: dict, model: str, messages: list[dict]):
             "response_format": {"type": "json_object"}}
     for attempt in range(2):
         try:
-            r = requests.post(provider["url"], json=body, timeout=90,
-                              headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+            r = requests.post(provider["url"], json=body, timeout=120,
+                              headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
+                                       "Accept": "application/json", "X-GitHub-Api-Version": "2022-11-28"})
             if r.status_code == 200:
-                txt = r.json()["choices"][0]["message"]["content"] or ""
+                try:
+                    txt = r.json()["choices"][0]["message"]["content"] or ""
+                except Exception:  # noqa: BLE001
+                    log(f"  writer: {model} answered something unexpected: {r.text[:300]!r}")
+                    raise
                 txt = re.sub(r"^```(json)?|```$", "", txt.strip()).strip()
-                return json.loads(txt)
+                m = re.search(r"\{.*\}", txt, re.S)
+                if not m:
+                    log(f"  writer: {model} returned no JSON: {txt[:300]!r}")
+                    return None
+                return json.loads(m.group(0))
             log(f"  writer: {provider['name']} {model} -> HTTP {r.status_code} {r.text[:160]}")
             if r.status_code in (400, 401, 403, 404):
                 return None
@@ -210,7 +221,7 @@ def write_template(facts: dict) -> dict:
         paras.append(p1 + f" Full data on the {_L(A[moved[0]]['page'] if moved else 'markets', C.PAGE_NAMES[A[moved[0]]['page']] if moved else 'Financial Markets')} page.")
     elif lead["type"] == "regime":
         moved = [k for k in reg["memberIds"] if ok(k)]
-        paras.append(f"The session read as {reg['label'].lower()}: " + "; ".join(say(k) for k in moved[:4]) +
+        paras.append(f"Markets showed a clear {reg['label'].lower()} pattern: " + "; ".join(say(k) for k in moved[:4]) +
                      f". Those moves fit together, which is what gives the pattern its weight. See the "
                      f"{_L('markets', 'Financial Markets dashboard')}.")
     elif lead["type"] == "mover" and ok(lead["assets"][0]):

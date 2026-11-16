@@ -20,7 +20,7 @@ workflow, aucune clé à créer), sources publiques et vos propres Workers.
 | Corporate Monitor `/corporate-monitor` | `docs/eb-monitor.json` |
 | Market Outlook `/market-outlook` | `eb-outlook/docs/eb-outlook.json` |
 | Islamic Investment `/islamic-investment` | `docs/eb-islamic.json` (EB US 100 et EB Shariah US 100) |
-| Géopolitique | GDELT (volume d'actualité par thème), Google News en secours |
+| Géopolitique | Google News (volume d’actualité par thème, 2 derniers jours vs 12 jours précédents) |
 
 ## Comment l'analyse est faite
 

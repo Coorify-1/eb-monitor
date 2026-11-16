@@ -67,6 +67,8 @@ def market_history(symbol: str, rng: str = "3M"):
     j = get(f"{C.MARKET_WORKER}/history", {"symbol": symbol, "range": rng})
     vals = (j or {}).get("values") or []
     s = _clean((x.get("datetime"), x.get("close")) for x in vals if isinstance(x, dict))
+    if symbol.startswith("FRED:"):  # holidays are forward-filled: drop exact repeats
+        s = [p for i, p in enumerate(s) if i == 0 or p[1] != s[i - 1][1]]
     return s or None
 
 
@@ -122,7 +124,7 @@ def crypto_history(coin: str, days: int = 120):
 
 
 def crypto_global():
-    j = get(f"{C.COINGECKO}/global")
+    j = get(f"{C.COINGECKO}/global", tries=1)
     d = (j or {}).get("data") or {}
     if not d:
         return None
@@ -170,9 +172,14 @@ def _first(d: dict, keys):
     return None
 
 
+BROWSER = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+           "Chrome/124 Safari/537.36")
+
+
 def ceii_items(name: str, limit: int = 12):
     """Generic reader for CEII lists (news, events): title + link + date."""
-    j = get(f"{C.CEII_API}/{name}.json", timeout=40)
+    j = get(f"{C.CEII_API}/{name}.json", timeout=40, tries=2,
+            headers={"User-Agent": BROWSER, "Referer": "https://terminal.centreforenergy.org/"})
     if not j:
         return None
     out, seen = [], set()
@@ -239,9 +246,9 @@ def gdelt_articles(query: str, n: int = 4, span: str = "36h"):
     return out
 
 
-def _rss(query: str):
+def _rss(query: str, window: bool = True):
     txt = get("https://news.google.com/rss/search",
-              {"q": f"{query} when:14d", "hl": "en-US", "gl": "US", "ceid": "US:en"},
+              {"q": f"{query} when:14d" if window else query, "hl": "en-US", "gl": "US", "ceid": "US:en"},
               tries=2, as_json=False, headers={"Accept": "application/rss+xml"})
     if not txt:
         return None
@@ -263,42 +270,36 @@ def _rss(query: str):
     return items
 
 
+def _rss_count(query: str, after: dt.date, before: dt.date):
+    items = _rss(f"{query} after:{after.isoformat()} before:{before.isoformat()}", window=False)
+    return items
+
+
 def theme_news(theme: dict, today: dt.date):
-    """News intensity of a theme: {'spike': ratio, 'source': ..., 'headlines': [...]}."""
-    global _NEWS_MODE
+    """News intensity of a theme: coverage of the last 2 days vs. the 12 days before.
+
+    Google News is used (GDELT rate-limits GitHub's machines). Each window is asked
+    separately so the busy recent days do not crowd out the baseline."""
     q = theme["query"]
-    if _NEWS_MODE in (None, "gdelt"):
-        vol = gdelt_volume(q)
-        time.sleep(6)  # GDELT asks for at most one request every 5 seconds
-        if vol:
-            _NEWS_MODE = "gdelt"
-            recent = [v for d, v in vol[-2:]]
-            base = sorted(v for d, v in vol[:-2])
-            med = base[len(base) // 2] if base else 0
-            spike = (max(recent) / med) if med > 0 else (2.0 if max(recent) > 0 else 1.0)
-            heads = gdelt_articles(q)
-            time.sleep(6)
-            return {"spike": round(spike, 2), "source": "GDELT", "headlines": heads}
-        if _NEWS_MODE is None:
-            log("  news: GDELT not answering from this machine, using Google News for this run")
-            _NEWS_MODE = "rss"
-    items = _rss(q)
-    if items is None:
+    recent = _rss_count(q, today - dt.timedelta(days=2), today + dt.timedelta(days=1))
+    time.sleep(2)
+    base = _rss_count(q, today - dt.timedelta(days=14), today - dt.timedelta(days=2))
+    time.sleep(2)
+    if recent is None or base is None:
         return None
-    per_day: dict[str, int] = {}
-    for it in items:
-        if it["date"]:
-            per_day[it["date"]] = per_day.get(it["date"], 0) + 1
-    last2 = sum(per_day.get((today - dt.timedelta(days=k)).isoformat(), 0) for k in (0, 1)) / 2
-    prev = [per_day.get((today - dt.timedelta(days=k)).isoformat(), 0) for k in range(2, 14)]
-    base = sum(prev) / len(prev) if prev else 0
-    spike = last2 / base if base > 0 else (2.0 if last2 >= 3 else 1.0)
-    heads = sorted([i for i in items if i["date"]], key=lambda x: x["date"], reverse=True)[:4]
-    return {"spike": round(spike, 2), "source": "Google News", "headlines": heads}
+    r_day = len(recent) / 2
+    b_day = len(base) / 12
+    if len(recent) < 4:
+        spike = 1.0  # too little coverage to call anything
+    else:
+        spike = r_day / max(b_day, 1.0)
+    spike = min(spike, 6.0)
+    heads = sorted([i for i in recent if i["title"]], key=lambda x: x["date"], reverse=True)[:4]
+    return {"spike": round(spike, 2), "source": "Google News", "headlines": heads,
+            "counts": [len(recent), len(base)]}
 
 
 # ------------------------------------------------------------------ helpers
-
 def strip_html(s: str) -> str:
     return re.sub(r"<[^>]+>", "", s or "").strip()
 

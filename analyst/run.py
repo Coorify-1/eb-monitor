@@ -112,8 +112,10 @@ def _say(a):
     if not a.get("ok"):
         return ""
     d = a["d1"] or 0
-    verb = "rose" if d > 0 else "fell" if d < 0 else "held"
-    return f"{a['name']} {verb} {AN.fmt_move(a, a['d1']).lstrip('+−') if d else ''} to {AN.fmt_level(a, a['last'])}".replace("  ", " ")
+    if not d:
+        return f"{a['name']} was unchanged at {AN.fmt_level(a, a['last'])}"
+    verb = "rose" if d > 0 else "fell"
+    return f"{a['name']} {verb} {AN.fmt_move(a, a['d1']).lstrip('+−')} to {AN.fmt_level(a, a['last'])}"
 
 
 def sections(A, raw, reg):
@@ -336,7 +338,7 @@ def build(today_ny: dt.datetime):
         "sources": ("Economic Bearings pages and engines (Financial Markets, Energy Terminal, Crypto & Currencies, "
                     "Hard Assets, Estate Index, Corporate Monitor, Market Outlook, Islamic Investment). Underlying data: "
                     "FRED, ECB (Frankfurter), CoinGecko, COMEX/NYMEX and LME via EB Metals, CEII, OECD. "
-                    "News volume and headlines: GDELT or Google News; each headline links to the original article."),
+                    "News volume and headlines: Google News; each headline links to the original article."),
         "log": S.LOG[-60:],
     }
 
@@ -382,7 +384,8 @@ def main():
 
     if a.apply_override:
         if not out.exists():
-            sys.exit("No edition to edit yet.")
+            print("No edition to edit yet.")
+            return
         doc = apply_override(json.loads(out.read_text()))
         write(out, doc)
         return
