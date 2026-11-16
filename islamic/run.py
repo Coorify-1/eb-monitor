@@ -28,6 +28,9 @@ from . import screen as S
 NY = ZoneInfo("America/New_York")
 
 
+SCREEN_VERSION = 2
+
+
 def log(*a):
     print(*a, flush=True)
 
@@ -253,6 +256,10 @@ def main():
 
     log("2/7 Halal screen (SEC filings, AAOIFI Standard 21)")
     sc = state.setdefault("screen", {})
+    if sc.get("v") != SCREEN_VERSION:  # method changed: rebuild the universe, the index and the change log
+        sc.clear()
+        state["index"] = {}
+        sc["v"] = SCREEN_VERSION
     if not sc.get("rows") or sc.get("at", "") < (today - dt.timedelta(days=6)).isoformat() or os.environ.get("REFRESH") == "true":
         sc["rows"] = refresh_universe(sec, massive, mom, today, state, a.cache)
         sc["at"] = today.isoformat()
