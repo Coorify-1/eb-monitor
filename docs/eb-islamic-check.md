@@ -1,8 +1,8 @@
 # EB Islamic Investment — run check
 
-Run 2026-11-16T15:07:58+00:00 (market close 2026-11-13), 860 s
+Run 2026-11-16T15:19:04+00:00 (market close 2026-11-13), 592 s
 
-Screen: 843 companies, {'Halal': 433, 'Watch': 53, 'Not halal': 184, 'Excluded': 156, 'No data': 17}, halal share 58.8%
+Screen: 843 companies, {'Halal': 437, 'Watch': 53, 'Not halal': 185, 'Excluded': 156, 'No data': 12}, halal share 59.0%
 
 | Ticker | Name | Sector | $bn | Debt % | Cash % | Income % | Status | Why |
 |---|---|---|---|---|---|---|---|---|
@@ -47,9 +47,9 @@ Screen: 843 companies, {'Halal': 433, 'Watch': 53, 'Not halal': 184, 'Excluded':
 | HSBC | HSBC Holdings PLC | Financials | 306.4 | None | None | None | Excluded | Conventional finance or insurance |
 | NVS | Novartis AG | Health care | 303.1 | 10.19 | 4.11 | None | Halal | All ratios within limits |
 
-Index: 277 days, returns {'1D': [-0.69, -0.61], '1W': [2.73, 2.61], '1M': [-5.71, -4.99], '3M': [-2.94, -3.16], '6M': [-0.57, -0.2], '1Y': [16.47, 14.17], 'YTD': [14.21, 12.15]}
+Index: 277 days, returns {'1D': [-0.7, -0.61], '1W': [2.73, 2.61], '1M': [-5.87, -4.99], '3M': [-3.16, -3.16], '6M': [-0.59, -0.2], '1Y': [16.34, 14.17], 'YTD': [14.11, 12.15]}
 
-Top weights: AAPL 8.0%, NVDA 7.59%, MSFT 7.52%, GOOGL 7.03%, AMZN 5.58%, TSM 4.0%, SPCX 3.65%, AVGO 3.2%, META 3.17%, TSLA 2.98%
+Top weights: AAPL 8.0%, NVDA 7.56%, MSFT 7.5%, GOOGL 7.01%, AMZN 5.56%, TSM 3.98%, SPCX 3.64%, AVGO 3.19%, META 3.16%, TSLA 2.97%
 
 - Fund SPUS: $3135.9m as of 2026-08-31, 48 months, 219 holdings
 - Fund HLAL: $944.5m as of 2026-08-31, 48 months, 211 holdings
