@@ -1,0 +1,70 @@
+name: EB Islamic daily
+
+on:
+  schedule:
+    # Midnight New York. Two times because New York changes clocks;
+    # the engine skips the run that is too early or already done.
+    - cron: "5 4 * * *"
+    - cron: "5 5 * * *"
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: "Re-read every company's filings now (normally once a week)"
+        type: boolean
+        default: false
+  push:
+    branches: [main, islamic-dev]
+    paths: ["islamic/**", ".github/workflows/islamic-daily.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eb-islamic
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore data cache (branch "cache-islamic")
+        run: |
+          git clone --depth 1 --branch cache-islamic "https://github.com/${{ github.repository }}" cache-islamic \
+            || { mkdir -p cache-islamic; git clone --depth 1 --branch cache "https://github.com/${{ github.repository }}" seed || true; }
+          rm -rf cache-islamic/.git seed/.git
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt pdfplumber
+
+      - name: Update Islamic Investment data
+        env:
+          MASSIVE_API_KEY: ${{ secrets.MASSIVE_API_KEY }}
+          SEC_CONTACT: ${{ secrets.SEC_CONTACT }}
+          REFRESH: ${{ inputs.refresh }}
+        run: python -m islamic.run --out docs/eb-islamic.json --cache cache-islamic --seed seed
+
+      - name: Save data cache
+        if: always()
+        run: |
+          [ -n "$(ls -A cache-islamic 2>/dev/null)" ] || exit 0
+          cd cache-islamic
+          git init -q -b cache-islamic
+          git add -A
+          git -c user.name="eb-islamic-bot" -c user.email="eb-islamic-bot@users.noreply.github.com" commit -qm "Islamic data cache $(date -u +%F)"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" cache-islamic
+
+      - name: Publish
+        run: |
+          git add docs/eb-islamic.json docs/eb-islamic-check.md
+          git diff --cached --quiet && { echo "Nothing new to publish."; exit 0; }
+          git -c user.name="eb-islamic-bot" -c user.email="eb-islamic-bot@users.noreply.github.com" commit -qm "EB Islamic: $(date -u +%F)"
+          for i in 1 2 3; do git pull -q --rebase && git push -q && exit 0; sleep 10; done
+          exit 1
