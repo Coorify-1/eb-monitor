@@ -236,6 +236,44 @@ def tidy_themes(themes: list):
     return themes
 
 
+# ------------------------------------------------------------------ cross-asset relationships (the "why")
+# each rule: (markets and the sign they must show today, explanation). A sign is met when
+# the market moved at least half its usual daily swing in that direction.
+RELATIONS = [
+    ({"silver": -1, "us10y": 1}, "Precious metals fell as US yields rose: higher yields raise the cost of holding metals that pay no income."),
+    ({"gold": -1, "us10y": 1}, "Gold eased as US yields rose: when bonds pay more, a metal that pays nothing is less attractive."),
+    ({"gold": -1, "eurusd": -1}, "A firmer dollar weighed on gold, which becomes dearer for buyers paying in other currencies."),
+    ({"silver": -1, "copper": -1}, "Silver fell with copper: more than half of silver demand is industrial, so it trades partly like a factory metal."),
+    ({"platinum": -1, "copper": -1}, "Platinum and copper fell together, a sign of softer expectations for industrial and car-making demand."),
+    ({"brent": 1, "us10y": 1}, "Higher oil prices feed inflation expectations, one reason bond yields moved up."),
+    ({"brent": 1, "us2y": 1}, "Dearer energy makes it harder for the Federal Reserve to cut rates, which lifts short-term yields."),
+    ({"us10y": 1, "us_eq": -1}, "Higher yields weighed on shares: future profits are worth less today and bonds become a stronger alternative."),
+    ({"us10y": 1, "eurusd": -1}, "Rising US yields drew money into the dollar, pushing the euro lower."),
+    ({"us_eq": -1, "gold": 1}, "Investors moved from shares towards gold, a classic search for safety."),
+    ({"us_eq": -1, "usdjpy": -1}, "The yen firmed as shares fell, a typical move when investors cut risk."),
+    ({"us_eq": -1, "vix": 1}, "Expected volatility (the VIX) rose as shares fell: investors paid more for protection."),
+    ({"btc": 1, "us_eq": -1}, "Bitcoin rose while shares fell, moving on its own drivers rather than with risk appetite."),
+    ({"btc": -1, "us_eq": -1}, "Bitcoin fell with shares, behaving like a risk asset rather than a safe haven."),
+    ({"brent": 1, "us_eq": -1}, "Higher oil prices act like a tax on consumers and companies, a weight on shares."),
+    ({"copper": 1, "us_eq": 1}, "Copper and shares rose together, a sign of confidence in global growth."),
+]
+
+
+def relationships(A: dict, top: int = 4):
+    out = []
+    for signs, text in RELATIONS:
+        zs = []
+        for k, s in signs.items():
+            a = A.get(k)
+            if not a or not a.get("ok") or a["stale"] or s * a["z"] < 0.5:
+                break
+            zs.append(abs(a["z"]))
+        else:
+            out.append((sum(zs) / len(zs), text, list(signs)))
+    out.sort(key=lambda x: -x[0])
+    return [{"text": t, "markets": m} for _, t, m in out[:top]]
+
+
 # ------------------------------------------------------------------ lead story and charts
 
 

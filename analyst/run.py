@@ -315,6 +315,8 @@ def build(today_ny: dt.datetime):
                     "headlines": [h["title"] for h in t["headlines"]]}
                    for t in themes if t["status"] != "quiet"],
         "sections": {k: v["facts"] for k, v in secs.items()},
+        "relationships": [x["text"] for x in AN.relationships(A)],
+        "relatedHeadlines": [h["title"] for t in themes for h in (t.get("headlines") or [])[:1]][:6],
         "watchHints": watch_hints[:5],
         "toneHint": tone_hint(reg, A),
         "headlineHint": headline_hint(lead, A),

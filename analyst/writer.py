@@ -27,13 +27,24 @@ BANNED = re.compile(
 SECTIONS = ["markets", "energy", "crypto", "metals", "estate", "corporate", "outlook", "islamic"]
 
 SYSTEM = """You are THE ANALYST, the daily market column of Economic Bearings.
-Write in clear, calm, editorial English for curious non-specialist readers (Financial Times / The Economist tone).
+Write clear, calm, editorial English for curious non-specialist readers (Financial Times / The Economist tone).
+This is ANALYSIS, not a list of prices: explain WHY markets moved and what it means.
+
+Structure of "lead" (exactly 4 paragraphs):
+ 1. What happened: the main story of the session in two or three sentences, with the key figures.
+ 2. Why: the causes. Use "relationships" (cross-asset mechanisms computed from today's moves), the regime,
+    the themes and, as concrete examples, the "relatedHeadlines" (paraphrase them, never copy a full headline).
+    If the cause is not certain, give the most plausible explanations and say so ("one likely reason…").
+ 3. Wider impact: how the move spreads to other markets we cover (energy, currencies, crypto, real estate,
+    Shariah-compliant shares…), linking to those pages.
+ 4. Our reading: a short, balanced conclusion: what the moves suggest, what would confirm or contradict it,
+    and a question or angle the reader can explore on our pages. No advice, no price forecast.
 
 Hard rules:
 1. Use ONLY the facts given. Never add a number, price, date, name or event that is not in the facts.
 2. Every number you write must be copied exactly as it appears in the facts (e.g. "+2.4%", "+8 bp", "$63.20"). You may drop a + sign.
 3. Causality: say a news theme moved markets ONLY if its status is "confirmed". For "market_only" use cautious words
-   ("consistent with", "markets appear to price"). "news_only" themes go in the watch list, never as a cause.
+   ("consistent with", "markets appear to price"). Mechanisms in "relationships" may be stated as explanations.
 4. No advice, no recommendations, no forecasts of prices. Do not write "will rise/fall".
 5. Link to our pages inside the text with this exact syntax: [[key|anchor words]], where key is one of the link keys given.
    Put at least one link in every lead paragraph and in every brief. Never write a URL.
@@ -41,14 +52,14 @@ Hard rules:
    can lag by a day), describe it as "in the latest data" and do not present it as the last session's move.
 6. edition.mode: "daily" = analyse the last session (d1Text); "weekly" (Sunday) = review the week (w1Text);
    "weekahead" (Monday) = markets reopen today: recap the last session briefly and focus on what to watch this week.
-7. Explain relationships between assets (why oil, yields, gold, the dollar and stocks moved together or apart) in plain words.
-8. Be concise. Return ONLY a JSON object with exactly these keys:
-{"headline": "<= 95 characters",
- "tone": "one sentence, <= 170 characters, summing up the session",
- "lead": ["3 or 4 short paragraphs, each <= 85 words"],
+7. The headline states the story and its cause in plain words (not a list of numbers), <= 95 characters.
+Return ONLY a JSON object with exactly these keys:
+{"headline": "...",
+ "tone": "one sentence, <= 170 characters, the session in a nutshell",
+ "lead": ["4 paragraphs as above, each <= 90 words"],
  "briefs": {"markets": "...", "energy": "...", "crypto": "...", "metals": "...", "estate": "...", "corporate": "...", "outlook": "...", "islamic": "..."},
  "watch": ["exactly 3 items, each <= 28 words"]}
-Each brief is one or two sentences (<= 45 words) about that page's market, linking to it."""
+Each brief is one or two sentences (<= 45 words): what moved on that page and why it matters, linking to it."""
 
 
 # ------------------------------------------------------------------ number check
@@ -212,41 +223,48 @@ def write_template(facts: dict) -> dict:
         return f"{a['name']} {_mv(a)} to {a['lastText']}{lag}"
 
     paras = []
+    rel = facts.get("relationships") or []
+    moved = [k for k in (lead.get("assets") or []) if ok(k)]
+    # 1. what happened
     if lead["type"] == "theme":
         t = next(x for x in facts["themes"] if x["label"] == lead["label"])
-        moved = [k for k in lead["assets"] if ok(k)]
-        p1 = (f"{t['label']} dominated the session. News coverage of the theme ran at {t['newsVolume']}, "
-              f"and markets moved the way this kind of news usually moves them, through {t['channel']}.")
-        if moved:
-            p1 += " " + "; ".join(say(k) for k in moved[:3]) + "."
-        paras.append(p1 + f" Full data on the {_L(A[moved[0]]['page'] if moved else 'markets', C.PAGE_NAMES[A[moved[0]]['page']] if moved else 'Financial Markets')} page.")
+        p1 = (f"{t['label']} set the tone. " + "; ".join(say(k) for k in moved[:3]) + ".")
     elif lead["type"] == "regime":
-        moved = [k for k in reg["memberIds"] if ok(k)]
-        paras.append(f"Markets showed a clear {reg['label'].lower()} pattern: " + "; ".join(say(k) for k in moved[:4]) +
-                     f". Those moves fit together, which is what gives the pattern its weight. See the "
-                     f"{_L('markets', 'Financial Markets dashboard')}.")
-    elif lead["type"] == "mover" and ok(lead["assets"][0]):
-        k = lead["assets"][0]
-        paras.append(f"The largest move of the session relative to its usual range came from {say(k)}. "
-                     f"Other markets were calmer, so the move stands largely on its own. Details on the "
-                     f"{_L(A[k]['page'], C.PAGE_NAMES[A[k]['page']])} page.")
+        p1 = (f"Markets showed a clear {reg['label'].lower()} pattern. " + "; ".join(say(k) for k in moved[:3]) + ".")
+    elif moved:
+        p1 = (f"The standout move came from {A[moved[0]]['name'].lower() if A[moved[0]]['class'] == 'metals' else A[moved[0]]['name']}: "
+              + "; ".join(say(k) for k in moved[:3]) + ".")
     else:
-        paras.append(f"A quiet session across the markets we follow. Details on the {_L('markets', 'Financial Markets')} page.")
-
-    rates = [k for k in ("us2y", "us10y") if ok(k)]
-    if rates:
-        paras.append("In bonds, " + " and ".join(f"the {A[k]['name']} moved {A[k]['d1Text']} to {A[k]['lastText']}"
-                                                 + (f" ({A[k]['lagNote']})" if A[k].get("lagNote") else "") for k in rates)
-                     + ". Yields move with expectations for inflation and for the Federal Reserve's next steps; "
-                     f"the {_L('markets', 'rates table')} has the full curve.")
-    hav = [k for k in ("gold", "usdjpy", "eurusd") if ok(k)]
-    if hav:
-        paras.append("Among havens and currencies, " + "; ".join(say(k) for k in hav)
-                     + f". Gold and the yen tend to gain when investors look for safety, and to slip when risk appetite returns. "
-                     f"See {_L('metals', 'Hard Assets')} and {_L('crypto', 'Crypto & Currencies')}.")
-    if ok("us_eq") or ok("btc"):
-        bits = [say(k) for k in ("us_eq", "btc") if ok(k)]
-        paras.append("In risk assets, " + "; ".join(bits) + f". The {_L('outlook', 'Market Outlook')} puts the wider trend in context.")
+        p1 = "A quiet session across the markets we follow."
+    page0 = A[moved[0]]["page"] if moved else "markets"
+    paras.append(p1 + f" The full data is on the {_L(page0, C.PAGE_NAMES[page0])}.")
+    # 2. why
+    why = ""
+    if lead["type"] == "theme":
+        t = next(x for x in facts["themes"] if x["label"] == lead["label"])
+        why = (f"News coverage of {t['label'].lower()} ran at {t['newsVolume']}, and the markets most exposed to it "
+               f"moved the way such news usually moves them, through {t['channel']}. ")
+        heads = t.get("headlines") or []
+        if heads:
+            why += f"Among the stories behind it: {heads[0]}. "
+    if rel or why:
+        paras.append("Why? " + why + " ".join(rel[:2 if why else 3]) + f" The {_L('markets', 'rates and currency tables')} show the moves side by side.")
+    else:
+        paras.append("No single cause stands out: the moves do not line up with a common driver, and news coverage of "
+                     f"the themes we follow was close to normal. See the {_L('markets', 'Financial Markets')} page for the full picture.")
+    # 3. wider impact
+    imp = [say(k) for k in ("brent", "eurusd", "btc", "us_eq") if ok(k) and k not in moved][:3]
+    if imp:
+        paras.append("Elsewhere, " + "; ".join(imp) + f". Shariah-screened shares and funds are followed on "
+                     f"{_L('islamic', 'Islamic Investment')}, energy on the {_L('energy', 'Energy Terminal')}.")
+    # 4. our reading
+    if len(moved) >= 2 and rel:
+        concl = ("The moves hang together, which makes them more than noise. The test is whether they hold over the "
+                 "next sessions or fade.")
+    else:
+        concl = ("For now this looks like an isolated move rather than a broad shift. Whether it persists, or other "
+                 "markets follow, is the question to watch.")
+    paras.append("Our reading: " + concl + f" Our {_L('outlook', 'Market Outlook')} puts it in the longer trend.")
     paras = paras[:4]
 
     S = facts["sections"]
