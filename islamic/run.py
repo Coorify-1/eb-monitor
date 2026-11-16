@@ -6,6 +6,7 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import shutil
 import time
 from zoneinfo import ZoneInfo
@@ -15,6 +16,7 @@ import pandas as pd
 
 from engine import prices as P
 from engine import sources as SRC
+from engine import texts as T
 from engine.run import country_from_sec
 
 from . import config as C
@@ -149,6 +151,11 @@ def refresh_universe(sec, massive, mom, today, state, cache_dir):
     return rows
 
 
+def company_name(x):
+    n = re.sub(r"\s*/[A-Z]{0,4}/?\s*$", "", T.nice_name(x or "")).strip()
+    return re.sub(r"\bELI\b", "Eli", n)
+
+
 def fx_rates():
     """Units per USD: ECB rates, completed with a free daily feed for currencies the ECB does not publish (TWD, SAR...)."""
     fx = SRC.fx_per_usd()
@@ -180,7 +187,7 @@ def daily_screen(rows, wide, closes):
         ex = S.business_exclusion(r["t"], r["sic"])
         k = S.classify(r.get("inp") or {}, avg, ex)
         out.append({
-            "t": r["t"], "tm": tm, "n": r["n"], "sec": S.sector_of(r["sic"], r["t"]), "cc": r["cc"], "foreign": r["foreign"],
+            "t": r["t"], "tm": tm, "n": company_name(r["n"]), "sec": S.sector_of(r["sic"], r["t"]), "cc": r["cc"], "foreign": r["foreign"],
             "mcap": mc, "mcapAvg": avg, **k, "pur": S.purification(k["npi"]) if k["status"] in ("Halal", "Watch") else None,
             "asOf": (r.get("inp") or {}).get("asOf"),
         })
