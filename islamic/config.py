@@ -142,6 +142,18 @@ NEWS_QUERY = ('(sukuk OR "islamic finance" OR "islamic bank" OR "islamic banking
               'OR "sharia-compliant" OR "shariah compliant" OR takaful OR AAOIFI OR IFSB OR "halal investing") '
               'sourcelang:english')
 NEWS_MAX = 8
+NEWS_DAYS = 14          # headlines stay on the page up to two weeks
+NEWS_KEEP = 30
+# public RSS feeds (headline + link only), filtered on Islamic finance words
+NEWS_FEEDS = [
+    ("The National", "https://www.thenationalnews.com/arc/outboundfeeds/rss/?outputType=xml"),
+    ("The National business", "https://www.thenationalnews.com/arc/outboundfeeds/rss/category/business/?outputType=xml"),
+    ("AGBI", "https://www.agbi.com/feed/"),
+    ("Malay Mail money", "https://www.malaymail.com/feed/rss/money"),
+    ("Free Malaysia Today business", "https://www.freemalaysiatoday.com/category/business/feed/"),
+    ("Dawn business", "https://www.dawn.com/feeds/business"),
+    ("Express Tribune business", "https://tribune.com.pk/feed/business"),
+]
 NEWS_TAGS = [
     ("Sukuk", r"\bsukuk\b"),
     ("Takaful", r"\btakaful\b"),

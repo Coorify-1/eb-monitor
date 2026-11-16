@@ -30,7 +30,7 @@ from . import screen as S
 NY = ZoneInfo("America/New_York")
 
 
-SCREEN_VERSION = 2
+SCREEN_VERSION = 3
 
 
 def log(*a):
@@ -81,7 +81,8 @@ def refresh_universe(sec, massive, mom, today, state, cache_dir):
     det_path = os.path.join(cache_dir, "details.json")
     details = load(det_path, {})
     budget = 40
-    subs = state.setdefault("subs", {})
+    state.pop("subs", None)
+    subs = state.setdefault("subs2", {})
     rows = []
     def sub_of(cik):
         s = subs.get(str(cik))
