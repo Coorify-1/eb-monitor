@@ -83,6 +83,16 @@ INTEREST_INCOME_TAGS = ["InvestmentIncomeInterest", "InvestmentIncomeInterestAnd
 SHARES_TAGS = [("dei", "EntityCommonStockSharesOutstanding"), ("us-gaap", "CommonStockSharesOutstanding")]
 
 # IFRS equivalents for foreign companies that file annual reports with the SEC (20-F, 40-F)
+# sector fixes where the SEC industry code misleads (GICS-style sectors)
+SECTOR_OVERRIDE = {
+    "V": "Financials", "MA": "Financials", "PYPL": "Financials", "FI": "Financials", "FIS": "Financials",
+    "WMT": "Consumer staples", "COST": "Consumer staples", "TGT": "Consumer staples", "DG": "Consumer staples",
+    "DLTR": "Consumer staples", "BJ": "Consumer staples",
+    "PDD": "Consumer discretionary", "BABA": "Consumer discretionary", "JD": "Consumer discretionary",
+    "MELI": "Consumer discretionary", "SE": "Consumer discretionary", "CPNG": "Consumer discretionary",
+    "ASML": "Technology", "NTES": "Communication", "TCEHY": "Communication", "BIDU": "Communication",
+}
+
 FX_FALLBACK = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json"
 
 IFRS = {
