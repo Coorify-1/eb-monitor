@@ -1219,8 +1219,15 @@ export default function TheAnalyst(props: any) {
     const [ratio, setRatio] = React.useState(1.4)
     const [moveL, setMoveL] = React.useState<string[]>([])
     const [cSide, setCSide] = React.useState<"left" | "right">("left")
-    const [just, setJust] = React.useState<"" | "left" | "right">("")
+    const [fill, setFill] = React.useState<{ side: string; rows: number }>({ side: "", rows: 0 })
+    const ROWH = 27
     const decided = React.useRef("")
+    const [cLoaded, setCLoaded] = React.useState(0)
+    // "Markets in figures": extra market rows that fill the shorter column
+    const extraMkts = Object.values(D.markets || {})
+        .filter((m) => m && m.ok && !m.stale && !(D.kpis || []).some((k) => k.id === m.id))
+        .sort((a, b) => Math.abs(b.z || 0) - Math.abs(a.z || 0))
+    const MAXROWS = extraMkts.length
     const capH = p.cartoonCaption || p.cartoonCredit ? 50 : 0
     React.useLayoutEffect(() => {
         const l = lRef.current
@@ -1259,14 +1266,24 @@ export default function TheAnalyst(props: any) {
                     R = best.RR
                 }
             }
-            // spread the remaining gap over the shorter column, if it stays discreet
-            const short = L < R ? "left" : "right"
-            const n = Math.max(1, (short === "left" ? l : r).children.length + (cSrc && cSide === short ? 1 : 0) - 1)
-            const extra = Math.abs(L - R)
-            setJust(extra > 4 && extra / n <= 60 ? short : "")
+            // real heights (the stacks stretch, so their children are summed instead)
+            const real = (stack: HTMLElement) => {
+                const col = stack.parentElement as HTMLElement
+                let tot = sum(kids(stack))
+                for (const c of Array.from(col.children) as HTMLElement[])
+                    if (c !== stack && !c.dataset.filler) tot += c.offsetHeight + GAP
+                return tot
+            }
+            const RL = real(l)
+            const RRr = real(r)
+            const gap = Math.abs(RL - RRr)
+            const side = RL < RRr ? "left" : "right"
+            const rows = Math.min(MAXROWS, Math.floor((gap - GAP - 46) / ROWH))
+            const nf = rows >= 3 ? { side, rows } : { side: "", rows: 0 }
+            setFill((f) => (f.side === nf.side && f.rows === nf.rows ? f : nf))
         }, 80)
         return () => clearTimeout(id)
-    }, [W, data, cSrc, ratio, moveL, cSide])
+    }, [W, data, cSrc, ratio, moveL, cSide, cLoaded])
     const cartoon = cSrc ? (
         <Panel title={p.cartoonTitle || tx.cartoonTitle} note={p.cartoonDate || ""}>
             <figure className="ean-cart">
@@ -1280,6 +1297,7 @@ export default function TheAnalyst(props: any) {
                         const im = e.currentTarget
                         if (im.naturalWidth && im.naturalHeight)
                             setRatio(im.naturalWidth / im.naturalHeight)
+                        setCLoaded((n) => n + 1)
                     }}
                 />
                 {(p.cartoonCaption || p.cartoonCredit) && (
@@ -1380,11 +1398,35 @@ export default function TheAnalyst(props: any) {
     )
 
     const wide = W >= 980
+    const filler = (s: string) =>
+        fill.side === s && fill.rows > 0 ? (
+            <div data-filler="1">
+                <Panel title={tx.figuresTitle} note={tx.figuresNote}>
+                    <table className="ean-fig">
+                        <tbody>
+                            {extraMkts.slice(0, fill.rows).map((m) => (
+                                <tr key={m.id}>
+                                    <td>
+                                        <a href={href(m.page || "") || undefined} target="_blank" rel="noopener">
+                                            {m.name}
+                                        </a>
+                                    </td>
+                                    <td className="ean-fv">{m.lastText}</td>
+                                    <td className="ean-fv">
+                                        <Pct m={m} />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </Panel>
+            </div>
+        ) : null
     const wb = (k: string, node: React.ReactNode) =>
         node ? <div key={k} ref={(e) => (blk.current[k] = e)}>{node}</div> : null
     const body = wide ? (
         <div className="ean-grid ean-paper">
-            <div className={"ean-col" + (just === "left" ? " ean-just" : "")}>
+            <div className="ean-col ean-just">
                 <div ref={lRef} className="ean-col ean-stack">
                     {lead}
                     {briefs}
@@ -1392,8 +1434,9 @@ export default function TheAnalyst(props: any) {
                     {moveL.includes("radar") && wb("radar", radar)}
                 </div>
                 {cSide === "left" && cartoon}
+                {filler("left")}
             </div>
-            <div className={"ean-col" + (just === "right" ? " ean-just" : "")}>
+            <div className="ean-col ean-just">
                 <div ref={rRef} className="ean-col ean-stack">
                     {chart1}
                     {chart2}
@@ -1401,6 +1444,7 @@ export default function TheAnalyst(props: any) {
                     {!moveL.includes("radar") && wb("radar", radar)}
                 </div>
                 {cSide === "right" && cartoon}
+                {filler("right")}
             </div>
         </div>
     ) : (
@@ -1673,6 +1717,12 @@ const CSS = `
 .ean-paper{align-items:stretch}
 .ean-just{justify-content:space-between}
 .ean-just>.ean-stack{flex:1;justify-content:space-between}
+.ean-fig{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.ean-fig td{height:27px;padding:0;border-top:1px solid var(--rule);font-size:12.5px;white-space:nowrap}
+.ean-fig tr:first-child td{border-top:0}
+.ean-fig td:first-child{font-family:var(--fh);font-size:13.5px;overflow:hidden;text-overflow:ellipsis;max-width:0;width:55%}
+.ean-fig a:hover{color:var(--link)}
+.ean-fv{text-align:right;padding-left:10px!important;font-family:var(--fh)}
 .ean-cart figcaption{font-family:var(--fh);font-style:italic;font-size:14px;line-height:1.45;margin-top:8px;display:flex;flex-direction:column;gap:2px}
 .ean-cart small{font-family:var(--fb);font-style:normal;font-size:10.5px;color:var(--mute)}
 /* footer */
@@ -1732,6 +1782,8 @@ const DEF_TEXTS: Record<string, string> = {
     contextNote: "Change since the first day shown",
     watchTitle: "What we're watching",
     cartoonTitle: "The Weekly Cartoon",
+    figuresTitle: "Markets in figures",
+    figuresNote: "Latest level and daily change",
     radarTitle: "Geopolitical radar",
     radarNote: "News volume vs. its recent normal",
     coverage: "{x}× usual coverage",
