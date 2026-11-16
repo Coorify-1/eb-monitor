@@ -1,0 +1,9 @@
+{
+  "_help": "To correct today's edition by hand: set 'date' to the edition date (YYYY-MM-DD), fill only the fields you want to replace, then commit. The site updates in about 2 minutes. Links to our pages: [[key|words]] with key = markets, energy, crypto, metals, estate, corporate, outlook or islamic.",
+  "date": "",
+  "headline": "",
+  "tone": "",
+  "lead": [],
+  "briefs": {},
+  "watch": []
+}

@@ -1,0 +1,159 @@
+{
+  "_help": "Each theme links a news topic to the markets it usually moves. +1 = expected to rise when the theme heats up, -1 = expected to fall. Edit freely: add a theme, change a query or a sign. 'query' is used for GDELT and Google News. two_way = the news can push markets either way; 'up' describes the move with the signs shown, 'down' the opposite.",
+  "themes": [
+    {
+      "id": "middle_east",
+      "label": "Middle East tensions",
+      "query": "(Iran OR Israel OR Hezbollah OR Houthi OR \"Strait of Hormuz\" OR \"Red Sea\") (strike OR attack OR missile OR escalation OR tensions OR sanctions)",
+      "assets": {
+        "brent": 1,
+        "wti": 1,
+        "gold": 1,
+        "us_eq": -1,
+        "usdjpy": -1,
+        "usdchf": -1,
+        "vix": 1
+      },
+      "channel": "supply risk for oil and demand for safe havens",
+      "two_way": false
+    },
+    {
+      "id": "russia_ukraine",
+      "label": "Russia–Ukraine war",
+      "query": "(Russia OR Ukraine OR Kremlin OR Zelensky) (attack OR offensive OR ceasefire OR sanctions OR pipeline OR refinery)",
+      "assets": {
+        "brent": 1,
+        "natgas": 1,
+        "gold": 1,
+        "eurusd": -1,
+        "us_eq": -1
+      },
+      "channel": "energy supply to Europe and the euro",
+      "two_way": false
+    },
+    {
+      "id": "us_china",
+      "label": "US–China trade and tariffs",
+      "query": "(tariff OR tariffs OR \"trade war\" OR \"export controls\") (China OR Beijing OR Xi)",
+      "assets": {
+        "us_eq": -1,
+        "copper": -1,
+        "usdcny": 1,
+        "vix": 1,
+        "gold": 1
+      },
+      "channel": "global growth, supply chains and the yuan",
+      "two_way": false
+    },
+    {
+      "id": "taiwan",
+      "label": "Taiwan Strait",
+      "query": "Taiwan (China OR PLA OR military OR drills OR blockade OR strait)",
+      "assets": {
+        "us_eq": -1,
+        "vix": 1,
+        "gold": 1,
+        "usdjpy": -1
+      },
+      "channel": "risk to chip supply and regional security",
+      "two_way": false
+    },
+    {
+      "id": "opec",
+      "label": "OPEC+ supply decisions",
+      "query": "(OPEC OR \"OPEC+\" OR \"Saudi Aramco\") (output OR production OR quota OR cut OR increase)",
+      "assets": {
+        "brent": 1,
+        "wti": 1
+      },
+      "channel": "oil supply",
+      "two_way": true,
+      "up": "supply cuts",
+      "down": "higher supply"
+    },
+    {
+      "id": "fed",
+      "label": "Federal Reserve policy",
+      "query": "(\"Federal Reserve\" OR Fed OR FOMC OR Powell) (\"rate cut\" OR \"rate hike\" OR \"interest rates\" OR inflation)",
+      "assets": {
+        "us2y": 1,
+        "us10y": 1,
+        "eurusd": -1,
+        "gold": -1,
+        "btc": -1,
+        "us_eq": -1
+      },
+      "channel": "the expected path of US interest rates (signs shown for a more hawkish Fed)",
+      "two_way": true,
+      "up": "a more hawkish Fed",
+      "down": "a more dovish Fed"
+    },
+    {
+      "id": "us_inflation",
+      "label": "US inflation data",
+      "query": "(CPI OR \"consumer prices\" OR inflation OR PCE) (\"United States\" OR US OR American)",
+      "assets": {
+        "us2y": 1,
+        "us10y": 1,
+        "gold": -1,
+        "us_eq": -1
+      },
+      "channel": "inflation expectations and rate expectations",
+      "two_way": true,
+      "up": "hotter inflation",
+      "down": "cooler inflation"
+    },
+    {
+      "id": "us_fiscal",
+      "label": "US budget and debt",
+      "query": "(\"government shutdown\" OR \"debt ceiling\" OR deficit OR \"Treasury auction\" OR \"credit rating\") (US OR Congress OR Treasury)",
+      "assets": {
+        "us30y": 1,
+        "us10y": 1,
+        "gold": 1,
+        "eurusd": 1
+      },
+      "channel": "term premium on long-dated Treasuries",
+      "two_way": false
+    },
+    {
+      "id": "china_economy",
+      "label": "China economy and stimulus",
+      "query": "China (stimulus OR \"property crisis\" OR PBOC OR \"growth slows\" OR deflation OR \"rate cut\")",
+      "assets": {
+        "copper": 1,
+        "usdcny": -1,
+        "brent": 1
+      },
+      "channel": "demand for industrial metals and commodities (signs shown for stronger support)",
+      "two_way": true,
+      "up": "stronger support for China's economy",
+      "down": "worries about China's economy"
+    },
+    {
+      "id": "europe",
+      "label": "European politics and the ECB",
+      "query": "(ECB OR Lagarde OR \"euro zone\" OR eurozone) (rates OR inflation OR election OR budget OR debt)",
+      "assets": {
+        "eurusd": 1
+      },
+      "channel": "the euro",
+      "two_way": true,
+      "up": "a firmer euro",
+      "down": "a weaker euro"
+    },
+    {
+      "id": "crypto_policy",
+      "label": "Crypto regulation and flows",
+      "query": "(bitcoin OR crypto OR stablecoin) (SEC OR regulation OR ETF OR outflows OR inflows OR ban)",
+      "assets": {
+        "btc": 1,
+        "eth": 1
+      },
+      "channel": "crypto demand (signs shown for supportive news)",
+      "two_way": true,
+      "up": "supportive crypto news",
+      "down": "negative crypto news"
+    }
+  ]
+}

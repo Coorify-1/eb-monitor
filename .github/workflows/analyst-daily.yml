@@ -1,0 +1,61 @@
+name: THE ANALYST daily
+
+on:
+  schedule:
+    # 06:30 New York. Two times because New York changes clocks
+    # (10:31 UTC in summer, 11:31 UTC in winter); the engine skips the run that is too early
+    # or that finds today's edition already published.
+    - cron: "31 10 * * *"
+    - cron: "31 11 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Publish a new edition now (even if today's is already out)"
+        type: boolean
+        default: true
+  push:
+    branches: [main]
+    paths: ["analyst/override.json"]
+
+permissions:
+  contents: write
+  models: read   # free AI writing through GitHub Models, with this workflow's own token
+
+concurrency:
+  group: eb-analyst
+  cancel-in-progress: false
+
+jobs:
+  edition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install requests
+
+      - name: Write today's edition
+        if: github.event_name != 'push'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FORCE: ${{ inputs.force }}
+        run: python -m analyst.run --out docs/eb-analyst.json
+
+      - name: Apply manual edits (analyst/override.json)
+        if: github.event_name == 'push'
+        run: python -m analyst.run --out docs/eb-analyst.json --apply-override
+
+      - name: Publish
+        run: |
+          git add docs/eb-analyst.json docs/analyst
+          git diff --cached --quiet && { echo "Nothing new to publish."; exit 0; }
+          git -c user.name="eb-analyst-bot" -c user.email="eb-analyst-bot@users.noreply.github.com" commit -qm "THE ANALYST: $(TZ=America/New_York date +%F)"
+          for i in 1 2 3; do git pull -q --rebase && git push -q && exit 0; sleep 10; done
+          exit 1
