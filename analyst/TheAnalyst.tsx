@@ -1642,8 +1642,8 @@ const CSS = `
 .ean-reg.is-risk_off,.ean-reg.is-growth{border-color:var(--dn)}
 .ean-reg.is-risk_on{border-color:var(--up)}
 .ean-reg.is-inflation,.ean-reg.is-usd_up,.ean-reg.is-usd_down{border-color:var(--mid)}
-.ean-head{font-family:var(--fh);font-weight:400;font-size:var(--t0);line-height:1.15;margin:0;text-wrap:balance}
-.ean-tone{font-family:var(--fh);font-style:italic;font-size:calc(var(--body) + 1px);line-height:1.45;color:var(--mute);margin:0}
+.ean-head{font-family:var(--fh);font-weight:400;font-size:var(--t0);line-height:1.1;margin:0;text-wrap:balance;letter-spacing:-.005em}
+.ean-tone{font-family:var(--fh);font-style:italic;font-size:calc(var(--body) + 1px);line-height:1.45;color:var(--mute);margin:0;max-width:62ch}
 .ean-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:1px solid var(--strong);border-bottom:1px solid var(--rule)}
 .ean-kpi{box-shadow:inset -1px 0 0 var(--rule);padding:11px 16px;display:flex;flex-direction:column;gap:3px;min-width:0}
 .ean-kpi:first-child{padding-left:0}
@@ -1654,7 +1654,7 @@ const CSS = `
 .ean-ks{font-size:11.5px;font-variant-numeric:tabular-nums}
 .ean-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:22px 40px;align-items:start}
 .ean-col{display:flex;flex-direction:column;gap:24px;min-width:0}
-.ean-lead p{font-family:var(--fh);font-size:var(--body);line-height:1.62;margin:0 0 14px;max-width:68ch}
+.ean-lead p{font-family:var(--fh);font-size:var(--body);line-height:1.66;margin:0 0 18px;max-width:68ch}
 .ean-lead p.ean-first::first-letter{font-size:3.1em;float:left;line-height:.9;padding:4px 8px 0 0}
 .ean a.ean-a{color:var(--link);border-bottom:1px solid color-mix(in srgb,var(--link) 35%,transparent)}
 .ean a.ean-a:hover{border-bottom-color:var(--link)}
@@ -1667,10 +1667,10 @@ const CSS = `
 .ean-briefs{list-style:none;margin:0;padding:0}
 .ean-briefs li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:4px 16px;padding:9px 0;border-top:1px solid var(--rule)}
 .ean-briefs li:first-child{border-top:0}
-.ean-bk{font-family:var(--fh);font-size:14px;color:var(--ink)!important}
+.ean-bk{font-family:var(--fh);font-size:15px;color:var(--ink)!important}
 .ean-bk span{color:var(--link)}
 .ean-bk:hover{color:var(--link)!important}
-.ean-bt{font-size:13px;line-height:1.5}
+.ean-bt{font-size:14.5px;line-height:1.55}
 .ean-phone .ean-briefs li{grid-template-columns:minmax(0,1fr)}
 /* chart 1 */
 .ean-mb{display:flex;flex-direction:column}
@@ -1704,7 +1704,7 @@ const CSS = `
 .ean-tip-r span{flex:1;color:var(--mute)}
 .ean-tip-r b{font-variant-numeric:tabular-nums}
 /* watch & radar */
-.ean-watch{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.5}
+.ean-watch{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px;font-size:14.5px;line-height:1.55}
 .ean-watch li::marker{font-family:var(--fh);color:var(--mute)}
 .ean-radar{list-style:none;margin:0;padding:0}
 .ean-radar li{display:flex;flex-direction:column;gap:4px;padding:8px 0;border-top:1px solid var(--rule)}
@@ -1720,7 +1720,7 @@ const CSS = `
 .ean-meter::before{content:"";position:absolute;left:0;right:0;top:3px;height:1px;background:var(--rule)}
 .ean-meter i{position:absolute;left:0;top:3px;height:1px;background:var(--ink)}
 .ean-meter i::after{content:"";position:absolute;right:-2.5px;top:-2px;width:5px;height:5px;border-radius:50%;background:var(--ink)}
-.ean-rl{font-size:12px;line-height:1.4;color:var(--ink)}
+.ean-rl{font-size:13.5px;line-height:1.45;color:var(--ink)}
 .ean-rl:hover{color:var(--link)}
 .ean-rl small{color:var(--mute);font-size:10.5px}
 /* weekly cartoon */
@@ -1871,10 +1871,10 @@ const DEFAULTS: Record<string, any> = {
     chartHeight: 220,
     maxWidth: 1200,
     padding: 24,
-    headlineSize: 34,
+    headlineSize: 42,
     titleSize: 26,
     sectionTitleSize: 18,
-    bodySize: 17,
+    bodySize: 19,
     kpiSize: 22,
     rowSize: 13.5,
     background: "#F0E6DC",
@@ -1953,7 +1953,7 @@ const CONTROLS: Record<string, any> = {
     headlineSize: { type: ControlType.Number, title: "Headline size", min: 18, max: 72 },
     titleSize: { type: ControlType.Number, title: "Title size", min: 14, max: 64 },
     sectionTitleSize: { type: ControlType.Number, title: "Section size", min: 12, max: 40 },
-    bodySize: { type: ControlType.Number, title: "Article text", min: 13, max: 24, step: 0.5 },
+    bodySize: { type: ControlType.Number, title: "Article text", min: 13, max: 26, step: 0.5 },
     kpiSize: { type: ControlType.Number, title: "Key figure size", min: 14, max: 48 },
     rowSize: { type: ControlType.Number, title: "Small text", min: 11, max: 20, step: 0.5 },
     headingFont: {
