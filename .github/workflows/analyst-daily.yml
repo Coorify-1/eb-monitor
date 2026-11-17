@@ -7,6 +7,10 @@ on:
     # or that finds today's edition already published.
     - cron: "31 10 * * *"
     - cron: "31 11 * * *"
+    # back-up runs in case GitHub skips or delays a scheduled run (they do nothing once the edition is out)
+    - cron: "7 12 * * *"
+    - cron: "7 13 * * *"
+    - cron: "7 14 * * *"
   workflow_dispatch:
     inputs:
       force:

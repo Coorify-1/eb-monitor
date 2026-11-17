@@ -453,7 +453,7 @@ def main():
     if not force:
         minutes = now_ny.hour * 60 + now_ny.minute
         start = C.PUBLISH_HOUR_NY * 60 + C.PUBLISH_MINUTE_NY - 5
-        if not start <= minutes < start + 150:  # GitHub may start a scheduled run late
+        if not start <= minutes < start + 300:  # GitHub may start a scheduled run late, or skip it
             print(f"{now_ny:%H:%M} in New York: outside the publishing window, nothing to do.")
             return
         if out.exists():
