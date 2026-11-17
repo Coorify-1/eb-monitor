@@ -232,18 +232,28 @@ def _plain(k):
 
 
 def tone_hint(reg, A):
-    """Standfirst: main move and cause, 'while' the contrasting move. No numbers."""
+    """Standfirst: completes the headline with the related move and the context. No numbers."""
     m = [k for k in reg.get("members", []) if A.get(k, {}).get("ok") and A[k]["d1"]]
     ups = [k for k in m if A[k]["d1"] > 0][:2]
     dns = [k for k in m if A[k]["d1"] < 0][:2]
     if not ups and not dns:
-        return "Markets moved within their usual ranges, with no single force setting the direction."
-    a = " and ".join(_plain(k) for k in ups) or ""
-    b = " and ".join(_plain(k) for k in dns) or ""
+        return "Most markets stayed within their usual ranges as investors waited for a clearer signal on rates and growth."
+    a = " and ".join(_plain(k) for k in ups)
+    b = " and ".join(_plain(k) for k in dns)
+    mood = reg["label"].lower()
     if a and b:
-        return f"{a[0].upper() + a[1:]} advanced, while {b} lost ground in a {reg['label'].lower()} session."
-    s = a or b
-    return f"{s[0].upper() + s[1:]} {'advanced' if a else 'lost ground'} in a {reg['label'].lower()} session."
+        s = f"{b[0].upper() + b[1:]} lost ground while {a} advanced as investors adjusted to a {mood} backdrop."
+    else:
+        s = f"{(a or b)[0].upper() + (a or b)[1:]} {'advanced' if a else 'lost ground'} as investors adjusted to a {mood} backdrop."
+    return s
+
+
+SMALL = {"and", "on", "as", "of", "the", "to", "in", "for", "at", "by", "amid", "a", "an", "or"}
+
+
+def _tc(s: str) -> str:
+    """Headline Title Case; short words stay lower case."""
+    return " ".join(w if (w.lower() in SMALL) else (w[:1].upper() + w[1:]) for w in s.replace("–", "-").split())
 
 
 def headline_hint(lead, A):
@@ -258,9 +268,9 @@ def headline_hint(lead, A):
     if what.endswith("s") and verb.endswith("s") and what not in ("Gas", "Ether"):
         verb = verb[:-1] if not verb.endswith("ses") else verb
     if lead["type"] == "theme":
-        return f"{what} {verb} as {lead['label'].title()} Shape Markets"
+        return f"{what} {verb} {_tc('amid ' + lead['label'])}"
     if lead["type"] == "regime":
-        return f"{what} {verb} Amid {lead['label'].title()}"
+        return f"{what} {verb} {_tc('amid ' + lead['label'] + ' mood')}"
     return f"{what} {verb} as Investors Reassess"
 
 

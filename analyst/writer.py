@@ -53,13 +53,16 @@ Hard rules:
    can lag by a day), describe it as "in the latest data" and do not present it as the last session's move.
 6. edition.mode: "daily" = analyse the last session (d1Text); "weekly" (Sunday) = review the week (w1Text);
    "weekahead" (Monday) = markets reopen today: recap the last session briefly and focus on what to watch this week.
-7. HEADLINE (newspaper style): 6 to 10 words, Title Case, present tense, active verb, NO numbers, no colon.
-   Pattern: [what moved] + [verb] + "as"/"on"/"amid" + [the cause]. Example: "Crypto Gains as Regulatory Developments Shape Markets".
-   Never a list of prices such as "Bitcoin +2.1%, Ether +3.8%".
-8. STANDFIRST ("tone"): one sentence, 14 to 22 words, NO numbers, sentence case, active verbs, concrete nouns.
-   Pattern: [main move] + [cause], "while" + [the contrasting move] + [its cause].
-   Example: "Digital assets advanced on regulatory optimism, while rising yields weighed on precious and industrial metals."
-   Avoid empty phrases such as "markets sent mixed signals" or "the session saw".
+7. HEADLINE: 6 to 10 words, no numbers, no colon. Present tense, active verb (rise, fall, rally, slide, gain, weigh…).
+   Start with the asset or market that moves, then the movement, then the cause or context with "on", "as" or "amid".
+   Structure: Asset(s) + movement verb + on/as/amid + cause or context.
+   One single main angle: do not stack several moves or repeat the same idea. No vague wording, no list of price changes.
+   Headline-style Title Case: capitalise the important words, keep short words (and, on, as, of, the, to, in, for, at, by, amid) in lower case
+   unless first. Example: "Bitcoin and Ether Rise on Regulatory Optimism".
+8. STANDFIRST ("tone"): one short sentence of 15 to 25 words that completes the headline without repeating it:
+   add context, a related move or what is at stake for markets. Present or simple past tense, factual and sober, no numbers,
+   no list of prices, nothing beyond the facts given. No comma before "as" when it introduces a clause within the sentence.
+   Example: "Rising yields weighed on precious and industrial metals as investors assessed the outlook for digital assets."
 Return ONLY a JSON object with exactly these keys:
 {"headline": "...",
  "tone": "the standfirst, as in rule 8",
