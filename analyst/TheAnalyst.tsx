@@ -1120,7 +1120,11 @@ export default function TheAnalyst(props: any) {
         if (!base || !p.showArchive) return
         fetch(base + "index.json", { cache: "no-cache" })
             .then((r) => r.json())
-            .then((j) => setEditions((j?.editions || []).slice(0, 60)))
+            .then((j) => {
+                // archive: the last 60 days
+                const since = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10)
+                setEditions((j?.editions || []).filter((d: string) => d >= since))
+            })
             .catch(() => {})
     }, [base, p.showArchive])
     const pick = (d: string) => {
@@ -1458,6 +1462,69 @@ export default function TheAnalyst(props: any) {
                 </Panel>
             </div>
         ) : null
+    // ---------- archive calendar (last 60 days) ----------
+    const [calOpen, setCalOpen] = React.useState(false)
+    const edSet = new Set(editions)
+    const lastEd = editions[0] || D.edition?.date || ""
+    const [calM, setCalM] = React.useState<string>("")
+    const curM = calM || (picked || lastEd).slice(0, 7)
+    const months = Array.from(new Set(editions.map((d) => d.slice(0, 7)))).sort()
+    const archiveCal = (() => {
+        if (!curM) return null
+        const [y, m] = curM.split("-").map(Number)
+        const first = new Date(Date.UTC(y, m - 1, 1))
+        const days = new Date(Date.UTC(y, m, 0)).getUTCDate()
+        const lead = (first.getUTCDay() + 6) % 7 // Monday first
+        const cells: (string | null)[] = Array(lead).fill(null)
+        for (let d = 1; d <= days; d++)
+            cells.push(`${curM}-${String(d).padStart(2, "0")}`)
+        const i = months.indexOf(curM)
+        return (
+            <div className="ean-cal" role="dialog" aria-label={tx.archive}>
+                <div className="ean-calh">
+                    <button type="button" disabled={i <= 0} onClick={() => setCalM(months[i - 1])} aria-label="Previous month">‹</button>
+                    <b>{fmtDay(curM + "-15", { month: "long", year: "numeric" })}</b>
+                    <button type="button" disabled={i < 0 || i >= months.length - 1} onClick={() => setCalM(months[i + 1])} aria-label="Next month">›</button>
+                </div>
+                <div className="ean-calg">
+                    {["M", "T", "W", "T", "F", "S", "S"].map((w, k) => (
+                        <span key={"w" + k} className="ean-calw">{w}</span>
+                    ))}
+                    {cells.map((c, k) =>
+                        !c ? (
+                            <span key={k} />
+                        ) : edSet.has(c) ? (
+                            <button
+                                key={k}
+                                type="button"
+                                className={"ean-cald" + ((picked || lastEd) === c ? " is-on" : "")}
+                                onClick={() => {
+                                    pick(c === lastEd ? "" : c)
+                                    setCalOpen(false)
+                                }}
+                            >
+                                {+c.slice(8)}
+                            </button>
+                        ) : (
+                            <span key={k} className="ean-calx">{+c.slice(8)}</span>
+                        )
+                    )}
+                </div>
+                <button
+                    type="button"
+                    className="ean-calt"
+                    onClick={() => {
+                        pick("")
+                        setCalM("")
+                        setCalOpen(false)
+                    }}
+                >
+                    {tx.latest}
+                </button>
+            </div>
+        )
+    })()
+
     const wb = (k: string, node: React.ReactNode) =>
         node ? <div key={k} ref={(e) => (blk.current[k] = e)}>{node}</div> : null
     const body = wide ? (
@@ -1563,23 +1630,17 @@ export default function TheAnalyst(props: any) {
                                 <span>{tx.nextIn.replace("{t}", fmtLeft(nextT - now))}</span>
                             )}
                             {p.showArchive && editions.length > 1 && (
-                                <select
-                                    className="ean-arch"
-                                    value={picked}
-                                    onChange={(e) => pick(e.target.value)}
-                                    aria-label={tx.archive}
-                                >
-                                    <option value="">{tx.latest}</option>
-                                    {editions.slice(1).map((d) => (
-                                        <option key={d} value={d}>
-                                            {fmtDay(d, {
-                                                month: "short",
-                                                day: "numeric",
-                                                year: "numeric",
-                                            })}
-                                        </option>
-                                    ))}
-                                </select>
+                                <span className="ean-archw">
+                                    <button
+                                        type="button"
+                                        className="ean-archb"
+                                        aria-expanded={calOpen}
+                                        onClick={() => setCalOpen((o) => !o)}
+                                    >
+                                        {tx.archive}
+                                    </button>
+                                    {calOpen && archiveCal}
+                                </span>
                             )}
                         </div>
                     </header>
@@ -1655,7 +1716,22 @@ const CSS = `
 .ean-dot.is-sample{background:#C98B00}
 @keyframes ean-blink{0%,100%{opacity:1}50%{opacity:.3}}
 @media (prefers-reduced-motion:reduce){.ean-dot.is-live{animation:none}}
-.ean-arch{border:1px solid var(--rule);background:transparent;color:var(--link);font:inherit;font-size:11px;padding:2px 4px}
+.ean-archw{position:relative;display:inline-block}
+.ean button.ean-archb{background:none;border:0;padding:0;font:inherit;color:var(--link);cursor:pointer;border-bottom:1px solid color-mix(in srgb,var(--link) 35%,transparent)}
+.ean-cal{position:absolute;right:0;top:calc(100% + 8px);z-index:20;width:264px;background:var(--bg);border:1px solid var(--rule);border-top:2px solid var(--ink);padding:10px 12px 12px;box-shadow:0 8px 24px rgba(0,0,0,.08);font-family:var(--fb);color:var(--ink)}
+.ean-calh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ean-calh b{font-family:var(--fh);font-weight:400;font-size:15px}
+.ean-calh button{background:none;border:0;font-size:18px;line-height:1;color:var(--link);cursor:pointer;padding:2px 6px}
+.ean-calh button:disabled{color:var(--rule);cursor:default}
+.ean-calg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.ean-calw{font-size:10px;color:var(--mute);padding-bottom:4px}
+.ean-calx{font-size:13px;color:var(--rule);padding:6px 0;font-family:var(--fh)}
+.ean button.ean-cald{background:none;border:0;font:inherit;font-family:var(--fh);font-size:13.5px;color:var(--link);padding:6px 0;cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--link) 40%,transparent);text-underline-offset:3px}
+.ean button.ean-cald:hover{background:color-mix(in srgb,var(--link) 8%,transparent)}
+.ean button.ean-cald.is-on{background:var(--link);color:var(--bg);text-decoration:none}
+.ean button.ean-calt{display:block;margin-top:8px;background:none;border:0;padding:0;font:inherit;font-size:12px;color:var(--link);cursor:pointer}
+.ean-phone .ean-cal{position:fixed;left:12px;right:12px;top:auto;bottom:12px;width:auto}
+.ean-phone .ean-calx,.ean-phone .ean button.ean-cald{font-size:16px;padding:10px 0}
 .ean-top{display:flex;flex-direction:column;gap:8px;max-width:860px}
 .ean-tag{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:11px}
 .ean-reg{font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--reg);border-bottom:2px solid var(--reg);padding-bottom:1px}
@@ -1833,8 +1909,8 @@ const DEF_TEXTS: Record<string, string> = {
     unavailable: "Edition unavailable",
     missing: "Today's edition is not available yet. Please check back shortly.",
     nextIn: "Next edition in {t}",
-    archive: "Previous editions",
-    latest: "Latest edition",
+    archive: "Archive",
+    latest: "Today's edition",
     basedOn: "Based on {d}",
     today: "on the day",
     onDate: "latest data {d}",
