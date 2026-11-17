@@ -1886,7 +1886,7 @@ const DEFAULTS: Record<string, any> = {
     muted: "#7A736C",
     rule: "#D9CFC4",
     strongRule: "#57514B",
-    link: "#1F6FC5",
+    link: "#0D7680",
     upColor: "#1A8F3C",
     downColor: "#D0021B",
     midColor: "#C08A1E",
