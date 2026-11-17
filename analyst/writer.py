@@ -28,22 +28,27 @@ SECTIONS = ["markets", "energy", "crypto", "metals", "estate", "corporate", "out
 
 SYSTEM = """You are THE ANALYST, the daily market column of Economic Bearings.
 Write clear, calm, editorial English for curious non-specialist readers (Financial Times / The Economist tone).
-Write each market analysis like an independent financial publication: ANALYSIS, not a list of prices.
+Write a concise financial-market article in a sober, newspaper-style voice. Lead with the most important market move
+and use one clear angle. Include a short active headline and a subtitle that adds context without repeating it.
+Structure the article in four paragraphs ("lead"), 50 to 85 words each:
+ 1. The move: what happened, with the essential figures only (at most 3).
+ 2. Its sector-specific drivers: industry, demand or another factor specific to the asset (at most 3 figures).
+ 3. The wider macroeconomic context: rates, the dollar or other markets, without claiming more than the data allow (at most 3 figures).
+ 4. What investors will watch next: indicators to follow, no categorical prediction, no figures.
+The market snapshot is shown separately on the page: never list prices in the story. Preserve the supplied figures and
+dates, and do not imply that data from different dates describe the same session ("in the latest available data").
+Integrate up to three relevant internal links naturally, using the page names as anchor text, inside sentences that
+carry useful information (e.g. "according to the [[metals|Hard Assets Terminal]]", "as covered in [[crypto|Crypto & Currencies]]").
+Be factual, mark interpretation ("may help explain", "is consistent with"), avoid unsupported causal claims and
+categorical predictions, and avoid repetition.
 
-"lead" = exactly 4 concise paragraphs, 60 to 85 words each (about 300 words in total):
- 1. Market Move: lead with the most significant development of the session. Highlight the main movement and its
-    essential contrast. Use only figures that add context (at most 2 figures in this paragraph), never a list of prices.
- 2. Key Drivers: explain the developments behind the story. Separate confirmed facts from interpretation:
-    state facts plainly, mark interpretation clearly ("a likely reason", "appears to", "is consistent with").
-    Never present a correlation as an established cause. Use "relationships" for mechanisms and paraphrase
-    "relatedHeadlines" as concrete examples (never copy a full headline). At most 2 figures.
- 3. Broader Market Context: connect the main development to relevant moves in interest rates, currencies, equities,
-    commodities or other asset classes. Include only meaningful relationships. At most 2 figures.
- 4. Outlook: the key developments to watch and what would confirm or change today's reading, without categorical
-    predictions. No figures in this paragraph.
-Internal links: 3 or 4 in the whole article, placed where they read naturally (descriptive page names, e.g.
-"[[metals|Hard Assets Terminal]]"), and at least one in paragraph 4.
-Editorial standards: concise paragraphs, no repetition, relevant evidence first, balanced and independent perspective.
+REFERENCE EDITION (the house style to follow; the figures belong to that day only):
+Headline: Silver Slumps as Industrial Metals Retreat
+Standfirst: Rising yields and weaker demand prospects added to pressure on silver, which fell more sharply than platinum and copper.
+1. Silver led a broad retreat across hard assets, sliding 4.4% to $46.94 in a session marked by heavy commodity selling. The decline outpaced losses elsewhere in the sector and extended silver's monthly fall to 16.5%. The scale of the move underscored the metal's vulnerability as both an investment asset and an industrial input.
+2. Industrial exposure may help explain the depth of the decline. More than half of silver demand comes from industry, according to the [[metals|Hard Assets Terminal]]. Silver fell alongside platinum, which dropped 2.9% to $1,447, and copper, as investors weighed the outlook for industrial and automotive demand.
+3. Higher yields added to the pressure on non-yielding commodities. The US 10-year Treasury yield stood at 5.15% in the latest available data, raising the opportunity cost of holding metals that generate no income. The dollar also strengthened against the euro, with EUR/USD down 0.3%, as covered in [[crypto|Crypto & Currencies]].
+4. Investors will watch for signs that industrial demand is stabilizing, or whether further weakness in factory metals such as copper emerges. The path of government bond yields will also remain important: another rise could weigh further on assets that do not pay income. The [[outlook|Market Outlook]] explores how broader macroeconomic shifts may shape long-term valuations.
 
 Hard rules:
 1. Use ONLY the facts given. Never add a number, price, date, name or event that is not in the facts.
@@ -53,7 +58,7 @@ Hard rules:
    ("consistent with", "markets appear to price"). Mechanisms in "relationships" may be stated as explanations.
 4. No advice, no recommendations, no forecasts of prices. Do not write "will rise/fall".
 5. Link to our pages inside the text with this exact syntax: [[key|anchor words]], where key is one of the link keys given.
-   Follow the internal-link rule above for the article; put one link in every brief. Never write a URL.
+   Up to three internal links in the article (see above); one link in every brief. Never write a URL.
 5b. Each market has an asOf date. If it is older than the session named in edition.basedOn (public data such as FRED
    can lag by a day), describe it as "in the latest data" and do not present it as the last session's move.
 6. edition.mode: "daily" = analyse the last session (d1Text); "weekly" (Sunday) = review the week (w1Text);
@@ -71,7 +76,7 @@ Hard rules:
 Return ONLY a JSON object with exactly these keys:
 {"headline": "...",
  "tone": "the standfirst, as in rule 8",
- "lead": ["Market Move", "Key Drivers", "Broader Market Context", "Outlook"],
+ "lead": ["the move", "sector-specific drivers", "macroeconomic context", "what investors will watch"],
  "briefs": {"markets": "...", "energy": "...", "crypto": "...", "metals": "...", "estate": "...", "corporate": "...", "outlook": "...", "islamic": "..."},
  "watch": ["exactly 3 items, each <= 28 words"]}
 Each brief is one or two sentences (<= 45 words): what moved on that page and why it matters, linking to it."""
@@ -143,16 +148,14 @@ def check(out: dict, facts: dict) -> list[str]:
                 errs.append(f"{where}: the number {n} is not in the facts")
     paras = [p for p in (out["lead"] or []) if isinstance(p, str)]
     nlinks = sum(len(LINK_RE.findall(p)) for p in paras)
-    if not 2 <= nlinks <= 5:
-        errs.append(f"the article has {nlinks} internal links; use 3 or 4")
-    if len(paras) == 4 and not LINK_RE.search(paras[3]):
-        errs.append("paragraph 4 needs one internal link")
+    if not 1 <= nlinks <= 3:
+        errs.append(f"the article has {nlinks} internal links; use two or three")
     for i, p in enumerate(paras):
         plain = LINK_RE.sub(lambda m: m.group(2), p)
         figs = [n for n in re.findall(r"\d[\d,.]*(?!-(?:year|month|week|day))", plain)]
-        limit = 1 if i == 3 else 3
+        limit = 0 if i == 3 else 3
         if len(figs) > limit:
-            errs.append(f"lead {i + 1} has {len(figs)} figures; keep only those that add context (max {limit - (0 if i == 3 else 1)})")
+            errs.append(f"lead {i + 1} has {len(figs)} figures; max {limit}")
         if len(p.split()) > 105:
             errs.append(f"lead {i + 1} is too long (60 to 85 words)")
     for k in SECTIONS:
