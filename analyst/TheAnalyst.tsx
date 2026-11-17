@@ -1483,7 +1483,7 @@ export default function TheAnalyst(props: any) {
         "--mid": p.midColor,
         "--maxw": Math.max(320, Number(p.maxWidth) || 1200) + "px",
         "--pad":
-            (phone ? Math.min(14, Number(p.padding) || 0) : Number(p.padding) || 0) +
+            (phone ? 18 : !wide ? Math.max(28, Number(p.padding) || 0) : Number(p.padding) || 0) +
             "px",
         "--t0": Math.max(18, Number(p.headlineSize) || 34) + "px",
         "--t1": Math.max(14, Number(p.titleSize) || 26) + "px",
@@ -1502,7 +1502,7 @@ export default function TheAnalyst(props: any) {
     return (
         <div
             ref={rootRef}
-            className={"ean" + (phone ? " ean-phone" : "")}
+            className={"ean" + (phone ? " ean-phone" : !wide ? " ean-mid" : "")}
             style={vars}
         >
             <style>{CSS}</style>
@@ -1755,6 +1755,29 @@ const CSS = `
 .ean-phone .ean-kpi{padding:9px 10px 9px 0}
 .ean-phone .ean-kpi:nth-child(2n){padding-left:10px}
 .ean-phone .ean-lead p.ean-first::first-letter{font-size:2.6em}
+/* reading on tablets and phones: larger serif text, generous line spacing (text only) */
+.ean-mid .ean-head{font-size:38px;line-height:1.1}
+.ean-mid .ean-tone{font-size:20px;line-height:1.45}
+.ean-mid .ean-lead p{font-size:20px;line-height:1.62;max-width:none;margin-bottom:18px}
+.ean-mid .ean-bt{font-size:15.5px;line-height:1.55}
+.ean-mid .ean-bk{font-size:16px}
+.ean-mid .ean-watch{font-size:15.5px;line-height:1.55;gap:8px}
+.ean-mid .ean-rl{font-size:14.5px;line-height:1.45}
+.ean-mid .ean-rh b{font-size:16px}
+.ean-mid .ean-ph h3{font-size:20px}
+.ean-phone .ean-head{font-size:30px;line-height:1.12;letter-spacing:-.005em}
+.ean-phone .ean-tone{font-size:18px;line-height:1.45}
+.ean-phone .ean-lead p{font-size:19px;line-height:1.6;max-width:none;margin-bottom:18px}
+.ean-phone .ean-briefs li{gap:4px;padding:12px 0}
+.ean-phone .ean-bk{font-size:16px}
+.ean-phone .ean-bt{font-size:15.5px;line-height:1.55}
+.ean-phone .ean-watch{font-size:15.5px;line-height:1.55;gap:10px}
+.ean-phone .ean-rh b{font-size:16px}
+.ean-phone .ean-rl{font-size:14.5px;line-height:1.45}
+.ean-phone .ean-ph h3{font-size:19px}
+.ean-phone .ean-cart figcaption{font-size:16px}
+.ean-phone .ean-sub{font-size:13px}
+.ean-phone .ean-foot{font-size:12.5px}
 `
 
 /* ------------------------------------------------------------------ */
