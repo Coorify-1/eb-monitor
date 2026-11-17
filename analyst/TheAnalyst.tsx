@@ -1464,6 +1464,15 @@ export default function TheAnalyst(props: any) {
         ) : null
     // ---------- archive calendar (last 60 days) ----------
     const [calOpen, setCalOpen] = React.useState(false)
+    React.useEffect(() => {
+        if (!calOpen) return
+        const close = (e: Event) => {
+            const el = e.target as HTMLElement
+            if (!el.closest || !el.closest(".ean-archw")) setCalOpen(false)
+        }
+        document.addEventListener("pointerdown", close)
+        return () => document.removeEventListener("pointerdown", close)
+    }, [calOpen])
     const edSet = new Set(editions)
     const lastEd = editions[0] || D.edition?.date || ""
     const [calM, setCalM] = React.useState<string>("")
@@ -1730,7 +1739,7 @@ const CSS = `
 .ean button.ean-cald:hover{background:color-mix(in srgb,var(--link) 8%,transparent)}
 .ean button.ean-cald.is-on{background:var(--link);color:var(--bg);text-decoration:none}
 .ean button.ean-calt{display:block;margin-top:8px;background:none;border:0;padding:0;font:inherit;font-size:12px;color:var(--link);cursor:pointer}
-.ean-phone .ean-cal{position:fixed;left:12px;right:12px;top:auto;bottom:12px;width:auto}
+.ean-phone .ean-cal,.ean-mid .ean-cal{position:absolute;left:0;right:auto;top:calc(100% + 8px);bottom:auto;width:min(300px,calc(100vw - 32px))}
 .ean-phone .ean-calx,.ean-phone .ean button.ean-cald{font-size:16px;padding:10px 0}
 .ean-top{display:flex;flex-direction:column;gap:8px;max-width:860px}
 .ean-tag{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:11px}
