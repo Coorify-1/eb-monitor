@@ -1591,21 +1591,19 @@ export default function TheAnalyst(props: any) {
                         </p>
                         <details>
                             <summary>{tx.methodTitle}</summary>
+                            <p>{tx.methodIntro}</p>
                             <ul className="ean-meth">
-                                <li>{tx.method1}</li>
-                                <li>{tx.method2}</li>
-                                <li>{tx.method3}</li>
-                                <li>{tx.method4}</li>
+                                {[1, 2, 3, 4].map((i) => (
+                                    <li key={i}>
+                                        <b>{tx["method" + i + "Title"]}:</b> {tx["method" + i]}
+                                    </li>
+                                ))}
                             </ul>
+                            <p className="ean-tagline">{tx.methodTagline}</p>
                         </details>
                         <details>
                             <summary>{tx.sourcesTitle}</summary>
                             <p>{D.sources}</p>
-                            <p className="ean-mut">
-                                {tx.writtenBy}{" "}
-                                {D.writtenBy === "templates" ? tx.byTemplates : tx.byAI}
-                                {D.override ? " " + tx.edited : ""}
-                            </p>
                         </details>
                     </footer>
                 )}
@@ -1750,6 +1748,8 @@ const CSS = `
 .ean-foot p{margin:0 0 6px}
 .ean-foot b{color:var(--ink);font-weight:600}
 .ean-foot summary{cursor:pointer;color:var(--link);margin:4px 0}
+.ean-tagline{font-family:var(--fh);font-style:italic;color:var(--ink);font-size:13px}
+.ean-meth b{color:var(--ink);font-weight:600}
 .ean-meth{margin:4px 0 8px;padding-left:16px;display:flex;flex-direction:column;gap:3px;line-height:1.5}
 .ean-missing{font-family:var(--fh);font-size:var(--body);color:var(--mute);padding:40px 0;margin:0}
 .ean-phone .ean-mbs span:nth-child(2){display:none}
@@ -1845,20 +1845,23 @@ const DEF_TEXTS: Record<string, string> = {
     footBold: "For information only, not investment advice.",
     footText:
         "Markets can move for reasons no data set captures. Past moves do not predict future returns.",
-    methodTitle: "How THE ANALYST works",
+    methodTitle: "How THE ANALYST Works",
+    methodIntro:
+        "THE ANALYST brings together the forces shaping global markets, business and investment.",
+    method1Title: "Global Perspective",
     method1:
-        "Every morning the engine reads the data behind our pages: rates, energy, currencies, crypto, metals, real estate, company rankings, our quarterly outlook and Shariah-screened markets.",
+        "Coverage across financial markets, energy, currencies, digital assets, precious metals, real estate and global business.",
+    method2Title: "Market Context",
     method2:
-        "Each move is compared with that market's usual daily swing, so a 1% move in gold and a 1% move in Bitcoin are not treated the same.",
+        "Understanding price movements, economic developments and the forces influencing investor sentiment.",
+    method3Title: "Connected Insights",
     method3:
-        "A news theme is called a driver only when its coverage jumps AND at least two of the markets it usually moves go the expected way. Otherwise the text stays cautious.",
+        "Exploring the relationships between markets, industries, geopolitics and investment trends.",
+    method4Title: "Independent Analysis",
     method4:
-        "The text is drafted from these facts with a free AI model; every figure and link is checked automatically, and the newsroom can correct an edition by hand.",
+        "Clear perspectives, reliable sources and editorial judgement, without losing sight of the bigger picture.",
+    methodTagline: "Connecting markets. Understanding what moves them.",
     sourcesTitle: "Sources",
-    writtenBy: "This edition:",
-    byAI: "drafted with AI from our data, figures checked automatically.",
-    byTemplates: "written from our data with standard sentences.",
-    edited: "Edited by the Economic Bearings newsroom.",
 }
 
 const DEFAULTS: Record<string, any> = {
