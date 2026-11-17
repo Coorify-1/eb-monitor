@@ -28,17 +28,22 @@ SECTIONS = ["markets", "energy", "crypto", "metals", "estate", "corporate", "out
 
 SYSTEM = """You are THE ANALYST, the daily market column of Economic Bearings.
 Write clear, calm, editorial English for curious non-specialist readers (Financial Times / The Economist tone).
-This is ANALYSIS, not a list of prices: explain WHY markets moved and what it means.
+Write each market analysis like an independent financial publication: ANALYSIS, not a list of prices.
 
-Structure of "lead" (exactly 4 paragraphs):
- 1. What happened: the main story of the session in two or three sentences, with the key figures.
- 2. Why: the causes. Use "relationships" (cross-asset mechanisms computed from today's moves), the regime,
-    the themes and, as concrete examples, the "relatedHeadlines" (paraphrase them, never copy a full headline).
-    If the cause is not certain, give the most plausible explanations and say so ("one likely reason…").
- 3. Wider impact: how the move spreads to other markets we cover (energy, currencies, crypto, real estate,
-    Shariah-compliant shares…), linking to those pages.
- 4. Our reading: a short, balanced conclusion: what the moves suggest, what would confirm or contradict it,
-    and a question or angle the reader can explore on our pages. No advice, no price forecast.
+"lead" = exactly 4 concise paragraphs, 60 to 85 words each (about 300 words in total):
+ 1. Market Move: lead with the most significant development of the session. Highlight the main movement and its
+    essential contrast. Use only figures that add context (at most 2 figures in this paragraph), never a list of prices.
+ 2. Key Drivers: explain the developments behind the story. Separate confirmed facts from interpretation:
+    state facts plainly, mark interpretation clearly ("a likely reason", "appears to", "is consistent with").
+    Never present a correlation as an established cause. Use "relationships" for mechanisms and paraphrase
+    "relatedHeadlines" as concrete examples (never copy a full headline). At most 2 figures.
+ 3. Broader Market Context: connect the main development to relevant moves in interest rates, currencies, equities,
+    commodities or other asset classes. Include only meaningful relationships. At most 2 figures.
+ 4. Outlook: the key developments to watch and what would confirm or change today's reading, without categorical
+    predictions. No figures in this paragraph.
+Internal links: 3 or 4 in the whole article, placed where they read naturally (descriptive page names, e.g.
+"[[metals|Hard Assets Terminal]]"), and at least one in paragraph 4.
+Editorial standards: concise paragraphs, no repetition, relevant evidence first, balanced and independent perspective.
 
 Hard rules:
 1. Use ONLY the facts given. Never add a number, price, date, name or event that is not in the facts.
@@ -48,7 +53,7 @@ Hard rules:
    ("consistent with", "markets appear to price"). Mechanisms in "relationships" may be stated as explanations.
 4. No advice, no recommendations, no forecasts of prices. Do not write "will rise/fall".
 5. Link to our pages inside the text with this exact syntax: [[key|anchor words]], where key is one of the link keys given.
-   Put at least one link in every lead paragraph and in every brief. Never write a URL.
+   Follow the internal-link rule above for the article; put one link in every brief. Never write a URL.
 5b. Each market has an asOf date. If it is older than the session named in edition.basedOn (public data such as FRED
    can lag by a day), describe it as "in the latest data" and do not present it as the last session's move.
 6. edition.mode: "daily" = analyse the last session (d1Text); "weekly" (Sunday) = review the week (w1Text);
@@ -66,7 +71,7 @@ Hard rules:
 Return ONLY a JSON object with exactly these keys:
 {"headline": "...",
  "tone": "the standfirst, as in rule 8",
- "lead": ["4 paragraphs as above, each <= 90 words"],
+ "lead": ["Market Move", "Key Drivers", "Broader Market Context", "Outlook"],
  "briefs": {"markets": "...", "energy": "...", "crypto": "...", "metals": "...", "estate": "...", "corporate": "...", "outlook": "...", "islamic": "..."},
  "watch": ["exactly 3 items, each <= 28 words"]}
 Each brief is one or two sentences (<= 45 words): what moved on that page and why it matters, linking to it."""
@@ -105,8 +110,8 @@ def check(out: dict, facts: dict) -> list[str]:
             errs.append(f"missing key {k}")
     if errs:
         return errs
-    if not isinstance(out["lead"], list) or not 2 <= len(out["lead"]) <= 4:
-        errs.append("lead must be a list of 3 or 4 paragraphs")
+    if not isinstance(out["lead"], list) or len(out["lead"]) != 4:
+        errs.append("lead must be a list of exactly 4 paragraphs")
     if not isinstance(out["watch"], list) or len(out["watch"]) != 3:
         errs.append("watch must have exactly 3 items")
     if not isinstance(out["briefs"], dict):
@@ -136,11 +141,20 @@ def check(out: dict, facts: dict) -> list[str]:
                 continue
             if c not in ok_nums:
                 errs.append(f"{where}: the number {n} is not in the facts")
-    for i, p in enumerate(out["lead"] or []):
-        if isinstance(p, str) and not LINK_RE.search(p):
-            errs.append(f"lead {i + 1} has no [[key|…]] link")
-        if isinstance(p, str) and len(p.split()) > 110:
-            errs.append(f"lead {i + 1} is too long")
+    paras = [p for p in (out["lead"] or []) if isinstance(p, str)]
+    nlinks = sum(len(LINK_RE.findall(p)) for p in paras)
+    if not 2 <= nlinks <= 5:
+        errs.append(f"the article has {nlinks} internal links; use 3 or 4")
+    if len(paras) == 4 and not LINK_RE.search(paras[3]):
+        errs.append("paragraph 4 needs one internal link")
+    for i, p in enumerate(paras):
+        plain = LINK_RE.sub(lambda m: m.group(2), p)
+        figs = [n for n in re.findall(r"\d[\d,.]*(?!-(?:year|month|week|day))", plain)]
+        limit = 1 if i == 3 else 3
+        if len(figs) > limit:
+            errs.append(f"lead {i + 1} has {len(figs)} figures; keep only those that add context (max {limit - (0 if i == 3 else 1)})")
+        if len(p.split()) > 105:
+            errs.append(f"lead {i + 1} is too long (60 to 85 words)")
     for k in SECTIONS:
         b = out["briefs"].get(k)
         if k in facts["sections"] and isinstance(b, str) and not LINK_RE.search(b):
@@ -235,46 +249,46 @@ def write_template(facts: dict) -> dict:
     paras = []
     rel = facts.get("relationships") or []
     moved = [k for k in (lead.get("assets") or []) if ok(k)]
-    # 1. what happened
+    nm = lambda k: A[k]["name"]  # noqa: E731
+    mv = lambda k: f"{'rose' if (A[k]['d1'] or 0) > 0 else 'fell'} {A[k]['d1Text'].lstrip('+−')}"  # noqa: E731
+    # 1. Market Move: main movement and its contrast, two figures at most
+    if moved:
+        k0 = moved[0]
+        contra = next((k for k in A if A[k].get("ok") and k not in moved and A[k].get("d1") and A[k].get("z")
+                       and (A[k]["d1"] > 0) != ((A[k0]["d1"] or 0) > 0) and abs(A[k]["z"]) >= 1), None)
+        p1 = f"{nm(k0)} {mv(k0)}, the most significant move of the session"
+        p1 += f" on the {_L(A[k0]['page'], C.PAGE_NAMES[A[k0]['page']])}."
+        if contra:
+            p1 += f" In contrast, {nm(contra)} {mv(contra)}, a sign that investors did not move in a single direction."
+        if len(moved) > 1:
+            p1 += f" {nm(moved[1])} moved the same way, which gives the move more weight."
+    else:
+        p1 = f"Markets stayed broadly within their usual ranges, with no single move standing out. Full data on {_L('markets', 'Financial Markets')}."
+    paras.append(p1)
+    # 2. Key Drivers: facts first, then marked interpretation
+    facts_s, interp = "", ""
     if lead["type"] == "theme":
         t = next(x for x in facts["themes"] if x["label"] == lead["label"])
-        p1 = (f"{t['label']} set the tone. " + "; ".join(say(k) for k in moved[:3]) + ".")
-    elif lead["type"] == "regime":
-        p1 = (f"Markets showed a clear {reg['label'].lower()} pattern. " + "; ".join(say(k) for k in moved[:3]) + ".")
-    elif moved:
-        p1 = (f"The standout move came from {A[moved[0]]['name'].lower() if A[moved[0]]['class'] == 'metals' else A[moved[0]]['name']}: "
-              + "; ".join(say(k) for k in moved[:3]) + ".")
+        facts_s = f"News coverage of {t['label']} rose to {t['newsVolume']}. "
+        if t.get("headlines"):
+            facts_s += f"Among the reports: {t['headlines'][0]}. "
+        interp = f"The pattern of moves is consistent with concerns about {t['channel']}. "
+    if rel:
+        interp += "A likely reading: " + rel[0][0].lower() + rel[0][1:] + (" " + rel[1] if len(rel) > 1 else "")
+    if not (facts_s or interp):
+        interp = "No clear driver stands out: the moves do not line up with a common cause, and news coverage of the themes we follow was close to normal."
+    paras.append((facts_s + interp).strip())
+    # 3. Broader Market Context
+    ctx = [k for k in ("us10y", "eurusd", "brent", "btc", "gold", "us_eq") if ok(k) and k not in moved][:2]
+    if ctx:
+        paras.append("Across asset classes, " + " and ".join(f"{nm(k)} {mv(k)}" for k in ctx)
+                     + ". " + (rel[2] if len(rel) > 2 else "These moves show how far the main story spread beyond its own market."))
     else:
-        p1 = "A quiet session across the markets we follow."
-    page0 = A[moved[0]]["page"] if moved else "markets"
-    paras.append(p1 + f" The full data is on the {_L(page0, C.PAGE_NAMES[page0])}.")
-    # 2. why
-    why = ""
-    if lead["type"] == "theme":
-        t = next(x for x in facts["themes"] if x["label"] == lead["label"])
-        why = (f"News coverage of {t['label']} ran at {t['newsVolume']}, and the markets most exposed to it "
-               f"moved the way such news usually moves them, through {t['channel']}. ")
-        heads = t.get("headlines") or []
-        if heads:
-            why += f"Among the stories behind it: {heads[0]}. "
-    if rel or why:
-        paras.append("Why? " + why + " ".join(rel[:2 if why else 3]) + f" The {_L('markets', 'rates and currency tables')} show the moves side by side.")
-    else:
-        paras.append("No single cause stands out: the moves do not line up with a common driver, and news coverage of "
-                     f"the themes we follow was close to normal. See the {_L('markets', 'Financial Markets')} page for the full picture.")
-    # 3. wider impact
-    imp = [say(k) for k in ("brent", "eurusd", "btc", "us_eq") if ok(k) and k not in moved][:3]
-    if imp:
-        paras.append("Elsewhere, " + "; ".join(imp) + f". Shariah-screened shares and funds are followed on "
-                     f"{_L('islamic', 'Islamic Investment')}, energy on the {_L('energy', 'Energy Terminal')}.")
-    # 4. our reading
-    if len(moved) >= 2 and rel:
-        concl = ("The moves hang together, which makes them more than noise. The test is whether they hold over the "
-                 "next sessions or fade.")
-    else:
-        concl = ("For now this looks like an isolated move rather than a broad shift. Whether it persists, or other "
-                 "markets follow, is the question to watch.")
-    paras.append("Our reading: " + concl + f" Our {_L('outlook', 'Market Outlook')} puts it in the longer trend.")
+        paras.append("Other asset classes moved little, which suggests the main development remained contained.")
+    # 4. Outlook
+    paras.append("What to watch: whether the main move holds over the next sessions or fades, and whether other markets "
+                 "begin to follow. A broader shift would confirm today's reading; a quick reversal would point to a "
+                 f"short-lived adjustment. The {_L('outlook', 'Market Outlook')} places it in the longer trend.")
     paras = paras[:4]
 
     S = facts["sections"]
