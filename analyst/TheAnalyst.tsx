@@ -1756,6 +1756,14 @@ const CSS = `
 .ean-phone .ean-kpi{padding:9px 10px 9px 0}
 .ean-phone .ean-kpi:nth-child(2n){padding-left:10px}
 .ean-phone .ean-lead p.ean-first::first-letter{font-size:2.6em}
+/* ---------- typography: 4 sizes only (headline, article, secondary 14px, labels 11px caps) ---------- */
+.ean-kick,.ean-kl,.ean-reg,.ean-chip{font-size:11px;letter-spacing:.06em}
+.ean-stamp,.ean-sub,.ean-note,.ean-ks,.ean-mbs,.ean-rm small,.ean-also small,.ean-rl small,.ean-lead p.ean-based{font-size:12.5px}
+.ean-bt,.ean-watch,.ean-rl,.ean-also li,.ean-legend,.ean-mbn,.ean-mbv,.ean-tip,.ean-cart small{font-size:14px}
+.ean-bk,.ean-rh b,.ean-cart figcaption{font-size:15px}
+.ean-foot,.ean-foot p,.ean-meth{font-size:13px;line-height:1.6}
+.ean .ean-axis{font-size:11px}
+.ean-mbr{padding:5px 0}
 /* reading on tablets and phones: larger serif text, generous line spacing (text only) */
 .ean-mid .ean-head{font-size:38px;line-height:1.1}
 .ean-mid .ean-tone{font-size:20px;line-height:1.45}
