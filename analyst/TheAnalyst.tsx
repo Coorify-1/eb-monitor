@@ -1090,7 +1090,10 @@ export default function TheAnalyst(props: any) {
             )
         )
     const p: any = { ...DEFAULTS, ...clean(props) }
-    const tx: Record<string, string> = { ...DEF_TEXTS, ...clean(p.texts) }
+    // texts: an emptied field stays empty (the line disappears)
+    const keepEmpty = (o: any): Record<string, any> =>
+        Object.fromEntries(Object.entries(o || {}).filter(([, v]) => v !== undefined && v !== null))
+    const tx: Record<string, string> = { ...DEF_TEXTS, ...keepEmpty(p.texts) }
     const links: Record<string, string> = { ...DEF_LINKS, ...clean(p.links) }
     const isCanvas = RenderTarget.current() === RenderTarget.canvas
     const rootRef = React.useRef<HTMLDivElement>(null)
@@ -1515,7 +1518,7 @@ export default function TheAnalyst(props: any) {
                     <header className="ean-mast">
                         <div>
                             {tx.kicker && <div className="ean-kick">{tx.kicker}</div>}
-                            <h1>{tx.title}</h1>
+                            {tx.title && <h1>{tx.title}</h1>}
                             {tx.subtitle && <p className="ean-sub">{tx.subtitle}</p>}
                         </div>
                         <div className="ean-stamp">
@@ -1992,7 +1995,7 @@ const CONTROLS: Record<string, any> = {
     texts: {
         type: ControlType.Object,
         title: "Texts",
-        description: "Edit any label. Leave a field empty to use the default.",
+        description: "Edit any text. Empty a field to hide that text.",
         controls: Object.fromEntries(
             Object.keys(DEF_TEXTS).map((k) => [
                 k,
