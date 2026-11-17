@@ -231,21 +231,34 @@ def _plain(k):
     return " ".join(w if w in keep else w.lower() for w in SHORT.get(k, k).split())
 
 
-def tone_hint(reg, A):
-    """Standfirst: completes the headline with the related move and the context. No numbers."""
-    m = [k for k in reg.get("members", []) if A.get(k, {}).get("ok") and A[k]["d1"]]
-    ups = [k for k in m if A[k]["d1"] > 0][:2]
-    dns = [k for k in m if A[k]["d1"] < 0][:2]
-    if not ups and not dns:
+def tone_hint(reg, A, lead=None):
+    """'Rising yields and weaker demand prospects added to pressure on silver, which fell more sharply than…'"""
+    lead = lead or {}
+    ids = [k for k in lead.get("assets", []) if A.get(k, {}).get("ok")]
+    if not ids:
         return "Most markets stayed within their usual ranges as investors waited for a clearer signal on rates and growth."
-    a = " and ".join(_plain(k) for k in ups)
-    b = " and ".join(_plain(k) for k in dns)
-    mood = reg["label"].lower()
-    if a and b:
-        s = f"{b[0].upper() + b[1:]} lost ground while {a} advanced as investors adjusted to a {mood} backdrop."
+    k = ids[0]
+    up = (A[k]["d1"] or 0) >= 0
+    forces = []
+    if lead.get("type") == "theme":
+        forces.append(lead["label"][0].lower() + lead["label"][1:] if not lead["label"][:2].isupper() else lead["label"])
+    for mk, s, sup, weigh in DRIVERS.get(A[k]["cls"], []):
+        a = A.get(mk)
+        if mk == k or not a or not a.get("ok") or a["stale"] or abs(a["z"]) < 0.5:
+            continue
+        supports = (a["d1"] or 0) * s > 0
+        if supports == up:  # the force pushes the same way as the main move
+            forces.append(sup if supports else weigh)
+    forces = list(dict.fromkeys(forces))[:2] or (["broad selling"] if not up else ["broad buying"])
+    name = _plain(k)
+    peers = [p for p in PEERS.get(k, []) if A.get(p, {}).get("ok") and _plain(p) != name][:2]
+    drv = " and ".join(forces)
+    drv = drv[0].upper() + drv[1:]
+    if peers and all(abs(A[p]["d1"] or 0) < abs(A[k]["d1"] or 0) for p in peers):
+        rel = f", which {'rose' if up else 'fell'} more sharply than {' and '.join(_plain(p) for p in peers)}"
     else:
-        s = f"{(a or b)[0].upper() + (a or b)[1:]} {'advanced' if a else 'lost ground'} as investors adjusted to a {mood} backdrop."
-    return s
+        rel = ""
+    return f"{drv} added to {'support for' if up else 'pressure on'} {name}{rel}."
 
 
 SMALL = {"and", "on", "as", "of", "the", "to", "in", "for", "at", "by", "amid", "a", "an", "or"}
@@ -256,22 +269,58 @@ def _tc(s: str) -> str:
     return " ".join(w if (w.lower() in SMALL) else (w[:1].upper() + w[1:]) for w in s.replace("–", "-").split())
 
 
+GROUP = {"metals": "Industrial Metals", "energy": "Energy Markets", "crypto": "Digital Assets", "equities": "Stocks",
+         "rates": "Bond Markets", "fx": "Currency Markets"}
+PEERS = {"silver": ["platinum", "copper", "gold"], "gold": ["silver", "platinum"], "platinum": ["silver", "copper"],
+         "copper": ["silver", "platinum"], "brent": ["wti", "natgas"], "wti": ["brent", "natgas"], "btc": ["eth"],
+         "eth": ["btc"], "us10y": ["us2y", "us30y"], "us2y": ["us10y"], "us30y": ["us10y"], "us_eq": ["shariah"],
+         "eurusd": ["gbpusd", "usdchf"], "usdjpy": ["eurusd"]}
+# forces named in the standfirst, by asset class: (market, sign of that market's move that SUPPORTS the asset,
+# phrase when it supports, phrase when it weighs)
+DRIVERS = {
+    "metals": [("us10y", -1, "falling yields", "rising yields"), ("eurusd", 1, "a softer dollar", "a firmer dollar"),
+               ("copper", 1, "firmer demand prospects", "weaker demand prospects")],
+    "energy": [("eurusd", 1, "a softer dollar", "a firmer dollar"), ("us_eq", 1, "firmer equities", "weaker equities")],
+    "crypto": [("us_eq", 1, "firmer equities", "weaker equities"), ("us10y", -1, "falling yields", "rising yields"),
+               ("eurusd", 1, "a softer dollar", "a firmer dollar")],
+    "equities": [("us10y", -1, "falling yields", "rising yields"), ("brent", -1, "cheaper energy", "higher energy prices"),
+                 ("vix", -1, "calmer volatility", "rising volatility")],
+    "rates": [("brent", 1, "higher energy prices", "cheaper energy"), ("us_eq", 1, "firmer equities", "weaker equities")],
+    "fx": [("us10y", -1, "falling US yields", "rising US yields")],
+}
+
+
+def headline_focus(lead, A):
+    ids = [k for k in lead.get("assets", []) if A.get(k, {}).get("ok")]
+    if not ids:
+        return {}
+    k = ids[0]
+    group = GROUP.get(A[k]["cls"], "Markets")
+    if k == "gold":
+        group = "Precious Metals"
+    peers = [p for p in PEERS.get(k, []) if A.get(p, {}).get("ok")]
+    return {"subject": SHORT.get(k, A[k]["name"]).replace("The ", ""), "group": group,
+            "peers": [A[p]["name"] for p in peers[:2]]}
+
+
 def headline_hint(lead, A):
-    """Headline: 'What Moved + Verb + as/amid + Cause', Title Case, no numbers."""
+    """'Silver Slumps as Industrial Metals Retreat': subject + verb + as + group move."""
     ids = [k for k in lead.get("assets", []) if A.get(k, {}).get("ok")]
     if not ids:
         return "Markets Hold Steady as Investors Await Direction"
     k = ids[0]
-    a = A[k]
-    verb = (VERB_UP if (a["d1"] or 0) >= 0 else VERB_DN).get(a["cls"], "Moves")
-    what = SHORT.get(k, a["name"])
-    if what.endswith("s") and verb.endswith("s") and what not in ("Gas", "Ether"):
-        verb = verb[:-1] if not verb.endswith("ses") else verb
+    up = (A[k]["d1"] or 0) >= 0
+    strong = abs(A[k]["z"]) >= 1.5 or (A[k]["kind"] == "price" and abs(A[k]["d1"] or 0) >= 3)
+    verb = ("Surges" if strong else "Rises") if up else ("Slumps" if strong else "Slips")
+    f = headline_focus(lead, A)
+    subj = f.get("subject") or A[k]["name"]
+    if subj.endswith("s") and subj not in ("Gas",):
+        verb = verb[:-1]
+    group = f.get("group", "Markets")
+    gverb = "Advance" if up else "Retreat"
     if lead["type"] == "theme":
-        return f"{what} {verb} {_tc('amid ' + lead['label'])}"
-    if lead["type"] == "regime":
-        return f"{what} {verb} {_tc('amid ' + lead['label'] + ' mood')}"
-    return f"{what} {verb} as Investors Reassess"
+        return _tc(f"{subj} {verb} amid {lead['label']}")
+    return _tc(f"{subj} {verb} as {group} {gverb}")
 
 
 def news_list(themes):
@@ -353,14 +402,15 @@ def build(today_ny: dt.datetime):
         "relationships": [x["text"] for x in AN.relationships(A)],
         "relatedHeadlines": [h["title"] for t in themes for h in (t.get("headlines") or [])[:1]][:6],
         "watchHints": watch_hints[:5],
-        "toneHint": tone_hint(reg, A),
+        "toneHint": tone_hint(reg, A, lead),
         "headlineHint": headline_hint(lead, A),
+        "headlineFocus": headline_focus(lead, A),
     }
     # writer facts: drop stale markets so the text never treats an old value as today's
     wf = json.loads(json.dumps(facts))
     wf["assets"] = {k: v for k, v in wf["assets"].items() if not v.get("stale")}
     wf["lead"]["assets"] = [k for k in wf["lead"]["assets"] if k in wf["assets"]]
-    wf.pop("headlineHint", None)  # the AI writes its own headline (story + cause, not numbers)
+    wf.pop("headlineHint", None)  # headlineFocus stays: subject and group for the headline  # the AI writes its own headline (story + cause, not numbers)
     wf.pop("toneHint", None)
 
     text, by = W.write_ai(wf)

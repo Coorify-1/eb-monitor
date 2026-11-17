@@ -58,16 +58,16 @@ Hard rules:
    can lag by a day), describe it as "in the latest data" and do not present it as the last session's move.
 6. edition.mode: "daily" = analyse the last session (d1Text); "weekly" (Sunday) = review the week (w1Text);
    "weekahead" (Monday) = markets reopen today: recap the last session briefly and focus on what to watch this week.
-7. HEADLINE: 6 to 10 words, no numbers, no colon. Present tense, active verb (rise, fall, rally, slide, gain, weigh…).
-   Start with the asset or market that moves, then the movement, then the cause or context with "on", "as" or "amid".
-   Structure: Asset(s) + movement verb + on/as/amid + cause or context.
-   One single main angle: do not stack several moves or repeat the same idea. No vague wording, no list of price changes.
-   Headline-style Title Case: capitalise the important words, keep short words (and, on, as, of, the, to, in, for, at, by, amid) in lower case
-   unless first. Example: "Bitcoin and Ether Rise on Regulatory Optimism".
-8. STANDFIRST ("tone"): one short sentence of 15 to 25 words that completes the headline without repeating it:
-   add context, a related move or what is at stake for markets. Present or simple past tense, factual and sober, no numbers,
-   no list of prices, nothing beyond the facts given. No comma before "as" when it introduces a clause within the sentence.
-   Example: "Rising yields weighed on precious and industrial metals as investors assessed the outlook for digital assets."
+7. HEADLINE: 6 to 10 words, no numbers, no colon, present tense, active verb (rise, fall, slump, rally, slide, gain, weigh…).
+   Clear hierarchy: start with "headlineFocus.subject" (the main mover), then its movement, then ONE piece of context
+   with "as", "on" or "amid" (often the group it belongs to, e.g. "headlineFocus.group"). One angle only, no list of moves.
+   Headline Title Case: important words capitalised; and, on, as, of, the, to, in, for, at, by, amid in lower case.
+   Good: "Silver Slumps as Industrial Metals Retreat". Good: "Bitcoin and Ether Rise on Regulatory Optimism".
+   Bad: "Silver Slumps Amid Pressure Across Industrial Metals" (vague, longer, weaker hierarchy).
+8. STANDFIRST ("tone"): one sentence, 15 to 25 words, no numbers, completes the headline without repeating its verb:
+   name the forces adding pressure or support (drivers) and the relative performance of the main mover against its peers.
+   Factual and sober, nothing beyond the facts; no comma before "as" when it introduces a clause.
+   Good: "Rising yields and weaker demand prospects added to pressure on silver, which fell more sharply than platinum and copper."
 Return ONLY a JSON object with exactly these keys:
 {"headline": "...",
  "tone": "the standfirst, as in rule 8",
@@ -159,8 +159,21 @@ def check(out: dict, facts: dict) -> list[str]:
         b = out["briefs"].get(k)
         if k in facts["sections"] and isinstance(b, str) and not LINK_RE.search(b):
             errs.append(f"brief {k} has no link")
-    if isinstance(out["headline"], str) and len(out["headline"]) > 120:
-        errs.append("headline too long")
+    hl = out["headline"] if isinstance(out["headline"], str) else ""
+    n = len(hl.split())
+    if not 5 <= n <= 11:
+        errs.append(f"headline has {n} words; use 6 to 10")
+    if re.search(r"\d", hl) or ":" in hl:
+        errs.append("headline must have no numbers and no colon")
+    subj = ((facts.get("headlineFocus") or {}).get("subject") or "").lower()
+    if subj and subj.split()[0] not in " ".join(hl.lower().split()[:4]):
+        errs.append(f"headline must start with the main mover: {facts['headlineFocus']['subject']}")
+    sf = out["tone"] if isinstance(out["tone"], str) else ""
+    m = len(sf.split())
+    if not 13 <= m <= 27:
+        errs.append(f"standfirst has {m} words; use 15 to 25")
+    if re.search(r"\d", sf):
+        errs.append("standfirst must have no numbers")
     return errs
 
 
