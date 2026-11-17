@@ -1247,6 +1247,24 @@ export default function TheAnalyst(props: any) {
     )
     const extraNews = (D.news || []).filter((n) => n.url && !shownInRadar.has(n.title.toLowerCase()))
     const MAXROWS = extraNews.length
+    // cartoon date (Framer date picker) in the chosen format
+    const cDate = (() => {
+        const v = p.cartoonDate
+        if (!v) return ""
+        const d = new Date(v)
+        if (isNaN(d.getTime())) return String(v)
+        const f = p.cartoonDateFormat || "long"
+        const o = (x: Intl.DateTimeFormatOptions, loc = "en-GB") => d.toLocaleDateString(loc, x)
+        const dd = String(d.getDate()).padStart(2, "0")
+        const mm = String(d.getMonth() + 1).padStart(2, "0")
+        if (f === "week") return "Week of " + o({ day: "numeric", month: "short" }, "en-US")
+        if (f === "us") return o({ month: "long", day: "numeric", year: "numeric" }, "en-US")
+        if (f === "dmy") return `${dd}/${mm}/${d.getFullYear()}`
+        if (f === "mdy") return `${mm}/${dd}/${d.getFullYear()}`
+        if (f === "dm") return o({ day: "numeric", month: "short" })
+        if (f === "my") return o({ month: "long", year: "numeric" })
+        return o({ day: "numeric", month: "long", year: "numeric" })
+    })()
     const capH = p.cartoonCaption || p.cartoonCredit ? 50 : 0
     React.useLayoutEffect(() => {
         const l = lRef.current
@@ -1313,7 +1331,7 @@ export default function TheAnalyst(props: any) {
         return () => clearTimeout(id)
     }, [W, data, cSrc, ratio, moveL, cSide, cLoaded, fill.rows, fill.side])
     const cartoon = cSrc ? (
-        <Panel title={p.cartoonTitle || tx.cartoonTitle} note={p.cartoonDate || ""}>
+        <Panel title={p.cartoonTitle || tx.cartoonTitle} note={cDate}>
             <figure className="ean-cart">
                 <img
                     src={cSrc}
@@ -1945,7 +1963,22 @@ const CONTROLS: Record<string, any> = {
     },
     cartoonCaption: { type: ControlType.String, title: "Cartoon caption", displayTextArea: true },
     cartoonCredit: { type: ControlType.String, title: "Cartoon credit", placeholder: "Drawing: …" },
-    cartoonDate: { type: ControlType.String, title: "Cartoon date", placeholder: "Week of Nov 16" },
+    cartoonDate: { type: ControlType.Date, title: "Cartoon date" },
+    cartoonDateFormat: {
+        type: ControlType.Enum,
+        title: "Date format",
+        options: ["long", "us", "week", "dmy", "mdy", "dm", "my"],
+        optionTitles: [
+            "17 November 2026",
+            "November 17, 2026",
+            "Week of Nov 17",
+            "17/11/2026",
+            "11/17/2026",
+            "17 Nov",
+            "November 2026",
+        ],
+        hidden: (p: any) => !p.cartoonDate,
+    },
     cartoonAlt: { type: ControlType.String, title: "Cartoon alt text" },
     chartHeight: {
         type: ControlType.Number,
