@@ -373,6 +373,9 @@ def build(today_ny: dt.datetime):
         text, by = W.write_template(tf), "templates"
         text["briefs"] = {k: v["template"] for k, v in secs.items()}
 
+    # house style: short words in headlines stay lower case (and, on, as, amid…)
+    hw = (text.get("headline") or "").split()
+    text["headline"] = " ".join(w.lower() if i and w.lower() in SMALL else w for i, w in enumerate(hw))
     now_utc = dt.datetime.now(dt.timezone.utc)
     nxt = (today_ny + dt.timedelta(days=1)).replace(hour=C.PUBLISH_HOUR_NY, minute=C.PUBLISH_MINUTE_NY,
                                                      second=0, microsecond=0)

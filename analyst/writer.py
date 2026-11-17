@@ -21,7 +21,7 @@ from .sources import log
 LINK_RE = re.compile(r"\[\[([a-z]+)\|([^\]]+)\]\]")
 NUM_RE = re.compile(r"\d[\d,]*(?:\.\d+)?")
 BANNED = re.compile(
-    r"\b(buy|sell|you should|we recommend|recommend(ed)?|guarantee[ds]?|price target|"
+    r"\b(buy|sell|you should|investors should|readers should|we recommend|recommend(ed)?|guarantee[ds]?|price target|"
     r"will (rise|fall|soar|plunge|crash|rally|drop|climb|surge)|is (set|poised) to|financial advice)\b", re.I)
 
 SECTIONS = ["markets", "energy", "crypto", "metals", "estate", "corporate", "outlook", "islamic"]
