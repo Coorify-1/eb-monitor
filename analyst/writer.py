@@ -53,10 +53,16 @@ Hard rules:
    can lag by a day), describe it as "in the latest data" and do not present it as the last session's move.
 6. edition.mode: "daily" = analyse the last session (d1Text); "weekly" (Sunday) = review the week (w1Text);
    "weekahead" (Monday) = markets reopen today: recap the last session briefly and focus on what to watch this week.
-7. The headline states the story and its cause in plain words (not a list of numbers), <= 95 characters.
+7. HEADLINE (newspaper style): 6 to 10 words, Title Case, present tense, active verb, NO numbers, no colon.
+   Pattern: [what moved] + [verb] + "as"/"on"/"amid" + [the cause]. Example: "Crypto Gains as Regulatory Developments Shape Markets".
+   Never a list of prices such as "Bitcoin +2.1%, Ether +3.8%".
+8. STANDFIRST ("tone"): one sentence, 14 to 22 words, NO numbers, sentence case, active verbs, concrete nouns.
+   Pattern: [main move] + [cause], "while" + [the contrasting move] + [its cause].
+   Example: "Digital assets advanced on regulatory optimism, while rising yields weighed on precious and industrial metals."
+   Avoid empty phrases such as "markets sent mixed signals" or "the session saw".
 Return ONLY a JSON object with exactly these keys:
 {"headline": "...",
- "tone": "one sentence, <= 170 characters, the session in a nutshell",
+ "tone": "the standfirst, as in rule 8",
  "lead": ["4 paragraphs as above, each <= 90 words"],
  "briefs": {"markets": "...", "energy": "...", "crypto": "...", "metals": "...", "estate": "...", "corporate": "...", "outlook": "...", "islamic": "..."},
  "watch": ["exactly 3 items, each <= 28 words"]}

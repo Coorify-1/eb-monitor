@@ -218,25 +218,50 @@ def _short(a):
     return f"{a['name']} {AN.fmt_move(a, a['d1'])}"
 
 
+VERB_UP = {"metals": "Climbs", "energy": "Rises", "crypto": "Gains", "equities": "Rally", "fx": "Strengthens", "rates": "Climb"}
+VERB_DN = {"metals": "Slides", "energy": "Falls", "crypto": "Slips", "equities": "Retreat", "fx": "Weakens", "rates": "Ease"}
+SHORT = {"us_eq": "US Stocks", "shariah": "Shariah Stocks", "us2y": "Short-Term Yields", "us10y": "Treasury Yields",
+         "us30y": "Long-Term Yields", "brent": "Oil", "wti": "Oil", "natgas": "Gas", "gold": "Gold", "silver": "Silver",
+         "platinum": "Platinum", "copper": "Copper", "btc": "Bitcoin", "eth": "Ether", "eurusd": "The Euro",
+         "usdjpy": "The Dollar", "gbpusd": "Sterling", "usdchf": "The Dollar", "usdcny": "The Dollar", "vix": "Volatility"}
+
+
+def _plain(k):
+    keep = ("US", "Treasury", "Shariah")
+    return " ".join(w if w in keep else w.lower() for w in SHORT.get(k, k).split())
+
+
 def tone_hint(reg, A):
-    ups = [A[k]["name"] for k in reg.get("members", []) if A[k]["d1"] and A[k]["d1"] > 0][:2]
-    dns = [A[k]["name"] for k in reg.get("members", []) if A[k]["d1"] and A[k]["d1"] < 0][:2]
-    if reg["id"] in ("quiet", "mixed"):
-        return "Few markets moved far from their usual range." if reg["id"] == "quiet" else \
-            "Markets sent mixed signals, with no single pattern dominating."
-    parts = []
-    if ups:
-        parts.append(" and ".join(ups) + " rose")
-    if dns:
-        parts.append(" and ".join(dns) + " fell")
-    return f"{reg['label']} session: " + ", while ".join(parts) + "."
+    """Standfirst: main move and cause, 'while' the contrasting move. No numbers."""
+    m = [k for k in reg.get("members", []) if A.get(k, {}).get("ok") and A[k]["d1"]]
+    ups = [k for k in m if A[k]["d1"] > 0][:2]
+    dns = [k for k in m if A[k]["d1"] < 0][:2]
+    if not ups and not dns:
+        return "Markets moved within their usual ranges, with no single force setting the direction."
+    a = " and ".join(_plain(k) for k in ups) or ""
+    b = " and ".join(_plain(k) for k in dns) or ""
+    if a and b:
+        return f"{a[0].upper() + a[1:]} advanced, while {b} lost ground in a {reg['label'].lower()} session."
+    s = a or b
+    return f"{s[0].upper() + s[1:]} {'advanced' if a else 'lost ground'} in a {reg['label'].lower()} session."
 
 
 def headline_hint(lead, A):
-    ids = [k for k in lead.get("assets", []) if A.get(k, {}).get("ok")][:2]
-    if not lead.get("label"):
-        return "Markets today"
-    return lead["label"] + (": " + ", ".join(_short(A[k]) for k in ids) if ids else "")
+    """Headline: 'What Moved + Verb + as/amid + Cause', Title Case, no numbers."""
+    ids = [k for k in lead.get("assets", []) if A.get(k, {}).get("ok")]
+    if not ids:
+        return "Markets Hold Steady as Investors Await Direction"
+    k = ids[0]
+    a = A[k]
+    verb = (VERB_UP if (a["d1"] or 0) >= 0 else VERB_DN).get(a["cls"], "Moves")
+    what = SHORT.get(k, a["name"])
+    if what.endswith("s") and verb.endswith("s") and what not in ("Gas", "Ether"):
+        verb = verb[:-1] if not verb.endswith("ses") else verb
+    if lead["type"] == "theme":
+        return f"{what} {verb} as {lead['label'].title()} Shape Markets"
+    if lead["type"] == "regime":
+        return f"{what} {verb} Amid {lead['label'].title()}"
+    return f"{what} {verb} as Investors Reassess"
 
 
 def news_list(themes):
@@ -333,6 +358,8 @@ def build(today_ny: dt.datetime):
         log("Writer: using templates")
         tf = dict(wf)
         tf["sections"] = {k: v for k, v in secs.items()}
+        tf["headlineHint"] = facts["headlineHint"]
+        tf["toneHint"] = facts["toneHint"]
         text, by = W.write_template(tf), "templates"
         text["briefs"] = {k: v["template"] for k, v in secs.items()}
 
