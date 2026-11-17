@@ -1184,6 +1184,9 @@ export default function TheAnalyst(props: any) {
                     <Rich text={para} href={href} />
                 </p>
             ))}
+            {D.edition?.basedOn && (
+                <p className="ean-based">{tx.basedOn.replace("{d}", D.edition.basedOn)}</p>
+            )}
         </article>
     )
 
@@ -1571,9 +1574,6 @@ export default function TheAnalyst(props: any) {
                                 {D.regime.label}
                             </span>
                         )}
-                        <span className="ean-mut">
-                            {tx.basedOn.replace("{d}", D.edition?.basedOn || "")}
-                        </span>
                     </div>
                     <h2 className="ean-head">{D.text.headline}</h2>
                     {D.text.tone && <p className="ean-tone">{D.text.tone}</p>}
@@ -1658,6 +1658,7 @@ const CSS = `
 .ean-lead p.ean-first::first-letter{font-size:3.1em;float:left;line-height:.9;padding:4px 8px 0 0}
 .ean a.ean-a{color:var(--link);border-bottom:1px solid color-mix(in srgb,var(--link) 35%,transparent)}
 .ean a.ean-a:hover{border-bottom-color:var(--link)}
+.ean-lead p.ean-based{font-family:var(--fb);font-size:11.5px;line-height:1.4;color:var(--mute);margin:-4px 0 0}
 .ean-panel{border-top:1px solid var(--strong);min-width:0}
 .ean-ph{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;padding:9px 0 8px}
 .ean-ph h3{margin:0;font-family:var(--fh);font-weight:400;font-size:var(--t2);line-height:1.2}
