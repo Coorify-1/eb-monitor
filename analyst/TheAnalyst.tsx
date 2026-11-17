@@ -1484,6 +1484,7 @@ export default function TheAnalyst(props: any) {
         "--up": p.upColor,
         "--dn": p.downColor,
         "--mid": p.midColor,
+        "--reg": p.regimeColor || "#990F3D",
         "--maxw": Math.max(320, Number(p.maxWidth) || 1200) + "px",
         "--pad":
             (phone ? 18 : !wide ? Math.max(28, Number(p.padding) || 0) : Number(p.padding) || 0) +
@@ -1636,10 +1637,7 @@ const CSS = `
 .ean-arch{border:1px solid var(--rule);background:transparent;color:var(--link);font:inherit;font-size:11px;padding:2px 4px}
 .ean-top{display:flex;flex-direction:column;gap:8px;max-width:860px}
 .ean-tag{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:11px}
-.ean-reg{font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:1px}
-.ean-reg.is-risk_off,.ean-reg.is-growth{border-color:var(--dn)}
-.ean-reg.is-risk_on{border-color:var(--up)}
-.ean-reg.is-inflation,.ean-reg.is-usd_up,.ean-reg.is-usd_down{border-color:var(--mid)}
+.ean-reg{font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--reg);border-bottom:2px solid var(--reg);padding-bottom:1px}
 .ean-head{font-family:var(--fh);font-weight:400;font-size:var(--t0);line-height:1.1;margin:0;text-wrap:balance;letter-spacing:-.005em}
 .ean-tone{font-family:var(--fh);font-style:italic;font-size:calc(var(--body) + 1px);line-height:1.45;color:var(--mute);margin:0;max-width:62ch}
 .ean-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:1px solid var(--strong);border-bottom:1px solid var(--rule)}
@@ -1898,6 +1896,7 @@ const DEFAULTS: Record<string, any> = {
     upColor: "#1A8F3C",
     downColor: "#D0021B",
     midColor: "#C08A1E",
+    regimeColor: "#990F3D",
     links: DEF_LINKS,
     texts: DEF_TEXTS,
 }
@@ -1989,6 +1988,7 @@ const CONTROLS: Record<string, any> = {
     upColor: { type: ControlType.Color, title: "Up" },
     downColor: { type: ControlType.Color, title: "Down" },
     midColor: { type: ControlType.Color, title: "Second line / watch" },
+    regimeColor: { type: ControlType.Color, title: "Market mood label" },
     texts: {
         type: ControlType.Object,
         title: "Texts",
