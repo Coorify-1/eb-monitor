@@ -1,55 +1,55 @@
 # EB Islamic Investment — run check
 
-Run 2026-11-16T15:19:04+00:00 (market close 2026-11-13), 592 s
+Run 2026-11-18T19:15:29+00:00 (market close 2026-11-17), 103 s
 
-Screen: 843 companies, {'Halal': 437, 'Watch': 53, 'Not halal': 185, 'Excluded': 156, 'No data': 12}, halal share 59.0%
+Screen: 830 companies, {'Halal': 432, 'Watch': 53, 'Not halal': 182, 'Excluded': 152, 'No data': 11}, halal share 59.2%
 
 | Ticker | Name | Sector | $bn | Debt % | Cash % | Income % | Status | Why |
 |---|---|---|---|---|---|---|---|---|
-| AAPL | Apple Inc. | Technology | 5177.4 | 1.87 | 3.2 | None | Halal | All ratios within limits |
-| NVDA | Nvidia Corp | Technology | 3924.7 | 0.69 | 0.47 | 1.07 | Halal | All ratios within limits |
-| MSFT | Microsoft Corp | Technology | 3890.4 | 1.06 | 1.93 | None | Halal | All ratios within limits |
-| GOOGL | Alphabet Inc. | Technology | 3636.2 | 3.07 | 6.46 | 1.08 | Halal | All ratios within limits |
-| AMZN | Amazon Com Inc | Consumer discretionary | 2883.4 | 6.89 | 4.36 | 0.61 | Halal | All ratios within limits |
-| TSM | Taiwan Semiconductor Manufac | Technology | 2068.0 | 1.46 | 3.34 | 3.01 | Halal | All ratios within limits |
-| SPCX | Space Exploration Technologi | Technology | 1889.3 | 1.97 | 4.57 | None | Halal | All ratios within limits |
-| AVGO | Broadcom Inc. | Technology | 1656.5 | 3.41 | 1.38 | 0.54 | Halal | All ratios within limits |
-| META | Meta Platforms, Inc. | Technology | 1640.3 | 5.17 | 5.09 | 1.06 | Halal | All ratios within limits |
-| TSLA | Tesla, Inc. | Consumer discretionary | 1542.4 | 0.59 | 2.91 | 1.77 | Halal | All ratios within limits |
-| LLY | Eli Lilly & Co | Health care | 1358.0 | 4.79 | 0.47 | 0.27 | Halal | All ratios within limits |
-| BRK-B | Berkshire Hathaway Inc | Financials | 1259.7 | None | None | None | Excluded | Conventional insurance |
-| WMT | Walmart Inc. | Consumer staples | 1016.2 | 5.4 | 1.23 | 0.05 | Halal | All ratios within limits |
-| SKHY | SK hynix Inc. | Technology | 929.3 | None | None | None | No data |  |
-| JPM | Jpmorgan Chase & Co | Financials | 919.3 | None | None | None | Excluded | Conventional finance or insurance |
-| MU | Micron Technology Inc | Technology | 880.6 | 0.69 | 9.73 | None | Halal | All ratios within limits |
-| AMD | Advanced Micro Devices Inc | Technology | 875.9 | 1.27 | 2.52 | None | Halal | All ratios within limits |
-| V | Visa Inc. | Financials | 794.4 | 3.43 | 2.01 | 1.25 | Halal | All ratios within limits |
-| XOM | ExxonMobil Holdings Corp | Energy | 695.9 | 5.63 | 2.0 | None | Halal | All ratios within limits |
-| JNJ | Johnson & Johnson | Health care | 687.9 | 7.62 | 2.97 | 1.12 | Halal | All ratios within limits |
-| ONC | BeOne Medicines Ltd. | Health care | 618.5 | 0.25 | 1.18 | 1.32 | Halal | All ratios within limits |
-| ASML | ASML Holding NV | Technology | 576.3 | 0.83 | 2.53 | 0.68 | Halal | All ratios within limits |
-| MA | Mastercard Inc | Financials | 576.0 | 5.05 | 2.14 | None | Halal | All ratios within limits |
-| ABBV | AbbVie Inc. | Health care | 521.5 | 19.26 | 2.57 | 0.43 | Halal | All ratios within limits |
-| COST | Costco Wholesale Corp | Consumer staples | 490.2 | 1.45 | 5.0 | 0.21 | Halal | All ratios within limits |
-| CVX | Chevron Corp | Energy | 432.2 | 13.76 | 3.78 | None | Halal | All ratios within limits |
-| KO | Coca Cola Co | Consumer staples | 427.0 | 12.03 | 3.87 | 1.64 | Halal | All ratios within limits |
-| PLTR | Palantir Technologies Inc. | Technology | 404.7 | 0.0 | 2.77 | 5.12 | Not halal | Interest income 5.1% (limit 5%) |
-| PG | Procter & Gamble Co | Consumer staples | 393.6 | 11.28 | 4.45 | 0.56 | Halal | All ratios within limits |
-| ORCL | Oracle Corp | Technology | 379.0 | 26.27 | 7.52 | 1.16 | Watch | Debt close to the limit |
-| CSCO | Cisco Systems, Inc. | Technology | 377.1 | 7.72 | 4.16 | 1.77 | Halal | All ratios within limits |
-| UNH | Unitedhealth Group Inc | Financials | 365.1 | None | None | None | Excluded | Conventional finance or insurance |
-| MRK | Merck & Co., Inc. | Health care | 364.3 | 17.67 | 3.7 | 0.53 | Halal | All ratios within limits |
-| BAC | Bank of America Corp | Financials | 352.0 | None | None | None | Excluded | Conventional finance or insurance |
-| HD | Home Depot, Inc. | Consumer discretionary | 347.9 | 15.69 | 0.62 | 0.08 | Halal | All ratios within limits |
-| GE | General Electric Co | Technology | 342.9 | 5.85 | 2.65 | 0.31 | Halal | All ratios within limits |
-| INTC | Intel Corp | Technology | 317.1 | 12.13 | 13.07 | 1.91 | Halal | All ratios within limits |
-| PM | Philip Morris International  | Consumer staples | 310.1 | None | None | None | Excluded | Tobacco |
-| HSBC | HSBC Holdings PLC | Financials | 306.4 | None | None | None | Excluded | Conventional finance or insurance |
-| NVS | Novartis AG | Health care | 303.1 | 10.19 | 4.11 | None | Halal | All ratios within limits |
+| AAPL | Apple Inc. | Technology | 5114.0 | 1.87 | 3.19 | None | Halal | All ratios within limits |
+| MSFT | Microsoft Corp | Technology | 3759.4 | 1.06 | 1.93 | None | Halal | All ratios within limits |
+| NVDA | Nvidia Corp | Technology | 3746.6 | 0.69 | 0.47 | 1.07 | Halal | All ratios within limits |
+| GOOGL | Alphabet Inc. | Technology | 3444.8 | 3.07 | 6.46 | 1.08 | Halal | All ratios within limits |
+| AMZN | Amazon Com Inc | Consumer discretionary | 2788.6 | 6.88 | 4.36 | 0.61 | Halal | All ratios within limits |
+| SPCX | Space Exploration Technologi | Technology | 1924.4 | 1.98 | 4.57 | None | Halal | All ratios within limits |
+| TSM | Taiwan Semiconductor Manufac | Technology | 1865.5 | 1.46 | 3.34 | 3.01 | Halal | All ratios within limits |
+| AVGO | Broadcom Inc. | Technology | 1630.7 | 3.41 | 1.38 | 0.54 | Halal | All ratios within limits |
+| META | Meta Platforms, Inc. | Technology | 1582.0 | 5.17 | 5.09 | 1.06 | Halal | All ratios within limits |
+| TSLA | Tesla, Inc. | Consumer discretionary | 1502.5 | 0.59 | 2.91 | 1.77 | Halal | All ratios within limits |
+| LLY | Eli Lilly & Co | Health care | 1331.7 | 4.78 | 0.47 | 0.27 | Halal | All ratios within limits |
+| BRK-B | Berkshire Hathaway Inc | Financials | 1246.6 | None | None | None | Excluded | Conventional insurance |
+| WMT | Walmart Inc. | Consumer staples | 1011.7 | 5.39 | 1.23 | 0.05 | Halal | All ratios within limits |
+| JPM | Jpmorgan Chase & Co | Financials | 876.2 | None | None | None | Excluded | Conventional finance or insurance |
+| SKHY | SK hynix Inc. | Technology | 864.6 | None | None | None | No data |  |
+| AMD | Advanced Micro Devices Inc | Technology | 825.6 | 1.26 | 2.51 | None | Halal | All ratios within limits |
+| MU | Micron Technology Inc | Technology | 806.0 | 0.68 | 9.67 | None | Halal | All ratios within limits |
+| V | Visa Inc. | Financials | 777.6 | 3.42 | 2.01 | 1.25 | Halal | All ratios within limits |
+| XOM | ExxonMobil Holdings Corp | Energy | 682.1 | 5.61 | 1.99 | None | Halal | All ratios within limits |
+| JNJ | Johnson & Johnson | Health care | 670.9 | 7.6 | 2.96 | 1.12 | Halal | All ratios within limits |
+| ONC | BeOne Medicines Ltd. | Health care | 613.7 | 0.25 | 1.18 | 1.32 | Halal | All ratios within limits |
+| MA | Mastercard Inc | Financials | 562.5 | 5.04 | 2.14 | None | Halal | All ratios within limits |
+| ASML | ASML Holding NV | Technology | 533.1 | 0.83 | 2.53 | 0.68 | Halal | All ratios within limits |
+| ABBV | AbbVie Inc. | Health care | 517.6 | 19.22 | 2.57 | 0.43 | Halal | All ratios within limits |
+| COST | Costco Wholesale Corp | Consumer staples | 491.9 | 1.44 | 4.99 | 0.21 | Halal | All ratios within limits |
+| KO | Coca Cola Co | Consumer staples | 425.0 | 12.0 | 3.86 | 1.64 | Halal | All ratios within limits |
+| CVX | Chevron Corp | Energy | 424.8 | 13.72 | 3.77 | None | Halal | All ratios within limits |
+| PG | Procter & Gamble Co | Consumer staples | 398.0 | 11.26 | 4.45 | 0.56 | Halal | All ratios within limits |
+| PLTR | Palantir Technologies Inc. | Technology | 377.2 | 0.0 | 2.77 | 5.12 | Not halal | Interest income 5.1% (limit 5%) |
+| CSCO | Cisco Systems, Inc. | Technology | 375.0 | 7.71 | 4.15 | 1.77 | Halal | All ratios within limits |
+| MRK | Merck & Co., Inc. | Health care | 353.4 | 17.61 | 3.68 | 0.53 | Halal | All ratios within limits |
+| UNH | Unitedhealth Group Inc | Financials | 349.2 | None | None | None | Excluded | Conventional finance or insurance |
+| ORCL | Oracle Corp | Technology | 347.7 | 26.41 | 7.56 | 1.16 | Watch | Debt close to the limit |
+| BAC | Bank of America Corp | Financials | 341.1 | None | None | None | Excluded | Conventional finance or insurance |
+| HD | Home Depot, Inc. | Consumer discretionary | 338.2 | 15.7 | 0.62 | 0.08 | Halal | All ratios within limits |
+| GE | General Electric Co | Technology | 337.3 | 5.85 | 2.65 | 0.31 | Halal | All ratios within limits |
+| PM | Philip Morris International  | Consumer staples | 303.0 | None | None | None | Excluded | Tobacco |
+| NVS | Novartis AG | Health care | 300.5 | 10.17 | 4.1 | None | Halal | All ratios within limits |
+| HSBC | HSBC Holdings PLC | Financials | 298.4 | None | None | None | Excluded | Conventional finance or insurance |
+| INTC | Intel Corp | Technology | 293.2 | 12.11 | 13.04 | 1.91 | Halal | All ratios within limits |
 
-Index: 277 days, returns {'1D': [-0.7, -0.61], '1W': [2.73, 2.61], '1M': [-5.87, -4.99], '3M': [-3.16, -3.16], '6M': [-0.59, -0.2], '1Y': [16.34, 14.17], 'YTD': [14.11, 12.15]}
+Index: 279 days, returns {'1D': [-0.75, -0.84], '1W': [-2.79, -2.77], '1M': [-5.98, -5.4], '3M': [-5.82, -5.77], '6M': [-1.97, -1.83], '1Y': [13.09, 11.2], 'YTD': [10.42, 8.51]}
 
-Top weights: AAPL 8.0%, NVDA 7.56%, MSFT 7.5%, GOOGL 7.01%, AMZN 5.56%, TSM 3.98%, SPCX 3.64%, AVGO 3.19%, META 3.16%, TSLA 2.97%
+Top weights: AAPL 8.0%, MSFT 7.5%, NVDA 7.47%, GOOGL 6.87%, AMZN 5.56%, SPCX 3.84%, TSM 3.72%, AVGO 3.25%, META 3.16%, TSLA 3.0%
 
 - Fund SPUS: $3135.9m as of 2026-08-31, 48 months, 219 holdings
 - Fund HLAL: $944.5m as of 2026-08-31, 48 months, 211 holdings
@@ -66,8 +66,9 @@ Top weights: AAPL 8.0%, NVDA 7.56%, MSFT 7.5%, GOOGL 7.01%, AMZN 5.56%, TSM 3.98
 - List MY: 859 as of 2025-11-28, sectors [['Industrial products and services', 264], ['Consumer products and services', 174], ['Technology', 97], ['Property', 86]], banks 2
 - List ID: 622 as of 2026-05-21, sectors [['Consumer discretionary', 110], ['Consumer staples', 91], ['Basic materials', 81], ['Energy', 63]], banks 6
 - List AE: 53 as of 2026-06-30, sectors [['DFM', 48], ['Nasdaq Dubai', 5]], banks 12
-- Rates: 478 days, latest {'date': '2026-11-16', 'overnight': 2.76, '1_week': 2.83, '1_month': 3.03, '3_month': None}, OPR 2.75
-- News: 0 (fresh: False)
+- Rates: 480 days, latest {'date': '2026-11-18', 'overnight': 2.76, '1_week': 2.89, '1_month': None, '3_month': None}, OPR 2.75
+- News: 1 (fresh: True)
+  - [Sukuk] MOF Approves MRL’s RM19 Billion Sukuk Programme To Finance ECRL Development (businesstoday.com.my)
 
 ## Debug AE_sample
 ```
