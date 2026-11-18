@@ -1,5 +1,5 @@
 {
-  "_help": "Past events marked with a number on the 'Global attention over time' chart. Keep it short (8 to 12 events). House rule: name a conflict by its parties (\"Russia–Ukraine Conflict\", \"Israel–Hamas War\"), never by one side's action; no framing by nationality, religion or ethnicity.",
+  "_help": "Past events marked with a number on the 'Global attention over time' chart. Keep it short (15 to 20 events). House rule: name a conflict by its parties (\"Russia–Ukraine Conflict\", \"Israel–Hamas War\"), never by one side's action; no framing by nationality, religion or ethnicity.",
   "events": [
     {"date": "2018-03-01", "label": "US steel and aluminium tariffs"},
     {"date": "2020-01-03", "label": "US–Iran Escalation"},
