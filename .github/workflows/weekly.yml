@@ -4,8 +4,9 @@ on:
   schedule:
     # Monday 7:05 am New York. Two times because New York changes clocks;
     # the engine skips the run that is too early or already done.
-    - cron: "5 11 * * 1"
-    - cron: "5 12 * * 1"
+    # Minute 23, not 5: GitHub delays runs at the start of the hour the most.
+    - cron: "23 11 * * 1"
+    - cron: "23 12 * * 1"
   workflow_dispatch:
     inputs:
       force:
