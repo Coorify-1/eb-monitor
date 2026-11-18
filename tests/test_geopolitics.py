@@ -141,3 +141,13 @@ def test_budget_keeps_recent_and_resumes(offline, monkeypatch):
 
 def test_gdelt_never_asked_before_2017(monkeypatch):
     assert S.gdelt_timeline("x", "timelinevol", dt.date(2010, 1, 1), dt.date(2016, 12, 25)) is None
+
+
+def test_history_redraws_global_line(offline, monkeypatch):
+    real = S.gdelt_timeline
+    store = R.update_attention(R.catalog(), dt.date(2026, 11, 18), budget_min=0)
+    doc = R.build(offline)                              # (mock fills history inside build)
+    short = dict(doc, **{"global": dict(doc["global"], series=doc["global"]["series"][-70:])})
+    full = R.refresh_global(short, R._load(R.STORE, {}))
+    assert full["global"]["series"][0][0] < "2018-01-01" and full["global"]["series"][-1][0] == doc["basedOn"]
+    assert [r["view"] for r in full["risks"]] == [r["view"] for r in doc["risks"]]

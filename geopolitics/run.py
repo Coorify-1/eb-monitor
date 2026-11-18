@@ -222,10 +222,25 @@ def apply_edits(doc: dict, today: dt.date) -> dict:
     return doc
 
 
+def refresh_global(doc: dict, store: dict) -> dict:
+    """Recompute the global attention line of a published edition from the stored history
+    (the risks' own figures and texts are left as published)."""
+    upto = doc.get("basedOn")
+    if not upto:
+        return doc
+    z_all = {r["id"]: M.zscores(store["weeks"].get(r["id"], {}), upto) for r in catalog()}
+    g = [p for p in M.global_series(z_all) if p[0] <= upto]
+    if g:
+        doc["global"]["series"] = [[w, v] for w, v in g]
+        doc["global"]["value"] = g[-1][1]
+        doc["global"]["change"] = round(g[-1][1] - g[-2][1], 2) if len(g) > 1 else None
+    return doc
+
+
 # ------------------------------------------------------------------ main
 
 
-def write(out: pathlib.Path, doc: dict):
+def write(out: pathlib.Path, doc: dict, archive: bool = True):
     out.write_text(json.dumps(doc, ensure_ascii=False, indent=1))
     arch = out.parent / "geopolitics"
     arch.mkdir(exist_ok=True)
@@ -248,7 +263,9 @@ def main():
     now_ny = dt.datetime.now(NY)
 
     if a.history:
-        update_attention(catalog(), now_ny.date(), budget_min=float(os.environ.get("BUDGET_MIN", 80)))
+        store = update_attention(catalog(), now_ny.date(), budget_min=float(os.environ.get("BUDGET_MIN", 80)))
+        if out.exists():          # longer history: redraw this edition's global attention line
+            write(out, refresh_global(json.loads(out.read_text()), store), archive=True)
         return
 
     if a.apply_edits:
