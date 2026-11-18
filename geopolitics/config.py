@@ -16,7 +16,7 @@ HISTORY_START = "2017-01-01"     # the GDELT news archive searchable by the API 
 # Each risk gets a weekly score: its share of world news coverage compared with its own
 # history (z-score of the log).
 WINDOW_WEEKS = 260               # five years of history
-HALF_LIFE_WEEKS = 52             # recent years weigh more: a story that stays high becomes "normal"
+HALF_LIFE_WEEKS = None           # None = every week of the five years weighs the same (a long crisis stays visible)
 MIN_WEEKS = 26                   # history needed before a score is published
 TONE_WEIGHT = 0.0                # weight of negative tone (0 = coverage share only)
 REFRESH_DAYS = 42                # each week, the last six weeks are fetched again

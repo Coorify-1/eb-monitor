@@ -959,6 +959,26 @@ export default function GeopoliticalRiskMonitor(props: any) {
     )
 
     const lvlText = (l: Level) => tx["lvl_" + l] || l
+    const attWord = (v: number) =>
+        v >= 1.5
+            ? tx.att_exceptional
+            : v >= 0.6
+              ? tx.att_wellAbove
+              : v >= 0.2
+                ? tx.att_above
+                : v > -0.2
+                  ? tx.att_usual
+                  : v > -0.6
+                    ? tx.att_below
+                    : tx.att_quiet
+    const reactWord = (v: number) =>
+        v >= 0.4
+            ? tx.re_pricing
+            : v >= 0.15
+              ? tx.re_partly
+              : v > -0.15
+                ? tx.re_little
+                : tx.re_against
 
     /* ---------- tab 1: risk summary ---------- */
     const list = (
@@ -996,9 +1016,9 @@ export default function GeopoliticalRiskMonitor(props: any) {
                                 <span className="egr-meter" title={tx.attention}>
                                     <i style={{ width: w + "%" }} />
                                 </span>
-                                <span className="egr-rv">
-                                    <small>{tx.attentionShort}</small>{" "}
-                                    {f1(r.attention)}
+                                <span className="egr-rv" title={tx.attention + " " + f1(r.attention)}>
+                                    {attWord(r.attention)}{" "}
+                                    <small>{f1(r.attention)}</small>
                                     {isNum(r.attentionChange) &&
                                         Math.abs(r.attentionChange) >= 0.05 && (
                                             <span
@@ -1024,7 +1044,10 @@ export default function GeopoliticalRiskMonitor(props: any) {
                                     {r.view && <p>{r.view}</p>}
                                     <div className="egr-rnums">
                                         <span>
-                                            {tx.reaction} <b>{f2(r.reaction)}</b>
+                                            {tx.attention} <b>{attWord(r.attention)}</b> ({f1(r.attention)})
+                                        </span>
+                                        <span>
+                                            {tx.reaction} <b>{reactWord(r.reaction)}</b> ({f2(r.reaction)})
                                         </span>
                                     </div>
                                     {(r.assets || []).length > 0 && (
@@ -1643,7 +1666,7 @@ const CSS = `
 .egr-meter i{position:absolute;left:0;top:3.5px;height:1px;background:var(--ink)}
 .egr-meter i::after{content:"";position:absolute;right:-3px;top:-2.5px;width:6px;height:6px;border-radius:50%;background:var(--ink)}
 .egr-rv{font-family:var(--fh);font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.egr-rv small{font-family:var(--fb);font-size:12px;color:var(--mute);letter-spacing:.04em;text-transform:uppercase}
+.egr-rv small{font-family:var(--fb);font-size:12.5px;color:var(--mute);font-variant-numeric:tabular-nums}
 .egr-spark{display:block;width:76px;height:24px}
 .egr-rdet{padding:10px 0 2px 38px;animation:egr-in .2s ease-out}
 .egr-rdet p{margin:0 0 8px;font-family:var(--fh);font-size:16px;line-height:1.55}
@@ -1818,9 +1841,18 @@ const DEF_TEXTS: Record<string, string> = {
     qBR: "Priced quietly",
     qBL: "Off the radar",
     listTitle: "The risks we follow",
-    listNote: "Level, attention and the last 12 weeks",
+    listNote: "Level, then news attention against its five-year norm, with the last 12 weeks",
     attention: "Attention",
-    attentionShort: "Att.",
+    att_exceptional: "Exceptional",
+    att_wellAbove: "Well above usual",
+    att_above: "Above usual",
+    att_usual: "Usual",
+    att_below: "Below usual",
+    att_quiet: "Quiet",
+    re_pricing: "Pricing the risk",
+    re_partly: "Partly pricing it",
+    re_little: "Little sign",
+    re_against: "Moving against it",
     reaction: "Market reaction",
     seeAssets: "See the assets we watch",
     lvl_high: "High",
@@ -1855,11 +1887,11 @@ const DEF_TEXTS: Record<string, string> = {
     calFull: "Full economic calendar",
     methodTitle: "How the monitor works",
     m1Title: "Attention",
-    m1: "We measure how much the world's news covers each risk, every week, compared with its usual level over the past years. 0 means usual coverage; 1 means well above usual. A story that stays high for months slowly becomes the new normal.",
+    m1: "Each week we measure the share of world news coverage that matches each risk (GDELT, more than 60 languages), averaged over two weeks, and compare it with the same measure over the previous five years. 0 = usual coverage, +1 = one standard deviation above, +2 or more = exceptional.",
     m2Title: "Market reaction",
-    m2: "Each risk has three assets that would move clearly if it happened. We compare their moves over the past month with that expected direction and size. +1 means prices behave as if the risk were happening; −1 means they move the opposite way.",
+    m2: "Each risk has three assets that would move clearly if it happened. For each, we take the one-month change up to the previous Sunday and divide it by its typical one-month change over the past two years. Moves in the expected direction count for, moves the other way count against, up to twice the typical size. +1 = all three move fully as if the risk were happening; −1 = all three move fully the opposite way.",
     m3Title: "Level",
-    m3: "High, Medium or Low reflects how much attention a risk receives and how far markets are already reacting to it, read together with the wider context.",
+    m3: "High, Medium or Low is the structural level of each risk, reviewed every month against official and press sources. It is raised for the week when news attention and market reaction are both strongly elevated; it is never lowered by quiet markets alone.",
     m4Title: "Weekly update",
     m4: "The monitor is updated every Monday morning with the previous week's data. The calendar lists only the major geopolitical dates we expect to matter for markets.",
     sourcesTitle: "Sources",

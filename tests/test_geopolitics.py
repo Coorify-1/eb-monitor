@@ -151,3 +151,10 @@ def test_history_redraws_global_line(offline, monkeypatch):
     full = R.refresh_global(short, R._load(R.STORE, {}))
     assert full["global"]["series"][0][0] < "2018-01-01" and full["global"]["series"][-1][0] == doc["basedOn"]
     assert [r["view"] for r in full["risks"]] == [r["view"] for r in doc["risks"]]
+
+
+def test_structural_level_is_a_floor():
+    assert M.final_level("high", -0.5, -0.4) == "high"        # quiet data never lower it
+    assert M.final_level("medium", 2.0, 0.6) == "high"        # strong data raise it
+    assert M.final_level("low", 0.0, 0.0) == "low"
+    assert all(r.get("level") in ("high", "medium", "low") for r in R.catalog())

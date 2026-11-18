@@ -144,7 +144,7 @@ def build(now_ny: dt.datetime) -> dict:
             "attention": round(att, 2),
             "attentionChange": round(att - z[-2][1], 2) if len(z) > 1 else None,
             "reaction": react,
-            "levelAuto": M.level(att, react),
+            "levelAuto": M.final_level(r.get("level"), att, react),
             "trend": [round(v, 2) for _, v in z[-12:]],
             "assets": [a for a in assets if a],
             "headlines": S.headlines(r["query"]),
@@ -203,7 +203,7 @@ def apply_edits(doc: dict, today: dt.date) -> dict:
     ov = _load(HERE / "override.json", {}).get("risks", {}) or {}
     for r in doc.get("risks", []):
         o = ov.get(r["id"]) or {}
-        r.setdefault("levelBase", r.get("levelAuto") or M.level(r["attention"], r["reaction"]))
+        r.setdefault("levelBase", r.get("levelAuto") or M.final_level(None, r["attention"], r["reaction"]))
         r.setdefault("viewBase", r.get("view", ""))
         lv = str(o.get("level") or "").strip().lower()
         r["levelAuto"] = lv if lv in ("high", "medium", "low") else r["levelBase"]

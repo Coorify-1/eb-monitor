@@ -57,7 +57,7 @@ def zscores(weeks: dict[str, list[float]], complete_until: str) -> list[tuple[st
         if len(hist) < C.MIN_WEEKS:
             continue
         n = len(hist)
-        wts = [0.5 ** ((n - k) / C.HALF_LIFE_WEEKS) for k in range(n)]
+        wts = [1.0] * n if not C.HALF_LIFE_WEEKS else [0.5 ** ((n - k) / C.HALF_LIFE_WEEKS) for k in range(n)]
         sw = sum(wts)
         m = sum(x * a for x, a in zip(hist, wts)) / sw
         var = sum(a * (x - m) ** 2 for x, a in zip(hist, wts)) / sw
@@ -167,6 +167,18 @@ def reaction(assets: list[dict]) -> float | None:
 # ------------------------------------------------------------------ level
 
 
+LEVELS = ["low", "medium", "high"]
+
+
 def level(attention: float, react: float) -> str:
+    """What the data alone say: attention and market reaction together."""
     s = 0.6 * attention + react
     return "high" if s >= C.LEVEL_HIGH else "medium" if s >= C.LEVEL_MEDIUM else "low"
+
+
+def final_level(baseline: str | None, attention: float, react: float) -> str:
+    """The structural level of the risk (risks.json, reviewed monthly) is the floor;
+    strong attention and market reaction can only raise it."""
+    sig = level(attention, react)
+    base = baseline if baseline in LEVELS else "low"
+    return max(base, sig, key=LEVELS.index)

@@ -11,9 +11,9 @@ gratuite que THE ANALYST (`GEMINI_API_KEY`, déjà en place).
 
 | Mesure | Comment | Source |
 |---|---|---|
-| **Attention** | Part de l'actualité mondiale consacrée à chaque risque, chaque semaine, pondérée par le ton (plus négatif = plus de poids), comparée à son propre historique de 5 ans (les années récentes comptent davantage). 0 = niveau habituel, 1 = nettement au-dessus. Moyenne sur 2 semaines. | GDELT (depuis 2017) |
-| **Market reaction** (−1 à +1) | Les 3 actifs liés à chaque risque : leur mouvement sur un mois, comparé à leur mouvement mensuel habituel (2 ans) et au sens attendu si le risque se réalisait. | FRED, Worker EB Metals |
-| **Level** | High / Medium / Low à partir des deux mesures (même règle que le composant). Modifiable à la main. | — |
+| **Attention** | Part de l'actualité mondiale consacrée à chaque risque, moyenne sur 2 semaines, comparée à la même mesure sur les 5 années précédentes (toutes les semaines ont le même poids : une crise longue reste visible). 0 = habituel, +1 = un écart-type au-dessus, +2 = exceptionnel. | GDELT (depuis 2017) |
+| **Market reaction** (−1 à +1) | Les 3 actifs liés à chaque risque : leur mouvement sur un mois (jusqu'au dimanche), divisé par leur mouvement mensuel habituel (2 ans), compté pour ou contre selon le sens attendu si le risque se réalisait. | Worker Markets (FRED), Worker EB Metals |
+| **Level** | Le niveau de fond de chaque risque (`level` dans `risks.json`), revu chaque mois à partir de sources officielles et de presse (Reuters, AIE, OTAN, OMC, ANSSI…). Une attention et une réaction de marché fortes peuvent le relever pour la semaine, jamais le baisser. `override.json` ou Framer ont le dernier mot. | — |
 | **Short view** | Deux phrases par risque, sans chiffres, rédigées à partir des titres de la semaine et contrôlées (pas de conseil, pas de prévision). Sans clé ou en cas d'échec : phrases types. | Google News, Gemini |
 | **Global attention** | Moyenne de tous les risques, lissée, depuis 2017. | GDELT |
 

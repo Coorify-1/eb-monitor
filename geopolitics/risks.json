@@ -1,94 +1,298 @@
 {
-  "_help": "The risks the engine computes. 'query' searches world news (GDELT and Google News). Each asset: src = fred (series id) or metals (gold, silver, copper…); kind = price (moves in %) or level (yields and spreads, moves in bp); invert = true for a currency quoted per dollar (so the line is the currency's own value); dir = +1 if the risk would push it up, -1 down; page = Economic Bearings page the asset links to. Add a risk here and its id can be used in the Framer 'Risks' list.",
+  "_help": "The risks the engine computes. 'query' searches world news (GDELT and Google News). Each asset: src = fred (series id) or metals (gold, silver, copper…); kind = price (moves in %) or level (yields and spreads, moves in bp); invert = true for a currency quoted per dollar (so the line is the currency's own value); dir = +1 if the risk would push it up, -1 down; page = Economic Bearings page the asset links to. level = structural level of the risk (high, medium, low), reviewed every month against official and press sources; strong news attention and market reaction can raise it for the week, never lower it. Add a risk here and its id can be used in the Framer 'Risks' list.",
   "risks": [
     {
       "id": "middle_east",
       "label": "Middle East conflict",
+      "level": "high",
       "query": "(Iran OR Israel OR Hezbollah OR Houthi OR Hamas OR \"Strait of Hormuz\" OR \"Red Sea\") (war OR strike OR attack OR missile OR escalation OR blockade)",
       "assets": [
-        {"name": "Brent crude", "src": "fred", "id": "DCOILBRENTEU", "kind": "price", "dir": 1, "page": "energy"},
-        {"name": "VIX volatility", "src": "fred", "id": "VIXCLS", "kind": "price", "dir": 1, "page": "markets"},
-        {"name": "US high-yield spread", "src": "fred", "id": "BAMLH0A0HYM2", "kind": "level", "dir": 1, "page": "markets"}
+        {
+          "name": "Brent crude",
+          "src": "fred",
+          "id": "DCOILBRENTEU",
+          "kind": "price",
+          "dir": 1,
+          "page": "energy"
+        },
+        {
+          "name": "VIX volatility",
+          "src": "fred",
+          "id": "VIXCLS",
+          "kind": "price",
+          "dir": 1,
+          "page": "markets"
+        },
+        {
+          "name": "US high-yield spread",
+          "src": "fred",
+          "id": "BAMLH0A0HYM2",
+          "kind": "level",
+          "dir": 1,
+          "page": "markets"
+        }
       ]
     },
     {
       "id": "energy",
       "label": "Energy security",
-      "query": "(\"energy crisis\" OR \"energy security\" OR \"oil supply\" OR \"gas supply\" OR \"fuel shortage\" OR \"LNG supply\" OR \"supply disruption\")",
+      "level": "high",
+      "query": "(oil OR gas OR LNG OR fuel OR energy OR tanker OR pipeline OR refinery) (shortage OR disruption OR blockade OR outage OR attack OR \"Strait of Hormuz\" OR \"supply crisis\")",
       "assets": [
-        {"name": "US natural gas", "src": "fred", "id": "DHHNGSP", "kind": "price", "dir": 1, "page": "energy"},
-        {"name": "Heating oil", "src": "fred", "id": "DHOILNYH", "kind": "price", "dir": 1, "page": "energy"},
-        {"name": "US 10-year inflation expectations", "src": "fred", "id": "T10YIE", "kind": "level", "dir": 1, "page": "markets"}
+        {
+          "name": "US natural gas",
+          "src": "fred",
+          "id": "DHHNGSP",
+          "kind": "price",
+          "dir": 1,
+          "page": "energy"
+        },
+        {
+          "name": "Heating oil",
+          "src": "fred",
+          "id": "DHOILNYH",
+          "kind": "price",
+          "dir": 1,
+          "page": "energy"
+        },
+        {
+          "name": "US 10-year inflation expectations",
+          "src": "fred",
+          "id": "T10YIE",
+          "kind": "level",
+          "dir": 1,
+          "page": "markets"
+        }
       ]
     },
     {
       "id": "russia_nato",
       "label": "Russia–NATO",
+      "level": "medium",
       "query": "(Russia OR Kremlin OR Putin) (NATO OR Ukraine OR sabotage OR drone OR \"hybrid attack\" OR escalation)",
       "assets": [
-        {"name": "Brent crude", "src": "fred", "id": "DCOILBRENTEU", "kind": "price", "dir": 1, "page": "energy"},
-        {"name": "Euro vs. dollar", "src": "fred", "id": "DEXUSEU", "kind": "price", "dir": -1, "page": "crypto"},
-        {"name": "Gold", "src": "metals", "id": "gold", "kind": "price", "dir": 1, "page": "metals"}
+        {
+          "name": "Brent crude",
+          "src": "fred",
+          "id": "DCOILBRENTEU",
+          "kind": "price",
+          "dir": 1,
+          "page": "energy"
+        },
+        {
+          "name": "Euro vs. dollar",
+          "src": "fred",
+          "id": "DEXUSEU",
+          "kind": "price",
+          "dir": -1,
+          "page": "crypto"
+        },
+        {
+          "name": "Gold",
+          "src": "metals",
+          "id": "gold",
+          "kind": "price",
+          "dir": 1,
+          "page": "metals"
+        }
       ]
     },
     {
       "id": "us_china",
       "label": "US–China rivalry",
+      "level": "medium",
       "query": "(China OR Beijing OR Taiwan) (\"export controls\" OR semiconductors OR chips OR sanctions OR military OR \"trade truce\")",
       "assets": [
-        {"name": "Chinese yuan", "src": "fred", "id": "DEXCHUS", "invert": true, "kind": "price", "dir": -1, "page": "crypto"},
-        {"name": "Taiwan dollar", "src": "fred", "id": "DEXTAUS", "invert": true, "kind": "price", "dir": -1, "page": "crypto"},
-        {"name": "Nasdaq Composite", "src": "fred", "id": "NASDAQCOM", "kind": "price", "dir": -1, "page": "markets"}
+        {
+          "name": "Chinese yuan",
+          "src": "fred",
+          "id": "DEXCHUS",
+          "invert": true,
+          "kind": "price",
+          "dir": -1,
+          "page": "crypto"
+        },
+        {
+          "name": "Taiwan dollar",
+          "src": "fred",
+          "id": "DEXTAUS",
+          "invert": true,
+          "kind": "price",
+          "dir": -1,
+          "page": "crypto"
+        },
+        {
+          "name": "Nasdaq Composite",
+          "src": "fred",
+          "id": "NASDAQCOM",
+          "kind": "price",
+          "dir": -1,
+          "page": "markets"
+        }
       ]
     },
     {
       "id": "trade",
       "label": "Trade & tariffs",
+      "level": "medium",
       "query": "(tariff OR tariffs OR \"trade war\" OR protectionism OR \"trade deal\" OR USMCA)",
       "assets": [
-        {"name": "Mexican peso", "src": "fred", "id": "DEXMXUS", "invert": true, "kind": "price", "dir": -1, "page": "crypto"},
-        {"name": "Copper", "src": "metals", "id": "copper", "kind": "price", "dir": -1, "page": "metals"},
-        {"name": "S&P 500", "src": "fred", "id": "SP500", "kind": "price", "dir": -1, "page": "markets"}
+        {
+          "name": "Mexican peso",
+          "src": "fred",
+          "id": "DEXMXUS",
+          "invert": true,
+          "kind": "price",
+          "dir": -1,
+          "page": "crypto"
+        },
+        {
+          "name": "Copper",
+          "src": "metals",
+          "id": "copper",
+          "kind": "price",
+          "dir": -1,
+          "page": "metals"
+        },
+        {
+          "name": "S&P 500",
+          "src": "fred",
+          "id": "SP500",
+          "kind": "price",
+          "dir": -1,
+          "page": "markets"
+        }
       ]
     },
     {
       "id": "cyber",
       "label": "Cyber & terror attacks",
+      "level": "high",
       "query": "(cyberattack OR \"cyber attack\" OR ransomware OR hackers OR \"terror attack\" OR \"terror plot\" OR terrorist)",
       "assets": [
-        {"name": "VIX volatility", "src": "fred", "id": "VIXCLS", "kind": "price", "dir": 1, "page": "markets"},
-        {"name": "Bitcoin", "src": "fred", "id": "CBBTCUSD", "kind": "price", "dir": -1, "page": "crypto"},
-        {"name": "US high-yield spread", "src": "fred", "id": "BAMLH0A0HYM2", "kind": "level", "dir": 1, "page": "markets"}
+        {
+          "name": "VIX volatility",
+          "src": "fred",
+          "id": "VIXCLS",
+          "kind": "price",
+          "dir": 1,
+          "page": "markets"
+        },
+        {
+          "name": "Bitcoin",
+          "src": "fred",
+          "id": "CBBTCUSD",
+          "kind": "price",
+          "dir": -1,
+          "page": "crypto"
+        },
+        {
+          "name": "US high-yield spread",
+          "src": "fred",
+          "id": "BAMLH0A0HYM2",
+          "kind": "level",
+          "dir": 1,
+          "page": "markets"
+        }
       ]
     },
     {
       "id": "americas",
       "label": "Western Hemisphere",
+      "level": "medium",
       "query": "(Venezuela OR Cuba OR Mexico OR Panama OR Greenland OR Colombia) (sanctions OR military OR blockade OR cartel OR intervention)",
       "assets": [
-        {"name": "Mexican peso", "src": "fred", "id": "DEXMXUS", "invert": true, "kind": "price", "dir": -1, "page": "crypto"},
-        {"name": "Gold", "src": "metals", "id": "gold", "kind": "price", "dir": 1, "page": "metals"},
-        {"name": "Brent crude", "src": "fred", "id": "DCOILBRENTEU", "kind": "price", "dir": 1, "page": "energy"}
+        {
+          "name": "Mexican peso",
+          "src": "fred",
+          "id": "DEXMXUS",
+          "invert": true,
+          "kind": "price",
+          "dir": -1,
+          "page": "crypto"
+        },
+        {
+          "name": "Gold",
+          "src": "metals",
+          "id": "gold",
+          "kind": "price",
+          "dir": 1,
+          "page": "metals"
+        },
+        {
+          "name": "Brent crude",
+          "src": "fred",
+          "id": "DCOILBRENTEU",
+          "kind": "price",
+          "dir": 1,
+          "page": "energy"
+        }
       ]
     },
     {
       "id": "korea",
       "label": "North Korea",
+      "level": "medium",
       "query": "(\"North Korea\" OR Pyongyang OR \"Kim Jong Un\") (missile OR nuclear OR launch OR test)",
       "assets": [
-        {"name": "Japanese yen", "src": "fred", "id": "DEXJPUS", "invert": true, "kind": "price", "dir": 1, "page": "crypto"},
-        {"name": "Korean won", "src": "fred", "id": "DEXKOUS", "invert": true, "kind": "price", "dir": -1, "page": "crypto"},
-        {"name": "VIX volatility", "src": "fred", "id": "VIXCLS", "kind": "price", "dir": 1, "page": "markets"}
+        {
+          "name": "Japanese yen",
+          "src": "fred",
+          "id": "DEXJPUS",
+          "invert": true,
+          "kind": "price",
+          "dir": 1,
+          "page": "crypto"
+        },
+        {
+          "name": "Korean won",
+          "src": "fred",
+          "id": "DEXKOUS",
+          "invert": true,
+          "kind": "price",
+          "dir": -1,
+          "page": "crypto"
+        },
+        {
+          "name": "VIX volatility",
+          "src": "fred",
+          "id": "VIXCLS",
+          "kind": "price",
+          "dir": 1,
+          "page": "markets"
+        }
       ]
     },
     {
       "id": "transatlantic",
       "label": "Transatlantic relations",
+      "level": "medium",
       "query": "(Europe OR \"European Union\" OR Brussels) (Washington OR Trump) (tariffs OR NATO OR alliance OR rift OR sovereignty)",
       "assets": [
-        {"name": "Euro vs. dollar", "src": "fred", "id": "DEXUSEU", "kind": "price", "dir": -1, "page": "crypto"},
-        {"name": "Gold", "src": "metals", "id": "gold", "kind": "price", "dir": 1, "page": "metals"},
-        {"name": "S&P 500", "src": "fred", "id": "SP500", "kind": "price", "dir": -1, "page": "markets"}
+        {
+          "name": "Euro vs. dollar",
+          "src": "fred",
+          "id": "DEXUSEU",
+          "kind": "price",
+          "dir": -1,
+          "page": "crypto"
+        },
+        {
+          "name": "Gold",
+          "src": "metals",
+          "id": "gold",
+          "kind": "price",
+          "dir": 1,
+          "page": "metals"
+        },
+        {
+          "name": "S&P 500",
+          "src": "fred",
+          "id": "SP500",
+          "kind": "price",
+          "dir": -1,
+          "page": "markets"
+        }
       ]
     }
   ]
