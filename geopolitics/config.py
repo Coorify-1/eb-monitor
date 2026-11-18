@@ -21,7 +21,7 @@ MIN_WEEKS = 26                   # history needed before a score is published
 TONE_WEIGHT = 0.0                # weight of negative tone (0 = coverage share only)
 REFRESH_DAYS = 42                # each week, the last six weeks are fetched again
 FIRST_DAYS = 730                 # a new risk starts with two years, enough to publish at once
-GDELT_BUDGET_MIN = 40            # minutes per run spent filling older history (resumes next run)
+GDELT_BUDGET_MIN = 10            # minutes of the Monday run spent on older history (the nightly run does the rest)
 GLOBAL_SMOOTH = 0.35             # smoothing of the global line (share of the newest week)
 
 # ------------------------------------------------------------------ market reaction
