@@ -5,6 +5,7 @@ Needs the GitHub secrets MASSIVE_API_KEY and SEC_CONTACT.
 """
 import argparse
 import datetime as dt
+import hashlib
 import json
 import math
 import os
@@ -315,13 +316,16 @@ def _overrides():
 def _common(r, lead):
     L = dict(lead or {})
     ov = _overrides().get(r["ticker"]) or {}
-    if ov.get("ceo"):
-        o = ov["ceo"]
-        if o.get("name") != L.get("ceoLabel"):
+    o = ov.get("ceo") or {}
+    if o.get("name"):
+        if o["name"] != L.get("ceoLabel"):
             for k in ("ceoImg", "photo", "photoCredit", "ceoDesc"):
                 L.pop(k, None)  # the Wikidata portrait would show the wrong person
-        L["ceoLabel"] = o.get("name")
+        L["ceoLabel"] = o["name"]
         L["ceoStart"] = str(o.get("since") or "")
+    elif o.get("since"):
+        L["ceoStart"] = str(o["since"])
+    if o:
         if o.get("bio"):
             L["ceoDesc"] = o["bio"].rstrip(".")
     if ov.get("chair"):
@@ -361,6 +365,9 @@ def _common(r, lead):
         item["logo"] = L["logo"]
     if L.get("web"):
         item["website"] = L["web"]
+    if ceo and L.get("pressPhoto"):
+        ceo["photo"] = L["pressPhoto"]
+        ceo["photoCredit"] = o.get("photoCredit") or f"{item['name']}, press kit"
     if ceo:
         item["ceo"] = ceo
     if team:
@@ -394,6 +401,29 @@ def official_logo(ticker, website, out_path):
     return f"https://cdn.jsdelivr.net/gh/{REPO}@main/docs/logos/{safe}.{ext}"
 
 
+# ---------------------------------------------------------------- official CEO portraits (press kit)
+
+def official_photo(ticker, url, out_path):
+    """Portrait chosen by the editor on the company's press page (data/overrides.json),
+    resized and kept in docs/ceo. The file name carries a hash of the source link,
+    so a new photo gets a new address and no cache shows the old one."""
+    folder = os.path.join(os.path.dirname(out_path) or ".", "ceo")
+    os.makedirs(folder, exist_ok=True)
+    safe = re.sub(r"[^A-Za-z0-9.-]", "_", ticker)
+    name = f"{safe}-{hashlib.sha1(url.encode()).hexdigest()[:8]}.jpg"
+    path = os.path.join(folder, name)
+    if not os.path.exists(path):
+        data = SRC.fetch_photo(url)
+        if not data:
+            log("    press photo could not be downloaded", ticker, url)
+            return None
+        for old in os.listdir(folder):
+            if old.startswith(safe + "-"):
+                os.remove(os.path.join(folder, old))
+        open(path, "wb").write(data)
+    return f"https://cdn.jsdelivr.net/gh/{REPO}@main/docs/ceo/{name}"
+
+
 # ---------------------------------------------------------------- editorial check page
 
 REPO = os.environ.get("GITHUB_REPOSITORY", "Coorify-1/eb-monitor")
@@ -404,7 +434,19 @@ def check_entry(kind, it, r, L, pillars, cur, prev_asof):
     ceo = it.get("ceo") or {}
     src = L.get("ceoSource") or "—"
     if ceo:
-        notes.append(f"✅ CEO {ceo['name']} confirmé par : {src}." + (" Photo et date d'entrée confirmées via Wikidata." if ceo.get("photo") or ceo.get("since") else ""))
+        notes.append(f"✅ CEO {ceo['name']} confirmé par : {src}." + (" Date d'entrée confirmée via Wikidata." if ceo.get("since") else ""))
+        if L.get("pressPhoto") and ceo.get("photo") == L["pressPhoto"]:
+            notes.append(f"📷 Photo officielle de l'espace presse, ajoutée par la rédaction ([source]({L['pressSource']})).")
+        elif ceo.get("photo"):
+            notes.append(f"📷 Photo libre de Wikimedia Commons ({ceo.get('photoCredit', '')}).")
+        else:
+            site = str(it.get("website") or "")
+            where = (f"dans l'[espace presse]({L['pressPage']})" if L.get("pressPage")
+                     else f"dans l'espace presse du [site de l'entreprise]({site if site.startswith('http') else 'https://' + site})" if site
+                     else "dans l'espace presse de l'entreprise")
+            notes.append(f"📷 Pas de photo libre. Facultatif : prendre la photo officielle du CEO {where} "
+                         f"(vérifier que c'est bien {ceo['name']} et que l'usage éditorial est autorisé), "
+                         f"puis l'ajouter dans `data/overrides.json`.")
     else:
         notes.append(f"➖ CEO non affiché : {src}.")
     for m in it.get("metrics") or []:
@@ -631,13 +673,22 @@ def main():
                 L["photo"], L["photoCredit"] = ph["photo"], ph["photoCredit"]
                 if ph.get("desc") and not L.get("ceoDesc"):
                     L["ceoDesc"] = ph["desc"]
+        oc = (_overrides().get(r["ticker"]) or {}).get("ceo") or {}
+        if oc.get("photo"):
+            L["pressPhoto"] = official_photo(r["ticker"], oc["photo"], a.out)
+            L["pressSource"] = oc.get("photoSource") or oc["photo"]
+        if (name or oc.get("name")) and not L.get("photo") and not L.get("pressPhoto"):
+            try:
+                L["pressPage"] = SRC.press_page(L.get("web") or r.get("website"))
+            except Exception as e:
+                log("    press page search failed", r["ticker"], e)
         if L.get("logoFile") and same_company(L.get("itemLabel"), r["name"]):
             L["logo"] = SRC.commons_logo(L["logoFile"])
         if not L.get("logo"):
             # the icon the company publishes on its own website, kept in docs/logos
             site = L.get("web") or r.get("website")
             L["logo"] = official_logo(r["ticker"], site, a.out)
-        log(f"    {r['ticker']}: CEO {name or '—'} ({src}){' + photo' if L.get('photo') else ''}{' + logo' if L.get('logo') else ''}")
+        log(f"    {r['ticker']}: CEO {name or '—'} ({src}){' + photo' if L.get('photo') else ''}{' + press photo' if L.get('pressPhoto') else ''}{' + logo' if L.get('logo') else ''}")
 
     log("6/7 Market regime")
     reg = regime(wide)

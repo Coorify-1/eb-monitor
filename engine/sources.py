@@ -649,3 +649,82 @@ def _clean_image(b):
         return out.getvalue(), "png", px
     except Exception:
         return None
+
+
+# ---------------- Press / media page (official CEO portraits) ----------------
+
+A_TAG = re.compile(r"<a\b([^>]*)>(.*?)</a>", re.I | re.S)
+PRESS_WORDS = [  # best first
+    (re.compile(r"news\s*room", re.I), 60),
+    (re.compile(r"media\s*(cent(er|re)|room|kit|library|resources)|press\s*(kit|room|office|cent(er|re))|espace\s*presse|pressebereich", re.I), 55),
+    (re.compile(r"\b(press|presse)\b", re.I), 40),
+    (re.compile(r"\bmedia\b", re.I), 30),
+]
+PRESS_PATHS = ["/newsroom", "/media", "/press", "/en/media", "/en/newsroom", "/en/press", "/media-centre", "/media-center", "/pressroom"]
+SOCIAL = re.compile(r"facebook|twitter|x\.com|linkedin|instagram|youtube|tiktok|mailto:|javascript:", re.I)
+
+
+def press_page(website):
+    """Link to the company's own press / media page, where official CEO portraits
+    for editorial use are usually published. Returns a URL or None. Does not pick a photo:
+    the editor checks the person and the terms of use, then adds it to data/overrides.json."""
+    from urllib.parse import urljoin, urlparse
+
+    if not website:
+        return None
+    base = website if website.startswith("http") else "https://" + website
+    h = {"User-Agent": BROWSER_UA, "Accept": "text/html,*/*"}
+    try:
+        page = _s.get(base, headers=h, timeout=30, allow_redirects=True)
+        html, base = page.text[:600000], page.url
+    except Exception:
+        html = ""
+    host = urlparse(base).netloc.lower().removeprefix("www.")
+    best = (0, None)
+    for attrs, text in A_TAG.findall(html):
+        href = _attr(attrs, "href")
+        if not href or href.startswith("#") or SOCIAL.search(href):
+            continue
+        url = urljoin(base, href)
+        h2 = urlparse(url).netloc.lower().removeprefix("www.")
+        if not (h2 == host or h2.endswith("." + host) or host.endswith("." + h2)):
+            continue  # stay on the company's own site
+        label = re.sub(r"<[^>]+>", " ", text) + " " + urlparse(url).path.replace("-", " ").replace("/", " ")
+        if re.search(r"social media|release[s]? archive|cookie|privacy|careers?", label, re.I):
+            continue
+        for rx, pts in PRESS_WORDS:
+            if rx.search(label):
+                if pts > best[0]:
+                    best = (pts, url.split("#")[0])
+                break
+    if best[1]:
+        return best[1]
+    root = f"{urlparse(base).scheme}://{urlparse(base).netloc}"
+    for path in PRESS_PATHS:
+        try:
+            r = _s.get(root + path, headers=h, timeout=20, allow_redirects=True)
+        except Exception:
+            continue
+        if r.status_code == 200 and "<html" in r.text[:3000].lower():
+            return r.url
+    return None
+
+
+def fetch_photo(url, size=320):
+    """Downloads a portrait chosen by the editor; returns JPEG bytes (square-ish, max `size` px) or None."""
+    try:
+        r = _s.get(url, headers={"User-Agent": BROWSER_UA, "Accept": "image/*"}, timeout=30)
+        if r.status_code != 200 or len(r.content) < 1000:
+            return None
+        from io import BytesIO
+        from PIL import Image
+        im = Image.open(BytesIO(r.content)).convert("RGB")
+        w, hgt = im.size
+        if hgt > w * 1.25:  # tall portrait: keep the top (face), crop to 4:5
+            im = im.crop((0, 0, w, int(w * 1.25)))
+        im.thumbnail((size, size * 1.25))
+        out = BytesIO()
+        im.save(out, "JPEG", quality=85, optimize=True, progressive=True)
+        return out.getvalue()
+    except Exception:
+        return None

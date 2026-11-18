@@ -1,3 +1,4 @@
 {
-  "_help": "Optional editorial corrections by ticker (normally empty: leaders are checked automatically against SEC filings). Fields: ceo {name, since, bio}, chair, website, employees, name, country, city."
+  "_help": "Optional editorial corrections by ticker (normally empty: leaders are checked automatically against SEC filings). Fields: ceo {name, since, bio, photo, photoCredit, photoSource}, chair, website, employees, name, country, city.",
+  "_photo_help": "CEO portrait from the company's press / media page (link in docs/CHECK.md when no free photo exists). Check it is the right person and that editorial use is allowed. 'photo' = direct link to the image file (.jpg/.png); 'photoCredit' = shown under the photo (default: '<Company>, press kit'); 'photoSource' = the press page, for your records. The engine copies the photo into docs/ceo at the next run. Example: \"HSBC\": {\"ceo\": {\"photo\": \"https://www.hsbc.com/.../georges-elhedery.jpg\", \"photoCredit\": \"HSBC, media centre\", \"photoSource\": \"https://www.hsbc.com/news-and-views/media-resources\"}}"
 }
