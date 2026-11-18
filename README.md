@@ -49,4 +49,6 @@ Files published in `docs/`: `eb-monitor.json` (this week), `history/` (every wee
 
 Editorial corrections (CEO, chair, website, name, country, city) go in `data/overrides.json`; they win over automatic data.
 
+**CEO photos.** Free portraits from Wikimedia Commons are added automatically, with credit. When none exists, `CHECK.md` links to the company's press / media page. The official portrait published there for the press can be added by hand in `data/overrides.json` (`ceo.photo`, `ceo.photoCredit`), after checking it is the right person and that editorial use is allowed. The engine resizes it, keeps it in `docs/ceo/` and credits it (for example "HSBC, press kit"). This is optional: without a photo the component shows the CEO's initials.
+
 *Educational content ranked by a published method, not investment advice.*

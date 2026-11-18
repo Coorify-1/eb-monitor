@@ -1,6 +1,7 @@
 """End-to-end run on simulated data (no network): checks the output matches the Framer component."""
 import datetime as dt
 import json
+import os
 import random
 
 import numpy as np
@@ -139,6 +140,8 @@ def fake(monkeypatch, tmp_path):
     monkeypatch.setattr(SRC, "person_photo", lambda *a, **k: None)
     monkeypatch.setattr(SRC, "commons_logo", lambda *a, **k: None)
     monkeypatch.setattr(SRC, "site_icon", lambda *a, **k: (b"\x89PNG\r\n\x1a\n" + b"0" * 400, "png"))
+    monkeypatch.setattr(SRC, "press_page", lambda *a, **k: "https://example.com/newsroom")
+    monkeypatch.setattr(SRC, "fetch_photo", lambda *a, **k: b"\xff\xd8\xff" + b"0" * 2000)
     monkeypatch.setattr(SRC, "fred", lambda s: [("2026-01-01", 1.0), ("2026-01-02", 1.1)] * 40)
     monkeypatch.setattr(SRC, "fx_per_usd", lambda: {"USD": 1.0, "EUR": 0.9})
     monkeypatch.setattr(R.time, "sleep", lambda *_: None)
@@ -247,3 +250,49 @@ def test_next_update_skips_a_week_already_published():
     # across the US clock change (Nov 1, 2026): still 7:00 New York
     assert R.next_update(dt.date(2026, 10, 23), at(2026, 10, 31, 12, 0)) == at(2026, 11, 2, 7, 0)
     assert R.next_update(dt.date(2026, 10, 30), at(2026, 10, 31, 12, 0)) == at(2026, 11, 9, 7, 0)
+
+
+def test_press_kit_photo_from_overrides(fake, monkeypatch):
+    """Method 2: the editor adds the official portrait from the company's press page."""
+    ov = {f"B{i:02d}": {"ceo": {"name": "Ann Lee", "photo": f"https://bank{i}.example/press/ann-lee.jpg"}} for i in range(N_BANK)}
+    ov["B01"]["ceo"]["photoCredit"] = "Test Bank One, media centre"
+    ov.update({f"C{i:02d}": {"ceo": {"name": "Bob Roe"}} for i in range(N_COMP)})
+    monkeypatch.setattr(R, "_overrides", lambda: ov)
+    out = fake / "docs" / "eb-monitor.json"
+    monkeypatch.setattr("sys.argv", ["run", "--out", str(out), "--cache", str(fake / "cache")])
+    R.main()
+    j = json.load(open(out))
+    for it in j["banking"]:
+        c = it["ceo"]
+        assert c["name"] == "Ann Lee"
+        assert c["photo"].startswith("https://cdn.jsdelivr.net/gh/") and "/docs/ceo/" + it["ticker"] + "-" in c["photo"]
+        assert (fake / "docs" / "ceo" / c["photo"].rsplit("/", 1)[-1]).exists()
+        assert c["photoCredit"] == ("Test Bank One, media centre" if it["ticker"] == "B01" else it["name"] + ", press kit")
+    for it in j["company"]:
+        assert it["ceo"]["name"] == "Bob Roe" and "photo" not in it["ceo"]
+    check = open(fake / "docs" / "CHECK.md").read()
+    assert "Photo officielle de l'espace presse" in check
+    assert "dans l'[espace presse](https://example.com/newsroom)" in check
+
+    # a new photo link replaces the old file (new name, so no cache shows the old portrait)
+    t = j["banking"][0]["ticker"]
+    old = j["banking"][0]["ceo"]["photo"].rsplit("/", 1)[-1]
+    new = R.official_photo(t, "https://new.example/portrait.jpg", str(out)).rsplit("/", 1)[-1]
+    files = [f for f in os.listdir(fake / "docs" / "ceo") if f.startswith(t + "-")]
+    assert files == [new] and new != old
+
+
+def test_press_page_finds_newsroom(monkeypatch):
+    html = ('<a href="https://facebook.com/x">Media</a><a href="/careers">Careers</a>'
+            '<a href="/about/media">Media</a><a href="https://www.acme.com/en/newsroom">Newsroom</a>'
+            '<a href="https://other.com/press">Press</a>')
+
+    class Resp:
+        def __init__(self, url, text="", status=200):
+            self.url, self.text, self.status_code = url, text, status
+
+    monkeypatch.setattr(SRC._s, "get", lambda url, **k: Resp("https://www.acme.com/", html) if url.rstrip("/").endswith("acme.com") else Resp(url, "", 404))
+    assert SRC.press_page("acme.com") == "https://www.acme.com/en/newsroom"
+    # no link on the home page: try the usual addresses
+    monkeypatch.setattr(SRC._s, "get", lambda url, **k: Resp(url, "<html>ok</html>") if url.endswith("/media") or url.rstrip("/").endswith("acme.com") else Resp(url, "", 404))
+    assert SRC.press_page("https://acme.com") == "https://acme.com/media"
