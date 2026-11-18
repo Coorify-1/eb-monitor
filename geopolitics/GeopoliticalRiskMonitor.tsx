@@ -4,7 +4,7 @@ import { addPropertyControls, ControlType, RenderTarget } from "framer"
 /**
  * GEOPOLITICAL RISK MONITOR — Economic Bearings
  * Same family as THE ANALYST and the Economic Calendar: flat beige page, serif titles
- * and numbers, thin rules. A dashboard with four tabs that switch in place:
+ * and numbers, thin rules. Four tabs that switch in place:
  * Risk summary · Market movement · Calendar · Methodology.
  *
  * DATA
@@ -871,7 +871,16 @@ export default function GeopoliticalRiskMonitor(props: any) {
         Object.fromEntries(
             Object.entries(o || {}).filter(([, v]) => v !== undefined && v !== null)
         )
-    const tx: Record<string, string> = { ...DEF_TEXTS, ...keepEmpty(p.texts) }
+    // Framer keeps the texts that were current when the component was placed on the page.
+    // Texts from earlier versions are replaced by today's wording; your own edits are kept.
+    const stored = Object.fromEntries(
+        Object.entries(keepEmpty(p.texts)).filter(
+            ([, v]) =>
+                !LEGACY_TEXTS.has(String(v).trim()) &&
+                !/dashboard|automatic|✎|editor/i.test(String(v))
+        )
+    )
+    const tx: Record<string, string> = { ...DEF_TEXTS, ...stored }
     const links: Record<string, string> = { ...DEF_LINKS, ...clean(p.links) }
     const rootRef = React.useRef<HTMLDivElement>(null)
     const W = useWidth(rootRef)
@@ -1370,8 +1379,15 @@ export default function GeopoliticalRiskMonitor(props: any) {
             <Panel title={tx.readPanel}>
                 <div className="egr-meth">
                     <div>
+                        <h4>{tx.aboutTitle}</h4>
+                        <p>{tx.about}</p>
+                    </div>
+                    <div>
                         <h4>{tx.readTitle}</h4>
                         <p>{tx.read}</p>
+                    </div>
+                    <div>
+                        <p className="egr-disc">{tx.caveat}</p>
                     </div>
                 </div>
             </Panel>
@@ -1891,17 +1907,39 @@ const DEF_TEXTS: Record<string, string> = {
     m2Title: "Market reaction",
     m2: "Each risk has three assets that would move clearly if it happened. For each, we take the one-month change up to the previous Sunday and divide it by its typical one-month change over the past two years. Moves in the expected direction count for, moves the other way count against, up to twice the typical size. +1 = all three move fully as if the risk were happening; −1 = all three move fully the opposite way.",
     m3Title: "Level",
-    m3: "High, Medium or Low is the structural level of each risk, reviewed every month against official and press sources. It is raised for the week when news attention and market reaction are both strongly elevated; it is never lowered by quiet markets alone.",
+    m3: "High, Medium or Low is our qualitative assessment of each risk's likelihood, reviewed every month against official sources, market commentary and financial research. It is raised for the week when news attention and market reaction are both strongly elevated.",
     m4Title: "Weekly update",
     m4: "The monitor is updated every Monday morning with the previous week's data. The calendar lists only the major geopolitical dates we expect to matter for markets.",
     sourcesTitle: "Sources",
-    readPanel: "Reading the monitor",
+    readPanel: "Our assessment",
+    aboutTitle: "Sources and analysis",
+    about: "We work from sources and analysis on the top geopolitical risks we follow. The scenarios are based on our assessment of geopolitical developments, market commentary and financial research.",
+    caveat: "Scenarios are illustrative and not exhaustive. Geopolitical risks evolve over time.",
     readTitle: "How to read the risk map",
-    read: "Higher on the map means more news attention. Further right means prices are already moving the way the risk would move them. Top right: the risk is watched and priced. Top left: watched, but markets are not reacting yet.",
-    footBold: "For information only, not investment advice.",
+    read: "The vertical axis shows news attention against its five-year norm. The horizontal axis illustrates the extent to which markets have priced in each risk. Markers indicate our qualitative assessment of likelihood: Low, Medium or High.",
+    footBold: "Disclaimer:",
     footText:
-        "Scenarios are illustrative and do not cover every outcome. Past moves do not predict future returns.",
+        "This monitor is for informational purposes only. It does not constitute a forecast, investment research or financial advice.",
 }
+
+/** Default texts of earlier versions: replaced by today's wording when Framer still holds them. */
+const LEGACY_TEXTS = new Set([
+    "GEOPOLITICAL RISK DASHBOARD",
+    "How the dashboard works",
+    "We measure how much the world's news covers each risk, every week, compared with its usual level over the past years. 0 means usual coverage; 1 means well above usual. A story that stays high for months slowly becomes the new normal.",
+    "Each risk has three assets that would move clearly if it happened. We compare their moves over the past month with that expected direction and size. +1 means prices behave as if the risk were happening; −1 means they move the opposite way.",
+    "High, Medium or Low is set automatically from attention and market reaction together. Our editors can adjust it when the numbers miss part of the story; an adjusted level is marked ✎.",
+    "High, Medium or Low reflects how much attention a risk receives and how far markets are already reacting to it, read together with the wider context.",
+    "High, Medium or Low is the structural level of each risk, reviewed every month against official and press sources. It is raised for the week when news attention and market reaction are both strongly elevated; it is never lowered by quiet markets alone.",
+    "The dashboard is updated every Monday morning with the previous week's data. The calendar lists only the major geopolitical dates we expect to matter for markets.",
+    "Level, attention and the last 12 weeks",
+    "For information only, not investment advice.",
+    "Scenarios are illustrative and do not cover every outcome. Past moves do not predict future returns.",
+    "Higher on the map means more news attention. Further right means prices are already moving the way the risk would move them. Top right: the risk is watched and priced. Top left: watched, but markets are not reacting yet.",
+    "Reading the monitor",
+    "0 = usual level",
+    "Att.",
+])
 
 const DEF_RISKS = [
     { id: "middle_east", label: "", level: "auto", view: "", show: true },
