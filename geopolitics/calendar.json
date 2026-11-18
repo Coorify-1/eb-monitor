@@ -1,0 +1,10 @@
+{
+  "_help": "Major geopolitical dates only. date / end = YYYY-MM-DD, risk = id from risks.json. Past dates disappear by themselves. Saving this file on GitHub updates the site in about two minutes.",
+  "events": [
+    {"date": "2026-11-29", "title": "OPEC+ ministerial meeting on 2027 output", "region": "Vienna (online)", "risk": "energy"},
+    {"date": "2026-12-14", "end": "2026-12-15", "title": "G20 leaders’ summit", "region": "Miami, United States", "risk": "trade"},
+    {"date": "2026-12-17", "end": "2026-12-18", "title": "European Council summit", "region": "Brussels", "risk": "russia_nato"},
+    {"date": "2027-01-10", "title": "US–China trade truce expires", "region": "United States · China", "risk": "us_china"},
+    {"date": "2027-02-12", "end": "2027-02-14", "title": "Munich Security Conference", "region": "Munich, Germany", "risk": "russia_nato"}
+  ]
+}

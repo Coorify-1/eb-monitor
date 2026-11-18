@@ -1,0 +1,66 @@
+name: Geopolitical Risk Monitor weekly
+
+on:
+  schedule:
+    # Monday 06:15 New York. Two times because New York changes clocks
+    # (10:15 UTC in summer, 11:15 UTC in winter); the engine skips the run that is too early
+    # or that finds this week's update already published.
+    - cron: "15 10 * * 1"
+    - cron: "15 11 * * 1"
+    # back-up runs in case GitHub skips or delays a scheduled run (they do nothing once the week is out)
+    - cron: "40 12 * * 1"
+    - cron: "40 14 * * 1"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Publish a new update now (even if this week's is already out)"
+        type: boolean
+        default: true
+  push:
+    branches: [main]
+    paths: ["geopolitics/override.json", "geopolitics/calendar.json", "geopolitics/events.json"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eb-geopolitics
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install requests pytest
+
+      - name: Test the method on simulated data
+        run: python -m pytest -q tests/test_geopolitics.py
+
+      - name: Weekly update
+        if: github.event_name != 'push'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FORCE: ${{ inputs.force }}
+        run: python -m geopolitics.run --out docs/eb-geopolitics.json
+
+      - name: Apply edits (override, calendar, events)
+        if: github.event_name == 'push'
+        run: python -m geopolitics.run --out docs/eb-geopolitics.json --apply-edits
+
+      - name: Publish
+        if: always()
+        run: |
+          git add docs/eb-geopolitics.json docs/geopolitics geopolitics/data 2>/dev/null || true
+          git diff --cached --quiet && { echo "Nothing new to publish."; exit 0; }
+          git -c user.name="eb-geopolitics-bot" -c user.email="eb-geopolitics-bot@users.noreply.github.com" commit -qm "Geopolitical Risk Monitor: week $(date +%G-W%V)"
+          for i in 1 2 3; do git pull -q --rebase && git push -q && exit 0; sleep 10; done
+          exit 1

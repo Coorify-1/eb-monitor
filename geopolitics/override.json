@@ -1,0 +1,6 @@
+{
+  "_help": "Set a level (high, medium, low) and/or a short view for one risk. Leave a field empty to use the data. Saving this file on GitHub updates the site in about two minutes.",
+  "risks": {
+    "middle_east": {"level": "", "view": ""}
+  }
+}
