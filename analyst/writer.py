@@ -152,7 +152,8 @@ def check(out: dict, facts: dict) -> list[str]:
         errs.append(f"the article has {nlinks} internal links; use two or three")
     for i, p in enumerate(paras):
         plain = LINK_RE.sub(lambda m: m.group(2), p)
-        figs = [n for n in re.findall(r"\d[\d,.]*(?!-(?:year|month|week|day))", plain)]
+        nodates = re.sub(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2}\b|\b(19|20)\d{2}\b", "", plain)
+        figs = [n for n in re.findall(r"\d[\d,.]*(?!-(?:year|month|week|day))", nodates)]
         limit = 0 if i == 3 else 3
         if len(figs) > limit:
             errs.append(f"lead {i + 1} has {len(figs)} figures; max {limit}")
@@ -215,24 +216,40 @@ def _call(provider: dict, model: str, messages: list[dict]):
     return None
 
 
+SOFT = ("figures", "internal links", "too long", "words; use", "needs one internal link")
+
+
+def _hard(errs):
+    return [e for e in errs if not any(s in e for s in SOFT)]
+
+
 def write_ai(facts: dict):
+    """Ask the model; fix-up rounds on errors. A draft whose only remaining issues are
+    style ones (number of figures, links, length) is still published; any factual or safety
+    issue (unknown number, advice, URL, unknown link) means the draft is rejected."""
     user = ("Today's facts (JSON). Link keys you may use: "
             + ", ".join(f"{k} = {C.PAGE_NAMES[k]}" for k in C.PAGES)
             + "\n\n" + json.dumps(facts, ensure_ascii=False, indent=1))
+    best = None
     for prov in C.LLM_PROVIDERS:
         for model in prov["models"]:
             messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}]
-            for attempt in range(2):
+            for attempt in range(3):
                 out = _call(prov, model, messages)
                 if out is None:
-                    break
+                    continue
                 errs = check(out, facts)
                 if not errs:
                     return out, f"{prov['name']} · {model}"
+                if not _hard(errs) and (best is None or len(errs) < best[0]):
+                    best = (len(errs), out, f"{prov['name']} · {model}")
                 log(f"  writer: {model} draft rejected ({len(errs)} issues): " + "; ".join(errs[:6]))
                 messages += [{"role": "assistant", "content": json.dumps(out, ensure_ascii=False)},
                              {"role": "user", "content": "Fix these problems and return the full JSON again:\n- "
                               + "\n- ".join(errs[:15])}]
+            if best:
+                log(f"  writer: publishing the best {best[2]} draft (style issues only)")
+                return best[1], best[2]
     return None, None
 
 
