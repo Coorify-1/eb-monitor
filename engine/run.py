@@ -40,6 +40,18 @@ def last_finished_day(now_ny: dt.datetime) -> dt.date:
     return d
 
 
+def next_update(as_of: dt.date, now_ny: dt.datetime) -> dt.datetime:
+    """First Monday 7:00 am New York that will publish NEW data: the same rule
+    the scheduled run uses to skip ("already published"). A ranking published by
+    hand on a Sunday therefore announces the Monday after next, not tomorrow."""
+    t = next_monday_7(now_ny)
+    for _ in range(2):  # data never runs ahead of the clock; stop after one skipped week
+        if last_finished_day(t) > as_of:
+            break
+        t += dt.timedelta(days=7)
+    return t
+
+
 def next_monday_7(now_ny: dt.datetime) -> dt.datetime:
     d = now_ny.date()
     add = (0 - d.weekday()) % 7
@@ -661,7 +673,7 @@ def main():
         "week": str(asd.isocalendar()[1]),
         "asOf": as_of,
         "generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
-        "nextUpdate": next_monday_7(now).astimezone(dt.timezone.utc).isoformat(timespec="seconds"),
+        "nextUpdate": next_update(asd, now).astimezone(dt.timezone.utc).isoformat(timespec="seconds"),
         "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
         "regime": reg,
         "banking": build(pb, "banking", C.BANK_PILLARS, prev["banking"]),
