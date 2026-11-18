@@ -17,13 +17,17 @@ from .sources import log
 BANNED = re.compile(
     r"\b(buy|sell|you should|investors should|we recommend|recommend(ed)?|guarantee[ds]?|price target|"
     r"will (rise|fall|soar|plunge|crash|rally|drop|climb|surge|escalate)|is (set|poised) to|financial advice|"
-    r"artificial intelligence model|as an ai|language model)\b", re.I)
+    r"artificial intelligence model|as an ai|language model|aggressor|regime of|martyr|infidel|crusader|zionist entity)\b", re.I)
 
 SYSTEM = """You write the short view of each risk in the Geopolitical Risk Monitor of Economic Bearings.
 Tone: calm, precise, editorial English (Financial Times / The Economist), for curious non-specialist readers.
 For each risk write EXACTLY two sentences, 22 to 40 words in total:
  1. What is happening: the situation behind the news coverage, using the headlines given (no names of outlets).
  2. What markets are doing about it, in words, using the attention and reaction facts.
+Neutrality (house rule): name a conflict by its parties ("the Israel–Hamas war", "the Russia–Ukraine conflict",
+"US–Iran tensions"), never by one side's action ("attack on…", "invasion of…" as a title); report actions by all
+sides in the same plain, factual verbs; never frame by nationality, religion or ethnicity; no loaded words
+("terrorist regime", "aggressor", "martyr").
 Hard rules: no digits or numbers at all; no advice; no price forecasts ("will rise/fall"); do not invent events,
 people or places that are not in the headlines; mark interpretation ("appears", "is consistent with").
 Reading the facts: attention 0 = usual news coverage, 1 = well above usual, 2 or more = exceptional.

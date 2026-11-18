@@ -1,12 +1,12 @@
 {
-  "_help": "Past events marked with a number on the 'Global attention over time' chart. Keep it short (8 to 12 events).",
+  "_help": "Past events marked with a number on the 'Global attention over time' chart. Keep it short (8 to 12 events). House rule: name a conflict by its parties (\"Russia–Ukraine Conflict\", \"Israel–Hamas War\"), never by one side's action; no framing by nationality, religion or ethnicity.",
   "events": [
     {"date": "2018-03-01", "label": "US steel and aluminium tariffs"},
-    {"date": "2020-01-03", "label": "US strike kills Soleimani"},
-    {"date": "2020-03-11", "label": "WHO declares a COVID-19 pandemic"},
+    {"date": "2020-01-03", "label": "US–Iran Escalation"},
+    {"date": "2020-03-11", "label": "COVID-19 Pandemic Declared"},
     {"date": "2022-02-24", "label": "Russia–Ukraine Conflict"},
     {"date": "2023-10-07", "label": "Israel–Hamas War: October 7"},
     {"date": "2025-04-02", "label": "US “reciprocal” tariffs"},
-    {"date": "2025-06-22", "label": "US strikes Iran’s nuclear sites"}
+    {"date": "2025-06-22", "label": "Israel–Iran War"}
   ]
 }

@@ -656,12 +656,12 @@ function rng(seed: number) {
 
 const SAMPLE_EVENTS = [
     { date: "2018-03-01", label: "US steel and aluminium tariffs" },
-    { date: "2020-01-03", label: "US strike kills Soleimani" },
-    { date: "2020-03-11", label: "WHO declares a COVID-19 pandemic" },
-    { date: "2022-02-24", label: "Russia invades Ukraine" },
-    { date: "2023-10-07", label: "October 7 attack on Israel" },
+    { date: "2020-01-03", label: "US–Iran Escalation" },
+    { date: "2020-03-11", label: "COVID-19 Pandemic Declared" },
+    { date: "2022-02-24", label: "Russia–Ukraine Conflict" },
+    { date: "2023-10-07", label: "Israel–Hamas War: October 7" },
     { date: "2025-04-02", label: "US “reciprocal” tariffs" },
-    { date: "2025-06-22", label: "US strikes Iran’s nuclear sites" },
+    { date: "2025-06-22", label: "Israel–Iran War" },
 ]
 
 function buildSample(): Data {

@@ -1,5 +1,5 @@
 {
-  "_help": "Major geopolitical dates only. date / end = YYYY-MM-DD, risk = id from risks.json. Past dates disappear by themselves. Saving this file on GitHub updates the site in about two minutes.",
+  "_help": "Major geopolitical dates only. date / end = YYYY-MM-DD, risk = id from risks.json. Past dates disappear by themselves. Saving this file on GitHub updates the site in about two minutes. Same house rule as events.json: neutral titles, conflicts named by their parties.",
   "events": [
     {"date": "2026-11-29", "title": "OPEC+ ministerial meeting on 2027 output", "region": "Vienna (online)", "risk": "energy"},
     {"date": "2026-12-14", "end": "2026-12-15", "title": "G20 leaders’ summit", "region": "Miami, United States", "risk": "trade"},
