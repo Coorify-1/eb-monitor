@@ -44,6 +44,18 @@ def last_finished_day(now_ny):
     return d
 
 
+def skip_scheduled(now_ny, prev_run_date):
+    """Reason to skip a scheduled run, or None to run.
+    GitHub often starts scheduled runs hours late (Nov 2026: about 9 h), so a late run
+    must still publish; it only stops when the day is already done, or when the
+    winter cron fires at 11 pm the evening before."""
+    if now_ny.hour >= 23:
+        return "Before midnight in New York: waiting for the next scheduled run."
+    if prev_run_date == now_ny.date().isoformat():
+        return "Today's update is already published."
+    return None
+
+
 def next_midnight(now_ny):
     d = now_ny.date() + dt.timedelta(days=1)
     return dt.datetime.combine(d, dt.time(0, 0), NY)
@@ -235,11 +247,9 @@ def main():
     prev_out = load(a.out, {})
     force = os.environ.get("FORCE") == "true" or os.environ.get("GITHUB_EVENT_NAME") in ("push", "workflow_dispatch")
     if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and not force:
-        if now.hour >= 6:
-            log("Not midnight in New York: waiting for the next scheduled run.")
-            return
-        if prev_out.get("runDate") == today.isoformat():
-            log("Today's update is already published.")
+        why = skip_scheduled(now, prev_out.get("runDate"))
+        if why:
+            log(why)
             return
     os.makedirs(a.cache, exist_ok=True)
     st_path = os.path.join(a.cache, "state.json")
