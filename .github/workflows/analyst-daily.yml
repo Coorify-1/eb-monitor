@@ -17,6 +17,7 @@ on:
         description: "Publish a new edition now (even if today's is already out)"
         type: boolean
         default: true
+        # the Cloudflare scheduler sends false: then the engine skips if today's edition is out
   push:
     branches: [main]
     paths: ["analyst/override.json"]
