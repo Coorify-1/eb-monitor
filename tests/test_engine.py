@@ -232,3 +232,18 @@ def test_verified_ceo_form4_and_annual_report():
     assert name == "Georges Elhedery" and not wd
     name, src, wd = SRC.verified_ceo(Sec(), 1, sub, True, None, "nothing here", {"form": "20-F", "date": "2026-02-25"})
     assert name is None
+
+
+def test_next_update_skips_a_week_already_published():
+    ny = R.NY
+    at = lambda *a: dt.datetime(*a, tzinfo=ny)
+    friday = dt.date(2026, 11, 13)
+    # published by hand on Sunday with Friday's data: Monday's run will skip, so announce the Monday after
+    assert R.next_update(friday, at(2026, 11, 15, 19, 0)) == at(2026, 11, 23, 7, 0)
+    # normal Monday run after 7:00
+    assert R.next_update(friday, at(2026, 11, 16, 8, 0)) == at(2026, 11, 23, 7, 0)
+    # manual run on a Tuesday with Monday's data
+    assert R.next_update(dt.date(2026, 11, 16), at(2026, 11, 17, 10, 0)) == at(2026, 11, 23, 7, 0)
+    # across the US clock change (Nov 1, 2026): still 7:00 New York
+    assert R.next_update(dt.date(2026, 10, 23), at(2026, 10, 31, 12, 0)) == at(2026, 11, 2, 7, 0)
+    assert R.next_update(dt.date(2026, 10, 30), at(2026, 10, 31, 12, 0)) == at(2026, 11, 9, 7, 0)
