@@ -61,3 +61,10 @@ corporate, outlook, islamic).
 - `sources.py` : lecture des sources · `analysis.py` : l'analyse · `writer.py` : rédaction et contrôle
 - `run.py` : l'édition du jour, archive dans `docs/analyst/AAAA-MM-JJ.json`
 - `TheAnalyst.tsx` : le composant Framer
+
+## Heure de publication fiable
+
+GitHub retarde parfois ses lancements programmés de plusieurs heures. Le Worker Cloudflare
+`analyst-scheduler` (https://analyst-scheduler.b-boussoffara.workers.dev, code dans `scheduler/worker.js`)
+demande à GitHub de lancer l'édition à 06:30 New York (déclencheurs `30 10 * * *` et `30 11 * * *`).
+Les lancements programmés de GitHub restent en secours : ils publient l'édition du jour si elle manque encore.
