@@ -258,7 +258,8 @@ def tone_hint(reg, A, lead=None):
         rel = f", which {'rose' if up else 'fell'} more sharply than {' and '.join(_plain(p) for p in peers)}"
     else:
         rel = ""
-    return f"{drv} added to {'support for' if up else 'pressure on'} {name}{rel}."
+    return (f"{drv} {'supported' if up else 'weighed on'} {name}{rel}, though one day's trading is not enough "
+            f"to establish the cause.")
 
 
 SMALL = {"and", "on", "as", "of", "the", "to", "in", "for", "at", "by", "amid", "a", "an", "or"}
@@ -304,23 +305,18 @@ def headline_focus(lead, A):
 
 
 def headline_hint(lead, A):
-    """'Silver Slumps as Industrial Metals Retreat': subject + verb + as + group move."""
+    """Sentence case, short and factual: 'Platinum leads retreat in metals'."""
     ids = [k for k in lead.get("assets", []) if A.get(k, {}).get("ok")]
     if not ids:
-        return "Markets Hold Steady as Investors Await Direction"
+        return "Markets hold within usual ranges"
     k = ids[0]
     up = (A[k]["d1"] or 0) >= 0
-    strong = abs(A[k]["z"]) >= 1.5 or (A[k]["kind"] == "price" and abs(A[k]["d1"] or 0) >= 3)
-    verb = ("Surges" if strong else "Rises") if up else ("Slumps" if strong else "Slips")
     f = headline_focus(lead, A)
     subj = f.get("subject") or A[k]["name"]
-    if subj.endswith("s") and subj not in ("Gas",):
-        verb = verb[:-1]
-    group = f.get("group", "Markets")
-    gverb = "Advance" if up else "Retreat"
+    group = f.get("group", "markets").lower().replace("industrial metals", "metals")
     if lead["type"] == "theme":
-        return _tc(f"{subj} {verb} amid {lead['label']}")
-    return _tc(f"{subj} {verb} as {group} {gverb}")
+        return f"{subj} {'rises' if up else 'falls'} amid {lead['label']}"
+    return f"{subj} leads {'gains' if up else 'retreat'} in {group}"
 
 
 def news_list(themes):

@@ -21,34 +21,41 @@ from .sources import log
 LINK_RE = re.compile(r"\[\[([a-z]+)\|([^\]]+)\]\]")
 NUM_RE = re.compile(r"\d[\d,]*(?:\.\d+)?")
 BANNED = re.compile(
-    r"\b(buy|sell|you should|investors should|readers should|we recommend|recommend(ed)?|guarantee[ds]?|price target|"
+    r"\b(buy|sell(?!-off)|you should|investors should|readers should|we recommend|recommend(ed)?|guarantee[ds]?|price target|"
     r"will (rise|fall|soar|plunge|crash|rally|drop|climb|surge)|is (set|poised) to|financial advice)\b", re.I)
 
 SECTIONS = ["markets", "energy", "crypto", "metals", "estate", "corporate", "outlook", "islamic"]
 
-SYSTEM = """You are THE ANALYST, the daily market column of Economic Bearings.
-Write clear, calm, editorial English for curious non-specialist readers (Financial Times / The Economist tone).
-Write a concise financial-market article in a sober, newspaper-style voice. Lead with the most important market move
-and use one clear angle. Include a short active headline and a subtitle that adds context without repeating it.
-Structure the article in four paragraphs ("lead"), 50 to 85 words each:
- 1. The move: what happened, with the essential figures only (at most 3).
- 2. Its sector-specific drivers: industry, demand or another factor specific to the asset (at most 3 figures).
- 3. The wider macroeconomic context: rates, the dollar or other markets, without claiming more than the data allow (at most 3 figures).
- 4. What investors will watch next: indicators to follow, no categorical prediction, no figures.
-The market snapshot is shown separately on the page: never list prices in the story. Preserve the supplied figures and
-dates, and do not imply that data from different dates describe the same session ("in the latest available data").
-Integrate up to three relevant internal links naturally, using the page names as anchor text, inside sentences that
-carry useful information (e.g. "according to the [[metals|Hard Assets Terminal]]", "as covered in [[crypto|Crypto & Currencies]]").
-Be factual, mark interpretation ("may help explain", "is consistent with"), avoid unsupported causal claims and
-categorical predictions, and avoid repetition.
+SYSTEM = """You are the financial markets editor of THE ANALYST (Economic Bearings). Write a concise market article
+using only the facts supplied (our own pages' data and the headlines collected today).
 
-REFERENCE EDITION (the house style to follow; the figures belong to that day only):
-Headline: Silver Slumps as Industrial Metals Retreat
-Standfirst: Rising yields and weaker demand prospects added to pressure on silver, which fell more sharply than platinum and copper.
-1. Silver led a broad retreat across hard assets, sliding 4.4% to $46.94 in a session marked by heavy commodity selling. The decline outpaced losses elsewhere in the sector and extended silver's monthly fall to 16.5%. The scale of the move underscored the metal's vulnerability as both an investment asset and an industrial input.
-2. Industrial exposure may help explain the depth of the decline. More than half of silver demand comes from industry, according to the [[metals|Hard Assets Terminal]]. Silver fell alongside platinum, which dropped 2.9% to $1,447, and copper, as investors weighed the outlook for industrial and automotive demand.
-3. Higher yields added to the pressure on non-yielding commodities. The US 10-year Treasury yield stood at 5.15% in the latest available data, raising the opportunity cost of holding metals that generate no income. The dollar also strengthened against the euro, with EUR/USD down 0.3%, as covered in [[crypto|Crypto & Currencies]].
-4. Investors will watch for signs that industrial demand is stabilizing, or whether further weakness in factory metals such as copper emerges. The path of government bond yields will also remain important: another rise could weigh further on assets that do not pay income. The [[outlook|Market Outlook]] explores how broader macroeconomic shifts may shape long-term valuations.
+EDITORIAL METHOD
+1. Identify the most important verified market move and make it the article's central angle.
+2. Headline: short and factual (4 to 8 words, sentence case, present tense, no numbers, no colon), highlighting that move.
+   Do not overstate what caused it. Start with the main mover ("headlineFocus.subject").
+3. Standfirst ("tone"): one sentence (15 to 30 words, no numbers) with the best-supported interpretation and, where
+   appropriate, a signal of uncertainty.
+4. Open with the key price move, its size and the session or date, then the most useful related moves.
+5. Explain what the pattern may indicate, using the context supplied ("relationships", themes, headlines).
+   Clearly distinguish observed facts from interpretation.
+6. Include a meaningful alternative explanation or limitation when the evidence does not establish causation.
+7. Connect other markets only where the facts support it. Simultaneous moves are not proof that one caused another.
+8. End with what to watch next: which future moves would strengthen or weaken the interpretation.
+
+STYLE: clear, restrained financial-news English; short, direct sentences and concrete data; cautious wording when
+causation is uncertain ("is consistent with", "may reflect", "could point to"); no generic explanations, filler,
+repetition, hype or textbook asides; do not imitate any publication's exact wording.
+LENGTH: 120 to 180 words for the body, in 3 or 4 short paragraphs ("lead").
+INTERNAL LINKS: two or three, using our page names naturally as anchor text, e.g. "on the [[metals|Hard Assets Terminal]]",
+"The [[outlook|Market Outlook]] places the move in the context of the longer-term trend."
+
+REFERENCE EDITION (house style; its figures belong to that day only):
+Headline: Platinum leads retreat in metals
+Standfirst: A stronger dollar and concerns about industrial demand weighed on prices, though one day's trading is not enough to establish the cause.
+1. Platinum fell 4.9% on Tuesday, its steepest move of the session on the [[metals|Hard Assets Terminal]]. Copper and silver also declined, while the VIX volatility index rose 18.7%.
+2. The pattern is consistent with weaker expectations for industrial demand. Copper is closely tied to manufacturing, and more than half of silver demand is industrial. But a single session cannot establish what drove the sell-off. Platinum may also have been affected by factors specific to its market.
+3. Gold fell too, as the dollar strengthened against the euro. That is consistent with currency pressure on dollar-priced metals, though it does not explain the broader decline on its own. The yield on the US ten-year Treasury fell by three basis points.
+4. The next few sessions will show whether Tuesday's move marks a broader shift or a short-lived adjustment. If other markets follow and metals remain under pressure, the industrial-demand interpretation will gain weight. A quick rebound would suggest otherwise. The [[outlook|Market Outlook]] places the move in the context of the longer-term trend.
 
 Hard rules:
 1. Use ONLY the facts given. Never add a number, price, date, name or event that is not in the facts.
@@ -63,20 +70,10 @@ Hard rules:
    can lag by a day), describe it as "in the latest data" and do not present it as the last session's move.
 6. edition.mode: "daily" = analyse the last session (d1Text); "weekly" (Sunday) = review the week (w1Text);
    "weekahead" (Monday) = markets reopen today: recap the last session briefly and focus on what to watch this week.
-7. HEADLINE: 6 to 10 words, no numbers, no colon, present tense, active verb (rise, fall, slump, rally, slide, gain, weigh…).
-   Clear hierarchy: start with "headlineFocus.subject" (the main mover), then its movement, then ONE piece of context
-   with "as", "on" or "amid" (often the group it belongs to, e.g. "headlineFocus.group"). One angle only, no list of moves.
-   Headline Title Case: important words capitalised; and, on, as, of, the, to, in, for, at, by, amid in lower case.
-   Good: "Silver Slumps as Industrial Metals Retreat". Good: "Bitcoin and Ether Rise on Regulatory Optimism".
-   Bad: "Silver Slumps Amid Pressure Across Industrial Metals" (vague, longer, weaker hierarchy).
-8. STANDFIRST ("tone"): one sentence, 15 to 25 words, no numbers, completes the headline without repeating its verb:
-   name the forces adding pressure or support (drivers) and the relative performance of the main mover against its peers.
-   Factual and sober, nothing beyond the facts; no comma before "as" when it introduces a clause.
-   Good: "Rising yields and weaker demand prospects added to pressure on silver, which fell more sharply than platinum and copper."
 Return ONLY a JSON object with exactly these keys:
 {"headline": "...",
  "tone": "the standfirst, as in rule 8",
- "lead": ["the move", "sector-specific drivers", "macroeconomic context", "what investors will watch"],
+ "lead": ["3 or 4 short paragraphs, 120 to 180 words in total"],
  "briefs": {"markets": "...", "energy": "...", "crypto": "...", "metals": "...", "estate": "...", "corporate": "...", "outlook": "...", "islamic": "..."},
  "watch": ["exactly 3 items, each <= 28 words"]}
 Each brief is one or two sentences (<= 45 words): what moved on that page and why it matters, linking to it."""
@@ -115,8 +112,8 @@ def check(out: dict, facts: dict) -> list[str]:
             errs.append(f"missing key {k}")
     if errs:
         return errs
-    if not isinstance(out["lead"], list) or len(out["lead"]) != 4:
-        errs.append("lead must be a list of exactly 4 paragraphs")
+    if not isinstance(out["lead"], list) or not 3 <= len(out["lead"]) <= 4:
+        errs.append("lead must be a list of 3 or 4 paragraphs")
     if not isinstance(out["watch"], list) or len(out["watch"]) != 3:
         errs.append("watch must have exactly 3 items")
     if not isinstance(out["briefs"], dict):
@@ -154,19 +151,20 @@ def check(out: dict, facts: dict) -> list[str]:
         plain = LINK_RE.sub(lambda m: m.group(2), p)
         nodates = re.sub(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2}\b|\b(19|20)\d{2}\b", "", plain)
         figs = [n for n in re.findall(r"\d[\d,.]*(?!-(?:year|month|week|day))", nodates)]
-        limit = 0 if i == 3 else 3
+        limit = 1 if i == len(paras) - 1 else 3
         if len(figs) > limit:
             errs.append(f"lead {i + 1} has {len(figs)} figures; max {limit}")
-        if len(p.split()) > 105:
-            errs.append(f"lead {i + 1} is too long (60 to 85 words)")
+    total = sum(len(p.split()) for p in paras)
+    if not 105 <= total <= 200:
+        errs.append(f"the body has {total} words; use 120 to 180 words")
     for k in SECTIONS:
         b = out["briefs"].get(k)
         if k in facts["sections"] and isinstance(b, str) and not LINK_RE.search(b):
             errs.append(f"brief {k} has no link")
     hl = out["headline"] if isinstance(out["headline"], str) else ""
     n = len(hl.split())
-    if not 5 <= n <= 11:
-        errs.append(f"headline has {n} words; use 6 to 10")
+    if not 3 <= n <= 9:
+        errs.append(f"headline has {n} words; use 4 to 8")
     if re.search(r"\d", hl) or ":" in hl:
         errs.append("headline must have no numbers and no colon")
     subj = ((facts.get("headlineFocus") or {}).get("subject") or "").lower()
@@ -174,8 +172,8 @@ def check(out: dict, facts: dict) -> list[str]:
         errs.append(f"headline must start with the main mover: {facts['headlineFocus']['subject']}")
     sf = out["tone"] if isinstance(out["tone"], str) else ""
     m = len(sf.split())
-    if not 13 <= m <= 27:
-        errs.append(f"standfirst has {m} words; use 15 to 25")
+    if not 13 <= m <= 32:
+        errs.append(f"standfirst has {m} words; use 15 to 30")
     if re.search(r"\d", sf):
         errs.append("standfirst must have no numbers")
     return errs
