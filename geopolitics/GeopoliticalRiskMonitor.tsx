@@ -1364,33 +1364,162 @@ export default function GeopoliticalRiskMonitor(props: any) {
     )
 
     /* ---------- tab 4: methodology ---------- */
+    const vizAtt = (
+        <div className="egr-vz" aria-hidden="true">
+            <div className="egr-vzbar">
+                <i className="z0" />
+                <i className="z1" />
+                <i className="z2" />
+            </div>
+            <div className="egr-vztk">
+                <span>−1</span>
+                <span>0</span>
+                <span>+1</span>
+                <span>+2</span>
+            </div>
+        </div>
+    )
+    const vizReact = (
+        <div className="egr-vz" aria-hidden="true">
+            <div className="egr-vzdiv">
+                <i className="l" />
+                <i className="r" />
+            </div>
+            <div className="egr-vztk three">
+                <span>−1</span>
+                <span>0</span>
+                <span>+1</span>
+            </div>
+        </div>
+    )
+    const vizLevel = (
+        <div className="egr-vz egr-vzlv" aria-hidden="true">
+            {(["low", "medium", "high"] as Level[]).map((l) => (
+                <span key={l}>
+                    <i style={{ background: lvlVar(l) }} />
+                    {lvlText(l)}
+                </span>
+            ))}
+        </div>
+    )
+    const vizWeek = (
+        <div className="egr-vz egr-vzwk" aria-hidden="true">
+            {["M", "T", "W", "T", "F", "S", "S"].map((d, k) => (
+                <span key={k} className={k === 0 ? "on" : ""}>
+                    {d}
+                </span>
+            ))}
+        </div>
+    )
+    const miniMap = (
+        <svg className="egr-mini" viewBox="0 0 320 200" role="img" aria-label={tx.readTitle}>
+            <rect className="egr-q" x="160" y="10" width="150" height="90" />
+            <rect className="egr-frame" x="10" y="10" width="300" height="180" />
+            <line className="egr-zero" x1="160" x2="160" y1="10" y2="190" />
+            <line className="egr-zero" x1="10" x2="310" y1="100" y2="100" />
+            <g className="egr-cap">
+                <text x="20" y="30">{tx.qTL}</text>
+                <text x="300" y="30" textAnchor="end">{tx.qTR}</text>
+                <text x="20" y="180">{tx.qBL}</text>
+                <text x="300" y="180" textAnchor="end">{tx.qBR}</text>
+            </g>
+            <circle cx="245" cy="55" r="9" fill="var(--hi)" />
+            <circle cx="105" cy="68" r="9" fill="var(--md)" />
+            <circle cx="210" cy="132" r="9" fill="var(--lo)" />
+        </svg>
+    )
+    const how: [string, string, React.ReactNode][] = [
+        [tx.m1Title, tx.m1, vizAtt],
+        [tx.m2Title, tx.m2, vizReact],
+        [tx.m3Title, tx.m3, vizLevel],
+        [tx.m4Title, tx.m4, vizWeek],
+    ]
     const method = (
-        <div className={wide ? "egr-grid2" : "egr-col"}>
-            <Panel title={tx.methodTitle}>
-                <div className="egr-meth">
-                    {[1, 2, 3, 4].map((i) => (
-                        <div key={i}>
-                            <h4>{tx["m" + i + "Title"]}</h4>
-                            <p>{tx["m" + i]}</p>
-                        </div>
+        <div className="egr-mt">
+            <header className="egr-mth">
+                {tx.mKicker && <div className="egr-kick">{tx.mKicker}</div>}
+                <h2>{tx.mApproachTitle}</h2>
+                <p className="egr-mlead">{tx.mApproach1}</p>
+                {tx.mApproach2 && <p className="egr-mlead2">{tx.mApproach2}</p>}
+            </header>
+
+            <ol className="egr-pillars">
+                {[1, 2, 3].map((i) => (
+                    <li key={i}>
+                        <span className="egr-pn">
+                            {"0" + i}
+                            <i className="egr-slash" />
+                        </span>
+                        <h4>{tx["p" + i + "Title"]}</h4>
+                        <p>{tx["p" + i]}</p>
+                    </li>
+                ))}
+            </ol>
+
+            <section className="egr-msec">
+                <h3 className="egr-msh">{tx.methodTitle}</h3>
+                <div className="egr-how">
+                    {how.map(([t, d, v], k) => (
+                        <article key={k}>
+                            {v}
+                            <h4>{t}</h4>
+                            <p>{d}</p>
+                        </article>
                     ))}
                 </div>
-            </Panel>
-            <Panel title={tx.readPanel}>
-                <div className="egr-meth">
-                    <div>
-                        <h4>{tx.aboutTitle}</h4>
-                        <p>{tx.about}</p>
-                    </div>
-                    <div>
-                        <h4>{tx.readTitle}</h4>
-                        <p>{tx.read}</p>
-                    </div>
-                    <div>
-                        <p className="egr-disc">{tx.caveat}</p>
+            </section>
+
+            <section className="egr-msec">
+                <h3 className="egr-msh">{tx.indTitle}</h3>
+                {tx.indIntro && <p className="egr-mintro">{tx.indIntro}</p>}
+                <div className="egr-ind">
+                    {[1, 2, 3].map((i) => (
+                        <React.Fragment key={i}>
+                            <div className="egr-indc">
+                                <span className="egr-indn">{i}</span>
+                                <b>{tx["ind" + i + "Title"]}</b>
+                                <p>{tx["ind" + i]}</p>
+                            </div>
+                            <span className="egr-op" aria-hidden="true">
+                                {i < 3 ? "+" : "="}
+                            </span>
+                        </React.Fragment>
+                    ))}
+                    <div className="egr-indo">
+                        <small>{tx.indOutKicker}</small>
+                        <b>{tx.indOut}</b>
                     </div>
                 </div>
-            </Panel>
+            </section>
+
+            <div className="egr-m2">
+                <section className="egr-msec">
+                    <h3 className="egr-msh">{tx.srcTitle}</h3>
+                    <p className="egr-mp">{tx.src1}</p>
+                    <ul className="egr-chips">
+                        {tx.srcList
+                            .split("|")
+                            .map((x) => x.trim())
+                            .filter(Boolean)
+                            .map((x) => (
+                                <li key={x}>{x}</li>
+                            ))}
+                    </ul>
+                    {tx.src2 && <p className="egr-mp egr-mut">{tx.src2}</p>}
+                </section>
+                <section className="egr-msec">
+                    <h3 className="egr-msh">{tx.readTitle}</h3>
+                    {miniMap}
+                    <p className="egr-mp">{tx.read}</p>
+                    {tx.read2 && <p className="egr-mp egr-mut">{tx.read2}</p>}
+                </section>
+            </div>
+
+            <section className="egr-lim">
+                <h3 className="egr-msh">{tx.limTitle}</h3>
+                <p>{tx.lim1}</p>
+                <p>{tx.lim2}</p>
+            </section>
         </div>
     )
 
@@ -1576,9 +1705,11 @@ export default function GeopoliticalRiskMonitor(props: any) {
 
                 {p.showFooter && (
                     <footer className="egr-foot">
-                        <p>
-                            <b>{tx.footBold}</b> {tx.footText}
-                        </p>
+                        {tab !== "method" && (
+                            <p>
+                                <b>{tx.footBold}</b> {tx.footText}
+                            </p>
+                        )}
                         <details>
                             <summary>{tx.sourcesTitle}</summary>
                             <p>{D.sources || SAMPLE.sources}</p>
@@ -1760,6 +1891,74 @@ a.egr-as:hover{border-color:var(--strong)}
 .egr .egr-more{appearance:none;display:block;width:100%;margin-top:6px;padding:12px 0;border:0;border-top:1px solid var(--rule);background:none;font-size:14px;color:var(--ink);cursor:pointer;text-align:center}
 .egr .egr-more:hover{color:var(--link)}
 /* methodology */
+.egr-mt{display:flex;flex-direction:column;gap:44px;padding-top:10px}
+.egr-mth{max-width:860px}
+.egr-mth h2{font-family:var(--fh);font-weight:400;font-size:calc(var(--t1) * 1.15);line-height:1.12;margin:6px 0 16px;letter-spacing:-.005em}
+.egr-mlead{font-family:var(--fh);font-size:21px;line-height:1.55;margin:0 0 12px}
+.egr-mlead2{font-size:16px;line-height:1.65;color:var(--mute);margin:0;max-width:72ch}
+.egr-pillars{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--strong);border-bottom:1px solid var(--rule)}
+.egr-pillars li{padding:22px 26px 26px;box-shadow:inset -1px 0 0 var(--rule)}
+.egr-pillars li:first-child{padding-left:0}
+.egr-pillars li:last-child{box-shadow:none}
+.egr-pn{display:flex;align-items:flex-start;font-family:var(--fh);font-size:54px;line-height:.9;letter-spacing:-.03em;margin-bottom:16px}
+.egr-pn .egr-slash{height:.82em;width:4px;margin-left:.12em}
+.egr-pillars h4{font-family:var(--fh);font-weight:400;font-size:20px;line-height:1.25;margin:0 0 8px}
+.egr-pillars p{margin:0;font-size:15px;line-height:1.62}
+.egr-msec{min-width:0}
+.egr-msh{font-family:var(--fh);font-weight:400;font-size:var(--t2);line-height:1.2;margin:0 0 16px;padding-top:12px;border-top:1px solid var(--strong)}
+.egr-mintro{margin:-6px 0 18px;font-size:15px;color:var(--mute)}
+.egr-mp{margin:0 0 12px;font-size:15px;line-height:1.65}
+.egr-how{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.egr-how article{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:20px 22px 22px}
+.egr-how h4{font-family:var(--fh);font-weight:400;font-size:19px;margin:16px 0 6px}
+.egr-how p{margin:0;font-size:15px;line-height:1.62}
+.egr-vz{min-height:44px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px}
+.egr-vzbar,.egr-vzdiv{position:relative;height:10px;border-radius:5px;overflow:hidden;display:flex}
+.egr-vzbar i{display:block;height:100%}
+.egr-vzbar .z0{width:33%;background:var(--rule)}
+.egr-vzbar .z1{width:33%;background:color-mix(in srgb,var(--md) 70%,var(--rule))}
+.egr-vzbar .z2{width:34%;background:var(--hi)}
+.egr-vzdiv i{display:block;width:50%;height:100%}
+.egr-vzdiv .l{background:linear-gradient(90deg,var(--mute),var(--rule))}
+.egr-vzdiv .r{background:linear-gradient(90deg,var(--rule),var(--ink))}
+.egr-vzdiv::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;margin-left:-1px;background:var(--bg)}
+.egr-vztk{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mute);font-variant-numeric:tabular-nums}
+.egr-vzlv{flex-direction:row;align-items:flex-end;justify-content:flex-start;flex-wrap:wrap;gap:8px}
+.egr-vzlv span{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border:1px solid var(--rule);border-radius:999px;background:var(--bg);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.egr-vzlv i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.egr-vzwk{flex-direction:row;align-items:flex-end;justify-content:flex-start;gap:6px}
+.egr-vzwk span{flex:1;max-width:38px;height:34px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--rule);border-radius:6px;background:var(--bg);font-size:13px;color:var(--mute)}
+.egr-vzwk span.on{background:var(--tab);border-color:var(--tab);color:var(--tabink);font-weight:700}
+.egr-ind{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1.05fr);align-items:stretch}
+.egr-indc{padding:18px 20px;border:1px solid var(--rule);border-radius:8px;background:var(--panel);display:flex;flex-direction:column;gap:6px}
+.egr-indn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;border:1.2px solid var(--ink);font-size:12.5px;font-weight:700}
+.egr-indc b{font-family:var(--fh);font-weight:400;font-size:18px;margin-top:6px}
+.egr-indc p{margin:0;font-size:14.5px;line-height:1.55}
+.egr-op{display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:24px;color:var(--mute)}
+.egr-indo{border-radius:8px;background:var(--ink);color:var(--bg);padding:18px 20px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.egr-indo small{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.egr-indo b{font-family:var(--fh);font-weight:400;font-size:22px;line-height:1.2}
+.egr-m2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px}
+.egr-chips{list-style:none;margin:4px 0 16px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.egr-chips li{height:30px;display:inline-flex;align-items:center;padding:0 12px;border:1px solid var(--rule);border-radius:999px;background:var(--panel);font-size:13.5px}
+.egr-mini{display:block;width:100%;max-width:440px;height:auto;margin:2px 0 14px}
+.egr-mini .egr-cap text{font-size:12px}
+.egr-lim{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:6px 26px 18px}
+.egr-lim .egr-msh{border-top:0}
+.egr-lim p{margin:0 0 10px;font-size:14.5px;line-height:1.65;color:var(--mute)}
+.egr-mid .egr-pillars,.egr-phone .egr-pillars{grid-template-columns:minmax(0,1fr)}
+.egr-mid .egr-pillars li,.egr-phone .egr-pillars li{padding:20px 0;box-shadow:none;border-top:1px solid var(--rule);display:grid;grid-template-columns:90px minmax(0,1fr);column-gap:16px}
+.egr-mid .egr-pillars li:first-child,.egr-phone .egr-pillars li:first-child{border-top:0}
+.egr-mid .egr-pillars .egr-pn,.egr-phone .egr-pillars .egr-pn{grid-row:span 2;font-size:44px}
+.egr-mid .egr-ind,.egr-phone .egr-ind{grid-template-columns:minmax(0,1fr);gap:0}
+.egr-mid .egr-op,.egr-phone .egr-op{height:30px;font-size:20px}
+.egr-mid .egr-m2,.egr-phone .egr-m2{grid-template-columns:minmax(0,1fr)}
+.egr-phone .egr-how{grid-template-columns:minmax(0,1fr)}
+.egr-phone .egr-mlead{font-size:19px}
+.egr-phone .egr-mth h2{font-size:30px}
+.egr-phone .egr-pillars li{grid-template-columns:64px minmax(0,1fr)}
+.egr-phone .egr-pillars .egr-pn{font-size:36px}
+.egr-phone .egr-lim{padding:4px 18px 14px}
 .egr-meth{display:flex;flex-direction:column;gap:16px}
 .egr-meth h4{margin:0 0 4px;font-family:var(--fh);font-weight:400;font-size:18px}
 .egr-meth p{margin:0;font-size:15px;line-height:1.6}
@@ -1901,22 +2100,48 @@ const DEF_TEXTS: Record<string, string> = {
     calOnly: "Nothing else scheduled yet.",
     calMore: "Show {n} more",
     calFull: "Full economic calendar",
-    methodTitle: "How the monitor works",
+    mKicker: "Methodology & Approach",
+    mApproachTitle: "The Economic Bearings Approach",
+    mApproach1:
+        "The Economic Bearings Geopolitical Risk Monitor is an independent analytical framework developed to assess how geopolitical developments translate into economic and financial market risks.",
+    mApproach2:
+        "Combining systematic news monitoring, market-based indicators, historical analysis and independent qualitative assessments, our approach aims to identify emerging risks, measure market responses and provide a structured perspective on an increasingly complex global environment.",
+    p1Title: "The Economic Bearings Index (EBI)",
+    p1: "Our analytical framework for evaluating geopolitical risks and their potential implications for global markets. It brings together news attention, financial market reactions and qualitative risk assessments to provide a consistent basis for monitoring global developments.",
+    p2Title: "Our Strategy",
+    p2: "We identify and select geopolitical scenarios based on their potential economic, financial and strategic implications, focusing on developments that could influence international trade, energy security, financial stability, investment sentiment and global economic conditions.",
+    p3Title: "Our Analysis",
+    p3: "Our analysis combines geopolitical intelligence, economic indicators, financial market movements and historical comparisons. Each scenario is assessed through its potential impact, relevant market exposures and evolving international developments.",
+    methodTitle: "How the Monitor Works",
     m1Title: "Attention",
-    m1: "Each week we measure the share of world news coverage that matches each risk (GDELT, more than 60 languages), averaged over two weeks, and compare it with the same measure over the previous five years. 0 = usual coverage, +1 = one standard deviation above, +2 or more = exceptional.",
-    m2Title: "Market reaction",
-    m2: "Each risk has three assets that would move clearly if it happened. For each, we take the one-month change up to the previous Sunday and divide it by its typical one-month change over the past two years. Moves in the expected direction count for, moves the other way count against, up to twice the typical size. +1 = all three move fully as if the risk were happening; −1 = all three move fully the opposite way.",
-    m3Title: "Level",
-    m3: "High, Medium or Low is our qualitative assessment of each risk's likelihood, reviewed every month against official sources, market commentary and financial research. It is raised for the week when news attention and market reaction are both strongly elevated.",
-    m4Title: "Weekly update",
-    m4: "The monitor is updated every Monday morning with the previous week's data. The calendar lists only the major geopolitical dates we expect to matter for markets.",
+    m1: "Each week, we measure the share of global news coverage associated with each risk using GDELT (60+ languages). The two-week average is compared with the previous five-year baseline. 0 indicates normal coverage, +1 one standard deviation above normal, and +2 or higher exceptional attention.",
+    m2Title: "Market Reaction",
+    m2: "Each risk is assessed against three financial assets expected to respond to its materialisation. One-month price movements, measured up to the previous Sunday, are compared with their typical two-year historical movements. +1 represents full alignment across all three assets; −1 represents full movement in the opposite direction.",
+    m3Title: "Risk Level",
+    m3: "High, Medium or Low reflects our qualitative assessment of each scenario's likelihood, reviewed monthly against official sources, market commentary and financial research. The weekly alert level is raised when both news attention and market reaction are significantly elevated.",
+    m4Title: "Weekly Update",
+    m4: "The monitor is updated every Monday morning using the previous week's data. The calendar highlights major geopolitical events with potential market implications.",
+    indTitle: "Our Indicators",
+    indIntro: "Our monitoring framework brings together three analytical dimensions.",
+    ind1Title: "News Attention",
+    ind1: "The intensity of global media coverage relative to historical norms.",
+    ind2Title: "Market Reaction",
+    ind2: "How selected financial assets respond to developments associated with each risk.",
+    ind3Title: "Risk Assessment",
+    ind3: "Our qualitative evaluation of the likelihood and potential significance of each scenario.",
+    indOutKicker: "Together",
+    indOut: "The Economic Bearings Index",
+    srcTitle: "Our Sources",
+    src1: "Our assessments draw on a combination of official publications, international institutions, geopolitical research, financial market data, market commentary and selected financial media.",
+    srcList: "Official publications | International institutions | Geopolitical research | Global news (GDELT) | Market data (FRED, COMEX, LME) | Financial media",
+    src2: "Sources are evaluated according to their relevance, credibility and contribution to understanding the risks being monitored.",
     sourcesTitle: "Sources",
-    readPanel: "Our assessment",
-    aboutTitle: "Sources and analysis",
-    about: "We work from sources and analysis on the top geopolitical risks we follow. The scenarios are based on our assessment of geopolitical developments, market commentary and financial research.",
-    caveat: "Scenarios are illustrative and not exhaustive. Geopolitical risks evolve over time.",
-    readTitle: "How to read the risk map",
-    read: "The vertical axis shows news attention against its five-year norm. The horizontal axis illustrates the extent to which markets have priced in each risk. Markers indicate our qualitative assessment of likelihood: Low, Medium or High.",
+    readTitle: "How to Read the Risk Map",
+    read: "The vertical axis shows news attention relative to its five-year baseline. The horizontal axis indicates the extent to which markets have priced in each risk. Markers represent our qualitative assessment of likelihood: Low, Medium or High.",
+    read2: "The positioning of each scenario provides a comparative view of media attention, market behaviour and our assessment of geopolitical risk.",
+    limTitle: "Limitations & Disclaimer",
+    lim1: "The scenarios presented are illustrative and not exhaustive. Some developments may have no direct historical precedent or only partially comparable examples. Geopolitical risks are dynamic and may evolve rapidly.",
+    lim2: "This monitor is provided for informational and analytical purposes only. It reflects our assessment of the geopolitical and financial environment at a specific point in time and does not constitute a forecast, investment research, financial advice or a recommendation to buy, sell or hold any financial instrument or security.",
     footBold: "Disclaimer:",
     footText:
         "This monitor is for informational purposes only. It does not constitute a forecast, investment research or financial advice.",
@@ -1939,6 +2164,16 @@ const LEGACY_TEXTS = new Set([
     "Reading the monitor",
     "0 = usual level",
     "Att.",
+    "How the monitor works",
+    "Each week we measure the share of world news coverage that matches each risk (GDELT, more than 60 languages), averaged over two weeks, and compare it with the same measure over the previous five years. 0 = usual coverage, +1 = one standard deviation above, +2 or more = exceptional.",
+    "Each risk has three assets that would move clearly if it happened. For each, we take the one-month change up to the previous Sunday and divide it by its typical one-month change over the past two years. Moves in the expected direction count for, moves the other way count against, up to twice the typical size. +1 = all three move fully as if the risk were happening; −1 = all three move fully the opposite way.",
+    "High, Medium or Low is our qualitative assessment of each risk's likelihood, reviewed every month against official sources, market commentary and financial research. It is raised for the week when news attention and market reaction are both strongly elevated.",
+    "The monitor is updated every Monday morning with the previous week's data. The calendar lists only the major geopolitical dates we expect to matter for markets.",
+    "The vertical axis shows news attention against its five-year norm. The horizontal axis illustrates the extent to which markets have priced in each risk. Markers indicate our qualitative assessment of likelihood: Low, Medium or High.",
+    "How to read the risk map",
+    "Level",
+    "Weekly update",
+    "Market reaction",
 ])
 
 const DEF_RISKS = [
