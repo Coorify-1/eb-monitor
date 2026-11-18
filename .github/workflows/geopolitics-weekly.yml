@@ -66,7 +66,10 @@ jobs:
         if: always()
         run: |
           for p in docs/eb-geopolitics.json docs/geopolitics geopolitics/data; do if [ -e "$p" ]; then git add "$p"; fi; done
-          git diff --cached --quiet && { echo "Nothing new to publish."; exit 0; }
-          git -c user.name="eb-geopolitics-bot" -c user.email="eb-geopolitics-bot@users.noreply.github.com" commit -qm "Geopolitical Risk Monitor: $([ -f docs/eb-geopolitics.json ] && git diff --cached --quiet -- docs/eb-geopolitics.json && echo 'news history' || echo "week $(date +%G-W%V)")"
+          if git diff --cached --quiet; then echo "Nothing new to publish."; exit 0; fi
+          git config user.name "eb-geopolitics-bot"
+          git config user.email "eb-geopolitics-bot@users.noreply.github.com"
+          if git diff --cached --quiet -- docs/eb-geopolitics.json; then msg="news history"; else msg="week $(date +%G-W%V)"; fi
+          git commit -q -m "Geopolitical Risk Monitor: $msg"
           for i in 1 2 3; do git pull -q --rebase && git push -q && exit 0; sleep 10; done
           exit 1

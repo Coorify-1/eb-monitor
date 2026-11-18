@@ -95,26 +95,24 @@ def headlines(query: str, n: int = 4):
 # ------------------------------------------------------------------ prices
 
 def fred_series(series_id: str, start: dt.date):
-    """A FRED series as published (public CSV, no key)."""
-    for i in range(3):
-        try:
-            r = requests.get(C.FRED_CSV, params={"id": series_id, "cosd": start.isoformat()},
-                             timeout=60, headers={"User-Agent": BROWSER})
-            if r.status_code == 200 and "," in r.text:
-                rows = list(csv.reader(io.StringIO(r.text)))
-                out = [(row[0], _num(row[1])) for row in rows[1:] if len(row) >= 2]
-                out = [(d, v) for d, v in out if v is not None and d >= start.isoformat()]
-                if out:
-                    return out
-            log(f"  FRED {series_id} -> HTTP {r.status_code}")
-        except Exception as e:  # noqa: BLE001
-            log(f"  FRED {series_id} failed: {str(e)[:80]}")
-        time.sleep(4 + 4 * i)
-    # back-up: the Financial Markets Worker (same FRED data, shorter history)
-    for rng in ("5Y", "2Y", "1Y", "6M", "3M"):
+    """A FRED series. First through the Financial Markets Worker (the same FRED data the
+    site uses, and fast from GitHub), then the public FRED file as a back-up."""
+    for rng in ("5Y", "2Y", "1Y", "6M"):
         s = AS.market_history("FRED:" + series_id, rng)
         if s and len(s) > 40:
-            return s
+            return [p for p in s if p[0] >= start.isoformat()] or s
+    try:
+        r = requests.get(C.FRED_CSV, params={"id": series_id, "cosd": start.isoformat()},
+                         timeout=25, headers={"User-Agent": BROWSER})
+        if r.status_code == 200 and "," in r.text:
+            rows = list(csv.reader(io.StringIO(r.text)))
+            out = [(row[0], _num(row[1])) for row in rows[1:] if len(row) >= 2]
+            out = [(d, v) for d, v in out if v is not None and d >= start.isoformat()]
+            if out:
+                return out
+        log(f"  FRED {series_id} -> HTTP {r.status_code}")
+    except Exception as e:  # noqa: BLE001
+        log(f"  FRED {series_id} failed: {str(e)[:80]}")
     return None
 
 
