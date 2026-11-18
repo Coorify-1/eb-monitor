@@ -13,13 +13,15 @@ FRED_CSV = "https://fred.stlouisfed.org/graph/fredgraph.csv"
 HISTORY_START = "2017-01-01"     # the GDELT news archive searchable by the API starts here
 
 # ------------------------------------------------------------------ attention
-# Each risk gets a weekly score: its share of world news coverage, weighted up when the
-# coverage is more negative in tone, compared with its own history (z-score of the log).
+# Each risk gets a weekly score: its share of world news coverage compared with its own
+# history (z-score of the log).
 WINDOW_WEEKS = 260               # five years of history
 HALF_LIFE_WEEKS = 52             # recent years weigh more: a story that stays high becomes "normal"
 MIN_WEEKS = 26                   # history needed before a score is published
-TONE_WEIGHT = 0.04               # +4% weight per point of negative average tone
+TONE_WEIGHT = 0.0                # weight of negative tone (0 = coverage share only)
 REFRESH_DAYS = 42                # each week, the last six weeks are fetched again
+FIRST_DAYS = 730                 # a new risk starts with two years, enough to publish at once
+GDELT_BUDGET_MIN = 40            # minutes per run spent filling older history (resumes next run)
 GLOBAL_SMOOTH = 0.35             # smoothing of the global line (share of the newest week)
 
 # ------------------------------------------------------------------ market reaction
@@ -40,7 +42,7 @@ UA = "Mozilla/5.0 (compatible; EconomicBearings-Geopolitics/1.0)"
 
 SOURCES = ("Attention: the EB Geopolitical Attention Index tracks the relative frequency of news stories "
            "associated with each risk across global print, broadcast and online media in more than 60 "
-           "languages (GDELT Project), scored against its five-year history and adjusted for tone. "
+           "languages (GDELT Project), scored against its five-year history. "
            "Market reaction: one-month moves in the three scenario assets tied to each risk, measured "
            "against their usual volatility. Market data: Federal Reserve Bank of St. Louis (FRED), "
            "COMEX and LME metal prices. Calendar: official calendars of governments and international "

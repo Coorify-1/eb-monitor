@@ -808,7 +808,7 @@ function buildSample(): Data {
             { date: "2027-02-12", end: "2027-02-14", title: "Munich Security Conference", region: "Germany", risk: "russia_nato" },
         ],
         sources:
-            "Attention: the EB Geopolitical Attention Index tracks the relative frequency of news stories associated with each risk across global print, broadcast and online media in more than 60 languages (GDELT Project), scored against its five-year history and adjusted for tone. Market reaction: one-month moves in the three scenario assets tied to each risk, measured against their usual volatility. Market data: Federal Reserve Bank of St. Louis (FRED), COMEX and LME metal prices. Calendar: official calendars of governments and international institutions.",
+            "Attention: the EB Geopolitical Attention Index tracks the relative frequency of news stories associated with each risk across global print, broadcast and online media in more than 60 languages (GDELT Project), scored against its five-year history. Market reaction: one-month moves in the three scenario assets tied to each risk, measured against their usual volatility. Market data: Federal Reserve Bank of St. Louis (FRED), COMEX and LME metal prices. Calendar: official calendars of governments and international institutions.",
     }
 }
 const SAMPLE = buildSample()

@@ -9,6 +9,7 @@ from __future__ import annotations
 import csv
 import datetime as dt
 import io
+import random
 import time
 
 import requests
@@ -45,12 +46,15 @@ def gdelt_timeline(query: str, mode: str, start: dt.date, end: dt.date):
     mode = "timelinevol"  -> share of all monitored news coverage matching the query (%)
     mode = "timelinetone" -> average tone of that coverage (negative = more negative)
     GDELT accepts about one request every 5 seconds and answers 429 to busy shared machines,
-    so calls are spaced and retried with growing pauses."""
+    so calls are spaced and retried with pauses."""
+    start = max(start, dt.date.fromisoformat(C.HISTORY_START))
+    if start > end:
+        return None
     params = {"query": query, "mode": mode, "format": "json",
               "startdatetime": start.strftime("%Y%m%d000000"),
               "enddatetime": end.strftime("%Y%m%d235959")}
-    for i in range(5):
-        wait = 6 + 15 * i - (time.time() - _last_call[0])
+    for i in range(8):
+        wait = (6 if i == 0 else random.uniform(12, 30)) - (time.time() - _last_call[0])
         if wait > 0:
             time.sleep(wait)
         _last_call[0] = time.time()
@@ -60,7 +64,10 @@ def gdelt_timeline(query: str, mode: str, start: dt.date, end: dt.date):
             log(f"  GDELT {mode} failed: {str(e)[:80]}")
             continue
         if r.status_code != 200 or not r.text.lstrip().startswith("{"):
-            log(f"  GDELT {mode} -> HTTP {r.status_code} {r.text[:80]!r}")
+            if r.status_code != 429:
+                log(f"  GDELT {mode} -> HTTP {r.status_code} {r.text[:80]!r}")
+                if r.status_code == 200:      # an answer, but not data (bad query or dates)
+                    return None
             continue
         try:
             data = ((r.json().get("timeline") or [{}])[0].get("data")) or []
@@ -73,6 +80,7 @@ def gdelt_timeline(query: str, mode: str, start: dt.date, end: dt.date):
             if len(d) == 8 and d.isdigit() and v is not None:
                 daily.setdefault(f"{d[:4]}-{d[4:6]}-{d[6:]}", []).append(v)
         return [(d, sum(v) / len(v)) for d, v in sorted(daily.items())]
+    log(f"  GDELT {mode}: no answer after 8 tries (busy)")
     return None
 
 

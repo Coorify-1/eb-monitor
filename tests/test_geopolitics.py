@@ -125,3 +125,19 @@ def test_level_rule_matches_component():
 def test_view_check():
     assert W.check_view("Tensions rose by 5% this week. Markets will rise.")
     assert not W.check_view("Shipping threats in the Gulf keep the conflict in the headlines. Oil and volatility are moving as they would if the risk were materialising.")
+
+
+def test_budget_keeps_recent_and_resumes(offline, monkeypatch):
+    calls = []
+    real = S.gdelt_timeline
+    monkeypatch.setattr(S, "gdelt_timeline", lambda q, m, a, b: calls.append((a, b)) or real(q, m, a, b))
+    store = R.update_attention(R.catalog(), dt.date(2026, 11, 18), budget_min=0)
+    assert len(calls) == len(R.catalog())                     # recent two years only
+    assert all(min(w) >= "2024-11-01" for w in store["weeks"].values())
+    doc = R.build(offline)                                    # enough to publish at once
+    assert len(doc["risks"]) == len(R.catalog())
+    assert min(min(w) for w in R._load(R.STORE, {})["weeks"].values()) <= "2017-01-09"   # then history filled
+
+
+def test_gdelt_never_asked_before_2017(monkeypatch):
+    assert S.gdelt_timeline("x", "timelinevol", dt.date(2010, 1, 1), dt.date(2016, 12, 25)) is None

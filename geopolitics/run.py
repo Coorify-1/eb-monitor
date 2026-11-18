@@ -13,6 +13,7 @@ import json
 import os
 import pathlib
 import sys
+import time
 from zoneinfo import ZoneInfo
 
 from . import config as C
@@ -40,43 +41,63 @@ def catalog() -> list[dict]:
 # ------------------------------------------------------------------ attention (GDELT)
 
 
-def update_attention(risks: list[dict], today: dt.date) -> dict:
+def update_attention(risks: list[dict], today: dt.date, budget_min: float = C.GDELT_BUDGET_MIN) -> dict:
     """Weekly coverage of each risk, kept in geopolitics/data/attention.json.
-    The first run downloads the history since 2017 (two years per request); later runs
-    only fetch the last six weeks."""
+    First the recent weeks of every risk (two years for a new risk, enough to publish);
+    then older history back to 2017, newest first, within a time budget. What is missing
+    is fetched on the next runs (a daily run does only that)."""
+    t0 = time.time()
     store = _load(STORE, {"weeks": {}, "queries": {}})
     store.setdefault("weeks", {})
     store.setdefault("queries", {})
     first = dt.date.fromisoformat(C.HISTORY_START)
-    first -= dt.timedelta(days=first.weekday())
-    for r in risks:
-        rid, q = r["id"], r["query"]
-        weeks = store["weeks"].get(rid, {})
-        if store["queries"].get(rid) != q:
-            weeks = {}                                 # the query changed: rebuild the history
-        chunks = []
-        have = sorted(weeks)
-        if not have or have[0] > (first + dt.timedelta(days=14)).isoformat():
-            end_b = dt.date.fromisoformat(have[0]) - dt.timedelta(days=1) if have else today
-            d = first
-            while d <= end_b:
-                e = min(d + dt.timedelta(days=7 * 104 - 1), end_b)
-                chunks.append((d, e, "history"))
-                d = e + dt.timedelta(days=1)
-        rs = dt.date.fromisoformat(M.monday(today - dt.timedelta(days=C.REFRESH_DAYS)))
-        chunks.append((rs, today, "recent"))
-        log(f"News attention · {r['label']} ({len(chunks)} request{'s' if len(chunks) > 1 else ''}) …")
-        for a, b, what in chunks:
-            vol = S.gdelt_timeline(q, "timelinevol", a, b)
-            if not vol:
-                log(f"  no {what} data for {a} → {b}")
-                continue
-            tone = S.gdelt_timeline(q, "timelinetone", a, b) or []
-            weeks.update({w: v for w, v in M.weekly(vol, tone).items()})
-        store["weeks"][rid] = dict(sorted(weeks.items()))
-        store["queries"][rid] = q
+
+    def save():
         STORE.parent.mkdir(parents=True, exist_ok=True)
         STORE.write_text(json.dumps(store, separators=(",", ":")))
+
+    def fetch(r, a, b, what):
+        vol = S.gdelt_timeline(r["query"], "timelinevol", a, b)
+        if not vol:
+            log(f"  {r['id']}: no {what} data for {a} → {b} (will retry next run)")
+            return False
+        tone = S.gdelt_timeline(r["query"], "timelinetone", a, b) if C.TONE_WEIGHT else []
+        store["weeks"].setdefault(r["id"], {}).update(M.weekly(vol, tone))
+        store["weeks"][r["id"]] = dict(sorted(store["weeks"][r["id"]].items()))
+        save()
+        return True
+
+    for r in risks:
+        if store["queries"].get(r["id"]) != r["query"]:
+            store["weeks"][r["id"]] = {}               # new risk or changed query: start again
+            store["queries"][r["id"]] = r["query"]
+    log("News attention: recent weeks …")
+    for r in risks:
+        have = store["weeks"].get(r["id"]) or {}
+        days = C.REFRESH_DAYS if len(have) >= C.MIN_WEEKS else C.FIRST_DAYS
+        fetch(r, dt.date.fromisoformat(M.monday(today - dt.timedelta(days=days))), today, "recent")
+
+    log("News attention: older history …")
+    while time.time() - t0 < budget_min * 60:
+        todo = []
+        for r in risks:
+            have = sorted(store["weeks"].get(r["id"]) or {})
+            if have and have[0] > (first + dt.timedelta(days=10)).isoformat():
+                e = dt.date.fromisoformat(have[0]) - dt.timedelta(days=1)
+                todo.append((r, max(first, e - dt.timedelta(days=7 * 104 - 1)), e))
+        if not todo:
+            log("  history complete since " + C.HISTORY_START)
+            break
+        progress = False
+        for r, a, b in todo:
+            if time.time() - t0 >= budget_min * 60:
+                break
+            progress |= fetch(r, a, b, "history")
+        if not progress:
+            break
+    else:
+        log("  time budget used: older history continues on the next run")
+    save()
     return store
 
 
@@ -220,10 +241,15 @@ def main():
     ap.add_argument("--out", default="docs/eb-geopolitics.json")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--apply-edits", action="store_true")
+    ap.add_argument("--history", action="store_true", help="only fill older news history, publish nothing")
     a = ap.parse_args()
     out = pathlib.Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     now_ny = dt.datetime.now(NY)
+
+    if a.history:
+        update_attention(catalog(), now_ny.date(), budget_min=float(os.environ.get("BUDGET_MIN", 80)))
+        return
 
     if a.apply_edits:
         if not out.exists():
