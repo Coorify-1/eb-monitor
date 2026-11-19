@@ -603,6 +603,8 @@ async function fetchYields(env) {
         // Bank of England down: OECD monthly 10-year yield for the UK (via FRED) instead
         const ukm = await safe(fredSeries("IRLTLT01GBM156N", sinceMonthly))
         row("United Kingdom", "GB", "monthly", ukm, null)
+        // the fallback worked: the Bank of England outage is no longer a problem to report
+        if (ukm && ukm.length) yieldsProblems = yieldsProblems.filter((x) => !x.startsWith("Bank of England"))
     }
     YIELD_FRED.forEach(([country, cc], i) => row(country, cc, "monthly", fredRows[i], null))
     if (cn)
