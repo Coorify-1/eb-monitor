@@ -1,0 +1,32 @@
+# EB Signals — Cloudflare Worker
+# Deployed automatically by Cloudflare (Worker → Settings → Build → Connect to Git)
+# every time this repository changes on the main branch.
+#
+# Secrets (COINGECKO_KEY, RUN_TOKEN, FINNHUB_KEY, TWELVE_KEY) are NEVER written here:
+# add them in Cloudflare → Worker → Settings → Variables and Secrets.
+
+# Must be EXACTLY the name of the existing Worker in Cloudflare
+name = "REPLACE_WITH_WORKER_NAME"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+# Keep the variables set in the Cloudflare dashboard (ALERT_WEBHOOK, ALERT_HOUR, …)
+keep_vars = true
+
+# Every 10 minutes: the job starts at 10 PM New York and catches up missed steps;
+# the daily check runs at ALERT_HOUR (default 8:00 Paris)
+[triggers]
+crons = ["*/10 * * * *"]
+
+# Snapshot storage
+[[kv_namespaces]]
+binding = "EB_SIGNALS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# Direct link to the Metals Worker (avoids Cloudflare error 1042 / HTTP 404)
+[[services]]
+binding = "METALS"
+service = "REPLACE_WITH_METALS_WORKER_NAME"
+
+[observability]
+enabled = true
