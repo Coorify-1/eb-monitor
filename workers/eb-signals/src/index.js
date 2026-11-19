@@ -57,6 +57,16 @@
  *    GET /signals/check?token=RUN_TOKEN          → runs the check now
  *    GET /signals/check?token=RUN_TOKEN&test=1   → also sends a test message when all is fine
  *
+ * GITHUB LAUNCHER (GitHub starts scheduled workflows hours late on free accounts):
+ *  - Secret    GITHUB_TOKEN    fine-grained token, repository Coorify-1/eb-monitor only,
+ *                              permission "Actions: Read and write". Empty = launcher off.
+ *  - Variable  GH_REPO         default Coorify-1/eb-monitor
+ *  - Variable  GH_DISPATCH     workflows to start, New York time, comma list
+ *                              (default "islamic-daily.yml@00:25")
+ *    Each workflow is started once a day, at the first 10-minute tick after its time
+ *    (within 3 hours). The workflows keep their own GitHub schedule as a backup.
+ *    GET /signals/dispatch?token=RUN_TOKEN&wf=islamic-daily.yml → start it now (test)
+ *
  * MANUAL RUN (first install, or to test):
  *    GET /signals/run?token=RUN_TOKEN   → runs one step (call it ~6 times, 1 min apart)
  *
@@ -1410,6 +1420,67 @@ async function assembleStocks(env) {
 }
 
 /* ------------------------------------------------------------------ */
+/* GitHub launcher: start workflows on time (GitHub's own schedule     */
+/* often runs hours late)                                               */
+/* ------------------------------------------------------------------ */
+
+const ghRepo = (env) => String(env.GH_REPO || "Coorify-1/eb-monitor").trim()
+const ghPlan = (env) =>
+    String(env.GH_DISPATCH ?? "islamic-daily.yml@00:25")
+        .split(",")
+        .map((x) => x.trim())
+        .filter(Boolean)
+        .map((x) => {
+            const [wf, at = "00:25"] = x.split("@")
+            const [h, m] = at.split(":").map(Number)
+            return { wf: wf.trim(), h: h || 0, m: m || 0 }
+        })
+        .filter((x) => /^[\w.-]+\.ya?ml$/.test(x.wf))
+
+/** Starts one workflow (workflow_dispatch) on the main branch. */
+async function ghDispatch(env, wf) {
+    const r = await fetch(`https://api.github.com/repos/${ghRepo(env)}/actions/workflows/${wf}/dispatches`, {
+        method: "POST",
+        headers: {
+            Authorization: "Bearer " + env.GITHUB_TOKEN,
+            Accept: "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+            "User-Agent": "EB-Signals-Worker",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ref: "main" }),
+    })
+    return { ok: r.status === 204, status: r.status, text: r.status === 204 ? "" : (await r.text()).slice(0, 200) }
+}
+
+/** Every cron tick: start each planned workflow once a day, just after its New York time. */
+async function ghLauncher(env, force = false) {
+    if (!env.GITHUB_TOKEN) return { skipped: "no GITHUB_TOKEN" }
+    const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date())
+    const g = (t) => (parts.find((p) => p.type === t) || {}).value
+    const day = `${g("year")}-${g("month")}-${g("day")}`
+    const mins = (Number(g("hour")) % 24) * 60 + Number(g("minute"))
+    const out = []
+    for (const x of ghPlan(env)) {
+        const at = x.h * 60 + x.m
+        // inside the 3-hour window after the planned time, once a day
+        if (!force && (mins < at || mins > at + 180)) continue
+        const key = `gh:${x.wf}:${day}`
+        if (!force && (await env.EB_SIGNALS.get(key))) continue
+        let res
+        try {
+            res = await ghDispatch(env, x.wf)
+        } catch (e) {
+            res = { ok: false, status: 0, text: String((e && e.message) || e) }
+        }
+        if (res.ok && !force) await env.EB_SIGNALS.put(key, "1", { expirationTtl: 3 * 86400 })
+        await env.EB_SIGNALS.put("gh:last:" + x.wf, JSON.stringify({ at: new Date().toISOString(), ...res }), { expirationTtl: 30 * 86400 })
+        out.push({ wf: x.wf, ...res })
+    }
+    return { day, started: out }
+}
+
+/* ------------------------------------------------------------------ */
 /* Daily check: alert only when something is wrong                     */
 /* ------------------------------------------------------------------ */
 
@@ -1435,6 +1506,7 @@ function checkProblems(env, j) {
     if (staleY.length) issues.push(`Yields kept from the previous update: ${staleY.join(", ")}`)
     if (!j.stress || !j.stress.credit || !j.stress.stress) issues.push("Market Mood: Federal Reserve indices missing")
     if (env.FINNHUB_KEY && !j.stocks) issues.push(`Stock analysis missing${j.stocksError ? ": " + j.stocksError : ""}`)
+    if (j.ghLaunch) for (const [wf, r] of Object.entries(j.ghLaunch)) if (r && r.ok === false) issues.push(`GitHub launcher: ${wf} failed (HTTP ${r.status}) ${r.text || ""}`.trim())
     return issues
 }
 
@@ -1474,6 +1546,15 @@ async function dailyCheck(env, force = false, test = false) {
     try {
         j = JSON.parse((await env.EB_SIGNALS.get("signals:latest")) || "null")
     } catch {}
+    // last result of each GitHub launch (only when the launcher is on)
+    if (j && env.GITHUB_TOKEN) {
+        j.ghLaunch = {}
+        for (const x of ghPlan(env)) {
+            try {
+                j.ghLaunch[x.wf] = JSON.parse((await env.EB_SIGNALS.get("gh:last:" + x.wf)) || "null")
+            } catch {}
+        }
+    }
     const issues = checkProblems(env, j)
     if (!force) await env.EB_SIGNALS.put(key, "1", { expirationTtl: 3 * 86400 })
     if (!issues.length)
@@ -1576,7 +1657,7 @@ async function route(request, env, ctx, h) {
             }
         }
         return Response.json(
-            { ok: !missing.length, missing, snapshot, newYork: nyNow(), targetDay: targetDay(), alertWebhook: !!env.ALERT_WEBHOOK, runToken: !!env.RUN_TOKEN, metalsUrl: env.METALS_URL || null, metalsBinding: !!(env.METALS && env.METALS.fetch), finnhubKey: !!env.FINNHUB_KEY, finnhubKeyInUse: goodFinnhubKey ? goodFinnhubKey.slice(0, 4) + "…" + goodFinnhubKey.slice(-3) : null },
+            { ok: !missing.length, missing, snapshot, newYork: nyNow(), targetDay: targetDay(), alertWebhook: !!env.ALERT_WEBHOOK, githubLauncher: env.GITHUB_TOKEN ? { repo: ghRepo(env), plan: ghPlan(env).map((x) => `${x.wf} @ ${String(x.h).padStart(2, "0")}:${String(x.m).padStart(2, "0")} New York`) } : false, runToken: !!env.RUN_TOKEN, metalsUrl: env.METALS_URL || null, metalsBinding: !!(env.METALS && env.METALS.fetch), finnhubKey: !!env.FINNHUB_KEY, finnhubKeyInUse: goodFinnhubKey ? goodFinnhubKey.slice(0, 4) + "…" + goodFinnhubKey.slice(-3) : null },
             { headers: h }
         )
     }
@@ -1590,6 +1671,17 @@ async function route(request, env, ctx, h) {
         if (!env.FINNHUB_KEY) return Response.json({ error: "No FINNHUB_KEY" }, { headers: h })
         const res = await fetchStock(env, url.searchParams.get("t") || "NVDA")
         return Response.json(res.ok ? { ...res, extracted: extractMetrics(res.data.metric) } : res, { headers: h })
+    }
+
+    // GET /signals/dispatch?token=…&wf=islamic-daily.yml → start a GitHub workflow now (test)
+    if (url.pathname === "/signals/dispatch") {
+        if (url.searchParams.get("token") !== env.RUN_TOKEN) return new Response("Forbidden", { status: 403, headers: h })
+        if (!env.GITHUB_TOKEN) return Response.json({ error: "Add the secret GITHUB_TOKEN first" }, { status: 400, headers: h })
+        const wf = url.searchParams.get("wf") || (ghPlan(env)[0] || {}).wf
+        if (!wf || !/^[\w.-]+\.ya?ml$/.test(wf)) return Response.json({ error: "Unknown workflow" }, { status: 400, headers: h })
+        const res = await ghDispatch(env, wf)
+        await env.EB_SIGNALS.put("gh:last:" + wf, JSON.stringify({ at: new Date().toISOString(), ...res }), { expirationTtl: 30 * 86400 })
+        return Response.json({ wf, ...res }, { headers: h })
     }
 
     // GET /signals/check?token=…(&test=1) → run the daily check now
@@ -1658,6 +1750,7 @@ export default {
                 : Promise.all([
                       runSignals(env).catch((e) => console.log("EB signals run failed:", e && e.message)),
                       dailyCheck(env).catch((e) => console.log("EB daily check failed:", e && e.message)),
+                      ghLauncher(env).catch((e) => console.log("EB GitHub launcher failed:", e && e.message)),
                   ])
         )
     },
