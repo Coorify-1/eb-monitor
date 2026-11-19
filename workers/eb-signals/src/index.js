@@ -1065,37 +1065,64 @@ const toDay = (d) => {
 }
 
 let metalsError = ""
+/* The metals Worker gives DAILY points for 1y/2y/5y but MONTHLY points for "max".
+   Returns are counted in trading days (252 = 1 year), so the daily series is the base;
+   the monthly "max" points older than it are only added for the long charts (3Y/5Y). */
+async function metalRange(env, id, range) {
+    const u = new URL(env.METALS_URL)
+    u.searchParams.set("history", id)
+    u.searchParams.set("range", range)
+    const r = await metalsFetch(env, u.toString())
+    if (!r.ok) {
+        metalsError = `HTTP ${r.status}`
+        return null
+    }
+    const j = await r.json()
+    return (j && j.points ? j.points : [])
+        .map((p) =>
+            Array.isArray(p)
+                ? [p[0], Number(p[1])]
+                : p && typeof p === "object"
+                  ? [p.t ?? p.date ?? p.d, Number(p.v ?? p.value ?? p.price)]
+                  : [null, NaN]
+        )
+        .filter((p) => p[0] != null && isNum(p[1]))
+        .map((p) => [toDay(p[0]), p[1]])
+        .sort((a, b) => (a[0] < b[0] ? -1 : 1))
+}
+/** median gap between points, in days (daily data ≈ 1–3, monthly ≈ 30) */
+const medianGap = (pts) => {
+    const g = []
+    for (let i = 1; i < pts.length; i++) g.push((Date.parse(pts[i][0]) - Date.parse(pts[i - 1][0])) / 864e5)
+    g.sort((a, b) => a - b)
+    return g.length ? g[g.length >> 1] : 99
+}
 async function fetchMetal(env, id) {
     if (!env.METALS_URL) return null
-    for (const range of ["max", "2y", "1y"]) {
+    let daily = null
+    for (const range of ["2y", "1y"]) {
         try {
-            const u = new URL(env.METALS_URL)
-            u.searchParams.set("history", id)
-            u.searchParams.set("range", range)
-            const r = await metalsFetch(env, u.toString())
-            if (!r.ok) {
-                metalsError = `HTTP ${r.status}` + (r.status === 404 || r.status >= 500 ? "" : "")
-                continue
+            const pts = await metalRange(env, id, range)
+            if (pts && pts.length > 30 && medianGap(pts) <= 5) {
+                daily = pts
+                break
             }
-            const j = await r.json()
-            const pts = (j && j.points ? j.points : [])
-                .map((p) =>
-                    Array.isArray(p)
-                        ? [p[0], Number(p[1])]
-                        : p && typeof p === "object"
-                          ? [p.t ?? p.date ?? p.d, Number(p.v ?? p.value ?? p.price)]
-                          : [null, NaN]
-                )
-                .filter((p) => p[0] != null && isNum(p[1]))
-                .map((p) => [toDay(p[0]), p[1]])
-                .sort((a, b) => (a[0] < b[0] ? -1 : 1))
-            if (pts.length > 30) return pts
-            metalsError = `only ${pts.length} points for ${id} (${range})`
+            if (pts) metalsError = `${id} ${range}: ${pts.length} points, not daily`
         } catch (e) {
             metalsError = String((e && e.message) || e)
         }
     }
-    return null
+    if (!daily) return null
+    // older monthly points (before the daily series) for the 3Y/5Y charts only
+    try {
+        const long = await metalRange(env, id, "max")
+        if (long && long.length) {
+            const first = daily[0][0]
+            const older = long.filter((p) => p[0] < first)
+            if (older.length) return [...older, ...daily]
+        }
+    } catch {}
+    return daily
 }
 
 // Small shape-tolerant reader for the CEII crude.json answer
