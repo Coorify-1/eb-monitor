@@ -316,7 +316,14 @@ def headline_hint(lead, A):
     group = f.get("group", "markets").lower().replace("industrial metals", "metals")
     if lead["type"] == "theme":
         return f"{subj} {'rises' if up else 'falls'} amid {lead['label']}"
-    return f"{subj} leads {'gains' if up else 'retreat'} in {group}"
+    day = dt.date.today().toordinal() % 4
+    if up:
+        opts = [f"{subj} climbs as {group} firm", f"{subj} outpaces {group}", f"{subj} rallies while {group} advance",
+                f"Buyers return to {subj.lower() if subj[0].isupper() and subj not in SHORT.values() else subj}"]
+    else:
+        opts = [f"{subj} slides as {group} weaken", f"{subj} drops further than {group}",
+                f"Selling hits {subj}", f"{subj} under pressure in {group}"]
+    return opts[day]
 
 
 def news_list(themes):
@@ -402,6 +409,18 @@ def build(today_ny: dt.datetime):
         "headlineHint": headline_hint(lead, A),
         "headlineFocus": headline_focus(lead, A),
     }
+    # memory of the last editions, so each day reads differently
+    arch = pathlib.Path("docs/analyst")
+    recent = []
+    for pth in sorted(arch.glob("20*.json"), reverse=True)[:6]:
+        try:
+            old = json.loads(pth.read_text())
+            if old.get("edition", {}).get("date") != ed["date"]:
+                recent.append({"headline": old["text"]["headline"], "standfirst": old["text"]["tone"],
+                               "opening": (old["text"]["lead"] or [""])[0][:160]})
+        except Exception:  # noqa: BLE001
+            pass
+    facts["recentEditions"] = recent[:5]
     # writer facts: drop stale markets so the text never treats an old value as today's
     wf = json.loads(json.dumps(facts))
     wf["assets"] = {k: v for k, v in wf["assets"].items() if not v.get("stale")}

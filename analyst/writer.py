@@ -49,7 +49,14 @@ LENGTH: 120 to 180 words for the body, in 3 or 4 short paragraphs ("lead").
 INTERNAL LINKS: two or three, using our page names naturally as anchor text, e.g. "on the [[metals|Hard Assets Terminal]]",
 "The [[outlook|Market Outlook]] places the move in the context of the longer-term trend."
 
-REFERENCE EDITION (house style; its figures belong to that day only):
+VARIETY (very important): every edition must read fresh. Follow the METHOD, not the wording of the reference or of
+"recentEditions". Never reuse their headline pattern, verbs or phrases (e.g. if a recent headline was "X leads retreat
+in metals", do not write "Y leads retreat in ..."). Vary the headline construction (the move itself, a contrast, a
+consequence, a question of interpretation), the opening sentence and the transitions. Choose the angle from today's
+facts: if the main mover is in the same family as yesterday, look for what is different today (another driver, a
+reversal, a wider market, a currency, energy, crypto or rates story).
+
+REFERENCE EDITION (to show the METHOD only; never copy its wording; its figures belong to that day only):
 Headline: Platinum leads retreat in metals
 Standfirst: A stronger dollar and concerns about industrial demand weighed on prices, though one day's trading is not enough to establish the cause.
 1. Platinum fell 4.9% on Tuesday, its steepest move of the session on the [[metals|Hard Assets Terminal]]. Copper and silver also declined, while the VIX volatility index rose 18.7%.
@@ -88,7 +95,7 @@ def _canon(x: float) -> str:
 
 
 def allowed_numbers(facts: dict) -> set[str]:
-    blob = json.dumps(facts, ensure_ascii=False)
+    blob = json.dumps({k: v for k, v in facts.items() if k != "recentEditions"}, ensure_ascii=False)
     out = set()
     for t in NUM_RE.findall(blob):
         try:
@@ -170,6 +177,20 @@ def check(out: dict, facts: dict) -> list[str]:
     subj = ((facts.get("headlineFocus") or {}).get("subject") or "").lower()
     if subj and subj.split()[0] not in " ".join(hl.lower().split()[:4]):
         errs.append(f"headline must start with the main mover: {facts['headlineFocus']['subject']}")
+    def grams(s, n=3):
+        ws = re.findall(r"[a-z]+", s.lower())
+        return {" ".join(ws[i:i + n]) for i in range(len(ws) - n + 1)}
+    olds = [e.get("headline", "") for e in (facts.get("recentEditions") or [])] + ["Platinum leads retreat in metals"]
+    hg = grams(hl, 2) - {"in the", "of the", "on the", "as the"}
+    for o in olds:
+        common = hg & (grams(o, 2) - {"in the", "of the", "on the", "as the"})
+        if common:
+            errs.append(f"headline repeats a recent headline ('{sorted(common)[0]}'): write a new construction")
+            break
+    for e in (facts.get("recentEditions") or []):
+        if grams(out["tone"] if isinstance(out["tone"], str) else "", 4) & grams(e.get("standfirst", ""), 4):
+            errs.append("standfirst reuses wording from a recent edition: rewrite it")
+            break
     sf = out["tone"] if isinstance(out["tone"], str) else ""
     m = len(sf.split())
     if not 13 <= m <= 32:
