@@ -598,7 +598,12 @@ async function fetchYields(env) {
     if (us) row("United States", "US", "daily", us.y10, us.y2)
     row("Euro area (AAA)", "EU", "daily", ea10, ea2)
     YIELD_ECB.forEach(([country, cc], i) => row(country, cc, "monthly", ecbRows[i], null))
-    row("United Kingdom", "GB", "daily", uk, null)
+    if (uk) row("United Kingdom", "GB", "daily", uk, null)
+    else {
+        // Bank of England down: OECD monthly 10-year yield for the UK (via FRED) instead
+        const ukm = await safe(fredSeries("IRLTLT01GBM156N", sinceMonthly))
+        row("United Kingdom", "GB", "monthly", ukm, null)
+    }
     YIELD_FRED.forEach(([country, cc], i) => row(country, cc, "monthly", fredRows[i], null))
     if (cn)
         rows.push({
