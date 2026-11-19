@@ -85,8 +85,9 @@ def template_view(r: dict) -> str:
     lab = r["label"]
     s1 = f"{lab} {_attention_words(r['attention'])}{_trend_words(r.get('attentionChange'))}."
     x = r["reaction"]
+    # an asset named with a figure ("S&P 500", "US 10-year…") is not named: views carry no numbers
     lead = next((a["name"] for a in sorted(r.get("assets") or [], key=lambda a: -a["z"])
-                 if (a["move"] > 0) == (a["dir"] > 0) and a["z"] >= 0.5), None)
+                 if (a["move"] > 0) == (a["dir"] > 0) and a["z"] >= 0.5 and not re.search(r"\d", a["name"])), None)
     if x >= 0.4:
         s2 = "Markets are moving as they would if the risk were materialising" + (f", led by {lead}." if lead else ".")
     elif x >= 0.15:

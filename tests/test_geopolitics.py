@@ -2,6 +2,7 @@
 Checks the measures and that the published file matches the Framer component."""
 import datetime as dt
 import json
+import zlib
 import math
 import random
 
@@ -30,7 +31,7 @@ def offline(monkeypatch, tmp_path):
     today = dt.date(2026, 11, 16)
 
     def gdelt(query, mode, a, b):
-        seed = hash((query, mode)) % 10_000
+        seed = zlib.crc32((query + mode).encode()) % 10_000
         if mode == "timelinetone":
             return [(d, -3.0 + v) for d, v in _daily(seed, a, b, 0.5)]
         spike = today - dt.timedelta(days=14) if "Iran" in query else None
@@ -47,8 +48,8 @@ def offline(monkeypatch, tmp_path):
         return out
 
     monkeypatch.setattr(S, "gdelt_timeline", gdelt)
-    monkeypatch.setattr(S, "fred_series", lambda sid, start: walk(hash(sid) % 999, start, 0.0004 if sid == "DCOILBRENTEU" else 0.0))
-    monkeypatch.setattr(S, "metals_series", lambda m: walk(hash(m) % 999, today - dt.timedelta(days=800)))
+    monkeypatch.setattr(S, "fred_series", lambda sid, start: walk(zlib.crc32(sid.encode()) % 999, start, 0.0004 if sid == "DCOILBRENTEU" else 0.0))
+    monkeypatch.setattr(S, "metals_series", lambda m: walk(zlib.crc32(m.encode()) % 999, today - dt.timedelta(days=800)))
     monkeypatch.setattr(S, "headlines", lambda q, n=4: [{"title": "Sample headline", "url": "https://example.org", "source": "x"}])
     monkeypatch.setattr(W, "_call", lambda *a, **k: None)
     monkeypatch.setattr(R, "STORE", tmp_path / "attention.json")
@@ -161,3 +162,9 @@ def test_structural_level_is_a_floor():
     assert M.final_level("medium", 2.0, 0.6) == "high"        # strong data raise it
     assert M.final_level("low", 0.0, 0.0) == "low"
     assert all(r.get("level") in ("high", "medium", "low") for r in R.catalog())
+
+
+def test_template_never_names_an_asset_with_a_figure():
+    r = {"label": "Trade & tariffs", "attention": 0.0, "attentionChange": -0.4, "reaction": 0.6,
+         "assets": [{"name": "S&P 500", "move": -5.0, "dir": -1, "z": 2.0}]}
+    assert W.check_view(W.template_view(r)) == []
