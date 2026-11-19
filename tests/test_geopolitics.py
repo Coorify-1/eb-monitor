@@ -125,6 +125,9 @@ def test_level_rule_matches_component():
 def test_view_check():
     assert W.check_view("Tensions rose by 5% this week. Markets will rise.")
     assert not W.check_view("Shipping threats in the Gulf keep the conflict in the headlines. Oil and volatility are moving as they would if the risk were materialising.")
+    # asset names with digits are not figures
+    assert not W.check_view("Trade & tariffs is receiving its usual share of news coverage. Markets are moving as they would if the risk were materialising, led by S&P 500.")
+    assert W.check_view("Trade & tariffs is drawing more news coverage than usual. Markets fell 3% as they would if the risk were materialising, led by S&P 500.")
 
 
 def test_budget_keeps_recent_and_resumes(offline, monkeypatch):

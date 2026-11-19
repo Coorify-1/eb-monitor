@@ -35,11 +35,19 @@ reaction +1 = the linked assets move as if the risk were happening, 0 = no sign,
 Return ONLY a JSON object: {"<risk id>": "two sentences", ...} with one entry per risk given."""
 
 
+ASSET_NAMES = re.compile(
+    r"\b(S&P|Nasdaq|FTSE|DAX|CAC|Nikkei|Euro Stoxx|Stoxx|Russell|Hang Seng China|ASX|TOPIX|Treasuries|Treasury|"
+    r"U\.S\.|US|UK|German|Japanese)\s?-?\d+(\s?(Y|year)\+?)?\b|\b\d+-year\b|\b\d+Y\+?",
+    re.I,
+)
+
+
 def check_view(v) -> list[str]:
     errs = []
     if not isinstance(v, str) or not v.strip():
         return ["empty"]
-    if re.search(r"\d", v):
+    # index and asset NAMES may contain digits (S&P 500, Nasdaq 100, U.S. 10-year…): not figures
+    if re.search(r"\d", ASSET_NAMES.sub("", v)):
         errs.append("contains a number")
     if BANNED.search(v):
         errs.append("advice or forecast wording")
