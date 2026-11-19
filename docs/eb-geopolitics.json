@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-11-18T15:19:01+00:00",
+ "generated": "2026-11-19T12:14:47+00:00",
  "week": {
   "year": 2026,
   "number": 47
@@ -1987,7 +1987,7 @@
    "label": "Middle East conflict",
    "attention": 1.0,
    "attentionChange": 0.1,
-   "reaction": -0.1,
+   "reaction": -0.09,
    "levelAuto": "high",
    "trend": [
     0.99,
@@ -2007,18 +2007,18 @@
     {
      "name": "Brent crude",
      "dir": 1,
-     "move": -29.1,
-     "text": "−29.1%",
-     "z": 1.32,
+     "move": -24.8,
+     "text": "−24.8%",
+     "z": 1.08,
      "page": "energy",
-     "asOf": "2026-11-11"
+     "asOf": "2026-11-13"
     },
     {
      "name": "VIX volatility",
      "dir": 1,
      "move": 14.4,
      "text": "+14.4%",
-     "z": 0.83,
+     "z": 0.6,
      "page": "markets",
      "asOf": "2026-11-13"
     },
@@ -2034,23 +2034,23 @@
    ],
    "headlines": [
     {
-     "title": "U.S. Strikes Qeshm Island as Vance Says Iran Won’t Become ‘Forever War’",
-     "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOQ2ZfMmFJTUpGeWlETnhsTjZDY1NEeXlJdW5Hbkl2c3ZrRmtFcGtnaWVGTTVqejMwRGgtd3RyUWVmdkxmcHdoclB3anU2MjZVR3ZJYnNrSHR6ejZaQ0w1a043VVpiUllXV3AyYUdFQ3pXOW92S1A2THJfT3dmVFNqNU9vLXUwY3JYRENOaE42X1U?oc=5",
-     "source": "Time Magazine"
-    },
-    {
-     "title": "Iran Attacks Kuwait and Bahrain, Further Escalating Fight Over Strait",
-     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNcGVKcXlHY1EycS1qaFBrcVduLWwzS1B4RmhJeDg5eFlxR0FIeVNFclFqZVczdXFBVGVLa0xpcHZXZkVWa3JEeHJxVXA5YWxVa3YtejhlaHd1T1JmWDd1NHp3V1E1SEdsS0tkOEc2bVpZNER2elNveGdNTk9xanNjSDZZM2NwSXhULUVPSk84TW1JRFJUbkRRZVBYN2JHd0NnQkYxN0hhVDhVaVYzUEtlTGUwUUpuZw?oc=5",
+     "title": "Houthi Attack Damages Saudi Capital’s Tallest Tower",
+     "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOa0hZSmpRQXJwM2pNbUxHY01JZUd1TkdjdU5YNGZYd1hqMmNES3RoTWRCVm9GYjMwX0x5NkMwb2FicHNjWkhMZ1dQUVNsUW1hblVuQjVLVkhlVUZZRDFiMlcxdWNweTV0NjR6TG43MmFYMjczckZ1SmhzSlZtOFdtZVVsNHZpSk1UVWdRZ0phakNPT05NRUxmOFFmNGtMZw?oc=5",
      "source": "WSJ"
     },
     {
-     "title": "Senators press acting U.S. Navy Secretary on Iran war costs, sailor health in confirmation hearing",
-     "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1nVzNlZF9QSzQ2RUJiV3MyYVRpNU9XaVB6a2Z5TUdwYktOYnJ1eGh3VWdkVnowMWNNTTRSbkF6S3dGM3Z0SHpZai10U3lDX2hQSG9BTFVtbzhCN19IMlQ0OEQyMGE5N3BLMkRvMmc0ZjBzZ9IBd0FVX3lxTFBXTUI5OTJTRU9WbHZDWm9nU1NxSk9KR0ZWdWJienFFbzVwaVE0dk0tUE10blVVTDZFNzY2THczbzlqdnFTcWV6Tm5KeVdtNmRJLU5Xa3ptVXJQUnJGY3RNRFJJMERCZm1XUkZteUVLVy1ZSkk2YVRV?oc=5",
-     "source": "CNBC"
+     "title": "Iran’s oil leverage is weakening. That could push it toward escalation",
+     "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNSC1SbFVLc2F5bWFZaEVsbVZzeHRzY01aWWJIMjliY3R6SXdyRzAyWDJ1VnIzazBndzFsMUNaZll0NlpxV2g4clhMaUhQUGJ0b1VhNHp3cy0wR29OMjJXbTVoSFJrVWxKb1dQVEZCSHplcFA4ZnYxTk9TUEhPTnkybA?oc=5",
+     "source": "CNN"
+    },
+    {
+     "title": "Shutdown fight takes shape as Democrats target Trump’s Iran war",
+     "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOQmpxQVZsLWFmNnQ2WTl6ZVNzb2VUTlhVOUQ3SFJqVW4yNmk2MHh5ZDRCQVh4aVI5RlJkc3FVMmVWT3hub2dvUGVwTTZxZWZaY0trTnRSWVVvQlJRLTg3U2psRVByTGp4bm1tREZ5dzE0MjNSMXFMRWJJV2JsMWFPWF9QekJ3QXdxWklGZG5ITDBGUQ?oc=5",
+     "source": "The Hill"
     }
    ],
-   "view": "Attacks on Kuwait and Bahrain alongside strikes on Qeshm Island signal a significant escalation in the regional conflict. Despite well above usual news coverage, markets appear to be moving in the opposite direction of this risk.",
-   "viewBase": "Attacks on Kuwait and Bahrain alongside strikes on Qeshm Island signal a significant escalation in the regional conflict. Despite well above usual news coverage, markets appear to be moving in the opposite direction of this risk.",
+   "view": "Regional tensions persist as Houthi forces strike infrastructure and Iran faces pressure over its oil leverage. Markets appear largely indifferent to these developments, as energy prices and credit spreads show no sign of defensive positioning.",
+   "viewBase": "Regional tensions persist as Houthi forces strike infrastructure and Iran faces pressure over its oil leverage. Markets appear largely indifferent to these developments, as energy prices and credit spreads show no sign of defensive positioning.",
    "levelBase": "high"
   },
   {
@@ -2058,7 +2058,7 @@
    "label": "Energy security",
    "attention": 0.91,
    "attentionChange": -0.22,
-   "reaction": -0.27,
+   "reaction": -0.26,
    "levelAuto": "high",
    "trend": [
     1.5,
@@ -2078,50 +2078,50 @@
     {
      "name": "US natural gas",
      "dir": 1,
-     "move": -3.23,
-     "text": "−3.2%",
-     "z": 0.1,
+     "move": 1.24,
+     "text": "+1.2%",
+     "z": 0.03,
      "page": "energy",
-     "asOf": "2026-11-10"
+     "asOf": "2026-11-13"
     },
     {
      "name": "Heating oil",
      "dir": 1,
-     "move": -11.22,
-     "text": "−11.2%",
-     "z": 0.51,
+     "move": -12.85,
+     "text": "−12.8%",
+     "z": 0.55,
      "page": "energy",
-     "asOf": "2026-11-10"
+     "asOf": "2026-11-13"
     },
     {
      "name": "US 10-year inflation expectations",
      "dir": 1,
      "move": -9.0,
      "text": "−9 bp",
-     "z": 1.03,
+     "z": 1.01,
      "page": "markets",
      "asOf": "2026-11-12"
     }
    ],
    "headlines": [
     {
-     "title": "IEA chief sees no 'credible pathway' back to pre-war normality in the Strait of Hormuz",
-     "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9mY1gzbld3VGk4Tnc1VUw4NmY0UVc5aXZ6dVVDNWxIVldiWWR0TjBDWGZhLThpTVNGRC1lcmRRSkZqNXFqeDJ0aG1KQXdELTJPVmdyQlJ3c0NSZHc0UGJUV25HT0MtSXI3am9HZElMaE10Yy1P0gF6QVVfeXFMTzVQd2FkT3N5ekNUenZsNl9Bbk9BWEdHempvQ0hURC1UOVQwc3R2c1ptUmxhc1VHcHpRQ3pIS1dGQ0VkeF9uQjF6OGQ5LVlBMVhVUzlTcHJvZDY1Q3VEaDg3WFY3YUZkWWJkZ0VmekZzeFZ4MDdJbHVWRmc?oc=5",
-     "source": "CNBC"
+     "title": "Iran Keeps Up Unrelenting Attacks on Ships in the Strait of Hormuz",
+     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNczJXN3dIbXJITGpRV1BQQzdMRlp4QVl0ZE5jZnM2Vk9SNm5tZ2ZJV1NlbXA4em01SGZxM3p3b0FQemFMS0dTNGhhdzdPZzhCdXZDVzJTRXYtRThDWHRQa3dZQzRTOGdPZWxuQThVTGo5RGVzUHluWnNVaWRmNE5XQ2VpSS1aMVZUT3IyOA?oc=5",
+     "source": "The New York Times"
     },
     {
-     "title": "U.S. launches strikes on Iran's Qeshm Island in Strait of Hormuz",
-     "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNbEJURjBQYXVkNTJSWEMyUlRrbFJ3NjJETGptNjYxX1JSS3lob1NOekp3WkZYcDdWVUtEaFRHYlpzUGg5d1FlNDE0QWdhMmtoUzBJb2piaWZFZWF3OFBaNjY1dTJMMldkdTVtNE1lWFJadlhpRFdFeWZYam5zN3RwWmFiSUw?oc=5",
-     "source": "CBS News"
+     "title": "Strait of Hormuz crisis 'largest threat' to energy security ever: IEA | Daily Sabah",
+     "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNTThaczhoZi1pTGIxLXFfY21sWmF0eW5WSnpJQWdiWnJuam5iV2RYbmFCcS1mMVlkUEZnMEVMajdzekJGSzRCemhoc2g2dHNaUmRvQTZNMGFrdDhrTnlIM3dvSWM1TEhzU0Q5SURob2ZZeGs5ZldjN3dxRTVraXZGLWdMOWM1OWZiclQ4OUtHWGtlZnRyOHJHM2wzbUZZaTJwLVNWbFJTOThvQklwRFHSAbMBQVVfeXFMUDZJZFpWcVdBNlJ3cjUtN3lhbjA5dzdHV2swOFN4MlNrMnltQmt6T1M2UnRFVy1jNHNWdXVXdDBHb2ZMZnV5UGFnUzNueEpabWY2eDU5bE9GdE9RTWdPVE9MVlZCWTFsaVZQRmhRZ2c3dWl3cXQybWo4SGpKUlFqVWV4bGt5eUJOV0ZBMDlTZ01CMEtnRFNfRDFyU1BhZWxhZ0F1WFdwQ0x5MS1PT3JiNkRETXc?oc=5",
+     "source": "Daily Sabah"
     },
     {
-     "title": "One missing, 11 injured in attack on ADNOC tanker in Hormuz",
-     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQUTJCUzVGMi13TGtZZl9LX25VMFJlV2c3MjRRWXNHbmZ2NXdoS1ZWS0RnWGRSSjZ1SVJMcWxDeEtBdGlORWo1MlZjbENtOWxWMDUwUGFCV1FVcHRWYUlKWE92MGRWcXdrNWYzWmNzelo5amxjd3RiSTBvQ2FHSE1QN0s2QlNaZ05BTERZc3dfMU4waWQ2d2xMWGlRajhTYnRDN09j?oc=5",
-     "source": "Seatrade Maritime News"
+     "title": "Middle East conflict triggers biggest disruption ever to global oil trade, IEA warns",
+     "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOWlk0OG5fSFVxS01zQmJQZ2t6SmN4R2JsZ2lDdi16QXJRQnY2b3p6ZmpJZ3pmWFFDU3dKMXJiSTRXb0JISm43VVlBWUpfbDFXeXlxSE80SktiQzY2MDczdW8wRTNpcF91TVNmSG9Kc1V2RHlubzlzTlRmdGJwMEYweW1vZjdxSEpPY0RIbFRPOHdHWlBkM3lBMURLUDVxZk9EQWJ2aDRoYlZfTHN0RlpVOVVWWW52d0tUN1NreXp2aHQ?oc=5",
+     "source": "NBC News"
     }
    ],
-   "view": "Strikes on Qeshm Island and attacks on tankers suggest the Strait of Hormuz remains a dangerous corridor for global supplies. Markets appear to be ignoring these threats as energy prices and inflation expectations move lower.",
-   "viewBase": "Strikes on Qeshm Island and attacks on tankers suggest the Strait of Hormuz remains a dangerous corridor for global supplies. Markets appear to be ignoring these threats as energy prices and inflation expectations move lower.",
+   "view": "Disruptions to global oil trade and maritime security in the Strait of Hormuz are causing significant concern. Investors are currently ignoring these supply risks, with heating oil prices and inflation expectations moving in the opposite direction.",
+   "viewBase": "Disruptions to global oil trade and maritime security in the Strait of Hormuz are causing significant concern. Investors are currently ignoring these supply risks, with heating oil prices and inflation expectations moving in the opposite direction.",
    "levelBase": "high"
   },
   {
@@ -2129,7 +2129,7 @@
    "label": "Russia–NATO",
    "attention": -0.65,
    "attentionChange": -0.18,
-   "reaction": -0.28,
+   "reaction": -0.24,
    "levelAuto": "medium",
    "trend": [
     -0.58,
@@ -2149,18 +2149,18 @@
     {
      "name": "Brent crude",
      "dir": 1,
-     "move": -29.1,
-     "text": "−29.1%",
-     "z": 1.32,
+     "move": -24.8,
+     "text": "−24.8%",
+     "z": 1.08,
      "page": "energy",
-     "asOf": "2026-11-11"
+     "asOf": "2026-11-13"
     },
     {
      "name": "Euro vs. dollar",
      "dir": -1,
      "move": -0.8,
      "text": "−0.8%",
-     "z": 0.47,
+     "z": 0.48,
      "page": "crypto",
      "asOf": "2026-11-13"
     },
@@ -2169,30 +2169,30 @@
      "dir": 1,
      "move": -5.39,
      "text": "−5.4%",
-     "z": 0.81,
+     "z": 0.85,
      "page": "metals",
      "asOf": "2026-11-13"
     }
    ],
    "headlines": [
     {
-     "title": "Ukraine allies reject U.S. criticism of deep strikes inside Russia ahead of Trump-Putin-Xi summit",
-     "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPcF9sZnpjTVZtQnpnUTlmcFJ5OFB4UGhFLVIwUUJFZ1F4MXVBem14ZzRXSkotTUp1S0tJZEZjY1oxbEt3S1NiaXlSbTJrUmZMQjEwWEZUN1dGZTlGSUxTZWl1bzhfT1N4SzhrcDN6X29TMTNadlEzdWFrZWxlalFTV0lUQmNKeGfSAYwBQVVfeXFMT3ByenVPUVlqSzkzRWJmWE13TGxRQjRZcmtBZVU2aFhtVUJiVlZGZGNydnNBOFNuMENZaWdDVHN4aVpUeUF1N2JZaGVwUi05eFNGSDB1c3V3WXlnbk9vczlsb29lVlF5Nll3ZlpPUV9QRUh0RG80VVI3bEtJX1VOQjBlS3BKcUdFXzVEa1U?oc=5",
-     "source": "CNBC"
+     "title": "Russian Offensive Campaign Assessment, November 18, 2026",
+     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOSDhGSTN5MVoxLXJRR3JBM2EtbFhXamtHaHhUUW9yU1BVa2xkT19JVTFsb0c5OTZTdUdYcl9YbWRFbUFTWWlZOE16cVBiVE1fQTh5eFJ3OHAtX1hWQlZJWWd4NEpXUld2Y1N0NkZHenNjMEdpWXNIRGpvVVNWY2YwZ0g1TkxNS0cwZWZWWWs3NUxMZ2Nremw5RlFnQmNlMm9sa3NwYlIycFlIZW45?oc=5",
+     "source": "Institute for the Study of War"
     },
     {
-     "title": "Putin Will Continue Ukraine War Despite Plans to Meet Trump, Intelligence Says",
-     "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQMnVuNkc1OXlhc1RYRmEwZTZIRDF6TmVMY2pTdnE4clplaDBDTmwzMkxFZVl1MmxRc2JBV0stQzFVR3gtMVl3TVhVOEh4TVF3aDR3aEZoT2NQQTZPazZPZEU3ZFU2MWFCVjFidXRIT2FFcHd2NFZzRTdyczNnY0M2Yg?oc=5",
-     "source": "The New York Times"
+     "title": "China and Russia say they and US agree on UN reforms, boosting fuel supplies, dialogue on nuclear",
+     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOZko0TjU0LUdSMUxlTkNVcnJsSThoSFo5Y2ZuamRVQ2tidnZQa2M5N1o0dlpndmptSGxNTGhYYS1IUXVKMjZibjFPcWVURHJRaHNfclhIMHlSVFdIN3VkZUxFVEo5Z1JoZFR0bkdHOUd1UUNuNXRCVDBKUlhPaGItcmVfY09NQ1U5WmhHYzRNZHdtWDVVay1JalhlNA?oc=5",
+     "source": "AP News"
     },
     {
-     "title": "‘Crimea is turning into an island’: How Ukraine hit Putin’s prized bridge",
-     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQYklTN2ppazZ0YmtZQUVsWGVvN01DSldOYkZ1Vl9rVmpVOXA4N3B3dl8yeTg1SU56TG56S1NnTlB3R3EyRFZDV3ZyYnY0Vy1va1VKT2M0Qkg2ZTFsOHVhNGdfT2k5blZXMXlxaWZwZWc2Z3BmMktGTS1jekwteHpGM3c0VUhyaWxqd2t0QzQ1SHVWaWo4eGNFaXNRT1dFZmZpYmhOVkNySi1YYmZDekZWUdIBtgFBVV95cUxQYjdxSzY2dVg3S1VZUm9YVXc4b29vNldIeVBjMFN4a2xreHNOTkR1UmIwSmNRYkNTbkctLVctcmxRbHFVeFNUQWp2WkZGWlVMWEJldlAzX3ZnLUdHSG14VXFOQU5mTURuNmZyWEdkWUNISGRuVXU0WmdBVFRKM0V3cHJpeE94dUp1U2pFcFVxV3lxTDVjOFZXNi11MG9FZ3JzTnhmVlVVZ1JRUDlTY3dhYWljazhOdw?oc=5",
-     "source": "Al Jazeera"
+     "title": "Ukraine war briefing: Russia asks if Netherlands has joined conflict after Crimea bridge strike",
+     "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNOENUX1hEa09FRkEySGhZbmYtbDJrNE8zQmg5WWswbGpBTGhPZEF5YWxtU1laU1F0SFU4Y2Izd1NYcDhlaWF2cGNwMWZuYmh5bUVRdlFnNWI3alp0Y0tpYnJ4am5TcW1RVE9oNm82UXJhc3h6NE5ZcXd2RHhvV21wSGJNLW5rSlVuV3JWR2JsdG12Y00wak9NUG9ST1UyMHl6Z3RDZ3dsSEZHRDh6Q0MteWkxT0dWUGU1ZHRHYjNXM3dBT2Y3UlhUNzMzd0FmSFpDQkFZQg?oc=5",
+     "source": "The Guardian"
     }
    ],
-   "view": "Allies are debating deep strikes inside Russia while intelligence suggests the offensive will continue despite upcoming diplomatic summits. Markets show no sign of concern as assets move in the opposite direction of this risk.",
-   "viewBase": "Allies are debating deep strikes inside Russia while intelligence suggests the offensive will continue despite upcoming diplomatic summits. Markets show no sign of concern as assets move in the opposite direction of this risk.",
+   "view": "Diplomatic discussions involving major powers continue alongside ongoing military operations in the Russia–Ukraine conflict. Market attention remains exceptionally low, and asset prices are not reflecting any increased concern regarding a broader confrontation.",
+   "viewBase": "Diplomatic discussions involving major powers continue alongside ongoing military operations in the Russia–Ukraine conflict. Market attention remains exceptionally low, and asset prices are not reflecting any increased concern regarding a broader confrontation.",
    "levelBase": "medium"
   },
   {
@@ -2200,7 +2200,7 @@
    "label": "US–China rivalry",
    "attention": 0.4,
    "attentionChange": 0.87,
-   "reaction": 0.33,
+   "reaction": 0.32,
    "levelAuto": "medium",
    "trend": [
     -0.22,
@@ -2222,7 +2222,7 @@
      "dir": -1,
      "move": 0.32,
      "text": "+0.3%",
-     "z": 0.77,
+     "z": 0.75,
      "page": "crypto",
      "asOf": "2026-11-13"
     },
@@ -2231,7 +2231,7 @@
      "dir": -1,
      "move": -2.16,
      "text": "−2.2%",
-     "z": 1.69,
+     "z": 1.66,
      "page": "crypto",
      "asOf": "2026-11-13"
     },
@@ -2240,30 +2240,30 @@
      "dir": -1,
      "move": -5.83,
      "text": "−5.8%",
-     "z": 1.04,
+     "z": 1.01,
      "page": "markets",
      "asOf": "2026-11-13"
     }
    ],
    "headlines": [
     {
-     "title": "China’s military seeks Nvidia’s advanced chips for AI capabilities, commission says",
-     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE4weWVrTk9Ga05SYUppNDBNUDBuM2pQQ053VDJiUzcyblVpemUzeVdraEhIYm9iZVlMWjI0bVJObzlBRzdCbnVOR1F3MHJCS25VbmNzR1c5c25uLXpQUXVoLXpBZVdhZzZDRDJFVGpNZTU1LXBQbGfSAXtBVV95cUxQT3MycHpPaDRTWGhfS3VOam1XajZCOWxBMlR2eUhQNW01VnZXeDVRV0hUWVRLUFoyOEFvMmxxa1Y3aTV2bGJRQlV1SWI0NG4wSFU5aUZLM2RjbkRxTm1qQ3hjTFExQmsxbG5wdUNwWFBmRmt4TndkM2ZEdFk?oc=5",
-     "source": "CNBC"
+     "title": "How Nvidia Chips Ended Up Within Reach of China’s Military",
+     "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNLVc5N1B2V0VEaE01RDFyU3NaYTNiV3pmb2dqRDVMMWpjenVCbGUwNTh6aHhKX3hLNnBEU3dFZWxFU3I2SkJqQUVEUC1TY0IzNkNnRHc5OUU3SEY3R0RGRFE5M0UwOThfQktjVHgtSUhyeW9XNjJlQm1qdnFMcGtJNVBLNzZtX00?oc=5",
+     "source": "The New York Times"
     },
     {
-     "title": "Xi, Putin condemn sanctions as Trump arrives in China",
-     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNajVqTEcxNDY1R0tuSHhRdUpFRHpxYlpLaTFnNVVCckpEanpKd3JYcjF5YTlHclppS3ljOU12Q3RYcVV4eWl3WElPcERIQXJNcTlCUHFWX09fcEdHSUhNc2JSVDVfWUJmbnhzdE0wR0w3QjduXzM0MWFiaFJldUhZSHFkSWpUWFBRUFNMcE0wYkp0NE1kOWVfVXo3Ymd2VGI50gGmAUFVX3lxTE5OcEVobWtENURqNUthcmg0RFNkNTVLRFlRY2phTTg0S2duM3NXdC1vS2VuTWRFR0JnWUVJWU4wTDVzNk43TS1RTVJkb3p1MXBmT1JrWWxkZTFpUkRpSWliV3dHMV94ZG83QUROUWh6cGppMU9vM2ZHQ29IUXZzTTFrb0FVUWY0Z3VEdGloTXp2UjBkNGkyWG5tdlBSN0hVYWE5YzBkY0E?oc=5",
-     "source": "The Hill"
-    },
-    {
-     "title": "China seeks advanced Nvidia chips for AI weapons despite US curbs, report says",
-     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNN0Vsd0FkMFJLZl8zbklveDFFQW9XSEc3Q3dHMEZ6NjJFZ0dyYUIzOVdkam50a0lSYy00NEt5OGpCaG8wQTZ4RDlyTGVvaU1VMTlGNjk3aTdiZHVXcnloamEyTUZqbEhJWTlHbFJqTHNDWmVGN2JBT2FYTG44bWRIVXFfQ1E3LVdmeGRlczZETDFIUXlUSy04RXk0bDBlTHlIVm1ld2V3TnltenZZSXdBTm1ZV3NxUFVnTTRZWWRn?oc=5",
+     "title": "Taiwan reports two Russian military aircraft nearby, second time this week",
+     "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPdnpIWnMxVUtEZmIybkVXR29nSWNpWXRqRVo3dXZoYmdTcE91Q2MtZW1oSTZ2X3REWjUyZ1JNYlJSclJZX09TY0FNNllNVFdQUU5TV2lVN083QnN3aXB4U2tTMGN4TmY5U1FJbG9zSnE4bEstV215amRrZ2hpTlZ3UFRnU3dJOWZ5M0I3ZGpmU2sxZVk3bE96MWlGblVnMV9XRHk3NF84bmxGb2t6d2JBbXhNY1BrWHhlRVkxanIwMmN0OHJ6eTE0Nzg5dkV0VDhTc3c?oc=5",
      "source": "Reuters"
+    },
+    {
+     "title": "Trump Suggests US Can Sell Blackwell Chips to China in Future",
+     "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPb2RmcllMcDNES1UzSmxVelRjcV9LUHZzVVQzaVA3Z0tKczJqMHBuaXh0X2NMVXFUSGR6V28tMkh6VWNJUmxuMXdiQTFuMzJsUExCa0Y4V3NXV2xtSzVIN2hvcS1zY3FFbGlJMlRZVExYVDVMMXlFWjRObUZKWGc1bHB3QkVEQkIzSVlaN3VpNFVrNXJScG9oV2Q0Yzc5ams2ME1VWTRrZWNfdkxHbFZnV1dn?oc=5",
+     "source": "Bloomberg.com"
     }
    ],
-   "view": "Reports that the Chinese military is seeking advanced chips for artificial intelligence capabilities are fueling tensions with Washington. Markets are reacting as if the risk were happening, consistent with the notable increase in attention.",
-   "viewBase": "Reports that the Chinese military is seeking advanced chips for artificial intelligence capabilities are fueling tensions with Washington. Markets are reacting as if the risk were happening, consistent with the notable increase in attention.",
+   "view": "Tensions over semiconductor technology and military movements near Taiwan are driving a sharp increase in news coverage. Markets are reacting with caution, as technology stocks and regional currencies show movements consistent with rising geopolitical friction.",
+   "viewBase": "Tensions over semiconductor technology and military movements near Taiwan are driving a sharp increase in news coverage. Markets are reacting with caution, as technology stocks and regional currencies show movements consistent with rising geopolitical friction.",
    "levelBase": "medium"
   },
   {
@@ -2271,7 +2271,7 @@
    "label": "Trade & tariffs",
    "attention": 0.7,
    "attentionChange": -0.06,
-   "reaction": 0.39,
+   "reaction": 0.38,
    "levelAuto": "medium",
    "trend": [
     0.44,
@@ -2293,7 +2293,7 @@
      "dir": -1,
      "move": -0.32,
      "text": "−0.3%",
-     "z": 0.11,
+     "z": 0.1,
      "page": "crypto",
      "asOf": "2026-11-13"
     },
@@ -2311,30 +2311,30 @@
      "dir": -1,
      "move": -2.04,
      "text": "−2.0%",
-     "z": 0.57,
+     "z": 0.56,
      "page": "markets",
      "asOf": "2026-11-13"
     }
    ],
    "headlines": [
     {
-     "title": "Trump touts ‘landmark’ trade deal with Philippines",
-     "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPdzFEUGtzd041Uk54NWVjS2tJekhLelB0bC1VeUJBZmZ0VjAwQW1kQm01LVFBNEw1aC1kY2RmZ2lMN3N1UHBoejVPT09rTDZYd3NFSmJFUlRMQ2ZSVjR5bC15ZXR1NUZibC1PRmVUWnhzZjlHVWwxcVNyS3JCcGZkWGpKLTl6dkk?oc=5",
-     "source": "The Hill"
+     "title": "We’re Publishing the Tariff Refunds the Government Has Refused to Disclose",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFA0Y1k0ak1HSExYRDkyTXhCdTgxTGRJWmplYUpRX0N3MWhvNGdtYTFPMFBTT2kyb3NhQVFjWGZZemJKZnFta2NhRGFSb3BSdXJUOTVBVDlzZktkdExnNnFjdy1PY3JPYlh3ZEFQckcxdmpjdWVyMGc?oc=5",
+     "source": "ProPublica"
     },
     {
-     "title": "Trump slaps additional 50% tariff on certain Canadian goods",
-     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPdDZTVjFHZXBWcUoteUpOakQ0T016RDVlQWxGR19KYnhEeEdfQzV3UmVLNkdEbWVCckxFbHZsNjhpcW9HQktmWGd5RmtobE1fWTJ4TnpqQlRZZDJRTUs2QzU4eW9zNl9ZeEpfRFk0OVRRTzRBVUJYS1F0dTFWRlNqNUFNV0taQU81MnBWbHd1MG5rendjb1g1X290RdIBoAFBVV95cUxPX09ka2RKeVgzdHdOWERZWHFGNWhmeWk0bHE5b0V3T3B0X19JQzZfcVQ0SHFkNXRBLWp3Sk1QMWduVU5sdy1DektIa19VeWtwTGNuNy1lbnU0OW0wazRjN1ZQdWJZdlp1N2kwSjc3RVhBaG40eFZTN0xTbE5xTHMyenZZazdlOXdqSHhrbkZrcTlzOGZiX3BnTy1tSThqTm1G?oc=5",
-     "source": "ABC News - Breaking News, Latest News and Videos"
+     "title": "The Supreme Court Blocked Trump’s Tariffs, But Americans Are Still Paying the Price",
+     "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOa3RPMGEyT1NWUXI3M1RvVFpEVkhUWlBPTENxb3VzRWFVU21TZlY1MDE4cjdaZHJtVmV3THJCWWdCWnhfYXRuejJXNE1aTUc0a2VPdWd2NFpVUXhlai0xUnR4M2xSOEQwRkdFRDJzM1dmbVZaWVFoR0M2ZWRiOGlMcmI2d1NuQkE?oc=5",
+     "source": "Balls and Strikes"
     },
     {
-     "title": "Xi, Putin Assail Economic Barriers Ahead of Summit With Trump",
-     "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZV9ZWUxMTFhwQXgwVjF2dEctYWZMNTM2YmRDSWtQM005QklCTkgyNF9NTG9YMTV4NHJYWWRBRXBMV20wNFZUOHAwdF9iaUpEYlh3N2hZaDFHWVoxNV8wWkVLYVJOVks0TmpQOGh1LW1Mc0tpSzZuaGl0VUNtR2RrMmhMYXBKYnNyR3BVeTdiQkw1SnNjd2xYR0JYUndnTDJ3aE1JaTZxNjd1aC1oVHZ3?oc=5",
-     "source": "Bloomberg.com"
+     "title": "GBH Daily: $14,000 in tariffs, $12 in refunds",
+     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOeVVxZ1hRUXlsaG5ZNUFKWkNnQlVQM1M1eldMSlljaTVvOXRtdU12VWhTT2pRZkxVbFNWWWh1by1vakthSWxDZjBNSm9QVHg5cGFQYlVFNFpCOHByaFJqTUNXS05aTHYtRUVxTERHOXd4ejJoU2VvLVptUEZkNkZfWllPQUdrZWR1TmNqaw?oc=5",
+     "source": "WGBH"
     }
    ],
-   "view": "New tariffs on Canadian goods and critical rhetoric from global leaders highlight intensifying friction over international economic barriers. Markets are reacting as if the risk were happening, with sensitive assets moving in the expected direction.",
-   "viewBase": "New tariffs on Canadian goods and critical rhetoric from global leaders highlight intensifying friction over international economic barriers. Markets are reacting as if the risk were happening, with sensitive assets moving in the expected direction.",
+   "view": "Legal and economic disputes over tariff implementation and refund policies are creating domestic and international friction. Investors are responding to these trade risks, with copper prices and equity markets declining as the costs of protectionism appear.",
+   "viewBase": "Legal and economic disputes over tariff implementation and refund policies are creating domestic and international friction. Investors are responding to these trade risks, with copper prices and equity markets declining as the costs of protectionism appear.",
    "levelBase": "medium"
   },
   {
@@ -2342,7 +2342,7 @@
    "label": "Cyber & terror attacks",
    "attention": 0.86,
    "attentionChange": 0.61,
-   "reaction": 0.39,
+   "reaction": 0.34,
    "levelAuto": "high",
    "trend": [
     -0.54,
@@ -2364,7 +2364,7 @@
      "dir": 1,
      "move": 14.4,
      "text": "+14.4%",
-     "z": 0.83,
+     "z": 0.6,
      "page": "markets",
      "asOf": "2026-11-13"
     },
@@ -2373,7 +2373,7 @@
      "dir": -1,
      "move": -20.48,
      "text": "−20.5%",
-     "z": 1.59,
+     "z": 1.52,
      "page": "crypto",
      "asOf": "2026-11-15"
     },
@@ -2389,23 +2389,23 @@
    ],
    "headlines": [
     {
-     "title": "Equinor detected cyber-attack - update",
+     "title": "Update regarding cyber-attack",
      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9RSzV1NnNoclpOVGR6SkdLZlZaOHg2bzlQVjVzSzNwZERSRklTVXJsc3RZQTN3ZHZlX2VSV1Zrd1lFV0ZXVW1JQmViUmRBU1c4Ml9wSmN2VE9BZ3FwQTNyVnVEVlRIcWhjdnJyZDBEMnFQWXV6MkE?oc=5",
      "source": "Equinor"
     },
     {
-     "title": "Senate AI hearings in works after platforms planned U.S. terror attack when asked to: \"We need to act now\"",
-     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOV0FhZXEyaEdJeUZlN2Vndk5ZRnh1N0Z0VlRmMkRHZC01d0VnZm9uWXRyV3BXRUtVSVN5MWF2dWNzUzlPYkVSeWpXcndNOG82N1N4bUVVZGpEWEZYQnhrZ2Z0TzZjZzY3TUdUNE9ON3pvSVRkclZSS0hGWDA5cXl6NC0xZ0NwQThiTEdZM20tamV5dFZhM29yU1hR?oc=5",
-     "source": "CBS News"
+     "title": "Trump administration continues to insist tech outages not cyberattacks",
+     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNS2xuYmRKREUxeWp5ZnJYcXYzemJTU0xWcFluSW9lRDRLc2FGbWtKMDkyNjhiUTd3dFdQZWgzTzRRd3RPX2d4em9jWXJoQlB5VGlEX19sc3ZHTEV4RS0wVkR5Njd1a3RjVzBCRDlIZlpOVTJ3Ymw3bUVHYkZqM0RyNWtrLTJwSEZwLWJ5bVliS20wRkIzcmhmcEppaUxyRjdvVHVSRmJxRFQzeFHSAbABQVVfeXFMUHdIejhTQmUxTG9acUlscG9jdjhOVVNScGRtMUZRWERRdnFURW90QU9zSmVTd3ZDSjU2bUk2MHppeHU2bTNqaGRrYzFQVHRTblpUbW5iZjZGUVV1Z3BmT012YmI0UUhycDlycW1ZQ0p4eTBWWHprTk5iTFNGb3NGYXhTVjNXSXEzLUNjQ3pseWxmbGZUdWhnUi1NZTJMbFE5SG81LVExNXhoNUtDZjA4QzQ?oc=5",
+     "source": "ABC News - Breaking News, Latest News and Videos"
     },
     {
-     "title": "AHA: Why Hospital Operational Technology Is a Possible Cyberattack Target",
-     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPOVI5UlU0VGZaZXllYzRJSVU0VFdwWVlCYVh2X2hsVDUycFJZYTY5OWRCVElrQ0RLWnppZVdoQXJ2Zy14VkhTS1FsVWtkSmVNOXItbEVJaWk0eUJLOGpaRXE1dU8zbXZ0am9fZmlmUUdQSUFKRzNBN3RiZkFKMm1EWV9zSXJGVE05bV9oWnF2aUNnb2NZVzVjT0dYb3lsUENqb0s1WTZxeVJyekhoYV9zZ24taW9rM193N2xXNmZB?oc=5",
-     "source": "Florida Hospital News and Healthcare Report"
+     "title": "Hackers Breach N-able Cloud Server, Disrupting Email Security Management Across 3 Regions",
+     "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOTWEwV09jQ1NVVjNhUnlLRE1pUU9TNEFrc2Q2cllMdi1iU1lWbzRPQzZZWWVzZVlTZTFHY1lXOGt1Vm8wRGVjUGlSMGxoa0ZWTkhONkk5RWxnZ2xzSDdtRHFmSTBTN0p4SDhlMGRBdUlFSXRDSFFaa3g3M19MY2gycUpuRQ?oc=5",
+     "source": "The Hacker News"
     }
    ],
-   "view": "Concerns over potential terror attacks and cyber threats against infrastructure have prompted urgent calls for legislative action. Markets are reacting as if the risk were happening, consistent with the sharp rise in public attention.",
-   "viewBase": "Concerns over potential terror attacks and cyber threats against infrastructure have prompted urgent calls for legislative action. Markets are reacting as if the risk were happening, consistent with the sharp rise in public attention.",
+   "view": "Recent breaches of cloud infrastructure and critical systems have heightened concerns over state-sponsored digital interference. Markets are showing clear signs of anxiety, as volatility rises and digital assets face significant downward pressure.",
+   "viewBase": "Recent breaches of cloud infrastructure and critical systems have heightened concerns over state-sponsored digital interference. Markets are showing clear signs of anxiety, as volatility rises and digital assets face significant downward pressure.",
    "levelBase": "high"
   },
   {
@@ -2413,7 +2413,7 @@
    "label": "Western Hemisphere",
    "attention": 0.91,
    "attentionChange": 0.57,
-   "reaction": -0.34,
+   "reaction": -0.3,
    "levelAuto": "medium",
    "trend": [
     0.37,
@@ -2435,7 +2435,7 @@
      "dir": -1,
      "move": -0.32,
      "text": "−0.3%",
-     "z": 0.11,
+     "z": 0.1,
      "page": "crypto",
      "asOf": "2026-11-13"
     },
@@ -2444,39 +2444,39 @@
      "dir": 1,
      "move": -5.39,
      "text": "−5.4%",
-     "z": 0.81,
+     "z": 0.85,
      "page": "metals",
      "asOf": "2026-11-13"
     },
     {
      "name": "Brent crude",
      "dir": 1,
-     "move": -29.1,
-     "text": "−29.1%",
-     "z": 1.32,
+     "move": -24.8,
+     "text": "−24.8%",
+     "z": 1.08,
      "page": "energy",
-     "asOf": "2026-11-11"
+     "asOf": "2026-11-13"
     }
    ],
    "headlines": [
     {
-     "title": "Who gets to decide Venezuela’s future?",
-     "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5wLUJ5MVh3d3FDSEhnWndEZm5QWlJ1TkFNbEhuMHFoUTJzZFBKQ1Z0NjExVmtXX3dNc0JBc1VYTkdqZUpUVGdjS2NTU1F4Z05EWGQyT09TY2JXRS1HM2sybFRVWThFY0NxX2hxYXY2c3FTUXhUeEFHN1pn?oc=5",
-     "source": "Vox"
+     "title": "Why is Pete Hegseth strengthening US military ties with Venezuela?",
+     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQQzFuSFdVOHZFcUZ4bmNhTGJrUXVMZ3NJVTdTRmVqWFBzam1tYjZ2djZSd2p6bEhSbFJNOFdjbkVwZG5tdFNfMlBTeG9FSTNTTE9FcHdaRjNXWk1XbWlyc2VLMFhydlNGVHE1c2k1ZW16S01nV21tSU9vb1VJRjJKLTNKMlRaXy1CZkJIR0ZZaVVGazBjZmhzM3MtaFE1cnFMV1FmdnQzNXI0RnPSAbABQVVfeXFMT3hWSGRtNlMzRWpuMkRtUmExVktBdGdCUWZMLUZxWVpldERGOHVQcFNnLVJONGdPNlZxOEt4QU9rOVllTEZQMXRCbVhrOC1FeXpycUlGWDVScF9sSVFaOEdscVZlX3BTTF9HbV9JV3RWdGRmRzhMZHdPNlNTbXc4R2xqcVl0eVdaT24wbkJUTVBEV1pDWDJRcnhGMkxjcGVRRXJwT0o3a0w0R3ZLc2RGYmM?oc=5",
+     "source": "Al Jazeera"
     },
     {
-     "title": "US War Secretary Pete Hegseth visits Bogotá to Reinforce Security Agenda",
-     "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQNjc4RVBidV94TlB1SjJxUUp6djZla2Y5ZVljc1JJT3JjRWpoTE16c3NWZlNPbzE0ODBmTXMyNEZQRHBlcDJDWHVTd3dRaWE4bHFJNXBIVGU2a1FiT1c0OC01V0RUTVdoR3lMVGNJbmc1Q1QzZDN0OUxTWmRZdW5weWtqZTc1UnpwVm50aDAtci0zWWdMTGNxY2l5WEUtbWxyZ2w2bW4xZDB6aGRVQ1FwQXR3?oc=5",
-     "source": "The City Paper Bogotá"
+     "title": "Denmark ratifies Trump deal over Greenland, expanding U.S. military role",
+     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQQ25fdlU5T2FreW84R3JlOWlVcGVORjlLLXJaMUY3bnE0UnBpZHBBb3RaZzkzbGNPZ19DY1ZGdW05eF9KNjBHcDE3M3ducGIzYklhZ0Y1YXZ3QmFkSnhhRHYxOXdqd2h4bFlsYkdYSE56U0ZvVzd6SmVaWkt0bUdLek5pN1ZiR2pSSzFtX3NGYzhYeTVBQWpFeXdSdUFmdVpQZUpXV0hLdWJTbmFmYTF5S3dfRlF2UQ?oc=5",
+     "source": "NBC News"
     },
     {
-     "title": "The Greenland Test: What Follows When America Coerces Its Allies",
-     "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPWm9sU205SXV6c0Jod01VT0xMY3FURkZSaGUyMFQxaHFLZXhZbFNueS1TWUpCeGE1THJMaDVxamlEVFpqdGpBM28xMzNJSXBEa3phNlJkUXdHdF9QQWhxVmV0WVhHRTQybVNKRElHUEZ5TjRPaXRNVjRueXNXci01VGJMdERhd1pIQktTRVlPMmM?oc=5",
-     "source": "Time Magazine"
+     "title": "Venezuela a ‘compliant security partner,’ Hegseth says as he announces military deal with Caracas",
+     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOUE9iX19fb2Ewd1JMVDFON3FPZi0wSGFGeTNLWk9TdDI1TWFuUmQ3dEZnaFVmS2tpYktqcUxqVGxaZGNZa1FnUDNYQU5XS3RXSkpPZDUxNmRMZ2ZZUE5oNV8wSDZ5OHpRcmw0YjlQUnhKbWotcEROTnljY2p2OTdYdGhLYzF6SjdaY3hPY3JB?oc=5",
+     "source": "CNN"
     }
    ],
-   "view": "Diplomatic pressure on Cuba and security meetings in Colombia reflect a more assertive regional policy from the current administration. Despite high attention, markets appear to be moving in the opposite direction of this geopolitical risk.",
-   "viewBase": "Diplomatic pressure on Cuba and security meetings in Colombia reflect a more assertive regional policy from the current administration. Despite high attention, markets appear to be moving in the opposite direction of this geopolitical risk.",
+   "view": "New security agreements involving Greenland and Venezuela indicate a shift in regional military diplomacy. Despite high levels of news coverage, markets are moving the opposite way, with energy and precious metals showing no defensive premium.",
+   "viewBase": "New security agreements involving Greenland and Venezuela indicate a shift in regional military diplomacy. Despite high levels of news coverage, markets are moving the opposite way, with energy and precious metals showing no defensive premium.",
    "levelBase": "medium"
   },
   {
@@ -2484,7 +2484,7 @@
    "label": "North Korea",
    "attention": -0.71,
    "attentionChange": -0.09,
-   "reaction": 0.04,
+   "reaction": 0.01,
    "levelAuto": "medium",
    "trend": [
     -0.43,
@@ -2524,30 +2524,30 @@
      "dir": 1,
      "move": 14.4,
      "text": "+14.4%",
-     "z": 0.83,
+     "z": 0.6,
      "page": "markets",
      "asOf": "2026-11-13"
     }
    ],
    "headlines": [
     {
-     "title": "A bombshell idea",
-     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQQWJfZTBXWlFmemhhZWJCc0tINUg5RWh0ZDFWaU1ZX2k4alFmT1p6Z2phQ0Z6cmFMLWRGT2hsQnJrNUhRNWl0Z21VWHJCbm11a3VYSVNMWC16ekI1YnpuYXJNLTZBZzY1WFg2ZUM3RWh2M05sX0R3QUNlTlJkTFFSR0xweFdHVlRKcEtpaQ?oc=5",
-     "source": "IPS Journal"
+     "title": "North Korea expanding uranium enrichment facility, UN nuclear watchdog says",
+     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOd19ZRjF0c3NGcTZJYkV4aWZmbUR1My1adUJCY25yTmJMT0FJWG5JalhnQ2E0QUc1MERwdnhKeFJTLWIwSF9VWkI3Y0JMTklsREtJNEVqRmpld1JPdm04ZTlZQkxnUDZzaEF2R0xoUE5Rc1NaUHZlRDZESFlxWV9keE9kSVNqcENWYm8zaTVxdzhXTGVRdVhSbENsRmxzN1ZPYzlLTVFxVGV0NGpEMVZfaHJaaFZRRG_SAbwBQVVfeXFMT2hFWWRlYXl0WVptckRuSG05RWtDdVZIeVFRcmFRYkw2RDRtcGZyWVhWeC15TnJKYU5fb0NBbHVjUENoUUZ2OXRnRmU0ODN5VkcyUXZsY0hRY0lpcU5lMUtYVjliYUJuRjAtMzZ6UUFDYWZpb2hPLWU5T21FUlcxdmlMTWZNTDdBXzVRWHhuNHdNY0hHQUFyMjd3cmgyLUNGbkE3VWVsTlZBcWh0MEZVd0c5Q3ZXaHp3Wm5OUGs?oc=5",
+     "source": "Al Jazeera"
     },
     {
-     "title": "North Korea completes external works on enrichment facility extension, says IAEA",
-     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOVUtoNFl3dEtmNXdNMXdIaHQ3ZElGNERnY3JrRmZjRUZ1M2dNXzVPTU1JQ2tOVU1qa3duS1dIMXUwODgtR3UtWXRTakdHV2tNSUZRWUwyUm5RRG1CUHR1U0t3dERVa2tEdlE3dk03b1ZleTcxdkd5Rk9DUmE2SjBST3BrVkYyVDljLVo5aVNNWFMyODdPUjhHejZMSjNsS1hGZElUZUppTzZtdFlrYXhGNW96OW4yWWpnUG4xN2JBZS1vRXBrTDBxRg?oc=5",
-     "source": "France 24"
+     "title": "Kim Jong Un’s nuclear program draws ‘serious concern’ ahead of Trump’s historic summit with Xi, Putin",
+     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNZkJCbjFxTDJFNDZ6R21zYkFrTDh4aDd4VWxOOV9QT3FieENvaUlUbVhQOW5vVkxDeWN5blBBQThfa2dzbjVCYnI1R0xTb0RSaWFUeFZ5S3FDSzFoZHFSVFFyekZjWEZzTThCTEk4Ym1lbFNiaVczdzRfdmxJT1VidENKNFA4NlloM0JLUjVHY3FKR3dHRXZTQTk1VFdkdUUwX184QWt1aHl5VnpxVV9Md0JFUTNnQ29mSWJkd3lPcFFOcmVhcUhIWA?oc=5",
+     "source": "New York Post"
     },
     {
-     "title": "A nuclear North Korea requires US and South Korea to rethink strategy: Report",
-     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOamhWZlNNWkFvdkNNRmVJUVlHVmxuMlBvVmdlWUQ0S2dGb1ZITl9iWmVyVGlHdHNlZkw0dWtIRjRNamV5SlRVeDZrbzQ3TTlJOFRqMThCSndZLWVkUEMyTktydFdzdHplV2pxa3VMWlk1Q1FIZEJteWphTUdrX1BKX3FTXy1ybHp6dVAyY3VETzVkZ05wandRS0hQRkt6c0dTSzBFTm5KS2tBZU1n?oc=5",
+     "title": "Lee, Putin discuss North Korea and peninsula tensions in first meeting: Seoul",
+     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOY0F2dzhRY3EtTFpHR0xuUGpYNk5fNV94Y05MNDZVckk4eFowUFI4NXhsZmo0WXV4TkZIbGdLYjE4bHduOVhEMWpTSDgwdURzRUFtSUhSQTgtSWxxQ1pZNGx2RXNvYmNBVnpyRFdEUXk2VldaQjhmMTBGVzdDMFdjOFZvUkh1WGIzRS1kUXFTbmFoOFg4enhPaXluc1B1blZKRExQZkRKWXYwZHM?oc=5",
      "source": "NK News"
     }
    ],
-   "view": "The completion of enrichment facility extensions in the north suggests a continuing expansion of nuclear capabilities. Markets show almost no sign of reaction to these developments, which have received less attention than usual this week.",
-   "viewBase": "The completion of enrichment facility extensions in the north suggests a continuing expansion of nuclear capabilities. Markets show almost no sign of reaction to these developments, which have received less attention than usual this week.",
+   "view": "Reports of expanded nuclear facilities and upcoming summits are keeping the focus on the Korean peninsula. Market reaction is currently negligible, with volatility and currency pairs showing almost no movement in response to these developments.",
+   "viewBase": "Reports of expanded nuclear facilities and upcoming summits are keeping the focus on the Korean peninsula. Market reaction is currently negligible, with volatility and currency pairs showing almost no movement in response to these developments.",
    "levelBase": "medium"
   },
   {
@@ -2555,7 +2555,7 @@
    "label": "Transatlantic relations",
    "attention": 0.63,
    "attentionChange": 0.43,
-   "reaction": 0.04,
+   "reaction": 0.03,
    "levelAuto": "medium",
    "trend": [
     -0.21,
@@ -2577,7 +2577,7 @@
      "dir": -1,
      "move": -0.8,
      "text": "−0.8%",
-     "z": 0.47,
+     "z": 0.48,
      "page": "crypto",
      "asOf": "2026-11-13"
     },
@@ -2586,7 +2586,7 @@
      "dir": 1,
      "move": -5.39,
      "text": "−5.4%",
-     "z": 0.81,
+     "z": 0.85,
      "page": "metals",
      "asOf": "2026-11-13"
     },
@@ -2595,30 +2595,30 @@
      "dir": -1,
      "move": -2.04,
      "text": "−2.0%",
-     "z": 0.57,
+     "z": 0.56,
      "page": "markets",
      "asOf": "2026-11-13"
     }
    ],
    "headlines": [
     {
-     "title": "Trump’s Sudden Ukraine Push Leaves Europe Walking Tightrope",
-     "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOYk9oUy15aGpkNVBvTWtaVjhvNm1uTnN5bWVidkYtbFdGdmx1WDdJMUdWdlN3QVlTZ0dxZlV0UERhTHBSYUZTOUVpREtoR1ZtbjdsOEk0WS11WnZORXlVNXZpSFVjZzNKV21YUHJ3TFZNMGtvQUlTYkRVTjN5alhQR1AtbW1UVmd0MkxhN1VCMHNKTXgzU2lVR2pKZk4ta0cwaVA0Mkt2ODMxNEU4Wm9scll3?oc=5",
-     "source": "Bloomberg.com"
+     "title": "EU governments approve trade deal with Indonesia to offset Trump tariffs",
+     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNRnRZZmk5aUVnWkxwOUx3YkE1S3ZwTlF1b2cwNE5RTjM1dE5tSERlZ0RObU8xTERqdUpaN0tMYWF3N1VZUTI1ZE1VQUNWY3BLb0VjbkRYQkoyajRBMjRuaEtrTzJuaGpLOERCcnNLbkVhUVRnOFlMbHhYU2duc2V3MWljcG81MUU0MEpzc3lOZFBhbDBSeGpJYjJNaWl3WjF1a002WGF2VVAtSERiX2NQOU8tZUNRalN60gG-AUFVX3lxTFBfY3BqSmFLU0RaVTh1VmVFeDdRLW83dXQ5OVItc2VTcXRHTDZ0ZG40N1I4cDJSMk1yLUlYM0tKb2JPVjQzdTNyU1pDUWRHM0lHb3NULWw2SjRwaFhPYjdUYXJtWmlFQ3p6NmE2VXRkVS1sM2V5ZHhnejlfOVZzX1dZVkFya2ljN3lRUXVUV3NYcFltSDN1SlhMT2g3Rm9YR1NxMEpZVDhheS05ZVJzSXhwMFFpRi1Wc1Q3THdqd3c?oc=5",
+     "source": "Al Jazeera"
     },
     {
-     "title": "Ukraine Talks Run Up Against Deep Enmity Between Russia and Europe",
-     "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQSEF3QXFMNnh2cjBHZm1qbjVXSDFLSUk4SEdmMWJCeWxCUXJDSUQycUhOOWhRV2pkb1dJTWR1RG9DLTlwcVRyNHlYU29ZTktxanhlanVVSVlpZzl1eldFSE9Rb1ZCbzNubjdYdmFHZWVYQm44T29CeVlLMVdCMG82eFZfaTFVQQ?oc=5",
-     "source": "The New York Times"
+     "title": "Russia Says Europe Is in ‘Humiliating Decline’ as Trump, Putin, and Xi Meet",
+     "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNOExlaFQ5R3M4eUZ6eDZlNnRXOU1hdkVONjUxclRkNTFhNWVaWDJSRzd5QnRfdnBQMkZpSHdKdVpEVnJqRUtlcmIyQ3Bnd1BLbUZTZUk3YnU1UXk2S3BsMVZLSFowTWtPZlBtU3pQN2ZjR3VyMEo5UWpHSzRXd09IODFSb0VpYm56SHFfRG5adXlrOFN5YjZDTHlpeUprSGpkXzZIb2RqLVM1UWtEUkt5YXFZbE9sV3Y1STRmX2p1RUJtZGRHSnRURGcyLWZOYUNfYm5xYg?oc=5",
+     "source": "Time Magazine"
     },
     {
-     "title": "Europe challenges Washington over Ukraine as Ramstein signals a shift in Western leadership",
-     "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBWVlZuaVJMNlJOb1c1bkNwaWtSUWtjWVNnWHVMV1RSVm9iUnRLMFNGbHVSUTVSSjJFMTM1TDY1TFRaY3VhWVg1bXNFVTl0RDF5RFAyaW85LTMzWFNNYmdXUVk3UkFwNGtPWDJnSnVqdm04cXJwdmJN?oc=5",
-     "source": "EU Today"
+     "title": "Trump’s Plan to Lower Drug Prices in U.S. Is Leading to Fewer New Drugs in Europe",
+     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNTDhRMllfZEhCQWpqaF9pYWRMVERlSmFJa3h5UGlwSmwxdVVkR05jeWRwY01tNG1Bd1pXV3RCbHZwNnZOLXpwQzBWeGpOX0d4am55Nzc1VUZIWlQ0ZW1wZld1UUJmVzdwcnNQQ18yNE85S043VURlYTd1ZElQZ1N4WEdCN3YwdVVkbE02R0N0VGpkaGUwTFRvS1BXTjNPWE94SndJbmtZUWhzZEp5dmpsZTBNVDdhd3hyOEthN1ZSZw?oc=5",
+     "source": "WSJ"
     }
    ],
-   "view": "European leaders are navigating a difficult path as Washington pushes for a sudden resolution to the conflict in Ukraine. Markets show no significant sign of reaction to the shifting leadership dynamics across the Atlantic alliance.",
-   "viewBase": "European leaders are navigating a difficult path as Washington pushes for a sudden resolution to the conflict in Ukraine. Markets show no significant sign of reaction to the shifting leadership dynamics across the Atlantic alliance.",
+   "view": "European leaders are navigating shifting trade policies and diplomatic pressures following new initiatives from Washington. Investors remain neutral for now, as currency and equity markets show little change in response to the evolving alliance dynamics.",
+   "viewBase": "European leaders are navigating shifting trade policies and diplomatic pressures following new initiatives from Washington. Investors remain neutral for now, as currency and equity markets show little change in response to the evolving alliance dynamics.",
    "levelBase": "medium"
   }
  ],
