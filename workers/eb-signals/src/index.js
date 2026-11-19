@@ -691,6 +691,48 @@ async function fetchStress() {
     return { credit, stress }
 }
 
+/* Bonds: no licensed ETF prices, so a total-return index is ESTIMATED from the daily
+   U.S. Treasury constant-maturity yields (Federal Reserve H.15 via FRED, public domain):
+   each day = interest earned (yield × days/365) − duration × yield change + ½ convexity × change².
+   Duration and convexity are those of a par bond of that maturity at the day's yield. */
+const BONDS = [
+    ["ust2", "U.S. Treasuries 2Y (est.)", "DGS2", 2],
+    ["ust10", "U.S. Treasuries 10Y (est.)", "DGS10", 10],
+    ["ust30", "U.S. Treasuries 30Y (est.)", "DGS30", 30],
+]
+function parBondRisk(yPct, years) {
+    // semi-annual coupons, priced at par: modified duration and convexity (in years)
+    const y = Math.max(yPct, 0.01) / 100
+    const h = y / 2
+    const n = Math.round(years * 2)
+    let dur = 0
+    let conv = 0
+    for (let k = 1; k <= n; k++) {
+        const cf = (k === n ? 1 : 0) + h
+        const df = Math.pow(1 + h, -k)
+        dur += (k / 2) * cf * df
+        conv += ((k * (k + 1)) / 4) * cf * df
+    }
+    return { mdur: dur / (1 + h), conv: conv / Math.pow(1 + h, 2) }
+}
+export function yieldToReturnIndex(pts, years) {
+    const out = []
+    let idx = 100
+    let prev = null
+    for (const [d, y] of pts) {
+        if (!isNum(y)) continue
+        if (prev) {
+            const days = (Date.parse(d) - Date.parse(prev[0])) / 864e5
+            const dy = (y - prev[1]) / 100
+            const { mdur, conv } = parBondRisk(prev[1], years)
+            idx *= 1 + (prev[1] / 100) * (days / 365) - mdur * dy + 0.5 * conv * dy * dy
+        }
+        out.push([d, Math.round(idx * 10000) / 10000])
+        prev = [d, y]
+    }
+    return out
+}
+
 const ENERGY = [
     ["brent", "Brent Crude", "DCOILBRENTEU"],
     ["wti", "WTI Crude", "DCOILWTICO"],
@@ -1211,6 +1253,22 @@ async function assemble(env, date) {
     )
     ENERGY.forEach(([id, name], i) => add({ id, name, cls: "Energy" }, energy[i], false))
 
+    // bonds: estimated total return from daily Treasury yields (3 requests)
+    let bondsProblem = ""
+    const bondYields = await Promise.all(
+        BONDS.map(([, , series]) =>
+            fredSeries(series, since).catch((e) => {
+                bondsProblem = String((e && e.message) || e)
+                return null
+            })
+        )
+    )
+    BONDS.forEach(([id, name, , years], i) => {
+        const y = bondYields[i] && bondYields[i].filter((p) => isNum(p[1]))
+        if (y && y.length > 260) add({ id, name, cls: "Bonds", estimated: true }, yieldToReturnIndex(y, years), false)
+        else if (!bondsProblem) bondsProblem = `${name}: not enough data`
+    })
+
     scoreAll(assets)
     const isN = (v) => typeof v === "number" && isFinite(v)
     const with200 = assets.filter((a) => isN(a.sma200))
@@ -1223,6 +1281,7 @@ async function assemble(env, date) {
         v: 2,
         metalsProblem: metalsProblem || undefined,
         energyProblem: energyProblem || undefined,
+        bondsProblem: bondsProblem || undefined,
         asOf: date,
         marketDate,
         generated: new Date().toISOString(),
