@@ -1,6 +1,6 @@
 # EB Islamic Investment — run check
 
-Run 2026-11-19T08:22:12+00:00 (market close 2026-11-18), 66 s
+Run 2026-11-19T08:25:18+00:00 (market close 2026-11-18), 115 s
 
 Screen: 825 companies, {'Halal': 430, 'Watch': 53, 'Not halal': 179, 'Excluded': 152, 'No data': 11}, halal share 59.3%
 
