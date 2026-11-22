@@ -1,6 +1,6 @@
 # EB Islamic Investment — run check
 
-Run 2026-11-21T07:06:44+00:00 (market close 2026-11-20), 91 s
+Run 2026-11-22T05:32:03+00:00 (market close 2026-11-20), 59 s
 
 Screen: 810 companies, {'Halal': 418, 'Watch': 54, 'Not halal': 176, 'Excluded': 151, 'No data': 11}, halal share 59.1%
 
@@ -67,7 +67,8 @@ Top weights: AAPL 8.0%, MSFT 7.75%, GOOGL 7.03%, NVDA 6.52%, AMZN 5.75%, SPCX 3.
 - List ID: 622 as of 2026-05-21, sectors [['Consumer discretionary', 110], ['Consumer staples', 91], ['Basic materials', 81], ['Energy', 63]], banks 6
 - List AE: 53 as of 2026-06-30, sectors [['DFM', 48], ['Nasdaq Dubai', 5]], banks 12
 - Rates: 482 days, latest {'date': '2026-11-20', 'overnight': 2.77, '1_week': 2.86, '1_month': 3.04, '3_month': None}, OPR 2.75
-- News: 4 (fresh: True)
+- News: 5 (fresh: True)
+  - [Funds] Kuwait International Bank unit launches three Islamic funds (tradearabia.com)
   - [Sukuk] ITMAX Establishes RM1 Billion Sukuk To Fund Expansion And Refinancing (businesstoday.com.my)
   - [Takaful] Mian Idress praises Pak-Qatar Takaful (brecorder.com)
   - [Sukuk] National Grid to raise Rs100b via sukuk (tribune.com.pk)
