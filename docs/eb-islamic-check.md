@@ -1,8 +1,8 @@
 # EB Islamic Investment — run check
 
-Run 2026-11-22T05:32:03+00:00 (market close 2026-11-20), 59 s
+Run 2026-11-23T05:40:10+00:00 (market close 2026-11-20), 541 s
 
-Screen: 810 companies, {'Halal': 418, 'Watch': 54, 'Not halal': 176, 'Excluded': 151, 'No data': 11}, halal share 59.1%
+Screen: 810 companies, {'Halal': 418, 'Watch': 52, 'Not halal': 176, 'Excluded': 151, 'No data': 13}, halal share 59.0%
 
 | Ticker | Name | Sector | $bn | Debt % | Cash % | Income % | Status | Why |
 |---|---|---|---|---|---|---|---|---|
@@ -30,13 +30,13 @@ Screen: 810 companies, {'Halal': 418, 'Watch': 54, 'Not halal': 176, 'Excluded':
 | MA | Mastercard Inc | Financials | 545.0 | 5.03 | 2.13 | None | Halal | All ratios within limits |
 | ABBV | AbbVie Inc. | Health care | 505.9 | 19.17 | 2.56 | 0.43 | Halal | All ratios within limits |
 | COST | Costco Wholesale Corp | Consumer staples | 488.4 | 1.44 | 4.98 | 0.21 | Halal | All ratios within limits |
-| ASML | ASML Holding NV | Technology | 488.0 | 0.83 | 2.52 | 0.68 | Halal | All ratios within limits |
+| ASML | ASML Holding NV | Technology | 488.0 | 0.83 | 2.5 | 0.68 | Halal | All ratios within limits |
 | KO | Coca Cola Co | Consumer staples | 417.2 | 11.95 | 3.85 | 1.64 | Halal | All ratios within limits |
 | CVX | Chevron Corp | Energy | 409.5 | 13.67 | 3.75 | None | Halal | All ratios within limits |
 | PG | Procter & Gamble Co | Consumer staples | 392.6 | 11.24 | 4.44 | 0.56 | Halal | All ratios within limits |
-| CSCO | Cisco Systems, Inc. | Technology | 357.4 | 7.69 | 4.15 | 1.77 | Halal | All ratios within limits |
+| CSCO | Cisco Systems, Inc. | Technology | 356.7 | 7.77 | 4.13 | 1.77 | Halal | All ratios within limits |
 | PLTR | Palantir Technologies Inc. | Technology | 345.7 | 0.0 | 2.78 | 5.12 | Not halal | Interest income 5.1% (limit 5%) |
-| HD | Home Depot, Inc. | Consumer discretionary | 338.3 | 15.7 | 0.62 | 0.08 | Halal | All ratios within limits |
+| HD | Home Depot, Inc. | Consumer discretionary | 338.4 | 15.57 | 0.58 | 0.08 | Halal | All ratios within limits |
 | MRK | Merck & Co., Inc. | Health care | 329.7 | 17.54 | 3.67 | 0.53 | Halal | All ratios within limits |
 | BAC | Bank of America Corp | Financials | 324.6 | None | None | None | Excluded | Conventional finance or insurance |
 | GE | General Electric Co | Technology | 319.9 | 5.84 | 2.65 | 0.31 | Halal | All ratios within limits |
@@ -44,12 +44,12 @@ Screen: 810 companies, {'Halal': 418, 'Watch': 54, 'Not halal': 176, 'Excluded':
 | UNH | Unitedhealth Group Inc | Financials | 304.5 | None | None | None | Excluded | Conventional finance or insurance |
 | PM | Philip Morris International  | Consumer staples | 286.9 | None | None | None | Excluded | Tobacco |
 | NVS | Novartis AG | Health care | 284.2 | 10.15 | 4.1 | None | Halal | All ratios within limits |
-| PANW | Palo Alto Networks Inc | Technology | 280.8 | 0.0 | 1.44 | 3.95 | Halal | All ratios within limits |
+| PANW | Palo Alto Networks Inc | Technology | 281.2 | 0.0 | 1.43 | 3.95 | Halal | All ratios within limits |
 | HSBC | HSBC Holdings PLC | Financials | 273.5 | None | None | None | Excluded | Conventional finance or insurance |
 
 Index: 282 days, returns {'1D': [-4.77, -4.57], '1W': [-10.01, -9.92], '1M': [-13.36, -12.59], '3M': [-10.83, -10.67], '6M': [-9.87, -9.47], '1Y': [7.75, 5.9], 'YTD': [2.7, 1.03]}
 
-Top weights: AAPL 8.0%, MSFT 7.75%, GOOGL 7.03%, NVDA 6.52%, AMZN 5.75%, SPCX 3.74%, TSM 3.56%, AVGO 3.13%, META 3.09%, TSLA 2.94%
+Top weights: AAPL 8.0%, MSFT 7.75%, GOOGL 7.03%, NVDA 6.52%, AMZN 5.75%, SPCX 3.74%, TSM 3.56%, AVGO 3.13%, META 3.09%, TSLA 2.95%
 
 - Fund SPUS: $3135.9m as of 2026-08-31, 48 months, 219 holdings
 - Fund HLAL: $944.5m as of 2026-08-31, 48 months, 211 holdings
