@@ -1,13 +1,13 @@
 {
- "week": "46",
- "asOf": "2026-11-13",
- "generated": "2026-11-16T00:27:56+00:00",
- "nextUpdate": "2026-11-23T12:00:00+00:00",
+ "week": "47",
+ "asOf": "2026-11-20",
+ "generated": "2026-11-23T23:01:45+00:00",
+ "nextUpdate": "2026-11-30T12:00:00+00:00",
  "sources": "SEC EDGAR, Massive, Wikidata, FRED, ECB",
  "regime": {
-  "label": "Risk-on",
-  "score": 65,
-  "note": "Credit spreads calm, volatility low"
+  "label": "Risk-off",
+  "score": 37,
+  "note": "Volatility high, dollar strengthening"
  },
  "banking": [
   {
@@ -16,7 +16,7 @@
    "exchange": "Nasdaq",
    "country": "US",
    "city": "Pasadena",
-   "score": 71,
+   "score": 74,
    "why": "A strong capital buffer and high returns on equity.",
    "risks": [
     "Priced above most peers, which leaves less room for disappointment.",
@@ -75,10 +75,11 @@
     },
     {
      "label": "Price / tangible book",
-     "value": "2.13"
+     "value": "1.97"
     }
    ],
    "rank": 1,
+   "prevRank": 1,
    "pillars": [
     {
      "key": "valuation",
@@ -90,7 +91,7 @@
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 70
+     "score": 80
     },
     {
      "key": "capital",
@@ -102,7 +103,7 @@
      "key": "quality",
      "label": "Asset quality",
      "weight": 15,
-     "score": 68
+     "score": 75
     },
     {
      "key": "profit",
@@ -118,8 +119,8 @@
    "exchange": "Nasdaq",
    "country": "US",
    "city": "Raleigh",
-   "score": 61,
-   "why": "Priced below peer banks and a strong share-price trend (shares +27% in 12 months).",
+   "score": 63,
+   "why": "Priced below peer banks and a strong capital buffer.",
    "risks": [
     "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
    ],
@@ -175,40 +176,41 @@
     },
     {
      "label": "Price / tangible book",
-     "value": "1.18"
+     "value": "1.06"
     }
    ],
    "rank": 2,
+   "prevRank": 2,
    "pillars": [
     {
      "key": "valuation",
      "label": "Valuation",
      "weight": 25,
-     "score": 79
+     "score": 83
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 66
+     "score": 62
     },
     {
      "key": "capital",
      "label": "Capital",
      "weight": 20,
-     "score": 65
+     "score": 69
     },
     {
      "key": "quality",
      "label": "Asset quality",
      "weight": 15,
-     "score": 41
+     "score": 45
     },
     {
      "key": "profit",
      "label": "Profitability",
      "weight": 15,
-     "score": 40
+     "score": 43
     }
    ]
   },
@@ -218,8 +220,8 @@
    "exchange": "NYSE",
    "country": "NL",
    "city": "Amsterdam",
-   "score": 61,
-   "why": "A strong share-price trend and priced below peer banks (shares +25% in 12 months).",
+   "score": 60,
+   "why": "A strong share-price trend and priced below peer banks (shares +19% in 12 months).",
    "risks": [
     "Capital buffer is thinner than at most peer banks.",
     "Results are reported in EUR: exchange-rate moves change returns in US dollars.",
@@ -250,7 +252,7 @@
     {
      "label": "Pre-tax profit",
      "sub": "Latest fiscal year",
-     "value": "$13.0bn",
+     "value": "$12.9bn",
      "change": 51.7,
      "unit": "%"
     },
@@ -273,28 +275,29 @@
     },
     {
      "label": "Price / tangible book",
-     "value": "1.58"
+     "value": "1.41"
     }
    ],
    "rank": 3,
+   "prevRank": 3,
    "pillars": [
     {
      "key": "valuation",
      "label": "Valuation",
      "weight": 25,
-     "score": 72
+     "score": 73
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 80
+     "score": 74
     },
     {
      "key": "capital",
      "label": "Capital",
      "weight": 20,
-     "score": 20
+     "score": 22
     },
     {
      "key": "profit",
@@ -310,7 +313,7 @@
    "exchange": "NYSE",
    "country": "BR",
    "city": "Sao Paulo",
-   "score": 60,
+   "score": 59,
    "why": "Priced below peer banks and high returns on equity.",
    "risks": [
     "The share-price trend is weaker than for most peers.",
@@ -322,14 +325,14 @@
    "sector": "Banking",
    "headline": {
     "label": "Total assets",
-    "value": "$411bn",
+    "value": "$389bn",
     "period": "FY 2025"
    },
    "metrics": [
     {
      "label": "Pre-tax profit",
      "sub": "Latest fiscal year",
-     "value": "$3.7bn",
+     "value": "$3.5bn",
      "change": 24.4,
      "unit": "%"
     },
@@ -352,28 +355,29 @@
     },
     {
      "label": "Price / tangible book",
-     "value": "1.07"
+     "value": "0.98"
     }
    ],
    "rank": 4,
+   "prevRank": 4,
    "pillars": [
     {
      "key": "valuation",
      "label": "Valuation",
      "weight": 25,
-     "score": 95
+     "score": 91
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 31
+     "score": 28
     },
     {
      "key": "capital",
      "label": "Capital",
      "weight": 20,
-     "score": 42
+     "score": 45
     },
     {
      "key": "profit",
@@ -384,95 +388,78 @@
    ]
   },
   {
-   "name": "HSBC",
-   "ticker": "HSBC",
+   "name": "Toronto-Dominion Bank",
+   "ticker": "TD",
    "exchange": "NYSE",
-   "country": "GB",
-   "city": "London",
-   "score": 54,
-   "why": "A strong share-price trend and priced below peer banks (shares +22% in 12 months).",
+   "country": "CA",
+   "city": "Toronto, Ontario",
+   "score": 55,
+   "why": "A strong share-price trend and high returns on equity (shares +38% in 12 months).",
    "risks": [
-    "Costs are high: 76 cents per dollar of income.",
+    "Priced above most peers, which leaves less room for disappointment.",
     "Capital buffer is thinner than at most peer banks.",
-    "Profits depend on interest rates and on borrowers repaying loans if the economy slows."
+    "Results are reported in CAD: exchange-rate moves change returns in US dollars."
    ],
-   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/250px-HSBC_logo_%282018%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-   "website": "https://hsbc.com/",
-   "ceo": {
-    "name": "Georges Elhedery",
-    "title": "Chief Executive Officer"
-   },
-   "team": [
-    {
-     "role": "Chair",
-     "name": "Mark Tucker"
-    }
-   ],
+   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Toronto-Dominion_Bank_logo.svg/250px-Toronto-Dominion_Bank_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "website": "http://www.td.com/",
    "sector": "Banking",
    "headline": {
     "label": "Total assets",
-    "value": "$3.2tn",
+    "value": "$1.5tn",
     "period": "FY 2025"
    },
    "metrics": [
     {
-     "label": "Pre-tax profit",
+     "label": "Net profit",
      "sub": "Latest fiscal year",
-     "value": "$29.9bn",
-     "change": -7.4,
+     "value": "$14.3bn",
+     "change": 132.3,
      "unit": "%"
     },
     {
      "label": "Tangible equity / assets",
      "sub": "Capital cushion",
-     "value": "6.1%",
+     "value": "5.0%",
      "note": "Shareholders' tangible capital as a share of total assets. Higher means a thicker cushion."
     },
     {
      "label": "Return on equity",
      "sub": "Profitability",
-     "value": "12.1%",
-     "change": -1.4,
+     "value": "16.9%",
+     "change": 9.2,
      "unit": "pt"
     },
     {
-     "label": "Cost / income",
-     "value": "75.7%"
-    },
-    {
-     "label": "Loans / deposits",
-     "value": "55.3%"
-    },
-    {
      "label": "Price / tangible book",
-     "value": "1.55"
+     "value": "2.60"
     }
    ],
    "rank": 5,
+   "prevRank": null,
    "pillars": [
     {
      "key": "valuation",
      "label": "Valuation",
      "weight": 25,
-     "score": 60
+     "score": 27
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 25,
-     "score": 67
+     "score": 99
     },
     {
      "key": "capital",
      "label": "Capital",
      "weight": 20,
-     "score": 37
+     "score": 17
     },
     {
      "key": "profit",
      "label": "Profitability",
      "weight": 15,
-     "score": 45
+     "score": 80
     }
    ]
   }
@@ -485,9 +472,9 @@
    "country": "US",
    "city": "Houston",
    "score": 89,
-   "why": "A strong share-price trend and attractively priced cash flows (shares +103% in 12 months).",
+   "why": "Attractively priced cash flows and high returns on capital.",
    "risks": [
-    "After a 103% rise in 12 months, the share price could swing sharply.",
+    "After a 87% rise in 12 months, the share price could swing sharply.",
     "Profits move with oil and gas prices, which can fall quickly."
    ],
    "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Apache_Corporation_Logo.svg/250px-Apache_Corporation_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
@@ -499,8 +486,8 @@
    "sector": "Energy",
    "headline": {
     "label": "Market value",
-    "value": "$16.3bn",
-    "period": "Nov 13"
+    "value": "$15.1bn",
+    "period": "Nov 20"
    },
    "metrics": [
     {
@@ -531,11 +518,11 @@
     },
     {
      "label": "FCF yield",
-     "value": "27.9%"
+     "value": "30.1%"
     },
     {
      "label": "EV / EBIT",
-     "value": "6.6x"
+     "value": "6.2x"
     },
     {
      "label": "Piotroski F-score",
@@ -544,6 +531,7 @@
     }
    ],
    "rank": 1,
+   "prevRank": 1,
    "pillars": [
     {
      "key": "valuation",
@@ -577,10 +565,10 @@
    "exchange": "Nasdaq",
    "country": "US",
    "city": "Boise",
-   "score": 82,
-   "why": "Attractively priced cash flows and a strong share-price trend (shares +218% in 12 months).",
+   "score": 79,
+   "why": "Attractively priced cash flows and a solid balance sheet.",
    "risks": [
-    "After a 218% rise in 12 months, the share price could swing sharply.",
+    "After a 163% rise in 12 months, the share price could swing sharply.",
     "Demand for chips and technology can swing sharply, and expectations are high."
    ],
    "employees": 48000,
@@ -596,8 +584,8 @@
    "sector": "Technology",
    "headline": {
     "label": "Market value",
-    "value": "$881bn",
-    "period": "Nov 13"
+    "value": "$673bn",
+    "period": "Nov 20"
    },
    "metrics": [
     {
@@ -635,11 +623,11 @@
     },
     {
      "label": "FCF yield",
-     "value": "6.7%"
+     "value": "8.8%"
     },
     {
      "label": "EV / EBIT",
-     "value": "8.5x"
+     "value": "6.4x"
     },
     {
      "label": "Piotroski F-score",
@@ -648,18 +636,19 @@
     }
    ],
    "rank": 2,
+   "prevRank": 2,
    "pillars": [
     {
      "key": "valuation",
      "label": "Valuation",
      "weight": 30,
-     "score": 94
+     "score": 95
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 30,
-     "score": 83
+     "score": 74
     },
     {
      "key": "quality",
@@ -672,101 +661,6 @@
      "label": "Health",
      "weight": 20,
      "score": 79
-    }
-   ]
-  },
-  {
-   "name": "Canadian Natural Resources",
-   "ticker": "CNQ",
-   "exchange": "NYSE",
-   "country": "CA",
-   "city": "Calgary",
-   "score": 77,
-   "why": "High returns on capital and a strong share-price trend (shares +53% in 12 months).",
-   "risks": [
-    "After a 53% rise in 12 months, the share price could swing sharply.",
-    "Results are reported in CAD: exchange-rate moves change returns in US dollars.",
-    "Profits move with oil and gas prices, which can fall quickly."
-   ],
-   "logo": "https://cdn.jsdelivr.net/gh/Coorify-1/eb-monitor@main/docs/logos/CNQ.png",
-   "website": "http://www.cnrl.com/",
-   "sector": "Energy",
-   "headline": {
-    "label": "Market value",
-    "value": "$101bn",
-    "period": "Nov 13"
-   },
-   "metrics": [
-    {
-     "label": "Revenue",
-     "sub": "Latest fiscal year",
-     "value": "$27.2bn",
-     "change": 8.7,
-     "unit": "%"
-    },
-    {
-     "label": "Operating profit",
-     "sub": "Core business",
-     "value": "$10.0bn",
-     "unit": "%"
-    },
-    {
-     "label": "Free cash flow",
-     "sub": "Cash after investment",
-     "value": "$10.6bn",
-     "change": 12.8,
-     "unit": "%"
-    },
-    {
-     "label": "Net debt / EBITDA",
-     "sub": "Debt burden",
-     "value": "0.7x",
-     "unit": "pt",
-     "good": "down"
-    },
-    {
-     "label": "ROIC",
-     "value": "18.7%"
-    },
-    {
-     "label": "FCF yield",
-     "value": "10.5%"
-    },
-    {
-     "label": "EV / EBIT",
-     "value": "11.2x"
-    },
-    {
-     "label": "Piotroski F-score",
-     "value": "9 / 9",
-     "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
-    }
-   ],
-   "rank": 3,
-   "pillars": [
-    {
-     "key": "valuation",
-     "label": "Valuation",
-     "weight": 30,
-     "score": 67
-    },
-    {
-     "key": "momentum",
-     "label": "Momentum",
-     "weight": 30,
-     "score": 80
-    },
-    {
-     "key": "quality",
-     "label": "Quality",
-     "weight": 20,
-     "score": 90
-    },
-    {
-     "key": "health",
-     "label": "Health",
-     "weight": 20,
-     "score": 77
     }
    ]
   },
@@ -788,28 +682,28 @@
    "sector": "Consumer staples",
    "headline": {
     "label": "Market value",
-    "value": "$42.5bn",
-    "period": "Nov 13"
+    "value": "$40.2bn",
+    "period": "Nov 20"
    },
    "metrics": [
     {
      "label": "Revenue",
      "sub": "Latest fiscal year",
-     "value": "$15.6bn",
+     "value": "$14.7bn",
      "change": -1.4,
      "unit": "%"
     },
     {
      "label": "Operating profit",
      "sub": "Core business",
-     "value": "$4.1bn",
+     "value": "$3.9bn",
      "change": 7.0,
      "unit": "%"
     },
     {
      "label": "Free cash flow",
      "sub": "Cash after investment",
-     "value": "$3.5bn",
+     "value": "$3.3bn",
      "change": -7.0,
      "unit": "%"
     },
@@ -839,19 +733,20 @@
      "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
     }
    ],
-   "rank": 4,
+   "rank": 3,
+   "prevRank": 4,
    "pillars": [
     {
      "key": "valuation",
      "label": "Valuation",
      "weight": 30,
-     "score": 91
+     "score": 90
     },
     {
      "key": "momentum",
      "label": "Momentum",
      "weight": 30,
-     "score": 57
+     "score": 59
     },
     {
      "key": "quality",
@@ -868,12 +763,107 @@
    ]
   },
   {
+   "name": "Canadian Natural Resources",
+   "ticker": "CNQ",
+   "exchange": "NYSE",
+   "country": "CA",
+   "city": "Calgary",
+   "score": 76,
+   "why": "High returns on capital and a solid balance sheet.",
+   "risks": [
+    "Results are reported in CAD: exchange-rate moves change returns in US dollars.",
+    "Profits move with oil and gas prices, which can fall quickly."
+   ],
+   "logo": "https://cdn.jsdelivr.net/gh/Coorify-1/eb-monitor@main/docs/logos/CNQ.png",
+   "website": "http://www.cnrl.com/",
+   "sector": "Energy",
+   "headline": {
+    "label": "Market value",
+    "value": "$90.3bn",
+    "period": "Nov 20"
+   },
+   "metrics": [
+    {
+     "label": "Revenue",
+     "sub": "Latest fiscal year",
+     "value": "$27.0bn",
+     "change": 8.7,
+     "unit": "%"
+    },
+    {
+     "label": "Operating profit",
+     "sub": "Core business",
+     "value": "$9.9bn",
+     "unit": "%"
+    },
+    {
+     "label": "Free cash flow",
+     "sub": "Cash after investment",
+     "value": "$10.5bn",
+     "change": 12.8,
+     "unit": "%"
+    },
+    {
+     "label": "Net debt / EBITDA",
+     "sub": "Debt burden",
+     "value": "0.7x",
+     "unit": "pt",
+     "good": "down"
+    },
+    {
+     "label": "ROIC",
+     "value": "18.7%"
+    },
+    {
+     "label": "FCF yield",
+     "value": "11.6%"
+    },
+    {
+     "label": "EV / EBIT",
+     "value": "10.2x"
+    },
+    {
+     "label": "Piotroski F-score",
+     "value": "9 / 9",
+     "note": "Nine yes/no tests of profit, cash and balance-sheet improvement. 7 or more is strong."
+    }
+   ],
+   "rank": 4,
+   "prevRank": 3,
+   "pillars": [
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "weight": 30,
+     "score": 69
+    },
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 30,
+     "score": 74
+    },
+    {
+     "key": "quality",
+     "label": "Quality",
+     "weight": 20,
+     "score": 90
+    },
+    {
+     "key": "health",
+     "label": "Health",
+     "weight": 20,
+     "score": 77
+    }
+   ]
+  },
+  {
    "name": "Anheuser-Busch InBev",
    "ticker": "BUD",
    "exchange": "NYSE",
    "country": "BE",
    "city": "Leuven",
-   "score": 72,
+   "score": 74,
    "why": "Attractively priced cash flows and high returns on capital.",
    "risks": [
     "Revenue fell 1% last year.",
@@ -891,8 +881,8 @@
    "sector": "Consumer staples",
    "headline": {
     "label": "Market value",
-    "value": "$167bn",
-    "period": "Nov 13"
+    "value": "$156bn",
+    "period": "Nov 20"
    },
    "metrics": [
     {
@@ -930,11 +920,11 @@
     },
     {
      "label": "FCF yield",
-     "value": "6.7%"
+     "value": "7.2%"
     },
     {
      "label": "EV / EBIT",
-     "value": "10.1x"
+     "value": "9.4x"
     },
     {
      "label": "Piotroski F-score",
@@ -943,6 +933,7 @@
     }
    ],
    "rank": 5,
+   "prevRank": 5,
    "pillars": [
     {
      "key": "valuation",
@@ -954,7 +945,7 @@
      "key": "momentum",
      "label": "Momentum",
      "weight": 30,
-     "score": 67
+     "score": 72
     },
     {
      "key": "quality",
