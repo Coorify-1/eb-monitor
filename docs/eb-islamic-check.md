@@ -1,6 +1,6 @@
 # EB Islamic Investment — run check
 
-Run 2026-11-26T05:34:15+00:00 (market close 2026-11-25), 186 s
+Run 2026-11-27T05:33:11+00:00 (market close 2026-11-25), 125 s
 
 Screen: 829 companies, {'Halal': 431, 'Watch': 53, 'Not halal': 180, 'Excluded': 152, 'No data': 13}, halal share 59.3%
 
@@ -63,19 +63,19 @@ Top weights: AAPL 8.0%, MSFT 7.52%, NVDA 7.44%, GOOGL 6.94%, AMZN 5.46%, TSM 3.6
 - Fund AMANX: $2363.6m as of 2026-08-31, 48 months, 34 holdings
 - Fund AMDWX: $208.5m as of 2026-08-31, 48 months, 37 holdings
 - Fund AMAPX: $323.1m as of 2026-08-31, 48 months, 104 holdings
-- List MY: 859 as of 2025-11-28, sectors [['Industrial products and services', 264], ['Consumer products and services', 174], ['Technology', 97], ['Property', 86]], banks 2
+- List MY: 915 as of 2026-11-27, sectors [['Industrial products and services', 190], ['Consumer products and services', 150], ['Construction', 147], ['Financial services', 134]], banks 2
 - List ID: 622 as of 2026-05-21, sectors [['Consumer discretionary', 110], ['Consumer staples', 91], ['Basic materials', 81], ['Energy', 63]], banks 6
 - List AE: 53 as of 2026-06-30, sectors [['DFM', 48], ['Nasdaq Dubai', 5]], banks 12
-- Rates: 485 days, latest {'date': '2026-11-25', 'overnight': 2.76, '1_week': 2.85, '1_month': None, '3_month': None}, OPR 2.75
+- Rates: 486 days, latest {'date': '2026-11-26', 'overnight': 2.72, '1_week': None, '1_month': 3.03, '3_month': None}, OPR 2.75
 - News: 8 (fresh: True)
+  - [Banking] Dubai seals deal for $159 billion Islamic banking giant (economictimes.indiatimes.com)
+  - [Takaful] HLIB Upgrades Syarikat Takaful To Buy After Strong Quarterly Showing (businesstoday.com.my)
+  - [Sukuk] ADIB raises $500m in perpetual sukuk to support growth strategy (thenationalnews.com)
+  - [Banking] Deadly crash in Cairo, Trump's data centre tax threat and Dubai Islamic Bank's takeover (thenationalnews.com)
   - [Banking] Dubai Islamic Bank to acquire Emirates Islamic to form Dh585bn company (thenationalnews.com)
   - [Sukuk] Qatar Central Bank issues QR5 bn in Government ljarah Sukuk (qatar-tribune.com)
   - [Banking] Merger of Dubai’s top Islamic banks comes a step closer (agbi.com)
   - [Sukuk] Abu Dhabi Islamic Bank eyes $500mln AT1 capital sukuk issuance (zawya.com)
-  - [Sukuk] Digital platform: PSX, JazzCash, Next Capital partner to offer govt Sukuk (brecorder.com)
-  - [Banking] Dubai Islamic Bank shares surge 11% on potential acquisition deal (thenationalnews.com)
-  - [Funds] Kuwait International Bank unit launches three Islamic funds (tradearabia.com)
-  - [Sukuk] ITMAX Establishes RM1 Billion Sukuk To Fund Expansion And Refinancing (businesstoday.com.my)
 
 ## Debug AE_sample
 ```
