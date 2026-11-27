@@ -1,54 +1,58 @@
 {
  "version": 1,
  "edition": {
-  "date": "2026-11-26",
-  "weekday": "Thursday",
+  "date": "2026-11-27",
+  "weekday": "Friday",
   "mode": "daily",
-  "basedOn": "Wednesday's close (2026-11-25)"
+  "basedOn": "Thursday's close (2026-11-26)"
  },
- "generated": "2026-11-26T11:53:06+00:00",
- "nextEdition": "2026-11-27T11:30:00+00:00",
+ "generated": "2026-11-27T11:47:42+00:00",
+ "nextEdition": "2026-11-28T11:30:00+00:00",
  "writtenBy": "Gemini · gemini-3-flash-preview",
  "override": false,
  "regime": {
-  "id": "mixed",
-  "label": "Mixed signals",
-  "score": 0.54,
-  "members": []
+  "id": "usd_down",
+  "label": "Weak dollar",
+  "score": 0.76,
+  "members": [
+   "gold",
+   "eurusd",
+   "gbpusd",
+   "usdjpy"
+  ]
  },
  "lead": {
-  "type": "mover",
-  "id": "copper",
-  "label": "Copper",
+  "type": "theme",
+  "id": "us_fiscal",
+  "label": "US budget and debt",
   "assets": [
-   "copper",
-   "usdcny",
-   "usdchf"
+   "gold",
+   "eurusd"
   ]
  },
  "text": {
-  "headline": "Copper prices retreat as industrial metals diverge",
-  "tone": "A sharp decline in copper contrasted with gains in other precious and industrial metals, suggesting that specific trade or regional factors may be influencing the market.",
+  "headline": "Gold surges amid fiscal concerns",
+  "tone": "A sharp rise in precious metals coincided with confirmed focus on the US budget deficit, though geopolitical tensions also remain a significant news theme.",
   "lead": [
-   "Copper fell 2.8% on Wednesday, closing at $11,703/t on the [[metals|Hard Assets Terminal]]. This sharp move stood in contrast to other metals, as platinum gained 3.4% and silver also rose during the same session.",
-   "The decline in copper is consistent with a 0.2% rise in the USD/CNY exchange rate, which may reflect shifting expectations regarding trade or demand in China. US large caps also edged lower, falling 0.6% on the [[markets|Financial Markets]] page, while the USD/CHF fell 0.8% in a sharp currency move.",
-   "The divergence between copper and other metals like platinum suggests that the sell-off may be driven by factors specific to the copper market rather than a broad retreat from hard assets. While new tariffs have been discussed in recent headlines, their direct impact on Wednesday's prices remains unconfirmed.",
-   "The [[outlook|Market Outlook]] notes that world stocks are currently trading below their 200-day average. Future sessions will clarify if copper's weakness persists or if the gains in silver and platinum signal a broader recovery for the sector."
+   "Gold rose 3.8% on Thursday to close at $3,701 on the [[metals|Hard Assets Terminal]]. This sharp move led a broad rally in precious metals, as silver and platinum also posted significant gains. These moves occurred as the dollar weakened against major currencies.",
+   "The rally is consistent with a confirmed focus on US budget and debt issues, which can increase the appeal of hard assets. Markets appear to be pricing in a weaker dollar regime, as seen in the 0.4% rise of the EUR/USD to 1.0975 on the [[crypto|Crypto & Currencies]] page. However, news of military drills in the Taiwan Strait may also be supporting safe-haven demand.",
+   "In other markets, US large caps fell 0.6% in the latest data from November 25. Bitcoin gained 2.1% to reach $61,636. The [[outlook|Market Outlook]] notes that world stocks remain below their 200-day average, reflecting a broader risk-off environment this quarter.",
+   "Future sessions will show whether the dollar continues to soften against the euro and pound. Sustained strength in gold alongside falling Treasury yields would further support the fiscal-deficit interpretation, while a reversal would suggest a temporary reaction to news."
   ],
   "briefs": {
-   "markets": "US large caps fell 0.6% as the 10-year yield held at 4.91% in the latest data on the [[markets|Financial Markets]].",
-   "energy": "WTI crude rose 1.0% to $82.24 in the latest data, even as OPEC+ maintained steady output targets on the [[energy|Energy Terminal]].",
-   "crypto": "The USD/CNY rose 0.2% to 6.6757, a sharp move on the [[crypto|Crypto & Currencies]] page that coincided with copper's decline.",
-   "metals": "Copper dropped 2.8% while platinum and silver saw notable gains of over 3% on the [[metals|Hard Assets Terminal]].",
-   "estate": "The [[estate|Estate Index]] shows global divergence, with China house prices falling 6.3% while Portugal rose 17.8%.",
-   "corporate": "The [[corporate|Corporate Monitor]] identifies APA Corporation as a top-scoring firm during a period of high volatility and dollar strength.",
-   "outlook": "The [[outlook|Market Outlook]] highlights a 25.2% monthly drop in semiconductors as the broader market remains in a risk-off regime.",
-   "islamic": "The EB Shariah US 100 fell 0.6% on Wednesday, tracking the broader market move on the [[islamic|Islamic Investment]] page."
+   "markets": "US large caps fell 0.6% in the latest data, while the VIX volatility index remains elevated at 26.36 on the [[markets|Financial Markets]] page.",
+   "energy": "WTI crude rose 1.0% to $82.24 in recent trading, as OPEC+ appears set to maintain production targets on the [[energy|Energy Terminal]].",
+   "crypto": "Bitcoin gained 2.1% to $61,636, while the dollar weakened 0.2% against the yuan on the [[crypto|Crypto & Currencies]] page.",
+   "metals": "Silver and platinum surged 9.8% and 8.1% respectively, outperforming gold's sharp 3.8% gain on the [[metals|Hard Assets Terminal]].",
+   "estate": "The [[estate|Estate Index]] shows global divergence, with house prices rising in 61 countries while falling 6.3% in China.",
+   "corporate": "The [[corporate|Corporate Monitor]] identifies APA Corporation as a top-scoring firm during a period of high market volatility.",
+   "outlook": "The [[outlook|Market Outlook]] highlights a 25.2% decline in semiconductors this quarter as world stocks face downward pressure.",
+   "islamic": "The EB Shariah US 100 fell 0.6% in the latest data, though it maintains a 7.0% year-to-date lead on the [[islamic|Islamic Investment]] page."
   },
   "watch": [
-   "Copper price stability near $11,703/t to determine if the recent sharp sell-off marks the start of a sustained downward trend.",
-   "The USD/CNY exchange rate for further sharp moves, which could signal how currency shifts are impacting dollar-priced industrial commodities.",
-   "US budget and debt headlines for any market reaction, as news volume has increased significantly without yet impacting Treasury yields."
+   "The EUR/USD reaction to European politics, as news volume regarding the ECB and regional leadership has increased sixfold without a clear price breakout yet.",
+   "Gold prices for continued sensitivity to US fiscal headlines, which could strengthen the current interpretation of a shift toward a weak dollar regime.",
+   "Market volatility in relation to the Taiwan Strait, where increased news coverage of military drills has not yet triggered a broader move in risk assets."
   ]
  },
  "kpis": [
@@ -69,7 +73,7 @@
    "size": "quiet",
    "asOf": "2026-11-25",
    "stale": false,
-   "lagNote": null
+   "lagNote": "latest data: Nov 25"
   },
   {
    "id": "us10y",
@@ -116,15 +120,15 @@
    "class": "metals",
    "page": "metals",
    "kind": "price",
-   "last": 3595.6,
-   "lastText": "$3,596",
-   "d1": 0.87,
-   "d1Text": "+0.9%",
-   "w1Text": "−2.4%",
-   "m1Text": "−11.2%",
-   "z": 0.56,
-   "size": "quiet",
-   "asOf": "2026-11-26",
+   "last": 3701.4,
+   "lastText": "$3,701",
+   "d1": 3.838,
+   "d1Text": "+3.8%",
+   "w1Text": "+0.4%",
+   "m1Text": "−8.6%",
+   "z": 2.47,
+   "size": "sharp",
+   "asOf": "2026-11-27",
    "stale": false,
    "lagNote": null
   },
@@ -135,15 +139,15 @@
    "class": "fx",
    "page": "crypto",
    "kind": "price",
-   "last": 1.0935,
-   "lastText": "1.0935",
-   "d1": -0.255,
-   "d1Text": "−0.3%",
-   "w1Text": "−0.3%",
-   "m1Text": "−1.9%",
-   "z": -0.79,
-   "size": "quiet",
-   "asOf": "2026-11-25",
+   "last": 1.0975,
+   "lastText": "1.0975",
+   "d1": 0.365,
+   "d1Text": "+0.4%",
+   "w1Text": "−0.2%",
+   "m1Text": "−1.4%",
+   "z": 1.15,
+   "size": "notable",
+   "asOf": "2026-11-26",
    "stale": false,
    "lagNote": null
   },
@@ -154,15 +158,15 @@
    "class": "crypto",
    "page": "crypto",
    "kind": "price",
-   "last": 60605.486,
-   "lastText": "$60,605",
-   "d1": 1.417,
-   "d1Text": "+1.4%",
-   "w1Text": "+3.0%",
-   "m1Text": "−24.7%",
-   "z": 0.7,
-   "size": "quiet",
-   "asOf": "2026-11-26",
+   "last": 61635.5032,
+   "lastText": "$61,636",
+   "d1": 2.089,
+   "d1Text": "+2.1%",
+   "w1Text": "+2.5%",
+   "m1Text": "−18.9%",
+   "z": 1.03,
+   "size": "notable",
+   "asOf": "2026-11-27",
    "stale": false,
    "lagNote": null
   }
@@ -190,7 +194,7 @@
    "id": "us2y",
    "name": "US 2-year yield",
    "class": "rates",
-   "z": -1.98,
+   "z": -1.96,
    "text": "−13 bp",
    "page": "markets",
    "stale": true
@@ -235,8 +239,8 @@
    "id": "gold",
    "name": "Gold",
    "class": "metals",
-   "z": 0.56,
-   "text": "+0.9%",
+   "z": 2.47,
+   "text": "+3.8%",
    "page": "metals",
    "stale": false
   },
@@ -244,8 +248,8 @@
    "id": "silver",
    "name": "Silver",
    "class": "metals",
-   "z": 1.12,
-   "text": "+3.1%",
+   "z": 3.57,
+   "text": "+9.8%",
    "page": "metals",
    "stale": false
   },
@@ -253,8 +257,8 @@
    "id": "copper",
    "name": "Copper",
    "class": "metals",
-   "z": -2.61,
-   "text": "−2.8%",
+   "z": 2.03,
+   "text": "+2.2%",
    "page": "metals",
    "stale": false
   },
@@ -262,8 +266,8 @@
    "id": "eurusd",
    "name": "EUR/USD",
    "class": "fx",
-   "z": -0.79,
-   "text": "−0.3%",
+   "z": 1.15,
+   "text": "+0.4%",
    "page": "crypto",
    "stale": false
   },
@@ -271,8 +275,8 @@
    "id": "usdjpy",
    "name": "USD/JPY",
    "class": "fx",
-   "z": 0.32,
-   "text": "+0.2%",
+   "z": -0.09,
+   "text": "−0.04%",
    "page": "crypto",
    "stale": false
   },
@@ -280,8 +284,8 @@
    "id": "btc",
    "name": "Bitcoin",
    "class": "crypto",
-   "z": 0.7,
-   "text": "+1.4%",
+   "z": 1.03,
+   "text": "+2.1%",
    "page": "crypto",
    "stale": false
   },
@@ -289,8 +293,8 @@
    "id": "eth",
    "name": "Ether",
    "class": "crypto",
-   "z": 0.44,
-   "text": "+1.2%",
+   "z": 0.76,
+   "text": "+2.1%",
    "page": "crypto",
    "stale": false
   }
@@ -299,202 +303,202 @@
   "title": "One month in context",
   "series": [
    {
-    "id": "copper",
-    "name": "Copper",
+    "id": "gold",
+    "name": "Gold",
     "unit": "%",
     "page": "metals",
     "points": [
      [
-      "2026-10-26",
+      "2026-10-27",
       0.0
      ],
      [
-      "2026-10-27",
-      0.86
-     ],
-     [
       "2026-10-28",
-      1.21
+      -0.56
      ],
      [
       "2026-10-29",
-      0.41
+      -1.06
      ],
      [
       "2026-10-30",
-      -0.35
-     ],
-     [
-      "2026-11-02",
-      -0.83
-     ],
-     [
-      "2026-11-03",
-      -2.69
-     ],
-     [
-      "2026-11-04",
-      -2.06
-     ],
-     [
-      "2026-11-05",
-      -2.69
-     ],
-     [
-      "2026-11-06",
-      -3.76
-     ],
-     [
-      "2026-11-09",
-      -3.24
-     ],
-     [
-      "2026-11-10",
-      -3.5
-     ],
-     [
-      "2026-11-11",
       -4.31
      ],
      [
+      "2026-11-02",
+      -2.58
+     ],
+     [
+      "2026-11-03",
+      -3.29
+     ],
+     [
+      "2026-11-04",
+      -0.04
+     ],
+     [
+      "2026-11-05",
+      0.95
+     ],
+     [
+      "2026-11-06",
+      0.01
+     ],
+     [
+      "2026-11-09",
+      0.98
+     ],
+     [
+      "2026-11-10",
+      -1.09
+     ],
+     [
+      "2026-11-11",
+      -1.82
+     ],
+     [
       "2026-11-12",
-      -5.43
+      -4.65
      ],
      [
       "2026-11-13",
-      -6.14
+      -4.62
      ],
      [
       "2026-11-16",
-      -7.76
+      -5.44
      ],
      [
       "2026-11-17",
-      -8.79
+      -5.16
      ],
      [
       "2026-11-18",
-      -12.07
+      -8.17
      ],
      [
       "2026-11-19",
-      -13.31
+      -9.55
      ],
      [
       "2026-11-20",
-      -15.65
+      -13.72
      ],
      [
       "2026-11-23",
-      -16.1
+      -10.39
      ],
      [
       "2026-11-24",
-      -17.0
+      -12.58
      ],
      [
       "2026-11-25",
-      -19.29
+      -13.22
+     ],
+     [
+      "2026-11-27",
+      -9.16
      ]
     ]
    },
    {
-    "id": "usdcny",
-    "name": "USD/CNY",
+    "id": "eurusd",
+    "name": "EUR/USD",
     "unit": "%",
     "page": "crypto",
     "points": [
      [
-      "2026-10-26",
-      0.0
-     ],
-     [
       "2026-10-27",
-      -0.01
+      0.0
      ],
      [
       "2026-10-28",
-      -0.03
+      -0.15
      ],
      [
       "2026-10-29",
-      -0.1
+      -0.18
      ],
      [
       "2026-10-30",
-      -0.23
+      0.2
      ],
      [
       "2026-11-02",
-      -0.3
+      0.59
      ],
      [
       "2026-11-03",
-      0.06
+      0.26
      ],
      [
       "2026-11-04",
-      0.06
+      1.05
      ],
      [
       "2026-11-05",
-      0.0
+      0.66
      ],
      [
       "2026-11-06",
-      0.05
+      0.13
      ],
      [
       "2026-11-09",
-      0.07
+      0.39
      ],
      [
       "2026-11-10",
-      0.03
+      0.57
      ],
      [
       "2026-11-11",
-      0.04
+      -0.21
      ],
      [
       "2026-11-12",
-      0.0
+      -0.62
      ],
      [
       "2026-11-13",
-      0.06
+      -0.88
      ],
      [
       "2026-11-16",
-      -0.02
+      -1.22
      ],
      [
       "2026-11-17",
-      -0.03
+      -1.44
      ],
      [
       "2026-11-18",
-      -0.01
+      -1.63
      ],
      [
       "2026-11-19",
-      -0.02
+      -1.42
      ],
      [
       "2026-11-20",
-      0.14
+      -1.44
      ],
      [
       "2026-11-23",
-      -0.05
+      -1.89
      ],
      [
       "2026-11-24",
-      -0.05
+      -1.68
      ],
      [
       "2026-11-25",
-      0.11
+      -1.93
+     ],
+     [
+      "2026-11-26",
+      -1.57
      ]
     ]
    }
@@ -506,36 +510,38 @@
    "id": "middle_east",
    "label": "Middle East tensions",
    "status": "quiet",
-   "spike": 0.81,
+   "spike": 0.97,
    "direction": null,
    "consistent": [
+    "gold"
+   ],
+   "against": [
     "usdchf"
    ],
-   "against": [],
    "headlines": [
     {
-     "title": "Iran fuel crisis deepens amid war and sanctions",
-     "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQUUs5UENpTE0wZDRNcWxmeVR6cEk4cXJ1ZmhJT21ycG9EdFRMRXdxMEU3ZS1RUng3RFJQelZTN09ZanBtdUY5V2pFdWliZVZLenNpejc5VEt6YmFYZ2dIUEROV0xDUUZVdmp5aWdILVZfS0RKLUxHOEUxc2l0amhzTE1fTGV4TVHSAYcBQVVfeXFMTnZTUXBPQ2stQm0tdGp2TGVuLWt2V1FUdmthSzdBQy1yTlBZbi0zZzZ3VFJWejl3R2VUR2p4cFdoZmVSbWU3QVRLU3hEbUxlV09uNlFUQ25weTF0YXFfZUJ3N1J0NXJqajdUU3pGSmhKUEZ0cVdYMVVxYm1hdE5Zakh0dXdMSnNR?oc=5",
-     "source": "DW.com",
-     "date": "2026-11-26"
-    },
-    {
-     "title": "What Trump should do next about Iran",
-     "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQVW9kOUVYOU9ZUkVFaEM1OTV2WGVfeVhYNTFFOVg4QkJycEZrV0w3VmVHSUNPSW14alU0V3dKVTBUSGdCUEthdmo2MnR4b3ItdW1adUYteTRQQXl5bmZSdFJlUUlrNkxuNHhsdGtaT1hJSHNZTU1VRU9EclZjV2h2bE9GS1NlQXM?oc=5",
-     "source": "Atlantic Council",
-     "date": "2026-11-25"
-    },
-    {
-     "title": "Houthi attack on Saudi Arabian sovereign wealth fund PIF's tower injures 11",
-     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPSExVNjdwSUdhRzd4aHlwMWR6NklEdWV3bVptbElRRzdMRW1uQ2RzdFF4MFlHWkttR2tERy11ZnphRHY2d0d1ZHVNZ0g4OEpRRjU4VTctUFVlaDI2T0czSTVLNjhwdXoxbUtIdXhfZ00tejBhR2Itc3BPOWZsYUF2cEVDeFlVQ0Rid1VFVNIBkgFBVV95cUxNbG9HeEFpQkxXZjNsR0pobEI1SS1QaDRNdG9jRlltcEVXMHFQUlFFdHJpWndBdzZ5ZUZmakpiYzlUeE1CTWFnX21fc2w2UGhOMDZlTTRIT0lVeDVpekRoYWlTekptX3h3QXYyS29SNEdERno1c0p6Z2xMalJMMWtONjdZQzlFS2xCWENvcWstWWFCQQ?oc=5",
+     "title": "Two Italians killed in Kuwait drone attack; Trump says Iran war ends ‘whenever I want it’",
+     "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOWXdZWk9aY1VrSmlEbExnWV93RnFxTDFwV3RLdjhtYW1SaXU0aXJCbGJBRUVOS0FramRyaVdva0VwUWRLQlBZdHcwYktUWVlwaEp4MTNEeUN3Y2Q1bi1RUG5TRTZoWlY0S2lFUVpqSVF3NzJQZ2hiUGFjU19LTW93cERfYzNNY3VKalHSAY8BQVVfeXFMTXlQSEhkZ20xOFJXTzlvczJPelo5S294dENlYTBpMzAxVHVxeHhFNUk3eHZVYVQzY0t6cWZ5T1hEYUdjbkc1SmROUVVTVWc4Mjdza3FYNXplRTE0Qk5NY1NyTTNwdEN6Z2JyWEJhOVRVd3RVOVRoTVlubGNUYTBsWS1zTkZ3czV6WThYWkk4RVU?oc=5",
      "source": "CNBC",
-     "date": "2026-11-25"
+     "date": "2026-11-27"
     },
     {
-     "title": "Israel ‘officially sanctions’ torture of Palestinian prisoners to extract confessions, report concludes",
-     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNWkZ2VEFwQUxLd1YzSWVWVkJhTWhLaVVyYjZUYkoyNk95RElmLXFGTVdpdkVQOXpDXzJGVFZoay04S21qVjJ6VENIYWVCTk91UElFcnFrWUk1cmdESlVyLTRqNUVaX3FZalhmbVVReGFOQTdQUVc2b1hXOFFjSzVybHJiMjhQSXpSY0JPSTJKOEp6OHgxNjV2MG1UWC1JcVA2bkxsMXc0bkhDT0otcUU1UkkwOWRaRGh6NHc2V0NNdw?oc=5",
-     "source": "The Guardian",
-     "date": "2026-11-26"
+     "title": "Deadly Houthi Strike at Jazan Refinery Halts Some Operations",
+     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNNlZPcHJ4Si1xRElrcUtzLVVFbnJSYjVOdjR3TWxENDdQSW8wUnpjUXZORHFPR2hzMGYxSUJrd290UzVWbTJkdmhUcTNTbmxBVEc3T2ZxNVQzcy1JeVAtMlpEbXVPOVVZcmFQRldmZXhfTTRmMzFZSzNvZC1ZQ0czaGUyUGIzZzJpem9KbFA5em1va1RfdVFvS2dBZlFZa0NZZDZYcmJSYWFCUHIxVjFuRnRPLXhNc1N6VkQ5OUVWUQ?oc=5",
+     "source": "Rigzone",
+     "date": "2026-11-27"
+    },
+    {
+     "title": "Watch Kuwait Says Iranian Drone Strike Kills Two as Houthi Attack Hits Jazan Refinery",
+     "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOODcxN1l0OUZvOThDcDhLbFpkQW9lTVBrZVkxLS1NTjkxUXdqZ2U0X0lLRWJsUUFwR0J2UmQxTnZSa201OHFjd1lSdnlLS3p2VkY5VndneHU5WW5qZVV4UWxZUElJTkNQTHgyRUpMYThTNGI5cUcySTJvRThCdnBCVlBsaFdoVWtkaGNsOWFsNTM0ckMxV05SeA?oc=5",
+     "source": "Bloomberg.com",
+     "date": "2026-11-27"
+    },
+    {
+     "title": "FBI warns Iran aspired to attack California with drones in retaliation for war: Alert",
+     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOQ2hlRlY5RFh4YWgtOFBHaFNnc1dKRXh6Q243VXU0bUFUWk5TeThyVFM2Yk1jWUpnYWRUQkV6eGhZM3YzNzBzY296NXNwRlRXbWl1eFFVb0dvckZ4aUhsVHctOERRMkJJRTNZbVo1ZjVqejViYWxuaDRIY2Q0STZ2al9EVHlXVlgtbE9lSVhQbjZCSzZwTmtpM01uUWdxS2tPLWRj0gGoAUFVX3lxTE1wUUM0QkFNelExVzUzcVBxdnM2c1l4bklTdndFT3pzcEZVQXZkOVA0VHFRYXREZjAtcVhXcktBVi12VEZ6dVFRcEpVSEJZb0thLUs3NGY1d2pBV3BJOXdBS2NkWnJ1T0RrTWpzNm8yS2R5Q3ZnaDYyYmRMejdKYm5kd2RNZmhZOE9BdHRrU1NfdmlicXJUR3hZMDVTQldmN3lCWUFFYWIxdw?oc=5",
+     "source": "ABC News - Breaking News, Latest News and Videos",
+     "date": "2026-11-27"
     }
    ],
    "newsSource": "GDELT"
@@ -546,32 +552,36 @@
    "status": "quiet",
    "spike": null,
    "direction": null,
-   "consistent": [],
-   "against": [],
+   "consistent": [
+    "gold"
+   ],
+   "against": [
+    "eurusd"
+   ],
    "headlines": [
     {
-     "title": "Libyan Forces Threaten Retaliation Over Ukraine’s Attack on Russian Ships",
-     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNZDJMNTh0Z2E3NmJYTGhkUDNCdi1YOWNZZnd4UmpPdGFwODZSSHhJZTdBMk51WC1OVmFpNHFXVGs4SS1BVTJNYzFDdEExRTNyRXFaejFxSk5RUktMODJyeGZMci1rNHFMNEN0ZDVlWmpTTWFQdDUzbUU2cEpPVVpWMGw5T1M5Qm85dHdzRg?oc=5",
-     "source": "The New York Times",
-     "date": "2026-11-25"
+     "title": "'Masha and the Bear': Ukraine sanctions Russian cartoon",
+     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPbjQxWmNvcnlhTmt3ZWV1d3h3cl81U2xNR3ByaUZ2dFhPLTNoUnZ2Z2VhYjdVREFNa1E5V0QyekxxR1lkNHJtV19mN3o1dmM2MGNva1hEZ0ZVTlFqdjJuc0dBeDc1b0JEM0NDR0FBQ1JLWDdYLTZ5UXpRR1VSX1J4dzY2RVh0akw5UkY4Y2xR0gGOAUFVX3lxTE05MWE0X0V2UDdvZFF0NmMxWnBpN3hPLWV3SnBRZVI5alg4NXBrcVJwa3pSdGRzT2lGVzV3QWZraVEzNWpvelphOFBxT2F1Q3VYcHJyUDFERExndzZfWkRFNXplT1ZWNklJQk1GTkhkUUNNbTQ1bk0xd3NVM09WYXh2b1p0dXpLMlhzaW1sd2c?oc=5",
+     "source": "DW.com",
+     "date": "2026-11-27"
     },
     {
-     "title": "Ukraine drone attack kills five in Russian-occupied Zaporizhia",
-     "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNTkJGcFdNRHNsLUJweEJkN3dwUmF0YV9zQXNFZFp4OWVfaTRzcVJqdkZSUGFqLUhzdExCNnlIOVJLZ29vNFVSa2hETEdBXy04SnpvampYVE9JR3lQYnZ2RUxuZThQbTNzT2NMcE9FcEg2S1c1czRCbVBoS1lIZzhjVmx1TXBzN0lJeGtjQ3o2eTFWc1h3MVRTTl9kUDJYLVhKQkRsM0dtUdIBrAFBVV95cUxPOE5mb2V4WnlCR2JvSHV1R3dkTXBrdURVU25yekZwZlVrNk5ndDJtN2Qzc0oxM0NwTkRyZDhqZHYtaTFFcXJtUWlZYlJlSkNPVVd6NDFzdHplYVk4b3M3VENrTlpTUkRKMzBGcUpWc0JiNHhVT2JINk1xQmVSRW5uX3k0LU1TT2lrMllIY01tOUw5T1FZQm1WSk1UaDU0aWtlUXVFS0lrRmlYQ2lC?oc=5",
+     "title": "Zelenskyy warns of major Russian attack as Trump urges Putin to ‘pull back’",
+     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNUWhTZEtvSHh2TnVxc2VyZHdvaTFta0F0WGI4TTc3aHhIZzk0dV9iZXJSSGk0VEFDd3JQZ2puU3dERnlzc0h2TEdFcVVSaXhOZXVrTlN3MDBmZmZXUlFrQno0MDNWQ1dCU1hsTnVWYzBFOUlXRjQzd21CX3ExWmR1T1JDNEkyTm9yU2JZeW8waFFCTDI1cHB3cmFWXzNuemkyR3NRZ1hnMDdUZHVTOGpjN3U3MDA1QdIBuwFBVV95cUxOd242M2lqRVpQSGdGdEEyMk4wQWZzZjFPTnJBWXoxaURLaFdhUnZHQUpubzlVVTJzYWp2SUtRTVNKS1FhWG5TMGNLSlltVmdFZXNNdUEyUmx0THZ5aTdhQ1ZzTlFQaFJ1TThZY1B0MHpObS1YeGFxeFk4czg3aVZpRElDcVVnYTJjRDB4SjRXYlY4QzkxZ0V1SWNQZ3hnOXRaNWRLam5HdkxZRTF0NzFkWmxicmNEbWNodkxj?oc=5",
      "source": "Al Jazeera",
+     "date": "2026-11-27"
+    },
+    {
+     "title": "Zelenskiy says Russia preparing new mass strike in coming days",
+     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNdDhjR3Rhcm4tZDBldjFGZV9PMm1aV0pWZF9RdFhwdVA0anhFWHdkN212SFBUZTN6V2RxbGhzMHI0cFdXa3VMY3hVb3BXcEZVWEVydzQyYnkwN2t0WjRnZmpFbXhYVHMyWHpRUFRlNTVyOGZSSWFKd21qcng5QTNRZUgyb294a3NJWUNQaUhWMDVYT0E2bGlsYXJjTU9IZzd0Vm8w?oc=5",
+     "source": "Reuters",
      "date": "2026-11-26"
     },
     {
-     "title": "August in Ukraine: Despite Drones and Robot Dogs, People Still Matter",
-     "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1IU3RZczVhVEphOFF3emxOREExTWJZckRPWHJiMDlHNWJQNV9rWTJsenBOakpwU1dCSXRCSkdFV1Q4TzF3eFlRZkstZmZhOG11dG5ucWc0UndPRjIxbGVzQzRucFpLbmRibXc?oc=5",
-     "source": "Small Wars Journal",
-     "date": "2026-11-26"
-    },
-    {
-     "title": "Russia’s war of aggression against Ukraine: EU restricts trade with 15 entities linked to Russia’s military and industrial complex",
-     "url": "https://news.google.com/rss/articles/CBMiowJBVV95cUxNTnU1ZVFyZUlfUnFTX01zLVcyWEdLcjMyVmJJSllqQ1pNRVpsMmJvb1gtZ1pSSmtWd1pXYTVGTXJPenNRUXFUMndnc2pQb0pkMWRxZWxOVU1xdWxodktpamFwYnBpSU44ajFUTkFqVmxjOW1SZHZ1eFZicXhGcGREVEtGcnV2dVdnem5OQUFFOF9ReXJBYzJCRW5QUGtuU1Fqb1dON1BKZ1NhQW1rY2tHWF90RHV1ZnFrN2lWTE9SRElkMnhLZGtfcWwwUGFXRXNVSFkxczJDSWE4eXBxV1dnaDg3WFE5N3JNanhUU2RobUIzUFliVnZUNF9zTm1zUGU3TjNDa0Vwd3E0ZUlvRllpLWM3M2MyZG42U1duZXUzUkVhZVU?oc=5",
-     "source": "Council, European Union",
-     "date": "2026-11-25"
+     "title": "Several Republicans vote with Democrats to pass Ukraine aid, Russia sanctions package",
+     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPNHdrTGxMZUpZTFJQZjRNZU5lVFhJYVNmdEUzYVNCZ09zTkxEMUFJaDJfNGxHOFpNZUNiQk5qQ3JBWG5qeTlLOVp6bzE4YVZpNGtKZ2tUaUV4SFhqLTlYZTBDUzUtOTIwVDBiTVZfNmdlalllemFmMTZhMHdJazhsZFdTc05BdnQ0REtuTUZhbVBSUEFNd0t4NV9iSXhRZVNSazBzZHZTNGVKS1FM0gGyAUFVX3lxTFBWc2NUSVBWYzVyNVF0dVFmV282dHpZY1Y5Snh5ZWppNnEwYzZLYXlHVHpZLW5RbVg3aHhRMlVWTDlCMXRUR0M1WDFEV3R2MV9KUEZzVWhacTVxR1dxQllKWlpuUDBkSE8tSXBMVEhYemF0cDMtbDMzcDhvc3NiLTBxemo3Y1NvV0FFUzBvSEd4c0xDblJLUUc0YkZ5b0JlUGhuMnBnWE43Si11WDlPMmhsOWc?oc=5",
+     "source": "ABC News - Breaking News, Latest News and Videos",
+     "date": "2026-11-27"
     }
    ],
    "newsSource": null
@@ -580,76 +590,80 @@
    "id": "us_china",
    "label": "US–China trade and tariffs",
    "status": "quiet",
-   "spike": null,
+   "spike": 1.53,
    "direction": null,
    "consistent": [
+    "gold"
+   ],
+   "against": [
     "copper",
     "usdcny"
    ],
-   "against": [],
    "headlines": [
     {
-     "title": "Trump Administration Unveils New Tariffs for China, the European Union, and More",
-     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNcFhtMHlCRmo0RXBTdk9ObEE1X3RickdBOUwydnhxN25sbjBubGM4eE9qZlBaTTBmOW5IbWVQNUw5MXBvVlg0TlduTmJuR1lrLW1zRV9NaXRzcXBaRGlxMHUxS1luN1htcndZaGpBNl9yZU8tU1ptbjA0WG1yV2wwRW03M0ViODMzRHZ2WEY5RnpaTUJYSWk3T0lOdU4?oc=5",
+     "title": "China and Brazil Lead Pushback Against Trump’s ‘Unacceptable’ Tariff Threats",
+     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPd0o3Tl9wSlp6TkNJeGc2VW5oT1hPeHR2dGZpcnIzSkF2N3R2REt1WTZxZXNoeGVOZjZUZWo5dVNzQ0RFUVVLOXM3cmVRX0tIY3ZfU09KSXBhY3NqNzlHaHJzUUk5MmdsbEE4cW5SN3k3Nk0yRUt1bUJLV1UwXzhodkNYTXFUZDZmc0x4bg?oc=5",
      "source": "Time Magazine",
-     "date": "2026-11-25"
-    },
-    {
-     "title": "Trump tariff threat ‘unacceptable’, says Brazil, as China denounces levies as baseless",
-     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNYUJrQ3VzcUs4NmJmXzMtVmx0dUYzaUZ0ZGw0MUM2X29UdG83c2Z1d2ZRR1JIQVYzbC1BQlA5NzgwUnFJUERLTG81aHd1WmptOU43UjFaekpVWGFFeDJtQUtybnpoNUVsUTdYbDV3MF9MME1hN2hvWl9BQ1U4NUd4NmZwR1FlTXBhckdUQTE1c21JMFR5ZHlOQWtR?oc=5",
-     "source": "The Guardian",
      "date": "2026-11-26"
     },
     {
-     "title": "Trump admin proposes new tariffs on China, EU and 12 other trading partners",
-     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPN3dSZHFTVnZVU1IxNk0ydWl4QjJTdUF3dTRuckhxSUNwMGI5enBLWEFyZHVGRGlILTN6OXNibmFnLVNWNGhBcFgtR2Vfd3hUX3Nmc0VjdnJvdEdERktyUnVKRW1tejhHLXVhY056YVFvbzR3Vy1wdGRPLWJYbm5EanBkdHJfdFRrQ2doTkh1SEkzTUVQMWZJ0gGcAUFVX3lxTE5NQ2dvX1lVT2Z3ZXUtUGgxcHdYMUE0VTZQZzNGd3V0amdGOEdMd2hWeEJYMl94dE9KUVRKY3pBQnJ2NzhNZTZQTXFPSjlqamtaenBiRE5FR1VvTEFCV2c1UXFoZk5YbHpsRzY0Z1Vmal9BZ3NxYjVOeXppMVJRd092STNQQjZZLUsxMmVDWWd4b2F4QkJ2ZTlPa1hJUw?oc=5",
-     "source": "ABC News - Breaking News, Latest News and Videos",
-     "date": "2026-11-25"
+     "title": "Trump’s Latest Tariffs Revive Focus on Pressuring China",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1odENQTk1RR0JMbTlRYWhYcnh6cGdvcktJUGVNZURvbUFtTHZ0end3RjhpclNNNEF0ZnZFTDVHTy1Vcy1jMF90U240MEZFUURvdkJDN3I2aE55R193X1VjVW9PaU5sVWZvU1Y4dmt5M3ZmeE1YcVE?oc=5",
+     "source": "The New York Times",
+     "date": "2026-11-26"
     },
     {
-     "title": "New Tariffs on China Risk Undermining Trade Truce With U.S.",
-     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPWUcwQ3JjLUlNWjhSZnFuYWMzVEFGd0RMR2lZT2VmWUdBejNHckpxbWFSb0lsTUNuTzktdm9qTk94eTgxMXFRQkplOTdZZkFDSEVaUkVZcWFfb1lEMTNEVzFHd013bXhoRFU4ajZjOTB0UXFhM1FacVliRVdqcFY5dG11UURVYmFZang5ZEpaZEVCazhBMjFz?oc=5",
-     "source": "WSJ",
-     "date": "2026-11-26"
+     "title": "Trump’s Latest Tariffs Undercut the ‘China Plus One’ Idea",
+     "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQRlZxT2c1ekdQZ3lIOXg3OW1kakF5bnFLMHhYLWluR2EyVUlvSGc0R2d4TmgzSUsyTlRWdVo4M0NLdTU5YmpDbnNWOEpIQWtGSE1ORFhuZE0xaTFYQ3pFR0JmR1ozMnFZc3lyZ0Y2T3dRckRIWE51ZjhnODR5cVlzSFJDaXlmNVpzOUd0TXZBQlJHZ1JSNU5CeG5ZdG9lTEJCTmZQQlZQcFVEWGI3c0E?oc=5",
+     "source": "Bloomberg.com",
+     "date": "2026-11-27"
+    },
+    {
+     "title": "As Trump targets 14 major economies with new tariffs, China’s $203 billion export surge into Africa presents a new economic dilemma",
+     "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNbTlFcWxSOWRXUFV6RndqdGNoZVMyZkx4SzA5eWxGdjh1X0x3Vm01WHNZeDcwTWFtTzd5TWFnUGNQYjJENmIxbzVQV1Zqcjk5cTRsTVZGek01MDVyZEdPRkVocWxPc21YSVhxLURwdlJUeDRleGpWWFFVN1U5ZXFmTG03b2YtRllrNmd3bTZVaV9FeDQ0WmIwOEhhSktvS3RzXzFfcEx2ejJOaDZybllyUEswUGtpakhBVWRKTVRZLXJoVUppSzNYOHV1S2VXU255TlUxeHV3aDI?oc=5",
+     "source": "Business Insider Africa",
+     "date": "2026-11-27"
     }
    ],
-   "newsSource": null
+   "newsSource": "GDELT"
   },
   {
    "id": "taiwan",
    "label": "Taiwan Strait",
-   "status": "quiet",
-   "spike": null,
+   "status": "news_only",
+   "spike": 1.75,
    "direction": null,
-   "consistent": [],
+   "consistent": [
+    "gold"
+   ],
    "against": [],
    "headlines": [
     {
-     "title": "What to know about Taiwan’s local elections and why they matter to China",
-     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNQkJtZkJkd3k1QWVRN1AyYU9YZUtNWG4wRndpSThLaHVoUUYyLWYySUVRbXlVTFdNVHZZdkFxNkoyOEhJVWJudHI4Y2FzUVA4b1kwclljQi1CVkFuSUxfaDVCSXoxeXF4YklYTXUtckpSWEFkOTdwM18xdjJNWHFHM0dhRHVBXzRsZElucnRjdWRONkJjcGYyeFFsSGE?oc=5",
-     "source": "AP News",
-     "date": "2026-11-26"
+     "title": "Chinese military tests new Taiwan landing tactics in coastal drills",
+     "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQRHU2ODhzTFRNUi1YM1VpRVZEZlg4MXFpaGxIZU5SZ2xxNVZFTWlFWHlITkJLNXhSendCb3RYckhpQkhqcDRVeDdRdVJWRl9WWnJWYlZvV2tMM1VaalU2SlRQQTRYNVZzc0Y2SVp0WmJKai1kN3NtSEU1MkxLSkhGN0M2TW9JOHFianYwZEtrNTE2NW81aGlLTWRpc18xd2hwUmI1XzdQVGxON0dJREhldE5R?oc=5",
+     "source": "Reuters",
+     "date": "2026-11-27"
     },
     {
-     "title": "‘Jensanity’ erupts in Taiwan and China on Nvidia founder’s comeback",
-     "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPbjJtWWlsdkpJSnp1U3RPWDFDNDZNZnduNEtiRVExb0JtejRhYWR1T05TY2FORGlSUzRHeFNSdUh4RjhPMHBGaG5jZ2QtSmZzRGlTdkM4VmRYWW1iUkM4MWVfZkRHOFRCZUowc2J6ei1yNHJVSERQOWpnY0tPT1pkdXoxcDQ?oc=5",
-     "source": "Financial Times",
-     "date": "2026-11-26"
+     "title": "Threat from China looms large over Taiwan’s local elections",
+     "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQdmpMbTBibDY1WlNqR0Y0Y0hwVWczVDdHWVl4YU9WTTBUMDRTNHVXLUdHTWJLcEdveW8yNm5nZmMwSVhjMkdaX2V5U1NVc3NjMXduRzA3V0txbjlmWjFhcktSTG9KUldVb0tuX0IxdWlpQVhra01LQWIzSGVqS3B1S1VvSEIwa2gyM1pQYjF4VElDMjNLa21SOFpFbkFxRTV2cWV3T3VR?oc=5",
+     "source": "The Guardian",
+     "date": "2026-11-27"
     },
     {
-     "title": "Mainland supports cross-Strait exchanges in film, television industry, spokesperson says",
-     "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFAzQWRLVVE5NVFETkRkY3o4Rkc0bHJTOENzVUtodkdONXdCSC05VHlLSm83TDZZbTB2VE80M3VSWUVSSFVhVG9BZzdVbWVoNU1qRnBCWkZPWFBjY0x3ZXl0VG0wSUVESWZOc25JLXNTbGNLYUp5MHJmN295Mjc?oc=5",
-     "source": "State Council Information Office",
-     "date": "2026-11-26"
+     "title": "US Taiwan policy will be watched closely during Trump's China visit",
+     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOdDhSS1hDWERtcmJTeHZKNXY2MGpZUUdjeWZ6Y05wb0hISXFjM2J2dzR3Ykt4b2tTVVFwczN2MzF6dk5pLTlnVkZZVjB0NFdvM1BBM3E1U0c1eUFCZmg2YU9VczR2TE1FbDNQZlJaX0U4ckx4QzMybjZRU2lQTGRNdTFMRmVlbThRVmtucExfLUJMZEkyVm5XbzA1MHNCSFAz0gGmAUFVX3lxTE9RdXNzT01UczhmQV9Ua0NJUTVqaXQ2V2RHUDN4bmQ3S1B1cDduV2J1NkV0ZFlJSzhTRWlHM1RMaUEyWTdRUnh2clBIekY2bFFnRjB4YUhKek10MS1BaGtPd0dleW1qZzBTTkJwRHNnTncyR2wxNHJyWVJxM3dwVnNQMEFQWEhka0xXVGVUbnFyd0VxdFJYRF9MdDc1MlViYjZqaHM5eXc?oc=5",
+     "source": "ABC News - Breaking News, Latest News and Videos",
+     "date": "2026-11-27"
     },
     {
-     "title": "Why Taiwan’s Local Elections Matter for Deterring China",
-     "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOOU1KZExrVG9GWkEyeEhtOUo3MFlWLTNLYTRIZTJyb2FoZ2I1ekdOYW1yMUdHQXFDQ3lvR0s4emFodWU2WEYyNURJaUlOb1R1aW9Tcy1abk1PX2dpdGx2S1B2WGQ4ZGpUZE10eDJxYVIxeTFkdlByeGtYN3p1ZzE2Yl8wdjJNVjV3WU9R?oc=5",
-     "source": "Council on Foreign Relations",
-     "date": "2026-11-25"
+     "title": "A Critic of Beijing Turns a Mayoral Race in Taipei Into a Cliffhanger",
+     "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPUnFxdV9MMUIycUNVOUxFcXBSMkRpRW9XeDhaYmxEbFFXMWpTZmNzdVgtaU5faDV2bUFMcnFlUERSak9pVm15Z3BRRmJxUUcxNFhMRmZ4eGNTMTNBMU5HOWp6YXNvSExreUtLOVJMMzRwNktLd2RRVldfcGhUQ2xJcmUwSGZQdmhLekE?oc=5",
+     "source": "The New York Times",
+     "date": "2026-11-27"
     }
    ],
-   "newsSource": null
+   "newsSource": "GDELT"
   },
   {
    "id": "opec",
@@ -661,28 +675,28 @@
    "against": [],
    "headlines": [
     {
-     "title": "OPEC+ Agrees to Keep November Oil Output Targets Steady",
-     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPaWIzaV9QMGF4MDZQT0pHT3FRbTRDN0pzNkVBTVI0eDhPQ00yRjNCTUxBS3B6MWFTU3BHcjdqUlpQYzBpbWN2QTJWUFB5VlFCUDU0Ulg2bEdMTkxzTzFjN1pyX3FnX0dUWHpJaWFyNEtxS1ZheTVTU2pzTVROX2tZeGROTU5qRmozYV8xVk5n?oc=5",
-     "source": "EnergyNow.com",
-     "date": "2026-11-25"
-    },
-    {
-     "title": "Iraq seeks higher oil output capacity estimate ahead of 2027 OPEC+ quota debate, sources say",
-     "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQZDlBeGxKNEloWTJLaTdNQjFFSkQyZWx3VjBqMzNpQVFoMjF5c1BkaEpCYkNhV2NCZmNXN1hPM2ZHVzdJN2I2aUpLd0ZSSnhLd3JWOHJJVTEyWG1ZTDdhOXJvNGtybnRkMU9yMDlJWE44eVhFNGZjbTlwMDFwQURSLW94U21XS3VqUDFWWFAzM2FLV2ZXdTNPa3djTzBPbDl5WVBUeVdUSXdWVDh4eE5acHppbzdvTjVtbEZORkh2TVFkR1M1T1E?oc=5",
+     "title": "OPEC+ set to keep oil production targets steady in first quarter, sources say",
+     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOdndaSmMtcnZ2OU41SkZNYnNtNlU5ZnRWTFlOamJLb0x6eHRhRHJuQkNMY1oybHlpOUFkRWdncURJcUc0eGZvM2JNZUc4SGdvZG0yeTJFY0llZWJUeGtMRzQxaHFZNmZ0OS1YWFloelk4eDBVenhkQlotREpzR2F1cFgxbkZaT18zRWtGbHd2aTZENWFDMmhKaU13WnpSQkhIaUZGTDZtMFkwa2ZxUjdpTkRfTXRZMkNUcW1FM3hn?oc=5",
      "source": "Reuters",
-     "date": "2026-11-24"
+     "date": "2026-11-27"
     },
     {
-     "title": "OPEC+ faces challenge of unresolved war and market surplus in 2027",
-     "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOdjJJbHVNQzY2R216TklDcEYwTVhEeVlsWGdJcTM3Y1NFRDBjblNGSXFjaXZqRzJNV0dSNlpwWjBsWXkyYlBwaGV0MDdlZWJWUnNXLTdra1huS0RCdk1Nc3d5bFZUcnRXMDVKd1lsQk9SRjVKaThZR2lCZ0Z4TGVsUHBkUQ?oc=5",
-     "source": "MUFG Research",
-     "date": "2026-11-26"
+     "title": "Is Trump Trying to Break OPEC? US Pressured Venezuela and Iraq to Consider Leaving Oil Group",
+     "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOR1c4Uzk4STQweVU5YmY3YUtTMmJpcGNibDFobDFwNDFBR1FVVGh3ZjBseXFOVlBZUFdLXzZwNmJEVExLQVo2dl9JakNJNzNEaDJhVE9ETmpLT3BHT3NYU3pXM1hmM1BTZmRyd1lLWFhyNjN5YWlISkJEdnJBdzFwdk0yaXpQdjQwSlhpUVhEcENtSlh3X3pnX2g4N2xRaWF6SVVaN1JlZWVna3JPOW11UDNOSXF4Q2VaQUdBcUFzWXBOb09ubWF4dU5B?oc=5",
+     "source": "Modern Diplomacy",
+     "date": "2026-11-27"
     },
     {
-     "title": "Oil Price Forecast: Rebound Faces a Test as OPEC+ Quota Talks Near",
-     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQck0ycXJLVmJhYjI0ZzM3YWk2cFllYW9UbzJvVGI0Vk50SWJpbDdBdjctNVRzakx5WjI2N1MyekNaMUttS2hEeWdnbXNNcmticWlfRFNZRlQzOXNpbnBvRU9pbE82OEJ1NVc2YXh3VElLdGFHOFpBSTBGVmtTdEhJanotQTU2cFRKT1o3M19aVWJ4akhzN1p1Mk5DeFdzd19fRVUwOVVKa3JENWx3bUVEOWJ6RlBTdw?oc=5",
-     "source": "FXEmpire",
-     "date": "2026-11-26"
+     "title": "OPEC+ facing tricky talks on 2027 output and capacity targets",
+     "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5jX0EwaTlETjNFcTZ2aHhDOHNackF2aWVaMGRwNWl5V2lIZWxDZjl5RjdZTWEzRUZIbWJVeDBQdkpqanl3T3VxWVlWLWszQjcwSzhSRklHSUg5U3lrWW9yRThlazRRZmlLd1ZHWEJJZTVUUWQ2aHZEWktVcUY?oc=5",
+     "source": "The Japan Times",
+     "date": "2026-11-27"
+    },
+    {
+     "title": "Sources say Saudi crown prince stepped in over quiet American push to fracture OPEC",
+     "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNcWFLWDFQMXNWNm02Q1FkX0VXSlc2bW1aSXpUYldfeXVnQ1FtX2RVSFY4YTNmMEtubzhWX0ZwUWJtOVBuX3RBNmxMWENBSFg4UmxQVkcxZHpxZ2E0RWdUcUpoVVhZeUdoX0RJVnNWenJQMEY2SDFfdDd2OTI4WHZaLU4tTG45Nm9SNEFjLUNpVkZuTHVGSVhvajRERU9yLWJMQzNpb1FYeXVCUWFyaUpJ?oc=5",
+     "source": "The Independent",
+     "date": "2026-11-27"
     }
    ],
    "newsSource": null
@@ -690,48 +704,60 @@
   {
    "id": "fed",
    "label": "Federal Reserve policy",
-   "status": "news_only",
-   "spike": 1.89,
+   "status": "market_only",
+   "spike": null,
    "direction": "a more dovish Fed",
-   "consistent": [],
+   "consistent": [
+    "eurusd",
+    "gold",
+    "btc"
+   ],
    "against": [],
    "headlines": [
+    {
+     "title": "Fed holds interest rates steady as inflation hits 3-year high",
+     "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxObE9meWdub2FOS2dVY0pKYUxReEZrZGJhMnIyNG9JTEJpZlhISXFXMlZGZk1kSjRPWlRPejV6aTdXSHZnWWFkeHBvZVEydk9Sa1dLallzVGtIenB2OV9yR2daTDNrb2psQW5uZ2JSYnlOMUxmYzExZ1NBT1V3OGVlaERaZ1pPaVYwTDUyNVJCR1lJUkpoRFhhMzJha09TOVXSAaQBQVVfeXFMUGc0WHV5TzVaUnlTZjZ2Y1h3RHdSSnc0LWZoTzF3Uzk4WFkyQVByY1kxNkNoeDREX3Z6TDRSOUsyMmFvbHBGUWNlWUlXZGxJZFN6RFB5NWREWWtlRXUyMXJyUUlMTXo0cmh4NlpfT1pMUklyOGJLb1F5SDdteTItMzl5NVQybXk5U2ZQWkRGYmhnU0dJZ2hoTEFjb3FLaktRcjZNbDc?oc=5",
+     "source": "ABC News - Breaking News, Latest News and Videos",
+     "date": "2026-11-27"
+    },
+    {
+     "title": "High Inflation Puts Fed’s Credibility On the Line",
+     "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNd2h6dk0xd0JHNWIwS3FxcXRDV1VNc3VTRUdFT0NtaFFiUFNwVkt0bzZONVFyMUxaRmtwSEpzZzU3NEhqQXI5dG5pM2lDdGFlSXhqUHg1b1J1bDVLMGNBekg2U2ludnNGOUpPRzRTanBMdHF2UkNmWXdPRDlxVG9nbV9qUERpZlNOR29oNlZ6Zm8yQy1nMTVqUmNtV0s0N1dJSTlHZkx3?oc=5",
+     "source": "Bloomberg.com",
+     "date": "2026-11-27"
+    },
+    {
+     "title": "The Fed’s Preferred Inflation Gauge Just Hit a Level Not Seen Since 2023, and It’s Bad News for Wall Street",
+     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZnNfUEpYOV9fU0FqWVpLWXZPQjBDU19aNnR0WG9MNlR1Qkp3Yld3akNvZE9jNG1zV05zRkJybjlRTERWcmJmV29wbTJjTVE5VFMtY2RaSlRUMlBvV3ZXY1BxbWkwanhHZ1Vub2FwbWhqS2ZqblhtbGdhMVBwamo0RS1QYTNYU3k0SGVPZENCTHZzLU8xMmZRZzdIX2VhN3Ft?oc=5",
+     "source": "Yahoo Finance",
+     "date": "2026-11-27"
+    },
     {
      "title": "Fed policymakers at odds over causes of high inflation",
      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNZ2Vtdjdia2xUaVF5bWxRSVlPUTZjc1JmWG9Uam1QSHpNcXZuREdQVmRyX2hkNEtMbWhFd1VFb3l6QVJGYkJHZlZXUDJLVlM4cDdDR0RSVTRPMmZaUHAtMlhtSDlQeFF4UGJadUhrQmhlaWlJT1cwSG9IRnF1cC1COEtKdTBsUWVsXzhkYWhUWHNKTjJsUVJuNw?oc=5",
      "source": "Reuters",
      "date": "2026-11-25"
-    },
-    {
-     "title": "The small-cap Santa Claus rally is on — but a December Fed rate hike has spoiled it before: Chart of the Day",
-     "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQcU5WaEJ5c0JpdzVicVRORVZpMHBnbjdoYlIzdFROcDlVUWJoaWRlTjFpdWpJS25ZYVk2dktEb3F3WmQ5aDcwQ2ZVeFNoTDQtQl9tZTN5b3JVUEpaQWxWeVZ3eG5RdDRaeTBoQTRyc3FjWW5jd3p6LVlNWDgzMkZWQzRqbkNRZFBrT1NoQlRQTjhvWTVEYW90c1ZIdWYxeWlhdVFDQUNyQ3ktNFBZSWMxWWVYUFZZNE1vc0NSN2pHRUpqd3Faa252ampQSTRXWFZTLVpRMG4xRHMzS2Z4UkdMWlRYVk1CNW4xVWdqLVhfUWdnUkpwNUE?oc=5",
-     "source": "Yahoo Finance",
-     "date": "2026-11-26"
-    },
-    {
-     "title": "Wild Market Swings Are Colliding With a Fed Bent on Taming Inflation",
-     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNNktjNDdMSmJmZDNsOE1CbkdBZVBNS2ZrVEJSUXQtazcwMUs3MHRwbk5xNmN4YmxhTC1OcUdlRVBDVmtiWXZYckVLQ1pOMFMxbXhPaXpsdjdMejlzLW5TMjYxYUVHQUJUamVMaERpbmIwSXd2bUoyMFJLWUcxV0JDZVVvUjE0UmRjaDdJTlJneE9CRnFrZ1dkZGdzeVA5MEtsSG93T0gySzktblJRWGZQUGlsUGVDXzNqRUtvV1pR?oc=5",
-     "source": "WSJ",
-     "date": "2026-11-26"
-    },
-    {
-     "title": "Another Hot Inflation Reading Keeps Fed on Track to Raise Rates Again",
-     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNVmt0OG9famdFX2l1SjBPc1A0aWZYc3Aza2tac0ZTYWk0bWplX2xRWVBUdjh3ZEtOQ1RQbFdhaUc0Wl8zZkpKaGV5c3Q1R3AxZHF0VjBqZ0RicnRRNVZ6X2RfYmNQUnBtTXBfbmNQUWRuZXpVcXFGa2pyRXhJZmhIWUxjXzc5cm1RTG1HSm1n?oc=5",
-     "source": "The New York Times",
-     "date": "2026-11-25"
     }
    ],
-   "newsSource": "GDELT"
+   "newsSource": null
   },
   {
    "id": "us_inflation",
    "label": "US inflation data",
    "status": "quiet",
-   "spike": null,
+   "spike": 1.2,
    "direction": "cooler inflation",
-   "consistent": [],
+   "consistent": [
+    "gold"
+   ],
    "against": [],
    "headlines": [
+    {
+     "title": "Fed holds interest rates steady as inflation hits 3-year high",
+     "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxObE9meWdub2FOS2dVY0pKYUxReEZrZGJhMnIyNG9JTEJpZlhISXFXMlZGZk1kSjRPWlRPejV6aTdXSHZnWWFkeHBvZVEydk9Sa1dLallzVGtIenB2OV9yR2daTDNrb2psQW5uZ2JSYnlOMUxmYzExZ1NBT1V3OGVlaERaZ1pPaVYwTDUyNVJCR1lJUkpoRFhhMzJha09TOVXSAaQBQVVfeXFMUGc0WHV5TzVaUnlTZjZ2Y1h3RHdSSnc0LWZoTzF3Uzk4WFkyQVByY1kxNkNoeDREX3Z6TDRSOUsyMmFvbHBGUWNlWUlXZGxJZFN6RFB5NWREWWtlRXUyMXJyUUlMTXo0cmh4NlpfT1pMUklyOGJLb1F5SDdteTItMzl5NVQybXk5U2ZQWkRGYmhnU0dJZ2hoTEFjb3FLaktRcjZNbDc?oc=5",
+     "source": "ABC News - Breaking News, Latest News and Videos",
+     "date": "2026-11-27"
+    },
     {
      "title": "US economy roars ahead in third quarter, inflation remains high in October",
      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNalBrRjhRWHdhRDduMzduLU1kN1lGVFpzNFllX0RzdjJXMjdtajRZS1l1dms2MFJFbkhJQmx3Qzgydi1nTTJnQ1JPLUtoa1R5LWZjWjItUXJhXzhoZG51NU9ENzVBQjVSZWFpdHlqbV9PSkVncWtjUlptdXhjd0ZKRXZ6d2Y1dw?oc=5",
@@ -739,58 +765,55 @@
      "date": "2026-11-25"
     },
     {
+     "title": "Three supply shocks driving up U.S. inflation, says Oxford Economics",
+     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOeVRubmFWdjZyOEljazNXaVhSb3FfTk1HWEFMYTdvVGZZbFZrNVltQXZSRDZUTUNFMi15T1FfM0VJMy1QTlMzemI5RVJlSk52Ny10UmMxNWU4SFd2aWVkOGdUc01MSG5uVEw0Mm05b0FfeHVpZE1yWmpJWVp0MVo5SHdLaDk3c0oycGpuQUlUSWI3aFQ4c2hILUFGVV9oYmNoUllIT3BZYUNYQkgwbExPYw?oc=5",
+     "source": "CNBC",
+     "date": "2026-11-27"
+    },
+    {
      "title": "Treasury Yields Extend Fall After U.S. Data Flurry",
      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQWGhuNzRQQ2Z2ZWMwOFZPOTk4UXFxNWg4R09KdWVyVXItRnRQMnFJYkxvM3Flb1ktS2pJMFFqZXJodXM1ZXhpZ2hiOUoxTmRXMzZXVEtqZUF2emgyb0dfZm9xbVktNGJrSkZCTjdvZkVmQVItODZmZXdkX3lydHV2SUY4NzFWY3V6RnBlREg1RFhXa0hLaGt4MGRRbmhpQVpm?oc=5",
      "source": "WSJ",
      "date": "2026-11-25"
-    },
-    {
-     "title": "Your Thanksgiving Meal Costs More as US Food Inflation Returns",
-     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNZ091d1V6STMzbmJEYnBWQnNNMDlueHo4ZC1MLVpaRktic0psNjJZaDZoWWlSSFdnaFZBcmV2X3pQZmFSSlBDdTc5YWtxT0FEMHdBNTBGajRSUVRmRzZ5ak16amhBSTBZNjFuSEJtbGpYYmFTMkx3TlVyRVFweEFEN2RMSW90V0sybmw1UGV5ZnlqazFnNzlHSTYxUTIzODJuWlFqR3dLS1BwRnhfUFVNZHlJQnJSdUE?oc=5",
-     "source": "Bloomberg.com",
-     "date": "2026-11-26"
-    },
-    {
-     "title": "US inflation hits highest since May after prices climb 3.8% over the last year",
-     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNT0FBRVB0TDVXeEprbXpxSm9xUXlSMXdBRDRueXJvMGxRR1J0Vko0MjN4T2VVXzNXV2JNZkpIYzV4YTFILWFSWHhMNlo3aFQwTHNXQ3hwaE81SFJ2MjNOTGg1TTFjdE5YTjlsWHBmUVh1QUFqSjBzclJMTUZwelJqVk9kRDA5a1R0bV9LQ29JdzFnTzlpSndUYWwwTHBlU0R5?oc=5",
-     "source": "The Guardian",
-     "date": "2026-11-25"
     }
    ],
-   "newsSource": null
+   "newsSource": "GDELT"
   },
   {
    "id": "us_fiscal",
    "label": "US budget and debt",
-   "status": "news_only",
-   "spike": 3.57,
+   "status": "confirmed",
+   "spike": 2.8,
    "direction": null,
-   "consistent": [],
+   "consistent": [
+    "gold",
+    "eurusd"
+   ],
    "against": [],
    "headlines": [
     {
-     "title": "US risks third government shutdown over Iran war funding",
-     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOU0tGT3VMd0s1RmRfWnlfQmZiLXBfYWhnLVlqcXNlV2x6U18wTjQwV05jWk5QWk04dWU2Wkd1SC1jZEdIMl9ja1RpQWh1b1Z3R1UtR0owZ1lTeC1KckhpSEt2WG91dXVxaENQV2VUVFI1RG1oVmZEdlhIQkZsR2JtZDZZWlVfZXhaUnphTDFB0gGTAUFVX3lxTFBxVEMxeWZUUENCTnBvdjc5YWNBZ2hRY0VKYXlNYVg3QzNpNk1RUGZnV3MybjZyb0VmY3lLX3R3bmJtQy1nLVM0bzdDVk1Pb0J1V1lWUmx6ckQ2UnRHUEFYT0R5QnJHTGZkc1hoUFhTQzFWd3NCeUFvNFF6a1lyY0g0S29OR3lqaGw3dGpSSGxZWmlNMA?oc=5",
-     "source": "The New Arab",
-     "date": "2026-11-25"
-    },
-    {
-     "title": "S&P Global warns Nvidia’s credit rating could be downgraded over governance risks",
-     "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQdG5FX1hUSEdYa0toMWVMb29pN2RoeE5naGJESnE1Q1pzcU15M1FkX3NKOVVwa01ESm9ZM2hKa21xZHBzUkxLLWVvNEJ6VF9VNFRTYTBvT1k2T2V5QldBdVF0N2gtQWlGT0FzM3ZwT2dJeUk3WFl0dkJHa3ZOckRSempHLW9zRUVDTEdJNUJaYVVXbFFlMWFLNkV1UXJZUQ?oc=5",
-     "source": "Business Insider",
-     "date": "2026-11-25"
-    },
-    {
-     "title": "Trade Deficit Jumps To US$4.2 Billion From January To August 2026",
-     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPREhRZzlIMUJ5TlczU29EU1gzY05uTmlBWVFRaWs0cm5hZFRRRFlEMXlWQkh5U0k5dklKUFR0Zmxtb3JwV0JfYnZvcEZzcl9UcVh0ODNMcmVfOXRsazk4UmJCR3BVcjhoeFlwTURaYWNyLUJyX0xHVEVDTm14VDA5Y2gyMHdBa3dVZDFpNXhCMUxnS1JNdlBKQmVzZmZabUZkTmZIaUF2WUFGc3Y4ZjlKTw?oc=5",
-     "source": "Radio Jamaica News Online",
+     "title": "US federal budget has an $18 billion hole by 2034 due to GLP-1s, writes Oxford Economics",
+     "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOSFRHWGl3ZHpMQlFndzB4SkxrVHpIeHAxSWp4VWdYMkh3LURicXRQY3lVOHZBcEF2cEY3QnZJNmpRSkMxa1pJWXZLYU9oVE41WXc4TDFlUmpXVy1WN3ZmRFpOdFJEd1NNYXM2VzlOOXJmX3VYdnZXb1dnU1pJTTg4Ym9B?oc=5",
+     "source": "Fortune",
      "date": "2026-11-26"
     },
     {
-     "title": "Nvidia May Get A Credit Rating Cut Amid Governance Issues, While US Officials Reportedly Say No Chinese Interference in Huang’s Affair",
-     "url": "https://news.google.com/rss/articles/CBMinwJBVV95cUxNMUIyWlFudVdhNFRuNTJsTGp2RnZMV1R0c1JpR3k2WjV0S3VsSzI0cUtITHQ0QzY0djhoUk1nYTBBYmJaYTRvY0tQOEtxNWF4MjFESEFWNGhpR3ktVkYzZUZmcmJyeHVUWFZQMnNUTGFzcHZUNVJ6X1Z1alJDQk5EaUczZHB1TkRsVGtqR2NhWkVENGZNa1FSQVlPYVFGRVpUSnNEaW0zcS1uOVdfbTZLYlQxR1JqbGdDU0lQME1xZi1pcUZna21GeEFCbU1zYl9ZdldSQ1NEeTgxM0s2akRVbHFkWUdfSlNVRzJDNy16MEd2LWpOMnk1OTBOTkhEVnhGdHBOYnpKcVlUUzlnZW5LNWFPYjRXWkJqRTRnTU1ONA?oc=5",
-     "source": "TradingView",
-     "date": "2026-11-25"
+     "title": "South Korea's China Car Deficit Hits Record $4.23B",
+     "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQeWxPNmQ4VFhxNGVpZlpkY1RJc2VUdThOcXZpZzFuaS1iek5pV1p0MkE4TDhVenFoVEZLczhRckFKNGVqTFBMdHBYMmRsTG5XWWZIOXhxMEdaV2FaQTJVaXhWTGtoTVpaUUotU0dBTHRKcmlNT0F1SUYyY0hydXFHaUlNYUljeFpYN2hFSVJSdkxBSkhFbTlyYTMwTkFjUQ?oc=5",
+     "source": "shattered.io",
+     "date": "2026-11-27"
+    },
+    {
+     "title": "Trump-Xi-Putin Summit Exposes Europe’s Power Deficit: Bousso",
+     "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNcDFjS19HSHFwU0hSOXBVb1FUTWJPWDZHWlA3RVptSEZsRmpFaU82S0lFV2x3cGlZVjRhTFZxaGhUeGlMUnI4TmFRZ1hjVTJrYVowRlhYaG1WVnE5eGtNeThIV0w5cVIyeDAzM2x6UnJiaDd3SXBLOXJaOGh2UFMxc3Z4Q3NpeWNJWFl4amUxbjVhTmc?oc=5",
+     "source": "EnergyNow.com",
+     "date": "2026-11-26"
+    },
+    {
+     "title": "2 DOGE staffers say 'no' regrets for people losing income, didn't reduce the deficit: Depositions",
+     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQdVlrbU1wbmdHUFpJNkpCekVVV1d1cUUxLTVsajdHOGh1QnNKRlhUWUhrczdkWWgteW1zMDJPcTdkY1JNZlpyVEVQbVJ6dzJPTmJXVzM4OGlXS1loN29zSms4NXFEZmNaZGVGdmpwM2dTb0RCa08tdVlZWnRXb193QjVkMmppOWQ0MjRHZWdFOG5uN2FxNzk5cnk4bnBYSkwt0gGmAUFVX3lxTE55bXNXTmUxbEFndGYxVkRiUzVXRzIzUmdCczJpSkhIbEVxTEJSbVlmb0tiNTV6VWlleGE0LXhQbWM3YUJQY0dpbWhDaVh3RnMwOHhQQzBKaExsQTJQR0Y4ZGFpaHhPQjRZMVFJckNUNDJZZHFxTS1LU3d0dDJHVXpkdDFwRFgyX1p4eW5WcDRkVHhFS1FEczkzSGluSmY0bUZxSDVPaUE?oc=5",
+     "source": "ABC News - Breaking News, Latest News and Videos",
+     "date": "2026-11-26"
     }
    ],
    "newsSource": "GDELT"
@@ -800,7 +823,7 @@
    "label": "China economy and stimulus",
    "status": "quiet",
    "spike": null,
-   "direction": "worries about China's economy",
+   "direction": "stronger support for China's economy",
    "consistent": [
     "copper",
     "usdcny"
@@ -808,28 +831,28 @@
    "against": [],
    "headlines": [
     {
-     "title": "China’s low interest rate comes with high stakes",
-     "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOazJiUF9iTDU4Wk5jdGxyRkxsX3V4Rjl6ZlFmNGROR0VfMmZNNXJfSUJiUEw2WkFCa2JxRXpHdTJ1bUdQSGUzX3FiOGRxdTFvTGFJZ19RbzBncTZuSXZVRWtiZFRLYTAxRGQydWpSMFdyeERZRWt1WUtiUTRsZHlxLTc3SHZBYnBuSThYUXNRMGM3MTJOTHM1WFRjRF83YnMwZHBkUkJlMHZMUQ?oc=5",
-     "source": "Breakingviews",
-     "date": "2026-11-25"
-    },
-    {
-     "title": "Falling knife or bottom-fishing? Gold investors seek answers from Fed and PBOC",
-     "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOTzVDa09EaVBiWlEtaEk3Z0gwdF9EV2IxSU9oaGJEOW50ZjQ0aXlSbm9ra0Rzel9kZ3hWSUJwUkNYYjh2aWxSRFlxbnRlLU5wN3Yxck9TWV9pWHZQdkhmSFFmbGVJS2Q5NElQVWx5eWcxMmxWLVdYSlFMcGMzQXp4dS1SczMteGFMY1JpVTdlN2xnTzVQaWk4TnBIdmRfSC1QV3dOYjRXZm9Ld3lhQWEzMXd4UmpKN0NpVFo5OG9QODhxa0xlYzZRQldR?oc=5",
-     "source": "South China Morning Post",
+     "title": "The People's Bank of China Data and Cyber Security Measures: Practical Compliance Guide For Financial Institutions",
+     "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNcXFTX1lUM211Q0JBX0tsMURCM2lETGVydEFWTFowdXZTSXlGNHZxTC13R3k1X2huVkdJUGJuWXVvek1HaVpzQjJmM212UVdsLWRHdmxWa1hFYTNsSEVFaGhmNEl0ZGhObDZGWXFzREhVa2VOVXduX3dzS1RDOGNjOXNELUROMFhVV0RxWFdEbnNSN0ZMdHBEdkpNSDZReVhXWWQzLXZrVXB6UGlkZzNZQkpZMjlpTmtnY2c?oc=5",
+     "source": "Clifford Chance",
      "date": "2026-11-26"
     },
     {
-     "title": "China faces rising pressure for stimulus: Julius Baer",
-     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQWmlDQmJ3bnBkQ0R5eUNGOFdGZFVrZTMtbkFhdmVrSmZaQkg3cXdJNl80ODBfQ0oxNW1UcFRkUHBRUGNzZmNVSGgxVXJVN3VZWnZGaVp1MXdIVDZJV2NGV2tDNjJCODVpQmZsdkRwWjFBeHg1RTBudHZlaXdOZ2EwUm95bHZoZXh6ZXp6M1ExXzgxbEF0ZFlkb1Nocw?oc=5",
-     "source": "CNBC",
-     "date": "2026-11-25"
+     "title": "PBOC Nudges Yuan Fix Stronger Ahead of Friday Session",
+     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOY19PNFZKY1ExODhlRXl1RFJHVnk2WENUakhJYnYzaEo3N1RrU1VxeW1VNklONEhpUjhHSmctRk1QTEQyOVNEV2N1cktlRkdnMVVxLTJITjhOMlhqWE1lODdDSk92OVJUMXhEV1NGbjRrQ0tCVGp1bG9BNTZIcGhrTzVySFBRdWFYVXF3WEFvNWpBYzJjMW5lNkZn?oc=5",
+     "source": "TradingPedia",
+     "date": "2026-11-27"
     },
     {
-     "title": "USD/CNY reference rate fixed at 6.7096 by PBOC, against 6.7088 previously",
-     "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOOTZtU1ZNeWU1dFl4S3ZjZVJkVjZ2anloTVZrNy16OTAxSWVoNmkybVZkT3BDZVRBTmExVnRNM1lCUDE4SVhSZlZ0UmhNajRudVRLSzN2Z1czYXVLM2phNTRKWWdFQUZwNnlrcVd4ckpia0NzcUZjWWYtN2ltM1NfR0k3YzUxUGxpUWRHZ1k5eFF1cnlwSmZUS1NDVE1aTzV2Sm5VUkJLMzFpWERwTlpMcmFlb0wyS3RVY1VSUFd5eWNxUF82QTIw?oc=5",
-     "source": "www.tmgm.com",
-     "date": "2026-11-26"
+     "title": "China's New CD Rules: Individual Minimum Purchase Threshold Cut to 100,000 Yuan, Effective March 2027",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1DSWx0ZGZEdExxTm9ic2ZSNDd5b3VvbXFoN1JsSk9ud3lDOUFlbkh4QzZic08zU25PRlJSWEwxeEl5LTRWSmhob0ptb2lIT3hxOHJRS2N2OUZHenQ5d0FnNGFSbEEybWtaNjllNkRzcllYa1BrMUE?oc=5",
+     "source": "BigGo Finance",
+     "date": "2026-11-27"
+    },
+    {
+     "title": "Chinese yuan edges lower against dollar despite stronger PBOC midpoint",
+     "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQZE40Z2hrOTl5RzI3SmFZS25uSU1jclZoRGQyZ1duaGRvQVh0UFN0UkI2Q1B6VFNxN2dlM0RPYlBaX2xlNWItQXdCUWotd0RLR3lrTVh4S29TSDlBVzN1TUtpRzZ2YTZtOVk2NFRvZVVmSEJTUWYzR0RWanZ3dzBUN2JEMTM5S0NuWDJkeW9ZNGZCRlJ3Ri0tNlkxWHRXMlpvME1DUjEzcjd5azFmckJoN005d183ckVxM2VtS01qMjFYMTJBbjRwUVJRejU1ajNyQTZjTlNnT0ZieFlMS3E2c2w0YmwyMktqUWQtRdIB5gFBVV95cUxOTDUza2plVU5Dektrd21HdE9CakE2bXZpd0VJTzlxM2wyRUc3RmRoYmNzQ1dRYUlEb0xCN2JBYmo3NjNmbW9jOHJ5N2JZbHZCSzNpS0RUZHJEQldILTExMlJxZ1lyZkJSbWRxSkluRWRwYTluSHRhYUFjTjVZR25sWjIwLUduR2NXQWMxMGxYU0JBTVNiSmNnTzVNRWV2elNzNlpPQnNhRGdKMGhQQjNfYmwzY0luSENBNmNNSDNMMWFLbURSZjZHTERIS2VLcUVoVy05SmxrTzA2NjBkUDJjYnVtcDVrdw?oc=5",
+     "source": "The Economic Times",
+     "date": "2026-11-27"
     }
    ],
    "newsSource": null
@@ -837,74 +860,78 @@
   {
    "id": "europe",
    "label": "European politics and the ECB",
-   "status": "quiet",
-   "spike": null,
-   "direction": "a weaker euro",
-   "consistent": [],
+   "status": "news_only",
+   "spike": 6.0,
+   "direction": "a firmer euro",
+   "consistent": [
+    "eurusd"
+   ],
    "against": [],
    "headlines": [
     {
-     "title": "Leaders wrestle over EU's budget, Ukraine financing, as Le Pen focuses minds",
-     "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxONUFuMXFIM2VqWWZ2S2RBUFkzM1VzQjE0WkxhTDlreXM3OU45NDdRejhWUkRUQVVvQ2x2ZG1PT2JiNjNtYlRiYWFqSF9wWnQzR25hTFRjcjI5YkU0QmxLeEwwNlJkak5JaWo5QjVqTnZPQmt1bGdzZl9nZ0k2ZjRxSDMyUmY2eTQ4TEM2NnJaZDNPZUR4RUZKb2FqRkZ3eklRaXNicEFLc2VRSHZRenpZWEpPRlp4SWxBdi1Nbw?oc=5",
+     "title": "Euro zone consumers sharply increase inflation expectation, ECB survey shows",
+     "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxONDJybGR6alVxTF8wSTQ3RDJ0ZUVpYlkzeGd6SzdTV3hOd3UxY1Y3TzNZN2Y3ZGJSbXJaZDQ3LURoN09xdTFrVllIWlE2M2VCcmVUSW1CbU1RekZfSWdBYnhlclR4OE9ucm5tV0g4YmRJNlExdjQwSmM5YkZ0ZVRneXZweXdSNi1rQ1UzVnVfcXZEdWY4OG1tQUNiODVwTUZCYWloVlhUdFItYy1RRDktQXoxamNjTlBUU3c3QzR6YmdONDhu?oc=5",
      "source": "Reuters",
-     "date": "2026-11-26"
+     "date": "2026-11-27"
     },
     {
-     "title": "EU leaders seek agreement on long-term budget and Ukraine at summit",
-     "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPZzZLdThHT2FQanhGWUJibzNIOEhXSnhOeUlsOXprZHpMUFRad1RCSzBYN05YbGc1ME1FeG9keF9QVkhMSnVfanNLUHJpb1ZxUThYb1hwZ3JOdHJfSGFMclItZmRWVVNsMDRrWTFZY0VaZlFkRlF3TlM2NmRzaWVsX0RURW9fdnZvVXM0VlBlQmJsd2UtM3BnT2hybGVlX0tUa1NwX0ZB?oc=5",
-     "source": "DW.com",
-     "date": "2026-11-26"
+     "title": "World in Brief: the European Council picks the next ECB president; Musk promises American children SpaceX shares",
+     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPaWJvdEtJWWVteGxuTTNISVUwdkhIbXduVGdoVWRqMllPUXIxZkpFeDZFR3FhYmVreUU3UGtHLTdya0hmUEtmbld6U1BRbG10dTNFQ3FvSFlIbWJlNEk4cXNjR1J3dUNOVVZrVkVZS0U3SUk2ZVl1ZHZQN0dZYVpCRzZlSWZFOXJKdXFuNVhVS04xYWl4aGJF?oc=5",
+     "source": "The Economist",
+     "date": "2026-11-27"
     },
     {
-     "title": "EU Split on Ukraine Funding as Leaders Huddle on Next Budget",
-     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNOHNFQmZ5MGNYMVpFR0h2dmszcjdxeTRmVV9QT0YtMGRiOURNNHFmdlRFNGpPbjdDM1JVYmdBZXZZSEI3TUZNWVN2RjRfR05jZ2lCcXAwSFlxdVE0eVBPOVpqQ3N0MDFpQl9TeFFhaFR0dHNGZkhtZVdtUzF2OTE3VTVYU1JDN2ZUTmVweGNtcW1QQTVWWkMwQzlITFlHLU1BYXVYUFJ0dUNFempoY253LQ?oc=5",
-     "source": "Bloomberg.com",
-     "date": "2026-11-26"
+     "title": "What the ECB’s new leadership could mean for interest rates",
+     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOTHgtV3BXajFoWE1fRnh3WFFFdzNRcnBWMExweW0wYXIwTEY5VjRBb1BCdFQ0UzVYMUVURktpaE14dmNaMjZ6VHJkUVZGRWdwR3RfM1g4WllKSG00QjRVcGtEYTF0MkViRVRiT0dpcGx1T2ZrcFN2RjV1R3pBMzkzTnZOTVhlRVFIUjBmMUVkQll2Z014WDVQczBR?oc=5",
+     "source": "Euronews.com",
+     "date": "2026-11-27"
     },
     {
-     "title": "Spain’s election could see Europe’s far-right ‘firewall’ begin to fall apart",
-     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOT2pXdnUzTWppYWdXakV0b3ZGV2xWWi1rYlQ1eHQtYzVTVUFseWxla1U2MTN1R0dIS05zOEw0Ti1hbDF2dEJHQkJEeVdKX29UUEIyRTlZUGtRaEplVXpwNkF1Y0V5eTlnTkxMRVBtZUlaRVdwdTFfeU5NUW1JV0d2RHI2OGVqbTNHNjhyRzB5UWoybDgxVEJUQUdDR3lpbXZCSkdkSzl2bUxLVGM?oc=5",
-     "source": "Asociación Almendrón",
-     "date": "2026-11-26"
+     "title": "‘Borrowing to make ends meet’: The rising cost of living in Europe",
+     "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZDZ5SjZjNFBSU2Z0d1NYazJMSHRtbkFXMVRlcjlsUFZXenVJTkJxWHgySkZrWHluUWxKaHNQNUF2QjgyUjc3NVVsZVpETkhYeHpQdXUyeGpiaFg2bktIc1JueWVzSFVHWFZPcl9XQmxqZXRFWWRlRnBobzUxakI0aWg3c3hObG10WHhNNmloQ3pMMEhiTVdLOEpYRmlzQ3pUSFhKM1RmTDPSAa4BQVVfeXFMTWZZTEdkNEpmV2M1bkpXU1ZueWVvMDZid095YlVjLVRheEJxT18zdWJtMy1oRDdtdWtzNXlFelU2Z245S3hRMENjc05lQldhYmFxaXVqblRkUU5QVHVGUlAyaEd3SjZNbjBIc1N3cGU3QXVWbk01djNpR09qV0xISHJITVdrdE9SY0NybmQzZVMwdURzX1FYODRnOEVpOXdCTEVXS3dNWm14ZVlhY1pn?oc=5",
+     "source": "Al Jazeera",
+     "date": "2026-11-27"
     }
    ],
-   "newsSource": null
+   "newsSource": "GDELT"
   },
   {
    "id": "crypto_policy",
    "label": "Crypto regulation and flows",
    "status": "quiet",
-   "spike": null,
+   "spike": 0.7,
    "direction": "supportive crypto news",
-   "consistent": [],
+   "consistent": [
+    "btc"
+   ],
    "against": [],
    "headlines": [
     {
-     "title": "Ukraine Crypto Regulation and Tax Bill Passes With 271 Votes",
-     "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOUFZSemFTUXpNdEhQS29NdDAzWEIwZ1o5d0c5MDFmRG9QYWRUWVo1SXVWU1F1MHAxNnZnSXNqMFlRc1RqSW9HcDluUGZELWxLV082b3RQY2RaUlhXcFo1SURtd3ZmNTV1X1BlamZWTGhVa0FGWG9iZWh6MHpUelAyanNsSkVtVmlGOWYzSDNkWDZWVERCdDlmb2FNaE1wQzRBNzh6RDFPOXM?oc=5",
-     "source": "Bitcoin Foundation",
-     "date": "2026-11-26"
+     "title": "BIT AM Lists Switzerland’s First Spot Bitcoin ETF",
+     "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUHFpTlVWTVFyQVpLOUVoSHFmZVVJci1RNFRvQkRsQ1dDZDdjc1NnaFlKdFZFNVBNclRvUWxnRzJWRTYzYmdET3VmTDNYRVpvdUVIM0RUVS1YRWhkSUp4ZEE1ZkdKdFJ3LWhtMy1YREk4RXRqRi1kV2hpTk04R19TZVpYTXA?oc=5",
+     "source": "Markets Media",
+     "date": "2026-11-27"
     },
     {
-     "title": "Switzerland’s First Spot Bitcoin ETF Begins Trading",
-     "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOSlhHTW9ka1RlR1JBaE5NWXR3NnFEbFBBdXZrbjBvZm1CUkNROERTaGc5Z3ZVSzZLZGFRYldTWW1JTFV4ZDlQdUZwSlNRR3J1SW9QdG0tR3hHQnhoYjBwT0hfN2lIckVSNGhiTDdXVUFCYzhsZGQxNVhkRVMtU2hHVEpR?oc=5",
-     "source": "Funds Europe",
-     "date": "2026-11-26"
+     "title": "A Tale Of Two Chairmanships: The First 18 Months Of SEC Crypto Enforcement",
+     "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNZ1VPbDJKYXh6NVZYVHRhOEk1S2ZVRWN6OGM0SzRLZkNYWXpvRFJzcXF0U1BvOTRWU25FcFhMU0FNOEIwaHlnaWR6VGh0SmtOSHluSHZxTlVUQ2psT3Frdl9na2hndzNzVGxBVjZfS2ZIS015Z002MjR0d2pHd3VFVTA2X05HTk55MTNZYV9tRnlrb3ZZT1NrekpBdWNNaTdFZDFWRnRsdFZraHF1RzdHWnlMaEFRNGFnVzQ1SkxpMDNSNmRObmhzTjNJazBObkhydVRMMXlmc1NSeXUxUzZGVmxpSGY?oc=5",
+     "source": "Legal 500",
+     "date": "2026-11-27"
     },
     {
-     "title": "Index Reshuffle Puts Hyperliquid’s HYPE in Franklin’s EZPZ Crypto ETF on Dec. 1",
-     "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPWGhHWnN3TXRlSWM5MXRURHBfUWI4VWhOZFBWemJEYWdBR3BtUjFnc1lPZzFIcC1zN1Vtc1dTNGwwbHBvZGg3cTJBTTlING9WdC03SlZ3T3dyYVNpd1M1YmR0b1g2OG5mSElwWWJCa0NRd1g5NGZZMnVQQ2hpdkdyaEhWOEEyZkRtSWg0dW9Nb1BNQjBEMjlXekpteDdyWGJVRDhNLXJ2LXM?oc=5",
-     "source": "unchainedcrypto.com",
-     "date": "2026-11-26"
+     "title": "Swiss Bitcoin ETF Debuts: 'Bitcoin Wasn't the Problem,' BIT CEO",
+     "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1kdlpaVE9zVG93cVBzeXpKTkdsMzlVV3JPb1BvcnpoVldxa3JWZXJfZzUzUlgwWGw1UnRPclpzWGdDYXJ2T0RiQjhtbEV5UDhWczk1c2NPdmdhbjQ2Wk9ScFF3OG1OVFR0eEN5UTJuMjVzUQ?oc=5",
+     "source": "Cryptonews",
+     "date": "2026-11-27"
     },
     {
-     "title": "Spot bitcoin ETFs on track for worst month on record as bear market drags on",
-     "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNTzFackFnbjJpN2J1d3lkOFBSWkdQM0pyc2pNLWFlUEtrTDBjQUFpU1BTSy1NVDJLOUp4N3FnVUhabUlXalpIcFgzS0NXaUh6Rl9FSUlUUndQT0tkTzVOVDBuRzR0ZmFtVFZSQzgzQWdmQnpCbHVTenN0SHRXa2MwclZEX1ZsMFpCcmpDdzhnSWZMcFF6QUJudg?oc=5",
-     "source": "The Block",
+     "title": "Europe's Only Bitcoin ETF Begins Trading In Switzerland",
+     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNU0RZbG1TMkM2Q1VELUVsSmd3MUlrTzgwS2VPRjd5bUZGVXNXbDNKRHMzQ2habE90ZlY0cjY0RW42VE1RNVViSWp2X05DNUFEcml2U0JNdVFodlhvelQ1Z2otaUdNeHNSYWhFdXBJNmlaeHJXc18xMjRmbldsSkMzeXhFS2JmbkVvNXpMeklMc2I0aDZQWDhiUWcwaVE?oc=5",
+     "source": "Yahoo Finance",
      "date": "2026-11-26"
     }
    ],
-   "newsSource": null
+   "newsSource": "GDELT"
   }
  ],
  "markets": {
@@ -925,7 +952,7 @@
    "size": "quiet",
    "asOf": "2026-11-25",
    "stale": false,
-   "lagNote": null
+   "lagNote": "latest data: Nov 25"
   },
   "shariah": {
    "id": "shariah",
@@ -944,7 +971,7 @@
    "size": "quiet",
    "asOf": "2026-11-25",
    "stale": false,
-   "lagNote": null
+   "lagNote": "latest data: Nov 25"
   },
   "vix": {
    "id": "vix",
@@ -978,7 +1005,7 @@
    "d1Text": "−13 bp",
    "w1Text": "−23 bp",
    "m1Text": "−16 bp",
-   "z": -1.98,
+   "z": -1.96,
    "size": "notable",
    "asOf": "2026-11-20",
    "stale": true,
@@ -1086,15 +1113,15 @@
    "class": "metals",
    "page": "metals",
    "kind": "price",
-   "last": 3595.6,
-   "lastText": "$3,596",
-   "d1": 0.87,
-   "d1Text": "+0.9%",
-   "w1Text": "−2.4%",
-   "m1Text": "−11.2%",
-   "z": 0.56,
-   "size": "quiet",
-   "asOf": "2026-11-26",
+   "last": 3701.4,
+   "lastText": "$3,701",
+   "d1": 3.838,
+   "d1Text": "+3.8%",
+   "w1Text": "+0.4%",
+   "m1Text": "−8.6%",
+   "z": 2.47,
+   "size": "sharp",
+   "asOf": "2026-11-27",
    "stale": false,
    "lagNote": null
   },
@@ -1105,15 +1132,15 @@
    "class": "metals",
    "page": "metals",
    "kind": "price",
-   "last": 41.78,
-   "lastText": "$41.78",
-   "d1": 3.064,
-   "d1Text": "+3.1%",
-   "w1Text": "−5.7%",
-   "m1Text": "−21.8%",
-   "z": 1.12,
-   "size": "notable",
-   "asOf": "2026-11-26",
+   "last": 44.5,
+   "lastText": "$44.50",
+   "d1": 9.774,
+   "d1Text": "+9.8%",
+   "w1Text": "+0.4%",
+   "m1Text": "−16.8%",
+   "z": 3.57,
+   "size": "sharp",
+   "asOf": "2026-11-27",
    "stale": false,
    "lagNote": null
   },
@@ -1124,15 +1151,15 @@
    "class": "metals",
    "page": "metals",
    "kind": "price",
-   "last": 1284.8,
-   "lastText": "$1,285",
-   "d1": 3.413,
-   "d1Text": "+3.4%",
-   "w1Text": "−4.7%",
-   "m1Text": "−17.0%",
-   "z": 1.5,
-   "size": "notable",
-   "asOf": "2026-11-26",
+   "last": 1343.5,
+   "lastText": "$1,344",
+   "d1": 8.137,
+   "d1Text": "+8.1%",
+   "w1Text": "−0.3%",
+   "m1Text": "−13.2%",
+   "z": 3.58,
+   "size": "sharp",
+   "asOf": "2026-11-27",
    "stale": false,
    "lagNote": null
   },
@@ -1143,15 +1170,15 @@
    "class": "metals",
    "page": "metals",
    "kind": "price",
-   "last": 11703.0,
-   "lastText": "$11,703/t",
-   "d1": -2.759,
-   "d1Text": "−2.8%",
-   "w1Text": "−8.2%",
-   "m1Text": "−20.0%",
-   "z": -2.61,
+   "last": 11965.0,
+   "lastText": "$11,965/t",
+   "d1": 2.239,
+   "d1Text": "+2.2%",
+   "w1Text": "−4.8%",
+   "m1Text": "−18.5%",
+   "z": 2.03,
    "size": "sharp",
-   "asOf": "2026-11-26",
+   "asOf": "2026-11-27",
    "stale": false,
    "lagNote": null
   },
@@ -1162,15 +1189,15 @@
    "class": "fx",
    "page": "crypto",
    "kind": "price",
-   "last": 1.0935,
-   "lastText": "1.0935",
-   "d1": -0.255,
-   "d1Text": "−0.3%",
-   "w1Text": "−0.3%",
-   "m1Text": "−1.9%",
-   "z": -0.79,
-   "size": "quiet",
-   "asOf": "2026-11-25",
+   "last": 1.0975,
+   "lastText": "1.0975",
+   "d1": 0.365,
+   "d1Text": "+0.4%",
+   "w1Text": "−0.2%",
+   "m1Text": "−1.4%",
+   "z": 1.15,
+   "size": "notable",
+   "asOf": "2026-11-26",
    "stale": false,
    "lagNote": null
   },
@@ -1181,15 +1208,15 @@
    "class": "fx",
    "page": "crypto",
    "kind": "price",
-   "last": 159.32,
-   "lastText": "159.32",
-   "d1": 0.157,
-   "d1Text": "+0.2%",
-   "w1Text": "−0.1%",
-   "m1Text": "+1.0%",
-   "z": 0.32,
+   "last": 159.26,
+   "lastText": "159.26",
+   "d1": -0.038,
+   "d1Text": "−0.04%",
+   "w1Text": "−0.4%",
+   "m1Text": "+0.8%",
+   "z": -0.09,
    "size": "quiet",
-   "asOf": "2026-11-25",
+   "asOf": "2026-11-26",
    "stale": false,
    "lagNote": null
   },
@@ -1200,15 +1227,15 @@
    "class": "fx",
    "page": "crypto",
    "kind": "price",
-   "last": 1.306,
-   "lastText": "1.3060",
-   "d1": -0.291,
-   "d1Text": "−0.3%",
-   "w1Text": "−0.8%",
-   "m1Text": "−2.0%",
-   "z": -0.94,
-   "size": "quiet",
-   "asOf": "2026-11-25",
+   "last": 1.3104,
+   "lastText": "1.3104",
+   "d1": 0.337,
+   "d1Text": "+0.3%",
+   "w1Text": "−0.4%",
+   "m1Text": "−1.4%",
+   "z": 1.08,
+   "size": "notable",
+   "asOf": "2026-11-26",
    "stale": false,
    "lagNote": null
   },
@@ -1219,15 +1246,15 @@
    "class": "fx",
    "page": "crypto",
    "kind": "price",
-   "last": 0.8308,
-   "lastText": "0.8308",
-   "d1": -0.814,
-   "d1Text": "−0.8%",
-   "w1Text": "−1.4%",
-   "m1Text": "+0.3%",
-   "z": -2.1,
-   "size": "sharp",
-   "asOf": "2026-11-25",
+   "last": 0.834,
+   "lastText": "0.8340",
+   "d1": 0.382,
+   "d1Text": "+0.4%",
+   "w1Text": "−1.0%",
+   "m1Text": "+0.4%",
+   "z": 0.97,
+   "size": "quiet",
+   "asOf": "2026-11-26",
    "stale": false,
    "lagNote": null
   },
@@ -1238,15 +1265,15 @@
    "class": "fx",
    "page": "crypto",
    "kind": "price",
-   "last": 6.6757,
-   "lastText": "6.6757",
-   "d1": 0.168,
-   "d1Text": "+0.2%",
-   "w1Text": "+0.1%",
-   "m1Text": "+0.1%",
-   "z": 2.16,
+   "last": 6.6602,
+   "lastText": "6.6602",
+   "d1": -0.232,
+   "d1Text": "−0.2%",
+   "w1Text": "−0.1%",
+   "m1Text": "−0.1%",
+   "z": -2.85,
    "size": "sharp",
-   "asOf": "2026-11-25",
+   "asOf": "2026-11-26",
    "stale": false,
    "lagNote": null
   },
@@ -1257,15 +1284,15 @@
    "class": "crypto",
    "page": "crypto",
    "kind": "price",
-   "last": 60605.486,
-   "lastText": "$60,605",
-   "d1": 1.417,
-   "d1Text": "+1.4%",
-   "w1Text": "+3.0%",
-   "m1Text": "−24.7%",
-   "z": 0.7,
-   "size": "quiet",
-   "asOf": "2026-11-26",
+   "last": 61635.5032,
+   "lastText": "$61,636",
+   "d1": 2.089,
+   "d1Text": "+2.1%",
+   "w1Text": "+2.5%",
+   "m1Text": "−18.9%",
+   "z": 1.03,
+   "size": "notable",
+   "asOf": "2026-11-27",
    "stale": false,
    "lagNote": null
   },
@@ -1276,15 +1303,15 @@
    "class": "crypto",
    "page": "crypto",
    "kind": "price",
-   "last": 1698.0171,
-   "lastText": "$1,698",
-   "d1": 1.196,
-   "d1Text": "+1.2%",
-   "w1Text": "+4.8%",
-   "m1Text": "−29.9%",
-   "z": 0.44,
+   "last": 1726.0162,
+   "lastText": "$1,726",
+   "d1": 2.1,
+   "d1Text": "+2.1%",
+   "w1Text": "+2.6%",
+   "m1Text": "−22.8%",
+   "z": 0.76,
    "size": "quiet",
-   "asOf": "2026-11-26",
+   "asOf": "2026-11-27",
    "stale": false,
    "lagNote": null
   }
@@ -1292,213 +1319,213 @@
  "news": [
   {
    "theme": "Middle East tensions",
-   "title": "Iran fuel crisis deepens amid war and sanctions",
-   "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQUUs5UENpTE0wZDRNcWxmeVR6cEk4cXJ1ZmhJT21ycG9EdFRMRXdxMEU3ZS1RUng3RFJQelZTN09ZanBtdUY5V2pFdWliZVZLenNpejc5VEt6YmFYZ2dIUEROV0xDUUZVdmp5aWdILVZfS0RKLUxHOEUxc2l0amhzTE1fTGV4TVHSAYcBQVVfeXFMTnZTUXBPQ2stQm0tdGp2TGVuLWt2V1FUdmthSzdBQy1yTlBZbi0zZzZ3VFJWejl3R2VUR2p4cFdoZmVSbWU3QVRLU3hEbUxlV09uNlFUQ25weTF0YXFfZUJ3N1J0NXJqajdUU3pGSmhKUEZ0cVdYMVVxYm1hdE5Zakh0dXdMSnNR?oc=5",
-   "source": "DW.com",
-   "date": "2026-11-26"
+   "title": "Two Italians killed in Kuwait drone attack; Trump says Iran war ends ‘whenever I want it’",
+   "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOWXdZWk9aY1VrSmlEbExnWV93RnFxTDFwV3RLdjhtYW1SaXU0aXJCbGJBRUVOS0FramRyaVdva0VwUWRLQlBZdHcwYktUWVlwaEp4MTNEeUN3Y2Q1bi1RUG5TRTZoWlY0S2lFUVpqSVF3NzJQZ2hiUGFjU19LTW93cERfYzNNY3VKalHSAY8BQVVfeXFMTXlQSEhkZ20xOFJXTzlvczJPelo5S294dENlYTBpMzAxVHVxeHhFNUk3eHZVYVQzY0t6cWZ5T1hEYUdjbkc1SmROUVVTVWc4Mjdza3FYNXplRTE0Qk5NY1NyTTNwdEN6Z2JyWEJhOVRVd3RVOVRoTVlubGNUYTBsWS1zTkZ3czV6WThYWkk4RVU?oc=5",
+   "source": "CNBC",
+   "date": "2026-11-27"
   },
   {
    "theme": "Middle East tensions",
-   "title": "Israel ‘officially sanctions’ torture of Palestinian prisoners to extract confessions, report concludes",
-   "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNWkZ2VEFwQUxLd1YzSWVWVkJhTWhLaVVyYjZUYkoyNk95RElmLXFGTVdpdkVQOXpDXzJGVFZoay04S21qVjJ6VENIYWVCTk91UElFcnFrWUk1cmdESlVyLTRqNUVaX3FZalhmbVVReGFOQTdQUVc2b1hXOFFjSzVybHJiMjhQSXpSY0JPSTJKOEp6OHgxNjV2MG1UWC1JcVA2bkxsMXc0bkhDT0otcUU1UkkwOWRaRGh6NHc2V0NNdw?oc=5",
-   "source": "The Guardian",
-   "date": "2026-11-26"
+   "title": "Deadly Houthi Strike at Jazan Refinery Halts Some Operations",
+   "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNNlZPcHJ4Si1xRElrcUtzLVVFbnJSYjVOdjR3TWxENDdQSW8wUnpjUXZORHFPR2hzMGYxSUJrd290UzVWbTJkdmhUcTNTbmxBVEc3T2ZxNVQzcy1JeVAtMlpEbXVPOVVZcmFQRldmZXhfTTRmMzFZSzNvZC1ZQ0czaGUyUGIzZzJpem9KbFA5em1va1RfdVFvS2dBZlFZa0NZZDZYcmJSYWFCUHIxVjFuRnRPLXhNc1N6VkQ5OUVWUQ?oc=5",
+   "source": "Rigzone",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "Middle East tensions",
+   "title": "Watch Kuwait Says Iranian Drone Strike Kills Two as Houthi Attack Hits Jazan Refinery",
+   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOODcxN1l0OUZvOThDcDhLbFpkQW9lTVBrZVkxLS1NTjkxUXdqZ2U0X0lLRWJsUUFwR0J2UmQxTnZSa201OHFjd1lSdnlLS3p2VkY5VndneHU5WW5qZVV4UWxZUElJTkNQTHgyRUpMYThTNGI5cUcySTJvRThCdnBCVlBsaFdoVWtkaGNsOWFsNTM0ckMxV05SeA?oc=5",
+   "source": "Bloomberg.com",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "Middle East tensions",
+   "title": "FBI warns Iran aspired to attack California with drones in retaliation for war: Alert",
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOQ2hlRlY5RFh4YWgtOFBHaFNnc1dKRXh6Q243VXU0bUFUWk5TeThyVFM2Yk1jWUpnYWRUQkV6eGhZM3YzNzBzY296NXNwRlRXbWl1eFFVb0dvckZ4aUhsVHctOERRMkJJRTNZbVo1ZjVqejViYWxuaDRIY2Q0STZ2al9EVHlXVlgtbE9lSVhQbjZCSzZwTmtpM01uUWdxS2tPLWRj0gGoAUFVX3lxTE1wUUM0QkFNelExVzUzcVBxdnM2c1l4bklTdndFT3pzcEZVQXZkOVA0VHFRYXREZjAtcVhXcktBVi12VEZ6dVFRcEpVSEJZb0thLUs3NGY1d2pBV3BJOXdBS2NkWnJ1T0RrTWpzNm8yS2R5Q3ZnaDYyYmRMejdKYm5kd2RNZmhZOE9BdHRrU1NfdmlicXJUR3hZMDVTQldmN3lCWUFFYWIxdw?oc=5",
+   "source": "ABC News - Breaking News, Latest News and Videos",
+   "date": "2026-11-27"
   },
   {
    "theme": "Russia–Ukraine war",
-   "title": "Ukraine drone attack kills five in Russian-occupied Zaporizhia",
-   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNTkJGcFdNRHNsLUJweEJkN3dwUmF0YV9zQXNFZFp4OWVfaTRzcVJqdkZSUGFqLUhzdExCNnlIOVJLZ29vNFVSa2hETEdBXy04SnpvampYVE9JR3lQYnZ2RUxuZThQbTNzT2NMcE9FcEg2S1c1czRCbVBoS1lIZzhjVmx1TXBzN0lJeGtjQ3o2eTFWc1h3MVRTTl9kUDJYLVhKQkRsM0dtUdIBrAFBVV95cUxPOE5mb2V4WnlCR2JvSHV1R3dkTXBrdURVU25yekZwZlVrNk5ndDJtN2Qzc0oxM0NwTkRyZDhqZHYtaTFFcXJtUWlZYlJlSkNPVVd6NDFzdHplYVk4b3M3VENrTlpTUkRKMzBGcUpWc0JiNHhVT2JINk1xQmVSRW5uX3k0LU1TT2lrMllIY01tOUw5T1FZQm1WSk1UaDU0aWtlUXVFS0lrRmlYQ2lC?oc=5",
+   "title": "'Masha and the Bear': Ukraine sanctions Russian cartoon",
+   "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPbjQxWmNvcnlhTmt3ZWV1d3h3cl81U2xNR3ByaUZ2dFhPLTNoUnZ2Z2VhYjdVREFNa1E5V0QyekxxR1lkNHJtV19mN3o1dmM2MGNva1hEZ0ZVTlFqdjJuc0dBeDc1b0JEM0NDR0FBQ1JLWDdYLTZ5UXpRR1VSX1J4dzY2RVh0akw5UkY4Y2xR0gGOAUFVX3lxTE05MWE0X0V2UDdvZFF0NmMxWnBpN3hPLWV3SnBRZVI5alg4NXBrcVJwa3pSdGRzT2lGVzV3QWZraVEzNWpvelphOFBxT2F1Q3VYcHJyUDFERExndzZfWkRFNXplT1ZWNklJQk1GTkhkUUNNbTQ1bk0xd3NVM09WYXh2b1p0dXpLMlhzaW1sd2c?oc=5",
+   "source": "DW.com",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "Russia–Ukraine war",
+   "title": "Zelenskyy warns of major Russian attack as Trump urges Putin to ‘pull back’",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNUWhTZEtvSHh2TnVxc2VyZHdvaTFta0F0WGI4TTc3aHhIZzk0dV9iZXJSSGk0VEFDd3JQZ2puU3dERnlzc0h2TEdFcVVSaXhOZXVrTlN3MDBmZmZXUlFrQno0MDNWQ1dCU1hsTnVWYzBFOUlXRjQzd21CX3ExWmR1T1JDNEkyTm9yU2JZeW8waFFCTDI1cHB3cmFWXzNuemkyR3NRZ1hnMDdUZHVTOGpjN3U3MDA1QdIBuwFBVV95cUxOd242M2lqRVpQSGdGdEEyMk4wQWZzZjFPTnJBWXoxaURLaFdhUnZHQUpubzlVVTJzYWp2SUtRTVNKS1FhWG5TMGNLSlltVmdFZXNNdUEyUmx0THZ5aTdhQ1ZzTlFQaFJ1TThZY1B0MHpObS1YeGFxeFk4czg3aVZpRElDcVVnYTJjRDB4SjRXYlY4QzkxZ0V1SWNQZ3hnOXRaNWRLam5HdkxZRTF0NzFkWmxicmNEbWNodkxj?oc=5",
    "source": "Al Jazeera",
-   "date": "2026-11-26"
+   "date": "2026-11-27"
   },
   {
    "theme": "Russia–Ukraine war",
-   "title": "August in Ukraine: Despite Drones and Robot Dogs, People Still Matter",
-   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1IU3RZczVhVEphOFF3emxOREExTWJZckRPWHJiMDlHNWJQNV9rWTJsenBOakpwU1dCSXRCSkdFV1Q4TzF3eFlRZkstZmZhOG11dG5ucWc0UndPRjIxbGVzQzRucFpLbmRibXc?oc=5",
-   "source": "Small Wars Journal",
-   "date": "2026-11-26"
+   "title": "Several Republicans vote with Democrats to pass Ukraine aid, Russia sanctions package",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPNHdrTGxMZUpZTFJQZjRNZU5lVFhJYVNmdEUzYVNCZ09zTkxEMUFJaDJfNGxHOFpNZUNiQk5qQ3JBWG5qeTlLOVp6bzE4YVZpNGtKZ2tUaUV4SFhqLTlYZTBDUzUtOTIwVDBiTVZfNmdlalllemFmMTZhMHdJazhsZFdTc05BdnQ0REtuTUZhbVBSUEFNd0t4NV9iSXhRZVNSazBzZHZTNGVKS1FM0gGyAUFVX3lxTFBWc2NUSVBWYzVyNVF0dVFmV282dHpZY1Y5Snh5ZWppNnEwYzZLYXlHVHpZLW5RbVg3aHhRMlVWTDlCMXRUR0M1WDFEV3R2MV9KUEZzVWhacTVxR1dxQllKWlpuUDBkSE8tSXBMVEhYemF0cDMtbDMzcDhvc3NiLTBxemo3Y1NvV0FFUzBvSEd4c0xDblJLUUc0YkZ5b0JlUGhuMnBnWE43Si11WDlPMmhsOWc?oc=5",
+   "source": "ABC News - Breaking News, Latest News and Videos",
+   "date": "2026-11-27"
   },
   {
    "theme": "US–China trade and tariffs",
-   "title": "Trump tariff threat ‘unacceptable’, says Brazil, as China denounces levies as baseless",
-   "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNYUJrQ3VzcUs4NmJmXzMtVmx0dUYzaUZ0ZGw0MUM2X29UdG83c2Z1d2ZRR1JIQVYzbC1BQlA5NzgwUnFJUERLTG81aHd1WmptOU43UjFaekpVWGFFeDJtQUtybnpoNUVsUTdYbDV3MF9MME1hN2hvWl9BQ1U4NUd4NmZwR1FlTXBhckdUQTE1c21JMFR5ZHlOQWtR?oc=5",
+   "title": "Trump’s Latest Tariffs Undercut the ‘China Plus One’ Idea",
+   "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQRlZxT2c1ekdQZ3lIOXg3OW1kakF5bnFLMHhYLWluR2EyVUlvSGc0R2d4TmgzSUsyTlRWdVo4M0NLdTU5YmpDbnNWOEpIQWtGSE1ORFhuZE0xaTFYQ3pFR0JmR1ozMnFZc3lyZ0Y2T3dRckRIWE51ZjhnODR5cVlzSFJDaXlmNVpzOUd0TXZBQlJHZ1JSNU5CeG5ZdG9lTEJCTmZQQlZQcFVEWGI3c0E?oc=5",
+   "source": "Bloomberg.com",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "US–China trade and tariffs",
+   "title": "As Trump targets 14 major economies with new tariffs, China’s $203 billion export surge into Africa presents a new economic dilemma",
+   "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNbTlFcWxSOWRXUFV6RndqdGNoZVMyZkx4SzA5eWxGdjh1X0x3Vm01WHNZeDcwTWFtTzd5TWFnUGNQYjJENmIxbzVQV1Zqcjk5cTRsTVZGek01MDVyZEdPRkVocWxPc21YSVhxLURwdlJUeDRleGpWWFFVN1U5ZXFmTG03b2YtRllrNmd3bTZVaV9FeDQ0WmIwOEhhSktvS3RzXzFfcEx2ejJOaDZybllyUEswUGtpakhBVWRKTVRZLXJoVUppSzNYOHV1S2VXU255TlUxeHV3aDI?oc=5",
+   "source": "Business Insider Africa",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "Taiwan Strait",
+   "title": "Chinese military tests new Taiwan landing tactics in coastal drills",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQRHU2ODhzTFRNUi1YM1VpRVZEZlg4MXFpaGxIZU5SZ2xxNVZFTWlFWHlITkJLNXhSendCb3RYckhpQkhqcDRVeDdRdVJWRl9WWnJWYlZvV2tMM1VaalU2SlRQQTRYNVZzc0Y2SVp0WmJKai1kN3NtSEU1MkxLSkhGN0M2TW9JOHFianYwZEtrNTE2NW81aGlLTWRpc18xd2hwUmI1XzdQVGxON0dJREhldE5R?oc=5",
+   "source": "Reuters",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "Taiwan Strait",
+   "title": "Threat from China looms large over Taiwan’s local elections",
+   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQdmpMbTBibDY1WlNqR0Y0Y0hwVWczVDdHWVl4YU9WTTBUMDRTNHVXLUdHTWJLcEdveW8yNm5nZmMwSVhjMkdaX2V5U1NVc3NjMXduRzA3V0txbjlmWjFhcktSTG9KUldVb0tuX0IxdWlpQVhra01LQWIzSGVqS3B1S1VvSEIwa2gyM1pQYjF4VElDMjNLa21SOFpFbkFxRTV2cWV3T3VR?oc=5",
    "source": "The Guardian",
-   "date": "2026-11-26"
-  },
-  {
-   "theme": "US–China trade and tariffs",
-   "title": "New Tariffs on China Risk Undermining Trade Truce With U.S.",
-   "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPWUcwQ3JjLUlNWjhSZnFuYWMzVEFGd0RMR2lZT2VmWUdBejNHckpxbWFSb0lsTUNuTzktdm9qTk94eTgxMXFRQkplOTdZZkFDSEVaUkVZcWFfb1lEMTNEVzFHd013bXhoRFU4ajZjOTB0UXFhM1FacVliRVdqcFY5dG11UURVYmFZang5ZEpaZEVCazhBMjFz?oc=5",
-   "source": "WSJ",
-   "date": "2026-11-26"
+   "date": "2026-11-27"
   },
   {
    "theme": "Taiwan Strait",
-   "title": "What to know about Taiwan’s local elections and why they matter to China",
-   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNQkJtZkJkd3k1QWVRN1AyYU9YZUtNWG4wRndpSThLaHVoUUYyLWYySUVRbXlVTFdNVHZZdkFxNkoyOEhJVWJudHI4Y2FzUVA4b1kwclljQi1CVkFuSUxfaDVCSXoxeXF4YklYTXUtckpSWEFkOTdwM18xdjJNWHFHM0dhRHVBXzRsZElucnRjdWRONkJjcGYyeFFsSGE?oc=5",
-   "source": "AP News",
-   "date": "2026-11-26"
+   "title": "US Taiwan policy will be watched closely during Trump's China visit",
+   "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOdDhSS1hDWERtcmJTeHZKNXY2MGpZUUdjeWZ6Y05wb0hISXFjM2J2dzR3Ykt4b2tTVVFwczN2MzF6dk5pLTlnVkZZVjB0NFdvM1BBM3E1U0c1eUFCZmg2YU9VczR2TE1FbDNQZlJaX0U4ckx4QzMybjZRU2lQTGRNdTFMRmVlbThRVmtucExfLUJMZEkyVm5XbzA1MHNCSFAz0gGmAUFVX3lxTE9RdXNzT01UczhmQV9Ua0NJUTVqaXQ2V2RHUDN4bmQ3S1B1cDduV2J1NkV0ZFlJSzhTRWlHM1RMaUEyWTdRUnh2clBIekY2bFFnRjB4YUhKek10MS1BaGtPd0dleW1qZzBTTkJwRHNnTncyR2wxNHJyWVJxM3dwVnNQMEFQWEhka0xXVGVUbnFyd0VxdFJYRF9MdDc1MlViYjZqaHM5eXc?oc=5",
+   "source": "ABC News - Breaking News, Latest News and Videos",
+   "date": "2026-11-27"
   },
   {
    "theme": "Taiwan Strait",
-   "title": "‘Jensanity’ erupts in Taiwan and China on Nvidia founder’s comeback",
-   "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPbjJtWWlsdkpJSnp1U3RPWDFDNDZNZnduNEtiRVExb0JtejRhYWR1T05TY2FORGlSUzRHeFNSdUh4RjhPMHBGaG5jZ2QtSmZzRGlTdkM4VmRYWW1iUkM4MWVfZkRHOFRCZUowc2J6ei1yNHJVSERQOWpnY0tPT1pkdXoxcDQ?oc=5",
-   "source": "Financial Times",
-   "date": "2026-11-26"
-  },
-  {
-   "theme": "Taiwan Strait",
-   "title": "Mainland supports cross-Strait exchanges in film, television industry, spokesperson says",
-   "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFAzQWRLVVE5NVFETkRkY3o4Rkc0bHJTOENzVUtodkdONXdCSC05VHlLSm83TDZZbTB2VE80M3VSWUVSSFVhVG9BZzdVbWVoNU1qRnBCWkZPWFBjY0x3ZXl0VG0wSUVESWZOc25JLXNTbGNLYUp5MHJmN295Mjc?oc=5",
-   "source": "State Council Information Office",
-   "date": "2026-11-26"
+   "title": "A Critic of Beijing Turns a Mayoral Race in Taipei Into a Cliffhanger",
+   "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPUnFxdV9MMUIycUNVOUxFcXBSMkRpRW9XeDhaYmxEbFFXMWpTZmNzdVgtaU5faDV2bUFMcnFlUERSak9pVm15Z3BRRmJxUUcxNFhMRmZ4eGNTMTNBMU5HOWp6YXNvSExreUtLOVJMMzRwNktLd2RRVldfcGhUQ2xJcmUwSGZQdmhLekE?oc=5",
+   "source": "The New York Times",
+   "date": "2026-11-27"
   },
   {
    "theme": "OPEC+ supply decisions",
-   "title": "OPEC+ faces challenge of unresolved war and market surplus in 2027",
-   "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOdjJJbHVNQzY2R216TklDcEYwTVhEeVlsWGdJcTM3Y1NFRDBjblNGSXFjaXZqRzJNV0dSNlpwWjBsWXkyYlBwaGV0MDdlZWJWUnNXLTdra1huS0RCdk1Nc3d5bFZUcnRXMDVKd1lsQk9SRjVKaThZR2lCZ0Z4TGVsUHBkUQ?oc=5",
-   "source": "MUFG Research",
-   "date": "2026-11-26"
+   "title": "OPEC+ set to keep oil production targets steady in first quarter, sources say",
+   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOdndaSmMtcnZ2OU41SkZNYnNtNlU5ZnRWTFlOamJLb0x6eHRhRHJuQkNMY1oybHlpOUFkRWdncURJcUc0eGZvM2JNZUc4SGdvZG0yeTJFY0llZWJUeGtMRzQxaHFZNmZ0OS1YWFloelk4eDBVenhkQlotREpzR2F1cFgxbkZaT18zRWtGbHd2aTZENWFDMmhKaU13WnpSQkhIaUZGTDZtMFkwa2ZxUjdpTkRfTXRZMkNUcW1FM3hn?oc=5",
+   "source": "Reuters",
+   "date": "2026-11-27"
   },
   {
    "theme": "OPEC+ supply decisions",
-   "title": "Oil Price Forecast: Rebound Faces a Test as OPEC+ Quota Talks Near",
-   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQck0ycXJLVmJhYjI0ZzM3YWk2cFllYW9UbzJvVGI0Vk50SWJpbDdBdjctNVRzakx5WjI2N1MyekNaMUttS2hEeWdnbXNNcmticWlfRFNZRlQzOXNpbnBvRU9pbE82OEJ1NVc2YXh3VElLdGFHOFpBSTBGVmtTdEhJanotQTU2cFRKT1o3M19aVWJ4akhzN1p1Mk5DeFdzd19fRVUwOVVKa3JENWx3bUVEOWJ6RlBTdw?oc=5",
-   "source": "FXEmpire",
-   "date": "2026-11-26"
+   "title": "Is Trump Trying to Break OPEC? US Pressured Venezuela and Iraq to Consider Leaving Oil Group",
+   "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOR1c4Uzk4STQweVU5YmY3YUtTMmJpcGNibDFobDFwNDFBR1FVVGh3ZjBseXFOVlBZUFdLXzZwNmJEVExLQVo2dl9JakNJNzNEaDJhVE9ETmpLT3BHT3NYU3pXM1hmM1BTZmRyd1lLWFhyNjN5YWlISkJEdnJBdzFwdk0yaXpQdjQwSlhpUVhEcENtSlh3X3pnX2g4N2xRaWF6SVVaN1JlZWVna3JPOW11UDNOSXF4Q2VaQUdBcUFzWXBOb09ubWF4dU5B?oc=5",
+   "source": "Modern Diplomacy",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "OPEC+ supply decisions",
+   "title": "OPEC+ facing tricky talks on 2027 output and capacity targets",
+   "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5jX0EwaTlETjNFcTZ2aHhDOHNackF2aWVaMGRwNWl5V2lIZWxDZjl5RjdZTWEzRUZIbWJVeDBQdkpqanl3T3VxWVlWLWszQjcwSzhSRklHSUg5U3lrWW9yRThlazRRZmlLd1ZHWEJJZTVUUWQ2aHZEWktVcUY?oc=5",
+   "source": "The Japan Times",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "OPEC+ supply decisions",
+   "title": "Sources say Saudi crown prince stepped in over quiet American push to fracture OPEC",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNcWFLWDFQMXNWNm02Q1FkX0VXSlc2bW1aSXpUYldfeXVnQ1FtX2RVSFY4YTNmMEtubzhWX0ZwUWJtOVBuX3RBNmxMWENBSFg4UmxQVkcxZHpxZ2E0RWdUcUpoVVhZeUdoX0RJVnNWenJQMEY2SDFfdDd2OTI4WHZaLU4tTG45Nm9SNEFjLUNpVkZuTHVGSVhvajRERU9yLWJMQzNpb1FYeXVCUWFyaUpJ?oc=5",
+   "source": "The Independent",
+   "date": "2026-11-27"
   },
   {
    "theme": "Federal Reserve policy",
-   "title": "The small-cap Santa Claus rally is on — but a December Fed rate hike has spoiled it before: Chart of the Day",
-   "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQcU5WaEJ5c0JpdzVicVRORVZpMHBnbjdoYlIzdFROcDlVUWJoaWRlTjFpdWpJS25ZYVk2dktEb3F3WmQ5aDcwQ2ZVeFNoTDQtQl9tZTN5b3JVUEpaQWxWeVZ3eG5RdDRaeTBoQTRyc3FjWW5jd3p6LVlNWDgzMkZWQzRqbkNRZFBrT1NoQlRQTjhvWTVEYW90c1ZIdWYxeWlhdVFDQUNyQ3ktNFBZSWMxWWVYUFZZNE1vc0NSN2pHRUpqd3Faa252ampQSTRXWFZTLVpRMG4xRHMzS2Z4UkdMWlRYVk1CNW4xVWdqLVhfUWdnUkpwNUE?oc=5",
+   "title": "Fed holds interest rates steady as inflation hits 3-year high",
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxObE9meWdub2FOS2dVY0pKYUxReEZrZGJhMnIyNG9JTEJpZlhISXFXMlZGZk1kSjRPWlRPejV6aTdXSHZnWWFkeHBvZVEydk9Sa1dLallzVGtIenB2OV9yR2daTDNrb2psQW5uZ2JSYnlOMUxmYzExZ1NBT1V3OGVlaERaZ1pPaVYwTDUyNVJCR1lJUkpoRFhhMzJha09TOVXSAaQBQVVfeXFMUGc0WHV5TzVaUnlTZjZ2Y1h3RHdSSnc0LWZoTzF3Uzk4WFkyQVByY1kxNkNoeDREX3Z6TDRSOUsyMmFvbHBGUWNlWUlXZGxJZFN6RFB5NWREWWtlRXUyMXJyUUlMTXo0cmh4NlpfT1pMUklyOGJLb1F5SDdteTItMzl5NVQybXk5U2ZQWkRGYmhnU0dJZ2hoTEFjb3FLaktRcjZNbDc?oc=5",
+   "source": "ABC News - Breaking News, Latest News and Videos",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "Federal Reserve policy",
+   "title": "High Inflation Puts Fed’s Credibility On the Line",
+   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNd2h6dk0xd0JHNWIwS3FxcXRDV1VNc3VTRUdFT0NtaFFiUFNwVkt0bzZONVFyMUxaRmtwSEpzZzU3NEhqQXI5dG5pM2lDdGFlSXhqUHg1b1J1bDVLMGNBekg2U2ludnNGOUpPRzRTanBMdHF2UkNmWXdPRDlxVG9nbV9qUERpZlNOR29oNlZ6Zm8yQy1nMTVqUmNtV0s0N1dJSTlHZkx3?oc=5",
+   "source": "Bloomberg.com",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "Federal Reserve policy",
+   "title": "The Fed’s Preferred Inflation Gauge Just Hit a Level Not Seen Since 2023, and It’s Bad News for Wall Street",
+   "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZnNfUEpYOV9fU0FqWVpLWXZPQjBDU19aNnR0WG9MNlR1Qkp3Yld3akNvZE9jNG1zV05zRkJybjlRTERWcmJmV29wbTJjTVE5VFMtY2RaSlRUMlBvV3ZXY1BxbWkwanhHZ1Vub2FwbWhqS2ZqblhtbGdhMVBwamo0RS1QYTNYU3k0SGVPZENCTHZzLU8xMmZRZzdIX2VhN3Ft?oc=5",
    "source": "Yahoo Finance",
-   "date": "2026-11-26"
-  },
-  {
-   "theme": "Federal Reserve policy",
-   "title": "Wild Market Swings Are Colliding With a Fed Bent on Taming Inflation",
-   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNNktjNDdMSmJmZDNsOE1CbkdBZVBNS2ZrVEJSUXQtazcwMUs3MHRwbk5xNmN4YmxhTC1OcUdlRVBDVmtiWXZYckVLQ1pOMFMxbXhPaXpsdjdMejlzLW5TMjYxYUVHQUJUamVMaERpbmIwSXd2bUoyMFJLWUcxV0JDZVVvUjE0UmRjaDdJTlJneE9CRnFrZ1dkZGdzeVA5MEtsSG93T0gySzktblJRWGZQUGlsUGVDXzNqRUtvV1pR?oc=5",
-   "source": "WSJ",
-   "date": "2026-11-26"
+   "date": "2026-11-27"
   },
   {
    "theme": "US inflation data",
-   "title": "Your Thanksgiving Meal Costs More as US Food Inflation Returns",
-   "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNZ091d1V6STMzbmJEYnBWQnNNMDlueHo4ZC1MLVpaRktic0psNjJZaDZoWWlSSFdnaFZBcmV2X3pQZmFSSlBDdTc5YWtxT0FEMHdBNTBGajRSUVRmRzZ5ak16amhBSTBZNjFuSEJtbGpYYmFTMkx3TlVyRVFweEFEN2RMSW90V0sybmw1UGV5ZnlqazFnNzlHSTYxUTIzODJuWlFqR3dLS1BwRnhfUFVNZHlJQnJSdUE?oc=5",
-   "source": "Bloomberg.com",
-   "date": "2026-11-26"
+   "title": "Three supply shocks driving up U.S. inflation, says Oxford Economics",
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOeVRubmFWdjZyOEljazNXaVhSb3FfTk1HWEFMYTdvVGZZbFZrNVltQXZSRDZUTUNFMi15T1FfM0VJMy1QTlMzemI5RVJlSk52Ny10UmMxNWU4SFd2aWVkOGdUc01MSG5uVEw0Mm05b0FfeHVpZE1yWmpJWVp0MVo5SHdLaDk3c0oycGpuQUlUSWI3aFQ4c2hILUFGVV9oYmNoUllIT3BZYUNYQkgwbExPYw?oc=5",
+   "source": "CNBC",
+   "date": "2026-11-27"
   },
   {
    "theme": "US budget and debt",
-   "title": "Trade Deficit Jumps To US$4.2 Billion From January To August 2026",
-   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPREhRZzlIMUJ5TlczU29EU1gzY05uTmlBWVFRaWs0cm5hZFRRRFlEMXlWQkh5U0k5dklKUFR0Zmxtb3JwV0JfYnZvcEZzcl9UcVh0ODNMcmVfOXRsazk4UmJCR3BVcjhoeFlwTURaYWNyLUJyX0xHVEVDTm14VDA5Y2gyMHdBa3dVZDFpNXhCMUxnS1JNdlBKQmVzZmZabUZkTmZIaUF2WUFGc3Y4ZjlKTw?oc=5",
-   "source": "Radio Jamaica News Online",
-   "date": "2026-11-26"
+   "title": "South Korea's China Car Deficit Hits Record $4.23B",
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQeWxPNmQ4VFhxNGVpZlpkY1RJc2VUdThOcXZpZzFuaS1iek5pV1p0MkE4TDhVenFoVEZLczhRckFKNGVqTFBMdHBYMmRsTG5XWWZIOXhxMEdaV2FaQTJVaXhWTGtoTVpaUUotU0dBTHRKcmlNT0F1SUYyY0hydXFHaUlNYUljeFpYN2hFSVJSdkxBSkhFbTlyYTMwTkFjUQ?oc=5",
+   "source": "shattered.io",
+   "date": "2026-11-27"
   },
   {
    "theme": "China economy and stimulus",
-   "title": "Falling knife or bottom-fishing? Gold investors seek answers from Fed and PBOC",
-   "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOTzVDa09EaVBiWlEtaEk3Z0gwdF9EV2IxSU9oaGJEOW50ZjQ0aXlSbm9ra0Rzel9kZ3hWSUJwUkNYYjh2aWxSRFlxbnRlLU5wN3Yxck9TWV9pWHZQdkhmSFFmbGVJS2Q5NElQVWx5eWcxMmxWLVdYSlFMcGMzQXp4dS1SczMteGFMY1JpVTdlN2xnTzVQaWk4TnBIdmRfSC1QV3dOYjRXZm9Ld3lhQWEzMXd4UmpKN0NpVFo5OG9QODhxa0xlYzZRQldR?oc=5",
-   "source": "South China Morning Post",
-   "date": "2026-11-26"
+   "title": "PBOC Nudges Yuan Fix Stronger Ahead of Friday Session",
+   "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOY19PNFZKY1ExODhlRXl1RFJHVnk2WENUakhJYnYzaEo3N1RrU1VxeW1VNklONEhpUjhHSmctRk1QTEQyOVNEV2N1cktlRkdnMVVxLTJITjhOMlhqWE1lODdDSk92OVJUMXhEV1NGbjRrQ0tCVGp1bG9BNTZIcGhrTzVySFBRdWFYVXF3WEFvNWpBYzJjMW5lNkZn?oc=5",
+   "source": "TradingPedia",
+   "date": "2026-11-27"
   },
   {
    "theme": "China economy and stimulus",
-   "title": "USD/CNY reference rate fixed at 6.7096 by PBOC, against 6.7088 previously",
-   "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOOTZtU1ZNeWU1dFl4S3ZjZVJkVjZ2anloTVZrNy16OTAxSWVoNmkybVZkT3BDZVRBTmExVnRNM1lCUDE4SVhSZlZ0UmhNajRudVRLSzN2Z1czYXVLM2phNTRKWWdFQUZwNnlrcVd4ckpia0NzcUZjWWYtN2ltM1NfR0k3YzUxUGxpUWRHZ1k5eFF1cnlwSmZUS1NDVE1aTzV2Sm5VUkJLMzFpWERwTlpMcmFlb0wyS3RVY1VSUFd5eWNxUF82QTIw?oc=5",
-   "source": "www.tmgm.com",
-   "date": "2026-11-26"
+   "title": "China's New CD Rules: Individual Minimum Purchase Threshold Cut to 100,000 Yuan, Effective March 2027",
+   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1DSWx0ZGZEdExxTm9ic2ZSNDd5b3VvbXFoN1JsSk9ud3lDOUFlbkh4QzZic08zU25PRlJSWEwxeEl5LTRWSmhob0ptb2lIT3hxOHJRS2N2OUZHenQ5d0FnNGFSbEEybWtaNjllNkRzcllYa1BrMUE?oc=5",
+   "source": "BigGo Finance",
+   "date": "2026-11-27"
+  },
+  {
+   "theme": "China economy and stimulus",
+   "title": "Chinese yuan edges lower against dollar despite stronger PBOC midpoint",
+   "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQZE40Z2hrOTl5RzI3SmFZS25uSU1jclZoRGQyZ1duaGRvQVh0UFN0UkI2Q1B6VFNxN2dlM0RPYlBaX2xlNWItQXdCUWotd0RLR3lrTVh4S29TSDlBVzN1TUtpRzZ2YTZtOVk2NFRvZVVmSEJTUWYzR0RWanZ3dzBUN2JEMTM5S0NuWDJkeW9ZNGZCRlJ3Ri0tNlkxWHRXMlpvME1DUjEzcjd5azFmckJoN005d183ckVxM2VtS01qMjFYMTJBbjRwUVJRejU1ajNyQTZjTlNnT0ZieFlMS3E2c2w0YmwyMktqUWQtRdIB5gFBVV95cUxOTDUza2plVU5Dektrd21HdE9CakE2bXZpd0VJTzlxM2wyRUc3RmRoYmNzQ1dRYUlEb0xCN2JBYmo3NjNmbW9jOHJ5N2JZbHZCSzNpS0RUZHJEQldILTExMlJxZ1lyZkJSbWRxSkluRWRwYTluSHRhYUFjTjVZR25sWjIwLUduR2NXQWMxMGxYU0JBTVNiSmNnTzVNRWV2elNzNlpPQnNhRGdKMGhQQjNfYmwzY0luSENBNmNNSDNMMWFLbURSZjZHTERIS2VLcUVoVy05SmxrTzA2NjBkUDJjYnVtcDVrdw?oc=5",
+   "source": "The Economic Times",
+   "date": "2026-11-27"
   },
   {
    "theme": "European politics and the ECB",
-   "title": "Leaders wrestle over EU's budget, Ukraine financing, as Le Pen focuses minds",
-   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxONUFuMXFIM2VqWWZ2S2RBUFkzM1VzQjE0WkxhTDlreXM3OU45NDdRejhWUkRUQVVvQ2x2ZG1PT2JiNjNtYlRiYWFqSF9wWnQzR25hTFRjcjI5YkU0QmxLeEwwNlJkak5JaWo5QjVqTnZPQmt1bGdzZl9nZ0k2ZjRxSDMyUmY2eTQ4TEM2NnJaZDNPZUR4RUZKb2FqRkZ3eklRaXNicEFLc2VRSHZRenpZWEpPRlp4SWxBdi1Nbw?oc=5",
+   "title": "Euro zone consumers sharply increase inflation expectation, ECB survey shows",
+   "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxONDJybGR6alVxTF8wSTQ3RDJ0ZUVpYlkzeGd6SzdTV3hOd3UxY1Y3TzNZN2Y3ZGJSbXJaZDQ3LURoN09xdTFrVllIWlE2M2VCcmVUSW1CbU1RekZfSWdBYnhlclR4OE9ucm5tV0g4YmRJNlExdjQwSmM5YkZ0ZVRneXZweXdSNi1rQ1UzVnVfcXZEdWY4OG1tQUNiODVwTUZCYWloVlhUdFItYy1RRDktQXoxamNjTlBUU3c3QzR6YmdONDhu?oc=5",
    "source": "Reuters",
-   "date": "2026-11-26"
+   "date": "2026-11-27"
   },
   {
    "theme": "European politics and the ECB",
-   "title": "EU leaders seek agreement on long-term budget and Ukraine at summit",
-   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPZzZLdThHT2FQanhGWUJibzNIOEhXSnhOeUlsOXprZHpMUFRad1RCSzBYN05YbGc1ME1FeG9keF9QVkhMSnVfanNLUHJpb1ZxUThYb1hwZ3JOdHJfSGFMclItZmRWVVNsMDRrWTFZY0VaZlFkRlF3TlM2NmRzaWVsX0RURW9fdnZvVXM0VlBlQmJsd2UtM3BnT2hybGVlX0tUa1NwX0ZB?oc=5",
-   "source": "DW.com",
-   "date": "2026-11-26"
+   "title": "World in Brief: the European Council picks the next ECB president; Musk promises American children SpaceX shares",
+   "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPaWJvdEtJWWVteGxuTTNISVUwdkhIbXduVGdoVWRqMllPUXIxZkpFeDZFR3FhYmVreUU3UGtHLTdya0hmUEtmbld6U1BRbG10dTNFQ3FvSFlIbWJlNEk4cXNjR1J3dUNOVVZrVkVZS0U3SUk2ZVl1ZHZQN0dZYVpCRzZlSWZFOXJKdXFuNVhVS04xYWl4aGJF?oc=5",
+   "source": "The Economist",
+   "date": "2026-11-27"
   },
   {
    "theme": "European politics and the ECB",
-   "title": "EU Split on Ukraine Funding as Leaders Huddle on Next Budget",
-   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNOHNFQmZ5MGNYMVpFR0h2dmszcjdxeTRmVV9QT0YtMGRiOURNNHFmdlRFNGpPbjdDM1JVYmdBZXZZSEI3TUZNWVN2RjRfR05jZ2lCcXAwSFlxdVE0eVBPOVpqQ3N0MDFpQl9TeFFhaFR0dHNGZkhtZVdtUzF2OTE3VTVYU1JDN2ZUTmVweGNtcW1QQTVWWkMwQzlITFlHLU1BYXVYUFJ0dUNFempoY253LQ?oc=5",
-   "source": "Bloomberg.com",
-   "date": "2026-11-26"
+   "title": "What the ECB’s new leadership could mean for interest rates",
+   "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOTHgtV3BXajFoWE1fRnh3WFFFdzNRcnBWMExweW0wYXIwTEY5VjRBb1BCdFQ0UzVYMUVURktpaE14dmNaMjZ6VHJkUVZGRWdwR3RfM1g4WllKSG00QjRVcGtEYTF0MkViRVRiT0dpcGx1T2ZrcFN2RjV1R3pBMzkzTnZOTVhlRVFIUjBmMUVkQll2Z014WDVQczBR?oc=5",
+   "source": "Euronews.com",
+   "date": "2026-11-27"
   },
   {
    "theme": "European politics and the ECB",
-   "title": "Spain’s election could see Europe’s far-right ‘firewall’ begin to fall apart",
-   "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOT2pXdnUzTWppYWdXakV0b3ZGV2xWWi1rYlQ1eHQtYzVTVUFseWxla1U2MTN1R0dIS05zOEw0Ti1hbDF2dEJHQkJEeVdKX29UUEIyRTlZUGtRaEplVXpwNkF1Y0V5eTlnTkxMRVBtZUlaRVdwdTFfeU5NUW1JV0d2RHI2OGVqbTNHNjhyRzB5UWoybDgxVEJUQUdDR3lpbXZCSkdkSzl2bUxLVGM?oc=5",
-   "source": "Asociación Almendrón",
-   "date": "2026-11-26"
+   "title": "‘Borrowing to make ends meet’: The rising cost of living in Europe",
+   "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZDZ5SjZjNFBSU2Z0d1NYazJMSHRtbkFXMVRlcjlsUFZXenVJTkJxWHgySkZrWHluUWxKaHNQNUF2QjgyUjc3NVVsZVpETkhYeHpQdXUyeGpiaFg2bktIc1JueWVzSFVHWFZPcl9XQmxqZXRFWWRlRnBobzUxakI0aWg3c3hObG10WHhNNmloQ3pMMEhiTVdLOEpYRmlzQ3pUSFhKM1RmTDPSAa4BQVVfeXFMTWZZTEdkNEpmV2M1bkpXU1ZueWVvMDZid095YlVjLVRheEJxT18zdWJtMy1oRDdtdWtzNXlFelU2Z245S3hRMENjc05lQldhYmFxaXVqblRkUU5QVHVGUlAyaEd3SjZNbjBIc1N3cGU3QXVWbk01djNpR09qV0xISHJITVdrdE9SY0NybmQzZVMwdURzX1FYODRnOEVpOXdCTEVXS3dNWm14ZVlhY1pn?oc=5",
+   "source": "Al Jazeera",
+   "date": "2026-11-27"
   },
   {
    "theme": "Crypto regulation and flows",
-   "title": "Ukraine Crypto Regulation and Tax Bill Passes With 271 Votes",
-   "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOUFZSemFTUXpNdEhQS29NdDAzWEIwZ1o5d0c5MDFmRG9QYWRUWVo1SXVWU1F1MHAxNnZnSXNqMFlRc1RqSW9HcDluUGZELWxLV082b3RQY2RaUlhXcFo1SURtd3ZmNTV1X1BlamZWTGhVa0FGWG9iZWh6MHpUelAyanNsSkVtVmlGOWYzSDNkWDZWVERCdDlmb2FNaE1wQzRBNzh6RDFPOXM?oc=5",
-   "source": "Bitcoin Foundation",
-   "date": "2026-11-26"
-  },
-  {
-   "theme": "Crypto regulation and flows",
-   "title": "Switzerland’s First Spot Bitcoin ETF Begins Trading",
-   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOSlhHTW9ka1RlR1JBaE5NWXR3NnFEbFBBdXZrbjBvZm1CUkNROERTaGc5Z3ZVSzZLZGFRYldTWW1JTFV4ZDlQdUZwSlNRR3J1SW9QdG0tR3hHQnhoYjBwT0hfN2lIckVSNGhiTDdXVUFCYzhsZGQxNVhkRVMtU2hHVEpR?oc=5",
-   "source": "Funds Europe",
-   "date": "2026-11-26"
-  },
-  {
-   "theme": "Crypto regulation and flows",
-   "title": "Index Reshuffle Puts Hyperliquid’s HYPE in Franklin’s EZPZ Crypto ETF on Dec. 1",
-   "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPWGhHWnN3TXRlSWM5MXRURHBfUWI4VWhOZFBWemJEYWdBR3BtUjFnc1lPZzFIcC1zN1Vtc1dTNGwwbHBvZGg3cTJBTTlING9WdC03SlZ3T3dyYVNpd1M1YmR0b1g2OG5mSElwWWJCa0NRd1g5NGZZMnVQQ2hpdkdyaEhWOEEyZkRtSWg0dW9Nb1BNQjBEMjlXekpteDdyWGJVRDhNLXJ2LXM?oc=5",
-   "source": "unchainedcrypto.com",
-   "date": "2026-11-26"
-  },
-  {
-   "theme": "Crypto regulation and flows",
-   "title": "Spot bitcoin ETFs on track for worst month on record as bear market drags on",
-   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNTzFackFnbjJpN2J1d3lkOFBSWkdQM0pyc2pNLWFlUEtrTDBjQUFpU1BTSy1NVDJLOUp4N3FnVUhabUlXalpIcFgzS0NXaUh6Rl9FSUlUUndQT0tkTzVOVDBuRzR0ZmFtVFZSQzgzQWdmQnpCbHVTenN0SHRXa2MwclZEX1ZsMFpCcmpDdzhnSWZMcFF6QUJudg?oc=5",
-   "source": "The Block",
-   "date": "2026-11-26"
-  },
-  {
-   "theme": "Middle East tensions",
-   "title": "What Trump should do next about Iran",
-   "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQVW9kOUVYOU9ZUkVFaEM1OTV2WGVfeVhYNTFFOVg4QkJycEZrV0w3VmVHSUNPSW14alU0V3dKVTBUSGdCUEthdmo2MnR4b3ItdW1adUYteTRQQXl5bmZSdFJlUUlrNkxuNHhsdGtaT1hJSHNZTU1VRU9EclZjV2h2bE9GS1NlQXM?oc=5",
-   "source": "Atlantic Council",
-   "date": "2026-11-25"
-  },
-  {
-   "theme": "Middle East tensions",
-   "title": "Houthi attack on Saudi Arabian sovereign wealth fund PIF's tower injures 11",
-   "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPSExVNjdwSUdhRzd4aHlwMWR6NklEdWV3bVptbElRRzdMRW1uQ2RzdFF4MFlHWkttR2tERy11ZnphRHY2d0d1ZHVNZ0g4OEpRRjU4VTctUFVlaDI2T0czSTVLNjhwdXoxbUtIdXhfZ00tejBhR2Itc3BPOWZsYUF2cEVDeFlVQ0Rid1VFVNIBkgFBVV95cUxNbG9HeEFpQkxXZjNsR0pobEI1SS1QaDRNdG9jRlltcEVXMHFQUlFFdHJpWndBdzZ5ZUZmakpiYzlUeE1CTWFnX21fc2w2UGhOMDZlTTRIT0lVeDVpekRoYWlTekptX3h3QXYyS29SNEdERno1c0p6Z2xMalJMMWtONjdZQzlFS2xCWENvcWstWWFCQQ?oc=5",
-   "source": "CNBC",
-   "date": "2026-11-25"
-  },
-  {
-   "theme": "Russia–Ukraine war",
-   "title": "Libyan Forces Threaten Retaliation Over Ukraine’s Attack on Russian Ships",
-   "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNZDJMNTh0Z2E3NmJYTGhkUDNCdi1YOWNZZnd4UmpPdGFwODZSSHhJZTdBMk51WC1OVmFpNHFXVGs4SS1BVTJNYzFDdEExRTNyRXFaejFxSk5RUktMODJyeGZMci1rNHFMNEN0ZDVlWmpTTWFQdDUzbUU2cEpPVVpWMGw5T1M5Qm85dHdzRg?oc=5",
-   "source": "The New York Times",
-   "date": "2026-11-25"
-  },
-  {
-   "theme": "Russia–Ukraine war",
-   "title": "Russia’s war of aggression against Ukraine: EU restricts trade with 15 entities linked to Russia’s military and industrial complex",
-   "url": "https://news.google.com/rss/articles/CBMiowJBVV95cUxNTnU1ZVFyZUlfUnFTX01zLVcyWEdLcjMyVmJJSllqQ1pNRVpsMmJvb1gtZ1pSSmtWd1pXYTVGTXJPenNRUXFUMndnc2pQb0pkMWRxZWxOVU1xdWxodktpamFwYnBpSU44ajFUTkFqVmxjOW1SZHZ1eFZicXhGcGREVEtGcnV2dVdnem5OQUFFOF9ReXJBYzJCRW5QUGtuU1Fqb1dON1BKZ1NhQW1rY2tHWF90RHV1ZnFrN2lWTE9SRElkMnhLZGtfcWwwUGFXRXNVSFkxczJDSWE4eXBxV1dnaDg3WFE5N3JNanhUU2RobUIzUFliVnZUNF9zTm1zUGU3TjNDa0Vwd3E0ZUlvRllpLWM3M2MyZG42U1duZXUzUkVhZVU?oc=5",
-   "source": "Council, European Union",
-   "date": "2026-11-25"
-  },
-  {
-   "theme": "US–China trade and tariffs",
-   "title": "Trump Administration Unveils New Tariffs for China, the European Union, and More",
-   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNcFhtMHlCRmo0RXBTdk9ObEE1X3RickdBOUwydnhxN25sbjBubGM4eE9qZlBaTTBmOW5IbWVQNUw5MXBvVlg0TlduTmJuR1lrLW1zRV9NaXRzcXBaRGlxMHUxS1luN1htcndZaGpBNl9yZU8tU1ptbjA0WG1yV2wwRW03M0ViODMzRHZ2WEY5RnpaTUJYSWk3T0lOdU4?oc=5",
-   "source": "Time Magazine",
-   "date": "2026-11-25"
+   "title": "BIT AM Lists Switzerland’s First Spot Bitcoin ETF",
+   "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUHFpTlVWTVFyQVpLOUVoSHFmZVVJci1RNFRvQkRsQ1dDZDdjc1NnaFlKdFZFNVBNclRvUWxnRzJWRTYzYmdET3VmTDNYRVpvdUVIM0RUVS1YRWhkSUp4ZEE1ZkdKdFJ3LWhtMy1YREk4RXRqRi1kV2hpTk04R19TZVpYTXA?oc=5",
+   "source": "Markets Media",
+   "date": "2026-11-27"
   }
  ],
  "pages": {
@@ -1521,48 +1548,47 @@
   "  us_eq     107.4  d1=-0.60  z=-0.39",
   "  shariah   109.6  d1=-0.65  z=-0.39",
   "  vix       26.36  d1=-0.98  z=-0.08",
-  "  us2y      4.63  d1=-13.00  z=-1.98  STALE",
+  "  us2y      4.63  d1=-13.00  z=-1.96  STALE",
   "  us10y     4.91  d1=-1.00  z=-0.17",
   "  us30y     5.3  d1=+1.00  z=+0.20",
   "  brent     91.8  d1=+0.66  z=+0.14",
   "  wti       82.24  d1=+1.01  z=+0.25",
   "  natgas    3.3  d1=+0.61  z=+0.15",
-  "  gold      3596  d1=+0.87  z=+0.56",
-  "  silver    41.78  d1=+3.06  z=+1.12",
-  "  platinum  1285  d1=+3.41  z=+1.50",
-  "  copper    1.17e+04  d1=-2.76  z=-2.61",
-  "  eurusd    1.094  d1=-0.25  z=-0.79",
-  "  usdjpy    159.3  d1=+0.16  z=+0.32",
-  "  gbpusd    1.306  d1=-0.29  z=-0.94",
-  "  usdchf    0.8308  d1=-0.81  z=-2.10",
-  "  usdcny    6.676  d1=+0.17  z=+2.16",
-  "  btc       6.061e+04  d1=+1.42  z=+0.70",
-  "  eth       1698  d1=+1.20  z=+0.44",
+  "  gold      3701  d1=+3.84  z=+2.47",
+  "  silver    44.5  d1=+9.77  z=+3.57",
+  "  platinum  1344  d1=+8.14  z=+3.58",
+  "  copper    1.196e+04  d1=+2.24  z=+2.03",
+  "  eurusd    1.098  d1=+0.37  z=+1.15",
+  "  usdjpy    159.3  d1=-0.04  z=-0.09",
+  "  gbpusd    1.31  d1=+0.34  z=+1.08",
+  "  usdchf    0.834  d1=+0.38  z=+0.97",
+  "  usdcny    6.66  d1=-0.23  z=-2.85",
+  "  btc       6.164e+04  d1=+2.09  z=+1.03",
+  "  eth       1726  d1=+2.10  z=+0.76",
   "Corporate Monitor, Market Outlook, Estate Index, Energy Terminal …",
   "  https://terminal.centreforenergy.org/api/v1/news.json -> HTTP 403",
   "  https://terminal.centreforenergy.org/api/v1/events.json -> HTTP 403",
-  "Regime: Mixed signals (0.54)",
+  "Regime: Weak dollar (0.76)",
   "Geopolitics and themes (news x markets) …",
-  "  middle_east     spike=0.81  quiet  +['usdchf'] -[]",
+  "  middle_east     spike=0.97  quiet  +['gold'] -['usdchf']",
   "  GDELT: no answer for this theme",
-  "  russia_ukraine  spike=None  quiet  +[] -[]",
-  "  GDELT: no answer for this theme",
-  "  us_china        spike=None  quiet  +['copper', 'usdcny'] -[]",
-  "  GDELT: no answer for this theme",
-  "  taiwan          spike=None  quiet  +[] -[]",
+  "  russia_ukraine  spike=None  quiet  +['gold'] -['eurusd']",
+  "  us_china        spike=1.53  quiet  +['gold'] -['copper', 'usdcny']",
+  "  taiwan          spike=1.75  news_only  +['gold'] -[]",
   "  GDELT: no answer for this theme",
   "  opec            spike=None  quiet  +[] -[]",
-  "  fed             spike=1.89  news_only  +[] -[]",
   "  GDELT: no answer for this theme",
-  "  us_inflation    spike=None  quiet  +[] -[]",
-  "  us_fiscal       spike=3.57  news_only  +[] -[]",
-  "  GDELT: no answer for this theme",
+  "  https://news.google.com/rss/search -> HTTP 429",
+  "  fed             spike=None  market_only  +['eurusd', 'gold', 'btc'] -[]",
+  "  us_inflation    spike=1.2  quiet  +['gold'] -[]",
+  "  us_fiscal       spike=2.8  confirmed  +['gold', 'eurusd'] -[]",
   "  china_economy   spike=None  quiet  +['copper', 'usdcny'] -[]",
-  "  GDELT: no answer for this theme",
-  "  europe          spike=None  quiet  +[] -[]",
-  "  GDELT: no answer for this theme",
-  "  crypto_policy   spike=None  quiet  +[] -[]",
-  "Lead: mover · Copper",
-  "  writer: gemini-3-flash-preview draft rejected (1 issues): lead 1 has 4 figures; max 3"
+  "  europe          spike=6.0  news_only  +['eurusd'] -[]",
+  "  crypto_policy   spike=0.7  quiet  +['btc'] -[]",
+  "Lead: theme · US budget and debt",
+  "  writer: gemini-3-flash-preview draft rejected (3 issues): lead 4 contains advice or a forecast ('Investors should'); lead 1 has 6 figures; max 3; lead 3 has 4 figures; max 3",
+  "  writer: gemini-3-flash-preview draft rejected (1 issues): lead 3 has 4 figures; max 3",
+  "  writer: gemini-3-flash-preview draft rejected (1 issues): lead 3 has 4 figures; max 3",
+  "  writer: publishing the best Gemini · gemini-3-flash-preview draft (style issues only)"
  ]
 }
