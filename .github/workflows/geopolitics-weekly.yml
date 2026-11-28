@@ -10,7 +10,7 @@ on:
     # back-up runs in case GitHub skips or delays a scheduled run (they do nothing once the week is out)
     - cron: "40 12 * * 1"
     - cron: "40 14 * * 1"
-    # every night: fill older news history only (nothing is published; stops once complete)
+    # every night: publish this week's update if it is still missing, then fill older news history
     - cron: "20 3 * * *"
   workflow_dispatch:
     inputs:
@@ -54,16 +54,17 @@ jobs:
       - name: Test the method on simulated data
         run: python -m pytest -q tests/test_geopolitics.py
 
-      - name: Older news history (nightly)
-        if: github.event.schedule == '20 3 * * *' || inputs.history
-        run: python -m geopolitics.run --history
-
       - name: Weekly update
-        if: github.event_name != 'push' && github.event.schedule != '20 3 * * *' && !inputs.history
+        # also on the nightly run: it publishes only if this week's update is still missing
+        if: github.event_name != 'push' && !inputs.history
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FORCE: ${{ inputs.force }}
         run: python -m geopolitics.run --out docs/eb-geopolitics.json
+
+      - name: Older news history (nightly)
+        if: github.event.schedule == '20 3 * * *' || inputs.history
+        run: python -m geopolitics.run --history
 
       - name: Apply edits (override, calendar, events)
         if: github.event_name == 'push'

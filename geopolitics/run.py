@@ -277,10 +277,14 @@ def main():
 
     force = a.force or os.environ.get("FORCE", "").lower() == "true"
     if not force:
-        minutes = now_ny.hour * 60 + now_ny.minute
-        start = C.PUBLISH_HOUR_NY * 60 + C.PUBLISH_MINUTE_NY - 5
-        if now_ny.weekday() != C.PUBLISH_WEEKDAY or not start <= minutes < start + 360:
-            print(f"{now_ny:%a %H:%M} in New York: outside the publishing window, nothing to do.")
+        # GitHub often starts scheduled runs hours late (a 10:15 UTC run has started at 22:00).
+        # So any run from Monday 06:10 New York to the end of the week publishes this week's
+        # edition if it is not out yet; build() always dates it to the Monday.
+        monday = dt.date.fromisoformat(M.monday(now_ny.date()))
+        opens = dt.datetime(monday.year, monday.month, monday.day, C.PUBLISH_HOUR_NY,
+                            C.PUBLISH_MINUTE_NY, tzinfo=NY) - dt.timedelta(minutes=5)
+        if now_ny < opens:
+            print(f"{now_ny:%a %H:%M} in New York: too early, this week's update opens at {opens:%H:%M}.")
             return
         if out.exists():
             try:
