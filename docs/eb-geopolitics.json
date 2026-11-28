@@ -1,16 +1,16 @@
 {
  "version": 1,
- "generated": "2026-11-19T12:14:47+00:00",
+ "generated": "2026-11-28T08:53:37+00:00",
  "week": {
   "year": 2026,
-  "number": 47
+  "number": 48
  },
- "updated": "2026-11-16T11:15:00+00:00",
- "edition": "2026-11-16",
- "basedOn": "2026-11-09",
- "nextUpdate": "2026-11-23T11:15:00+00:00",
+ "updated": "2026-11-23T11:15:00+00:00",
+ "edition": "2026-11-23",
+ "basedOn": "2026-11-16",
+ "nextUpdate": "2026-11-30T11:15:00+00:00",
  "global": {
-  "value": 0.312,
+  "value": 0.391,
   "change": 0.08,
   "series": [
    [
@@ -1944,6 +1944,10 @@
    [
     "2026-11-09",
     0.312
+   ],
+   [
+    "2026-11-16",
+    0.391
    ]
   ],
   "events": [
@@ -1985,12 +1989,11 @@
   {
    "id": "middle_east",
    "label": "Middle East conflict",
-   "attention": 1.0,
-   "attentionChange": 0.1,
-   "reaction": -0.09,
+   "attention": 0.72,
+   "attentionChange": -0.28,
+   "reaction": 0.52,
    "levelAuto": "high",
    "trend": [
-    0.99,
     0.85,
     0.83,
     0.77,
@@ -2001,67 +2004,67 @@
     0.8,
     0.69,
     0.9,
-    1.0
+    1.0,
+    0.72
    ],
    "assets": [
     {
      "name": "Brent crude",
      "dir": 1,
-     "move": -24.8,
-     "text": "−24.8%",
-     "z": 1.08,
+     "move": -20.97,
+     "text": "−21.0%",
+     "z": 0.89,
      "page": "energy",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "VIX volatility",
      "dir": 1,
-     "move": 14.4,
-     "text": "+14.4%",
-     "z": 0.6,
+     "move": 115.17,
+     "text": "+115.2%",
+     "z": 5.13,
      "page": "markets",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "US high-yield spread",
      "dir": 1,
-     "move": -2.0,
-     "text": "−2 bp",
-     "z": 0.08,
+     "move": 49.0,
+     "text": "+49 bp",
+     "z": 2.0,
      "page": "markets",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     }
    ],
    "headlines": [
     {
-     "title": "Houthi Attack Damages Saudi Capital’s Tallest Tower",
-     "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOa0hZSmpRQXJwM2pNbUxHY01JZUd1TkdjdU5YNGZYd1hqMmNES3RoTWRCVm9GYjMwX0x5NkMwb2FicHNjWkhMZ1dQUVNsUW1hblVuQjVLVkhlVUZZRDFiMlcxdWNweTV0NjR6TG43MmFYMjczckZ1SmhzSlZtOFdtZVVsNHZpSk1UVWdRZ0phakNPT05NRUxmOFFmNGtMZw?oc=5",
+     "title": "Iran Update, November 27, 2026",
+     "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNZWp4TXJLZ1puOXhGOU8zUTNhX3dSZXhRMTQ0SzI3aTJjRUV5cFJ1RVJkQVJsUHVhSTh3OExHeEdLSGl6NFZLa1RiNDdrTDU2SkhrdUtJQUxmcm5WLWVwMS1feVIxdE9DMmFDMmpSM05tc2tIa2J4dy1uazJjUjRPNVBXRk50QQ?oc=5",
+     "source": "Institute for the Study of War"
+    },
+    {
+     "title": "A ‘Silent War’ Grips Iran as Its Economy Strains Under U.S. Blockade",
+     "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPQUZoNE5qVlVJSWdVTHRMY1R0bFBac204aUVreDhOR3NtUE4yWjBESlJMUHZoLVo0NjdrTW1kUXF5RUxDQWJfRnhrdkJpSTF5VUduMWVDaU9aVjg3N3dCTW96TDUtQV9SRE9TSEN1Um9LTm0teG9MV2hrQkhEM0RDYnhCVVgzNHhpcEJ1cnc5azMzTm10am04MTZoS2wtc19RSTNSRW5sMlBGdWhaYWNlVmhn?oc=5",
      "source": "WSJ"
     },
     {
-     "title": "Iran’s oil leverage is weakening. That could push it toward escalation",
-     "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNSC1SbFVLc2F5bWFZaEVsbVZzeHRzY01aWWJIMjliY3R6SXdyRzAyWDJ1VnIzazBndzFsMUNaZll0NlpxV2g4clhMaUhQUGJ0b1VhNHp3cy0wR29OMjJXbTVoSFJrVWxKb1dQVEZCSHplcFA4ZnYxTk9TUEhPTnkybA?oc=5",
-     "source": "CNN"
-    },
-    {
-     "title": "Shutdown fight takes shape as Democrats target Trump’s Iran war",
-     "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOQmpxQVZsLWFmNnQ2WTl6ZVNzb2VUTlhVOUQ3SFJqVW4yNmk2MHh5ZDRCQVh4aVI5RlJkc3FVMmVWT3hub2dvUGVwTTZxZWZaY0trTnRSWVVvQlJRLTg3U2psRVByTGp4bm1tREZ5dzE0MjNSMXFMRWJJV2JsMWFPWF9QekJ3QXdxWklGZG5ITDBGUQ?oc=5",
-     "source": "The Hill"
+     "title": "U.S. Forces Disable Commercial Vessel During Blockade Enforcement Against Iran",
+     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPTWFTeHhFODJNaUh1bzNwd3dxWDFyNUxheHR0N3BtRWxaU0drOFZBTkJHaGFSOE1sbE5oNUNrSWJVNE9VRUp0bXpxb1pGYUM4aWRyQTQ4dG5iU2JSUVpWWGlLWnBFd0pucTNLeFFXVkdmSWJuR2Nsc1pkcXpyX3ZfRjFMZFBHcS11WmxNbmZVMnEyYUJkNGlvU25rUHdSd2IxT0o5MVZra2pFUV9vLXhwVTNDMGtYVWRNYUZKcFRVeTBOVXNwWHVuYnZyTU1qNE9NMElDemxR?oc=5",
+     "source": "U.S. Central Command (.mil)"
     }
    ],
-   "view": "Regional tensions persist as Houthi forces strike infrastructure and Iran faces pressure over its oil leverage. Markets appear largely indifferent to these developments, as energy prices and credit spreads show no sign of defensive positioning.",
-   "viewBase": "Regional tensions persist as Houthi forces strike infrastructure and Iran faces pressure over its oil leverage. Markets appear largely indifferent to these developments, as energy prices and credit spreads show no sign of defensive positioning.",
+   "view": "The United States is enforcing a naval blockade against Iran and disabling vessels attempting to breach the perimeter. Markets appear to be pricing in this risk as volatility and credit spreads rise while oil prices fluctuate.",
+   "viewBase": "The United States is enforcing a naval blockade against Iran and disabling vessels attempting to breach the perimeter. Markets appear to be pricing in this risk as volatility and credit spreads rise while oil prices fluctuate.",
    "levelBase": "high"
   },
   {
    "id": "energy",
    "label": "Energy security",
-   "attention": 0.91,
-   "attentionChange": -0.22,
-   "reaction": -0.26,
+   "attention": 0.81,
+   "attentionChange": -0.09,
+   "reaction": -0.41,
    "levelAuto": "high",
    "trend": [
-    1.5,
     1.37,
     1.15,
     0.98,
@@ -2072,67 +2075,67 @@
     1.22,
     1.44,
     1.12,
-    0.91
+    0.91,
+    0.81
    ],
    "assets": [
     {
      "name": "US natural gas",
      "dir": 1,
-     "move": 1.24,
-     "text": "+1.2%",
-     "z": 0.03,
+     "move": 9.3,
+     "text": "+9.3%",
+     "z": 0.28,
      "page": "energy",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "Heating oil",
      "dir": 1,
-     "move": -12.85,
-     "text": "−12.8%",
-     "z": 0.55,
+     "move": -17.97,
+     "text": "−18.0%",
+     "z": 0.75,
      "page": "energy",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "US 10-year inflation expectations",
      "dir": 1,
-     "move": -9.0,
-     "text": "−9 bp",
-     "z": 1.01,
+     "move": -22.0,
+     "text": "−22 bp",
+     "z": 2.69,
      "page": "markets",
-     "asOf": "2026-11-12"
+     "asOf": "2026-11-20"
     }
    ],
    "headlines": [
     {
-     "title": "Iran Keeps Up Unrelenting Attacks on Ships in the Strait of Hormuz",
-     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNczJXN3dIbXJITGpRV1BQQzdMRlp4QVl0ZE5jZnM2Vk9SNm5tZ2ZJV1NlbXA4em01SGZxM3p3b0FQemFMS0dTNGhhdzdPZzhCdXZDVzJTRXYtRThDWHRQa3dZQzRTOGdPZWxuQThVTGo5RGVzUHluWnNVaWRmNE5XQ2VpSS1aMVZUT3IyOA?oc=5",
-     "source": "The New York Times"
+     "title": "US Refiner Margins Hit New Records as Fuel Shortage Concerns Grow",
+     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPQTUyckRMcEduclZ3dTQzMjd5NWhqeC16Sm5FY2Uxb203cTVtbFdyaUZiZE1LZVBMU3V3ZlAwRGVTbGc1NDhBWGE2dzZWXzZNcEpfQXhZTFhNWGprMGhDSzI3a3AzNFZOcjZ4ZlNBQ0wydHFRQkxGOE81OGZsQzVOVGxKZk5lX3NuZThlc09PT3hpWTFJR09sZmNGYXc?oc=5",
+     "source": "EnergyNow.com"
     },
     {
-     "title": "Strait of Hormuz crisis 'largest threat' to energy security ever: IEA | Daily Sabah",
-     "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNTThaczhoZi1pTGIxLXFfY21sWmF0eW5WSnpJQWdiWnJuam5iV2RYbmFCcS1mMVlkUEZnMEVMajdzekJGSzRCemhoc2g2dHNaUmRvQTZNMGFrdDhrTnlIM3dvSWM1TEhzU0Q5SURob2ZZeGs5ZldjN3dxRTVraXZGLWdMOWM1OWZiclQ4OUtHWGtlZnRyOHJHM2wzbUZZaTJwLVNWbFJTOThvQklwRFHSAbMBQVVfeXFMUDZJZFpWcVdBNlJ3cjUtN3lhbjA5dzdHV2swOFN4MlNrMnltQmt6T1M2UnRFVy1jNHNWdXVXdDBHb2ZMZnV5UGFnUzNueEpabWY2eDU5bE9GdE9RTWdPVE9MVlZCWTFsaVZQRmhRZ2c3dWl3cXQybWo4SGpKUlFqVWV4bGt5eUJOV0ZBMDlTZ01CMEtnRFNfRDFyU1BhZWxhZ0F1WFdwQ0x5MS1PT3JiNkRETXc?oc=5",
-     "source": "Daily Sabah"
+     "title": "Is California at risk of a gasoline shortage amid the Iran war? Experts explain",
+     "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQNmt4UnZTS2FnLXFYUmpSMllrOEZQbWxJSTVIbzU4QVNKbWtIRVFYOTFVb3NHdU50a0pWU2QyUnQxNWtsS3pBY09nckxwa1FwTDhZMzFxWl9VUmlMaEh4NUlSTTYzZXEwYmFUSkFrOEJMbEVMaXhmVGJVTy1UeTlyaERxRTNEbHNTSFgzUzZEOEFvVWg4Z1RneGhBRnJodG9ONnRkQ3Jn0gGrAUFVX3lxTE9DazE5N3puTzVrU2hCUUJmYU9FY1RiNTA1Y2hiZG84QVU5TjZzTG9aaFhsY3lLVFZwNE9RX0IwTy1VRm9lbV95Y2NWX1U0RjlOaVl2ZXBveUNxNk95dFZnYzQyNF82MFhqSmItcXJQa09QODVWRWcwMVZ3cW45bWVYd1FqZlUwcDNzU0hwUkRCX0lNeEUtWW9VWHVtUkxvaHFTRmY3TUlaRjJjSQ?oc=5",
+     "source": "ABC News - Breaking News, Latest News and Videos"
     },
     {
-     "title": "Middle East conflict triggers biggest disruption ever to global oil trade, IEA warns",
-     "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOWlk0OG5fSFVxS01zQmJQZ2t6SmN4R2JsZ2lDdi16QXJRQnY2b3p6ZmpJZ3pmWFFDU3dKMXJiSTRXb0JISm43VVlBWUpfbDFXeXlxSE80SktiQzY2MDczdW8wRTNpcF91TVNmSG9Kc1V2RHlubzlzTlRmdGJwMEYweW1vZjdxSEpPY0RIbFRPOHdHWlBkM3lBMURLUDVxZk9EQWJ2aDRoYlZfTHN0RlpVOVVWWW52d0tUN1NreXp2aHQ?oc=5",
-     "source": "NBC News"
+     "title": "Brent settles higher as mine strikes, refinery attack stoke Middle East supply concerns",
+     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPWHpfX3p2RFoxU2l0SGZVbVdSejdGYkc0NFpERWlxVEtab0pQbGd1NUtqQ3c0cXprdWItUF9fRmVVVElET3BNbklnbElwaC1UZ0xoNnd4dE9Wb2dFVDFGN2JyQ3YyUVhfTWxsNGFWNFNURG5kX1pMdVBtb2QyLXFMaXZPM0ZPdGdud1hWdHFuTEpNQXBtdUh6RmpWcW1jelhTU0JHdmp3dWphb0hB?oc=5",
+     "source": "Reuters"
     }
    ],
-   "view": "Disruptions to global oil trade and maritime security in the Strait of Hormuz are causing significant concern. Investors are currently ignoring these supply risks, with heating oil prices and inflation expectations moving in the opposite direction.",
-   "viewBase": "Disruptions to global oil trade and maritime security in the Strait of Hormuz are causing significant concern. Investors are currently ignoring these supply risks, with heating oil prices and inflation expectations moving in the opposite direction.",
+   "view": "Supply concerns are mounting following refinery attacks and military actions affecting tankers in the Middle East. Investors are reacting with caution as energy assets and inflation expectations do not yet fully reflect these supply disruptions.",
+   "viewBase": "Supply concerns are mounting following refinery attacks and military actions affecting tankers in the Middle East. Investors are reacting with caution as energy assets and inflation expectations do not yet fully reflect these supply disruptions.",
    "levelBase": "high"
   },
   {
    "id": "russia_nato",
    "label": "Russia–NATO",
-   "attention": -0.65,
-   "attentionChange": -0.18,
-   "reaction": -0.24,
+   "attention": -0.14,
+   "attentionChange": 0.51,
+   "reaction": -0.25,
    "levelAuto": "medium",
    "trend": [
-    -0.58,
     -0.64,
     -0.67,
     -0.53,
@@ -2143,67 +2146,67 @@
     -0.17,
     0.02,
     -0.47,
-    -0.65
+    -0.65,
+    -0.14
    ],
    "assets": [
     {
      "name": "Brent crude",
      "dir": 1,
-     "move": -24.8,
-     "text": "−24.8%",
-     "z": 1.08,
+     "move": -20.97,
+     "text": "−21.0%",
+     "z": 0.89,
      "page": "energy",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "Euro vs. dollar",
      "dir": -1,
-     "move": -0.8,
-     "text": "−0.8%",
-     "z": 0.48,
+     "move": -2.23,
+     "text": "−2.2%",
+     "z": 1.39,
      "page": "crypto",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-19"
     },
     {
      "name": "Gold",
      "dir": 1,
-     "move": -5.39,
-     "text": "−5.4%",
-     "z": 0.85,
+     "move": -15.29,
+     "text": "−15.3%",
+     "z": 2.56,
      "page": "metals",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     }
    ],
    "headlines": [
     {
-     "title": "Russian Offensive Campaign Assessment, November 18, 2026",
-     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOSDhGSTN5MVoxLXJRR3JBM2EtbFhXamtHaHhUUW9yU1BVa2xkT19JVTFsb0c5OTZTdUdYcl9YbWRFbUFTWWlZOE16cVBiVE1fQTh5eFJ3OHAtX1hWQlZJWWd4NEpXUld2Y1N0NkZHenNjMEdpWXNIRGpvVVNWY2YwZ0g1TkxNS0cwZWZWWWs3NUxMZ2Nremw5RlFnQmNlMm9sa3NwYlIycFlIZW45?oc=5",
+     "title": "Russian Offensive Campaign Assessment, November 27, 2026",
+     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNRGxVTU85TTRHNEhYeE1zTXVoTzBDd2owY3p2X3hYa0ozd0FqSllRNlM5TnRCaFpVWFJBVXVId1FKbTc4R1pEOVI3azNXM3RfN1NLNjNJc1AtamJydTd6ZTJ6WjFYbjFuT2RRUThKNjFNdDF2alc3V0ctQW95eEtaREk1STE4QWIzU1hfVUdQN2JZeXp0SW1NS0M0UmozSFBnYU1sVDBoc0dSajIy?oc=5",
      "source": "Institute for the Study of War"
     },
     {
-     "title": "China and Russia say they and US agree on UN reforms, boosting fuel supplies, dialogue on nuclear",
-     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOZko0TjU0LUdSMUxlTkNVcnJsSThoSFo5Y2ZuamRVQ2tidnZQa2M5N1o0dlpndmptSGxNTGhYYS1IUXVKMjZibjFPcWVURHJRaHNfclhIMHlSVFdIN3VkZUxFVEo5Z1JoZFR0bkdHOUd1UUNuNXRCVDBKUlhPaGItcmVfY09NQ1U5WmhHYzRNZHdtWDVVay1JalhlNA?oc=5",
-     "source": "AP News"
+     "title": "Ukraine war briefing: Zelenskyy criticises Trump for calling Putin his ‘friend’; Kyiv deploys new laser weapon",
+     "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOcDZrYTlOdTVmYnJEelBReDNXdF9CRXAyZHUyVlhQNjczRTk0Q0RNM0FYdWlHY3RQc3RZTVZPQ0MwOWZLSExFczk2cGlhMXMyNk81dVVVNGZfUHozUDhCV2xaaEZlNGh1ZmtkeFlsTE94dGhzVEp1UGJKOEg4Si1WdnhqVUNKcFlnTm4wd2NBZDc5TzZDeGh0c1F0OUhEcUxLUjJQSjBVVHp0MFpIay1jZXVUZmNSNXAxb3RJNTU1SkJad3VEWVRwRUhyWUNNRmtXdEJQbmtLWjNMN0NTbWhWdXZhbkUtUzQ?oc=5",
+     "source": "The Guardian"
     },
     {
-     "title": "Ukraine war briefing: Russia asks if Netherlands has joined conflict after Crimea bridge strike",
-     "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNOENUX1hEa09FRkEySGhZbmYtbDJrNE8zQmg5WWswbGpBTGhPZEF5YWxtU1laU1F0SFU4Y2Izd1NYcDhlaWF2cGNwMWZuYmh5bUVRdlFnNWI3alp0Y0tpYnJ4am5TcW1RVE9oNm82UXJhc3h6NE5ZcXd2RHhvV21wSGJNLW5rSlVuV3JWR2JsdG12Y00wak9NUG9ST1UyMHl6Z3RDZ3dsSEZHRDh6Q0MteWkxT0dWUGU1ZHRHYjNXM3dBT2Y3UlhUNzMzd0FmSFpDQkFZQg?oc=5",
-     "source": "The Guardian"
+     "title": "Kyiv offers Black Sea ceasefire to protect grain exports",
+     "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNWW9taURHbFpkMjd6YkFzNEliSVpaOW5zal9CUEY1R0kyS3NWVU9HbkIzRkNhcWtoOWgxUi02WWdWN1dpQTU5UVVpc3dGa04yVVBQbk1NQVMzSFBLVmxvUllTNTVwVEdwR1FtdGI3Nnppb0lvNjNRMUZwYl9EaXI1akI0VE5SRGcxVkxzVzNZbFM2S0RCc2JOdi05R2s1dlg4eVZIdDBB0gGrAUFVX3lxTFB6OWM4c1NpYjVhZUp2MVV1eUppS1lVLW1lNjIwaktRN1lWUDlGOG5meWIySTByVVhUQ2tnSGh4d05pVXN0SWxnSFlFc0lzVzhmQzlWaFRZTW5ELU0yWUpNYTIwVV8tQmhqODBCVzhQMjBseHVydHcydEJya3lJREtMbFd2aW0zMmlndy1oV2M2RHZPbzh2V3FQcV8tNE5xMmx1S3Jfb1NXNXdHVQ?oc=5",
+     "source": "Al Jazeera"
     }
    ],
-   "view": "Diplomatic discussions involving major powers continue alongside ongoing military operations in the Russia–Ukraine conflict. Market attention remains exceptionally low, and asset prices are not reflecting any increased concern regarding a broader confrontation.",
-   "viewBase": "Diplomatic discussions involving major powers continue alongside ongoing military operations in the Russia–Ukraine conflict. Market attention remains exceptionally low, and asset prices are not reflecting any increased concern regarding a broader confrontation.",
+   "view": "Ukraine has proposed a ceasefire in the Black Sea while officials criticize diplomatic rhetoric regarding the Russian leadership. Financial markets show little sign of alarm as currency and commodity prices move against the expected risk direction.",
+   "viewBase": "Ukraine has proposed a ceasefire in the Black Sea while officials criticize diplomatic rhetoric regarding the Russian leadership. Financial markets show little sign of alarm as currency and commodity prices move against the expected risk direction.",
    "levelBase": "medium"
   },
   {
    "id": "us_china",
    "label": "US–China rivalry",
-   "attention": 0.4,
-   "attentionChange": 0.87,
-   "reaction": 0.32,
-   "levelAuto": "medium",
+   "attention": 1.4,
+   "attentionChange": 1.0,
+   "reaction": 0.57,
+   "levelAuto": "high",
    "trend": [
-    -0.22,
     -0.45,
     -0.31,
     0.14,
@@ -2214,67 +2217,67 @@
     -0.69,
     -0.51,
     -0.47,
-    0.4
+    0.4,
+    1.4
    ],
    "assets": [
     {
      "name": "Chinese yuan",
      "dir": -1,
-     "move": 0.32,
-     "text": "+0.3%",
-     "z": 0.75,
+     "move": -0.02,
+     "text": "−0.0%",
+     "z": 0.04,
      "page": "crypto",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "Taiwan dollar",
      "dir": -1,
-     "move": -2.16,
-     "text": "−2.2%",
-     "z": 1.66,
+     "move": -1.67,
+     "text": "−1.7%",
+     "z": 1.37,
      "page": "crypto",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "Nasdaq Composite",
      "dir": -1,
-     "move": -5.83,
-     "text": "−5.8%",
-     "z": 1.01,
+     "move": -15.3,
+     "text": "−15.3%",
+     "z": 2.62,
      "page": "markets",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     }
    ],
    "headlines": [
     {
-     "title": "How Nvidia Chips Ended Up Within Reach of China’s Military",
-     "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNLVc5N1B2V0VEaE01RDFyU3NaYTNiV3pmb2dqRDVMMWpjenVCbGUwNTh6aHhKX3hLNnBEU3dFZWxFU3I2SkJqQUVEUC1TY0IzNkNnRHc5OUU3SEY3R0RGRFE5M0UwOThfQktjVHgtSUhyeW9XNjJlQm1qdnFMcGtJNVBLNzZtX00?oc=5",
-     "source": "The New York Times"
+     "title": "New US tariff proposal puts the fragile Washington-Beijing trade truce under pressure before January 10",
+     "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPWHVBUWJQM0NOV3lmZ3N2cjZhRXRXdWpBUmJkdFFrTXZUeDJNc2tPOVdodldXbGxGTk9HQXIyREV1VGV2SXFrRl81YU5wTkFzSkhfLTBXNG9aYXdMb3RrYkhFVGdIaFo3dVJqYWVNbDI0RlAzbHRfcUVsS1plSjdvZGFwbEhYWENN?oc=5",
+     "source": "Latin Times"
     },
     {
-     "title": "Taiwan reports two Russian military aircraft nearby, second time this week",
-     "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPdnpIWnMxVUtEZmIybkVXR29nSWNpWXRqRVo3dXZoYmdTcE91Q2MtZW1oSTZ2X3REWjUyZ1JNYlJSclJZX09TY0FNNllNVFdQUU5TV2lVN083QnN3aXB4U2tTMGN4TmY5U1FJbG9zSnE4bEstV215amRrZ2hpTlZ3UFRnU3dJOWZ5M0I3ZGpmU2sxZVk3bE96MWlGblVnMV9XRHk3NF84bmxGb2t6d2JBbXhNY1BrWHhlRVkxanIwMmN0OHJ6eTE0Nzg5dkV0VDhTc3c?oc=5",
+     "title": "Chinese military tests new Taiwan landing tactics in coastal drills",
+     "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQRHU2ODhzTFRNUi1YM1VpRVZEZlg4MXFpaGxIZU5SZ2xxNVZFTWlFWHlITkJLNXhSendCb3RYckhpQkhqcDRVeDdRdVJWRl9WWnJWYlZvV2tMM1VaalU2SlRQQTRYNVZzc0Y2SVp0WmJKai1kN3NtSEU1MkxLSkhGN0M2TW9JOHFianYwZEtrNTE2NW81aGlLTWRpc18xd2hwUmI1XzdQVGxON0dJREhldE5R?oc=5",
      "source": "Reuters"
     },
     {
-     "title": "Trump Suggests US Can Sell Blackwell Chips to China in Future",
-     "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPb2RmcllMcDNES1UzSmxVelRjcV9LUHZzVVQzaVA3Z0tKczJqMHBuaXh0X2NMVXFUSGR6V28tMkh6VWNJUmxuMXdiQTFuMzJsUExCa0Y4V3NXV2xtSzVIN2hvcS1zY3FFbGlJMlRZVExYVDVMMXlFWjRObUZKWGc1bHB3QkVEQkIzSVlaN3VpNFVrNXJScG9oV2Q0Yzc5ams2ME1VWTRrZWNfdkxHbFZnV1dn?oc=5",
-     "source": "Bloomberg.com"
+     "title": "Taiwan is expanding its military draft. Will those troops make a difference?",
+     "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNTUJod1hpUmFBbjh6MWFMckVCYUhMM29LU1Q1bkVnQmdaMThfNzJ0VkZBd3RTNGEtTjNzUFB0bXFmWklfNzBrWVNFNDFVeWZ2N3Y3clBLN1FaSjdyaGtjMjlsYmZyNUM5M3A3NklhOUFOLVNtMkdJcEJ0bGpDU0lfZkF3UHNmYmlOUDd5cDJkTllZaGpsXzc1VXRsdXk4VUpVNk5SZWczaU12eFpGZGZlOVVfUVRnRlBVS2sxUnVjOFN4ODB10gHEAUFVX3lxTE0tMnRDTk10NDdqV2FiQ3BwV1BoRVRPRDc1NEF2TVpvNjdnbm1SUzF3dS1jdkRqalNONTNLendwSHlZTWZDbnZKYnY4WXpEaTJVX3VSN3hxd2RzLTV0N2FUR2ZnUS1jY0JPckNMN014V2ZZMHMteDhVTzVaSWpOTTlLcHdRTWNyNk5lN3FsREMtQUQ3bElRekgyc3lnVVhIb0lld2V1bm1hMVdKZFp2WDhic1Q2M3RSZjFhRGRaUHVsMlNMU3k?oc=5",
+     "source": "South China Morning Post"
     }
    ],
-   "view": "Tensions over semiconductor technology and military movements near Taiwan are driving a sharp increase in news coverage. Markets are reacting with caution, as technology stocks and regional currencies show movements consistent with rising geopolitical friction.",
-   "viewBase": "Tensions over semiconductor technology and military movements near Taiwan are driving a sharp increase in news coverage. Markets are reacting with caution, as technology stocks and regional currencies show movements consistent with rising geopolitical friction.",
-   "levelBase": "medium"
+   "view": "Tensions are rising as China conducts military drills near Taiwan and the United States proposes new trade tariffs. Exceptional news coverage is consistent with market movements as regional currencies and technology stocks face downward pressure.",
+   "viewBase": "Tensions are rising as China conducts military drills near Taiwan and the United States proposes new trade tariffs. Exceptional news coverage is consistent with market movements as regional currencies and technology stocks face downward pressure.",
+   "levelBase": "high"
   },
   {
    "id": "trade",
    "label": "Trade & tariffs",
-   "attention": 0.7,
-   "attentionChange": -0.06,
-   "reaction": 0.38,
-   "levelAuto": "medium",
+   "attention": 0.39,
+   "attentionChange": -0.31,
+   "reaction": 0.78,
+   "levelAuto": "high",
    "trend": [
-    0.44,
     0.3,
     0.5,
     0.91,
@@ -2285,67 +2288,67 @@
     0.62,
     0.55,
     0.76,
-    0.7
+    0.7,
+    0.39
    ],
    "assets": [
     {
      "name": "Mexican peso",
      "dir": -1,
-     "move": -0.32,
-     "text": "−0.3%",
-     "z": 0.1,
+     "move": -2.02,
+     "text": "−2.0%",
+     "z": 0.67,
      "page": "crypto",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "Copper",
      "dir": -1,
-     "move": -7.74,
-     "text": "−7.7%",
-     "z": 1.63,
+     "move": -15.31,
+     "text": "−15.3%",
+     "z": 2.98,
      "page": "metals",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "S&P 500",
      "dir": -1,
-     "move": -2.04,
-     "text": "−2.0%",
-     "z": 0.56,
+     "move": -10.92,
+     "text": "−10.9%",
+     "z": 2.85,
      "page": "markets",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     }
    ],
    "headlines": [
     {
-     "title": "We’re Publishing the Tariff Refunds the Government Has Refused to Disclose",
-     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFA0Y1k0ak1HSExYRDkyTXhCdTgxTGRJWmplYUpRX0N3MWhvNGdtYTFPMFBTT2kyb3NhQVFjWGZZemJKZnFta2NhRGFSb3BSdXJUOTVBVDlzZktkdExnNnFjdy1PY3JPYlh3ZEFQckcxdmpjdWVyMGc?oc=5",
-     "source": "ProPublica"
+     "title": "Trump’s tariffs have become America’s new normal",
+     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPVkRXTlVRWkRPclk0V1VrRkJ5eVIwUlh3YzdSVVQxb3FaLW9seFBGZEVGTVY4TzZMTFl4QU0zOURPSGdEQTBXdnUxaVNnOWdUNm03dk9CdTA5SUIxaGd1Q3BkS0t0d1ptdVlDeWV6WUtsdTZ2X0p6VUVBa1EtQ0NTVmU4RnpsVUg4UWZVTkk3TGVuN25ZWXdV0gGcAUFVX3lxTE1CbzQ4NGhaaDhwODNKdjZmT2JVaTRmTTVpQUZjVTBaYTNaVGJIbWdZVE04LUVQUkxwWlduN1VJc3dkNzRfcUIzU29FSmd4N084N1B5OUNrMzNkZlJ6LTYzMnlnRDVpRmN6S2ttdFpGRVp0Wm5OOU9sYkw2Mmpkc2dyeUpLSVhpLVpNMEc5WFJZOUc1bnhnUWZhNkJRaA?oc=5",
+     "source": "Al Jazeera"
     },
     {
-     "title": "The Supreme Court Blocked Trump’s Tariffs, But Americans Are Still Paying the Price",
-     "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOa3RPMGEyT1NWUXI3M1RvVFpEVkhUWlBPTENxb3VzRWFVU21TZlY1MDE4cjdaZHJtVmV3THJCWWdCWnhfYXRuejJXNE1aTUc0a2VPdWd2NFpVUXhlai0xUnR4M2xSOEQwRkdFRDJzM1dmbVZaWVFoR0M2ZWRiOGlMcmI2d1NuQkE?oc=5",
-     "source": "Balls and Strikes"
+     "title": "Copper Slumps Amid AI Roller Coaster But Physical Supply Remains Tight",
+     "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQbXJXdFVUTFZpNnl3SlJWbU9iV0ZaOGh1QUVUR1o5WjYtOXhwb3M1NUROaFFTb3NpOUJRZ1ROZ2Y0NlVlOWhwb0htcUY3SV9hYlRmZnMxT2Rnc21UMUlmazQwZk50TF9SY0U2enpKTzQ1a1hwbTY2aGlLbmM3Z0xkODBrQWg1YVdSREgtMjRKR1JHUk1RN3hrZjEwNmZpUk5EZktvRFVNdklzVzl5R0x0Mlh4Q3k2UmoxY203SFU3R1kwWDBQUnc?oc=5",
+     "source": "WSJ"
     },
     {
-     "title": "GBH Daily: $14,000 in tariffs, $12 in refunds",
-     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOeVVxZ1hRUXlsaG5ZNUFKWkNnQlVQM1M1eldMSlljaTVvOXRtdU12VWhTT2pRZkxVbFNWWWh1by1vakthSWxDZjBNSm9QVHg5cGFQYlVFNFpCOHByaFJqTUNXS05aTHYtRUVxTERHOXd4ejJoU2VvLVptUEZkNkZfWllPQUdrZWR1TmNqaw?oc=5",
-     "source": "WGBH"
+     "title": "Supreme Court invalidates most of Trump's tariffs",
+     "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNTTZyamI3Uks3N20wbnpWemxhQTh5NG9UODJyVHFXUE5KTGFmMWlYSVZpUW9Eb2JnUmFjU1RJMWYzOW5pX0l3UXlPdWpaaEJqOUNmU1pQa2dNQUtvUjhwQVdweno2bU9kbTVNams1SmhqY1FrZklQU3BTTnF1S0VJd2RMNTZ1VmJVamt0SUdYem9JZ9IBlwFBVV95cUxNa0dWUktjN181VDcyUThKWGIzLTU1VnBsdlhOb3p6NmJMWHpodDh0c2M1WHA2SHZKdTRSQmhNbUxXZW13RllnbS01cktCOWhYY19MZXJtR2w2WnVfZjBYVGRDQ2pnM2NLTGwtZnZOZGlpc3FNM3ZQSWdETHNMQzg3a3hWMTdnV25FQzkyMDlOVkoyR3l6SkZF?oc=5",
+     "source": "ABC News - Breaking News, Latest News and Videos"
     }
    ],
-   "view": "Legal and economic disputes over tariff implementation and refund policies are creating domestic and international friction. Investors are responding to these trade risks, with copper prices and equity markets declining as the costs of protectionism appear.",
-   "viewBase": "Legal and economic disputes over tariff implementation and refund policies are creating domestic and international friction. Investors are responding to these trade risks, with copper prices and equity markets declining as the costs of protectionism appear.",
-   "levelBase": "medium"
+   "view": "New tariff proposals face legal challenges in the supreme court while remaining a central feature of American trade policy. Markets are responding to these developments as equity and commodity prices align with the expected impact of trade barriers.",
+   "viewBase": "New tariff proposals face legal challenges in the supreme court while remaining a central feature of American trade policy. Markets are responding to these developments as equity and commodity prices align with the expected impact of trade barriers.",
+   "levelBase": "high"
   },
   {
    "id": "cyber",
    "label": "Cyber & terror attacks",
-   "attention": 0.86,
-   "attentionChange": 0.61,
-   "reaction": 0.34,
+   "attention": 0.71,
+   "attentionChange": -0.14,
+   "reaction": 0.97,
    "levelAuto": "high",
    "trend": [
-    -0.54,
     -1.36,
     -1.44,
     -1.18,
@@ -2356,67 +2359,67 @@
     0.31,
     -0.47,
     0.24,
-    0.86
+    0.86,
+    0.71
    ],
    "assets": [
     {
      "name": "VIX volatility",
      "dir": 1,
-     "move": 14.4,
-     "text": "+14.4%",
-     "z": 0.6,
+     "move": 115.17,
+     "text": "+115.2%",
+     "z": 5.13,
      "page": "markets",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "Bitcoin",
      "dir": -1,
-     "move": -20.48,
-     "text": "−20.5%",
-     "z": 1.52,
+     "move": -24.73,
+     "text": "−24.7%",
+     "z": 1.84,
      "page": "crypto",
-     "asOf": "2026-11-15"
+     "asOf": "2026-11-22"
     },
     {
      "name": "US high-yield spread",
      "dir": 1,
-     "move": -2.0,
-     "text": "−2 bp",
-     "z": 0.08,
+     "move": 49.0,
+     "text": "+49 bp",
+     "z": 2.0,
      "page": "markets",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     }
    ],
    "headlines": [
     {
-     "title": "Update regarding cyber-attack",
-     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9RSzV1NnNoclpOVGR6SkdLZlZaOHg2bzlQVjVzSzNwZERSRklTVXJsc3RZQTN3ZHZlX2VSV1Zrd1lFV0ZXVW1JQmViUmRBU1c4Ml9wSmN2VE9BZ3FwQTNyVnVEVlRIcWhjdnJyZDBEMnFQWXV6MkE?oc=5",
-     "source": "Equinor"
+     "title": "Hackers breach Air Force’s “Cloud One” computing environment",
+     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQb3NGdmE5RlhiWmxabVJlaHZ0SzVJOUlfSmUzVUdMRVVvc0gtSWM4LUstX05wZ1NNQ0RlcG5YZ3U1WnF2WkduLXB6NEV0YWJrYjVyS0xJUUZ3QTlkSlpWRmlROUJCMEFWbXRuQ2RIZUhGQnFhUWQ3VmpWN0VWc00zZHRzVjFlNDRkdlRmVjV5QXBxNEsxQnJxRlg4V3Uxdi1EaDZhQUc0bnVISDg?oc=5",
+     "source": "Federal News Network"
     },
     {
-     "title": "Trump administration continues to insist tech outages not cyberattacks",
-     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNS2xuYmRKREUxeWp5ZnJYcXYzemJTU0xWcFluSW9lRDRLc2FGbWtKMDkyNjhiUTd3dFdQZWgzTzRRd3RPX2d4em9jWXJoQlB5VGlEX19sc3ZHTEV4RS0wVkR5Njd1a3RjVzBCRDlIZlpOVTJ3Ymw3bUVHYkZqM0RyNWtrLTJwSEZwLWJ5bVliS20wRkIzcmhmcEppaUxyRjdvVHVSRmJxRFQzeFHSAbABQVVfeXFMUHdIejhTQmUxTG9acUlscG9jdjhOVVNScGRtMUZRWERRdnFURW90QU9zSmVTd3ZDSjU2bUk2MHppeHU2bTNqaGRrYzFQVHRTblpUbW5iZjZGUVV1Z3BmT012YmI0UUhycDlycW1ZQ0p4eTBWWHprTk5iTFNGb3NGYXhTVjNXSXEzLUNjQ3pseWxmbGZUdWhnUi1NZTJMbFE5SG81LVExNXhoNUtDZjA4QzQ?oc=5",
-     "source": "ABC News - Breaking News, Latest News and Videos"
+     "title": "EXCLUSIVE: Hackers breach US Air Force flagship Cloud One computing platform",
+     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPQnhWb2oyc2Qta3k0bUhwbGZTcWZMREZ0VU41eVNZWDJZTDlBcmMxZzFrLXlmVGJpUHBRbVdBRlNoQU9lWUlIcVpMcXQwWWpyYVJ2eDJQa1ZvNFU5MUFHLWdpQW1BVloyUW5lTUlVSlFpLXJwVHNLMl9fQnBFTTNnemY4Q0JiUkN3SXFndG1pX1l1TmdySFJDOHJlWC1fMnE3cjlaVFB5M1hWbU0?oc=5",
+     "source": "Reuters"
     },
     {
-     "title": "Hackers Breach N-able Cloud Server, Disrupting Email Security Management Across 3 Regions",
-     "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOTWEwV09jQ1NVVjNhUnlLRE1pUU9TNEFrc2Q2cllMdi1iU1lWbzRPQzZZWWVzZVlTZTFHY1lXOGt1Vm8wRGVjUGlSMGxoa0ZWTkhONkk5RWxnZ2xzSDdtRHFmSTBTN0p4SDhlMGRBdUlFSXRDSFFaa3g3M19MY2gycUpuRQ?oc=5",
-     "source": "The Hacker News"
+     "title": "U.S. Air Force cloud platform breached by hackers, report says",
+     "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPcWFTN1ktVVp1cXBBcEJ0T3NGLU5yZy1yVnFlNWZtQlcyRDlQYVJNNWc5YUVzUElncEVIUXhTTjJ6cEJNN0xuWlQ1cmJuME9SNWdiREhwTlhTV243dF9Od0Nhc1JIWWIzTXA3Ry1sb253X3R1REtPT0U5Y3daY1ZUY0hQRUY?oc=5",
+     "source": "CBS News"
     }
    ],
-   "view": "Recent breaches of cloud infrastructure and critical systems have heightened concerns over state-sponsored digital interference. Markets are showing clear signs of anxiety, as volatility rises and digital assets face significant downward pressure.",
-   "viewBase": "Recent breaches of cloud infrastructure and critical systems have heightened concerns over state-sponsored digital interference. Markets are showing clear signs of anxiety, as volatility rises and digital assets face significant downward pressure.",
+   "view": "A significant security breach has affected the cloud computing environment of the United States Air Force. Market participants are reacting strongly to this event as volatility increases and digital asset prices decline in response to the news.",
+   "viewBase": "A significant security breach has affected the cloud computing environment of the United States Air Force. Market participants are reacting strongly to this event as volatility increases and digital asset prices decline in response to the news.",
    "levelBase": "high"
   },
   {
    "id": "americas",
    "label": "Western Hemisphere",
-   "attention": 0.91,
-   "attentionChange": 0.57,
-   "reaction": -0.3,
+   "attention": 0.93,
+   "attentionChange": 0.02,
+   "reaction": -0.37,
    "levelAuto": "medium",
    "trend": [
-    0.37,
     0.66,
     0.45,
     0.48,
@@ -2427,67 +2430,67 @@
     0.12,
     0.14,
     0.35,
-    0.91
+    0.91,
+    0.93
    ],
    "assets": [
     {
      "name": "Mexican peso",
      "dir": -1,
-     "move": -0.32,
-     "text": "−0.3%",
-     "z": 0.1,
+     "move": -2.02,
+     "text": "−2.0%",
+     "z": 0.67,
      "page": "crypto",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "Gold",
      "dir": 1,
-     "move": -5.39,
-     "text": "−5.4%",
-     "z": 0.85,
+     "move": -15.29,
+     "text": "−15.3%",
+     "z": 2.56,
      "page": "metals",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "Brent crude",
      "dir": 1,
-     "move": -24.8,
-     "text": "−24.8%",
-     "z": 1.08,
+     "move": -20.97,
+     "text": "−21.0%",
+     "z": 0.89,
      "page": "energy",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     }
    ],
    "headlines": [
     {
-     "title": "Why is Pete Hegseth strengthening US military ties with Venezuela?",
-     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQQzFuSFdVOHZFcUZ4bmNhTGJrUXVMZ3NJVTdTRmVqWFBzam1tYjZ2djZSd2p6bEhSbFJNOFdjbkVwZG5tdFNfMlBTeG9FSTNTTE9FcHdaRjNXWk1XbWlyc2VLMFhydlNGVHE1c2k1ZW16S01nV21tSU9vb1VJRjJKLTNKMlRaXy1CZkJIR0ZZaVVGazBjZmhzM3MtaFE1cnFMV1FmdnQzNXI0RnPSAbABQVVfeXFMT3hWSGRtNlMzRWpuMkRtUmExVktBdGdCUWZMLUZxWVpldERGOHVQcFNnLVJONGdPNlZxOEt4QU9rOVllTEZQMXRCbVhrOC1FeXpycUlGWDVScF9sSVFaOEdscVZlX3BTTF9HbV9JV3RWdGRmRzhMZHdPNlNTbXc4R2xqcVl0eVdaT24wbkJUTVBEV1pDWDJRcnhGMkxjcGVRRXJwT0o3a0w0R3ZLc2RGYmM?oc=5",
-     "source": "Al Jazeera"
+     "title": "Mexico lodges formal complaint over US hotline for cartel tips",
+     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPZEZhZU5aQzhiVFJ3U2lmUnJsS2owQzBWWmtJQ3J6UUVFY0szMzkwQV81aHYwb1J5aWg4YWlBREtkVUFRQnM1T3FZZ3N6Ml9pek9GUUxBUHVCaElrMnliamJUX3lqdXNYak1pYTlqWXZXc3VHR1FZQzM3LVBhd1lnQ2hVQVB6UGk0SHNsaVJab19VQWF6S0ptZV90R1RYOVhYYXVvRkI5bC1kOHBla1lhVVI3YndtR3M?oc=5",
+     "source": "Euronews.com"
     },
     {
-     "title": "Denmark ratifies Trump deal over Greenland, expanding U.S. military role",
-     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQQ25fdlU5T2FreW84R3JlOWlVcGVORjlLLXJaMUY3bnE0UnBpZHBBb3RaZzkzbGNPZ19DY1ZGdW05eF9KNjBHcDE3M3ducGIzYklhZ0Y1YXZ3QmFkSnhhRHYxOXdqd2h4bFlsYkdYSE56U0ZvVzd6SmVaWkt0bUdLek5pN1ZiR2pSSzFtX3NGYzhYeTVBQWpFeXdSdUFmdVpQZUpXV0hLdWJTbmFmYTF5S3dfRlF2UQ?oc=5",
-     "source": "NBC News"
+     "title": "Mexico Captures Top Drug Boss in Fierce Gunfight",
+     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOXzBacVJ3Qzh2a21SQlRxaGE3VVdNb085VU55UGVjbXlwNW5qZzN0UE1nV3BMeEx3NUxxUWk4d2hZTno5T2lPRlFXV3Y3Mm1mWlJSNUpvR0VoZjZGODZkdXJmZWVZR29FQjdkT0ZGaTU0ajlSWTFNQ1l5Zm9UWDhNZk1JUUZIcHk0VmtLZjdKTmhYSWhadEVF?oc=5",
+     "source": "WSJ"
     },
     {
-     "title": "Venezuela a ‘compliant security partner,’ Hegseth says as he announces military deal with Caracas",
-     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOUE9iX19fb2Ewd1JMVDFON3FPZi0wSGFGeTNLWk9TdDI1TWFuUmQ3dEZnaFVmS2tpYktqcUxqVGxaZGNZa1FnUDNYQU5XS3RXSkpPZDUxNmRMZ2ZZUE5oNV8wSDZ5OHpRcmw0YjlQUnhKbWotcEROTnljY2p2OTdYdGhLYzF6SjdaY3hPY3JB?oc=5",
-     "source": "CNN"
+     "title": "Mexico's most powerful cartels adapt as arrests and leadership battles reshape their ranks",
+     "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOaEoxdUJVRHFaMU15aktHNUFyckdXRUp2UlJXWG1WbUc5TGFNaVVvdU5vSFYtX0RKdnlIZ2EtVEFCLWRTMkNMdVM3RVRVUWxJa0dYMnZ6SlJRRHpvT1N0NEluT1BqZVhjSFBuaWpSeUVyekoxQWhqd2VyV2ZvWUQwRGM3dnZhdU9GN1JxZjJCQ2FVVnpGTzYyOXEycnkycHEyUmY3alNoci01Rk9pVWVWRE9obEp3VHExZ2R1bDhCTGZPUdIBxwFBVV95cUxOcU1meG9XOVBIWGd3WkowYTZGUktFQ253NlloN3BycUpXWXhRYnJZVW1oUFZrS2duOGx0ckhpQ1QtemI2a2Y3cjUzSmZtd0d3eVZaRGhzT2NnNVVTR3hHc3d4bjJ3d3lzb2tOWVF3aU1IdTl3R2REWE02b3dweEJMc0x3WTRZWVdaQkM4eU1BSGM0bUhCaUxCcGFUTXFMUTNIc29jMUlNaXM4M0RJVURiWG9KcHQwQlo5NlNIU0tVczI4M0Q4dWhR?oc=5",
+     "source": "PBS"
     }
    ],
-   "view": "New security agreements involving Greenland and Venezuela indicate a shift in regional military diplomacy. Despite high levels of news coverage, markets are moving the opposite way, with energy and precious metals showing no defensive premium.",
-   "viewBase": "New security agreements involving Greenland and Venezuela indicate a shift in regional military diplomacy. Despite high levels of news coverage, markets are moving the opposite way, with energy and precious metals showing no defensive premium.",
+   "view": "Diplomatic friction has emerged between Mexico and the United States over law enforcement strategies against drug cartels. Despite high attention, market assets such as the peso and gold are not currently moving in line with this risk.",
+   "viewBase": "Diplomatic friction has emerged between Mexico and the United States over law enforcement strategies against drug cartels. Despite high attention, market assets such as the peso and gold are not currently moving in line with this risk.",
    "levelBase": "medium"
   },
   {
    "id": "korea",
    "label": "North Korea",
-   "attention": -0.71,
-   "attentionChange": -0.09,
-   "reaction": 0.01,
+   "attention": -0.76,
+   "attentionChange": -0.05,
+   "reaction": 0.36,
    "levelAuto": "medium",
    "trend": [
-    -0.43,
     0.22,
     1.09,
     0.75,
@@ -2498,67 +2501,67 @@
     -0.57,
     -0.96,
     -0.61,
-    -0.71
+    -0.71,
+    -0.76
    ],
    "assets": [
     {
      "name": "Japanese yen",
      "dir": 1,
-     "move": -0.68,
-     "text": "−0.7%",
-     "z": 0.39,
+     "move": -0.4,
+     "text": "−0.4%",
+     "z": 0.24,
      "page": "crypto",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "Korean won",
      "dir": -1,
-     "move": 0.48,
-     "text": "+0.5%",
-     "z": 0.17,
+     "move": -1.15,
+     "text": "−1.1%",
+     "z": 0.39,
      "page": "crypto",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "VIX volatility",
      "dir": 1,
-     "move": 14.4,
-     "text": "+14.4%",
-     "z": 0.6,
+     "move": 115.17,
+     "text": "+115.2%",
+     "z": 5.13,
      "page": "markets",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     }
    ],
    "headlines": [
     {
-     "title": "North Korea expanding uranium enrichment facility, UN nuclear watchdog says",
-     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOd19ZRjF0c3NGcTZJYkV4aWZmbUR1My1adUJCY25yTmJMT0FJWG5JalhnQ2E0QUc1MERwdnhKeFJTLWIwSF9VWkI3Y0JMTklsREtJNEVqRmpld1JPdm04ZTlZQkxnUDZzaEF2R0xoUE5Rc1NaUHZlRDZESFlxWV9keE9kSVNqcENWYm8zaTVxdzhXTGVRdVhSbENsRmxzN1ZPYzlLTVFxVGV0NGpEMVZfaHJaaFZRRG_SAbwBQVVfeXFMT2hFWWRlYXl0WVptckRuSG05RWtDdVZIeVFRcmFRYkw2RDRtcGZyWVhWeC15TnJKYU5fb0NBbHVjUENoUUZ2OXRnRmU0ODN5VkcyUXZsY0hRY0lpcU5lMUtYVjliYUJuRjAtMzZ6UUFDYWZpb2hPLWU5T21FUlcxdmlMTWZNTDdBXzVRWHhuNHdNY0hHQUFyMjd3cmgyLUNGbkE3VWVsTlZBcWh0MEZVd0c5Q3ZXaHp3Wm5OUGs?oc=5",
-     "source": "Al Jazeera"
+     "title": "A Bombshell Idea",
+     "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9BSGZzRE9PLURNbEhXTGYzbkwxVUJ0SkZ4cGUtM2l6U0Vjd09Cc1FuUnNDcF9GQXYyWDhpYzJGNGk0MU1iWFdzRTJKWXMtRHk1X0dzU1FmRHNXU01oQzVr?oc=5",
+     "source": "Toda Peace Institute"
     },
     {
-     "title": "Kim Jong Un’s nuclear program draws ‘serious concern’ ahead of Trump’s historic summit with Xi, Putin",
-     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNZkJCbjFxTDJFNDZ6R21zYkFrTDh4aDd4VWxOOV9QT3FieENvaUlUbVhQOW5vVkxDeWN5blBBQThfa2dzbjVCYnI1R0xTb0RSaWFUeFZ5S3FDSzFoZHFSVFFyekZjWEZzTThCTEk4Ym1lbFNiaVczdzRfdmxJT1VidENKNFA4NlloM0JLUjVHY3FKR3dHRXZTQTk1VFdkdUUwX184QWt1aHl5VnpxVV9Md0JFUTNnQ29mSWJkd3lPcFFOcmVhcUhIWA?oc=5",
-     "source": "New York Post"
+     "title": "Seoul monitoring signs of possible visit to China by North Korea’s Kim",
+     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQbG1rLW9ITEItZFFOTEFNa0w2RWk5SlRoeXhwck5CekZPMXlVNUJSMzkwMWNBVXV6VWRCX3RDOGtraEtyVGQ4Nzg3WXpORmxva1J0VHVZQTdUck91SkRIVDhTM0lCZU1ORjZ3dnNKeW5vdG1iU1F6b1VnSlRlSG5hU0FkaEhabS1kaG1aN0owQmxYZV9hMTRBSW1XbVktdGRVTXM4?oc=5",
+     "source": "The Japan Times"
     },
     {
-     "title": "Lee, Putin discuss North Korea and peninsula tensions in first meeting: Seoul",
-     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOY0F2dzhRY3EtTFpHR0xuUGpYNk5fNV94Y05MNDZVckk4eFowUFI4NXhsZmo0WXV4TkZIbGdLYjE4bHduOVhEMWpTSDgwdURzRUFtSUhSQTgtSWxxQ1pZNGx2RXNvYmNBVnpyRFdEUXk2VldaQjhmMTBGVzdDMFdjOFZvUkh1WGIzRS1kUXFTbmFoOFg4enhPaXluc1B1blZKRExQZkRKWXYwZHM?oc=5",
-     "source": "NK News"
+     "title": "North Korea's Kim vows to build more nuclear weapons after ignoring Trump's overture",
+     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNVEE5cVFWVUY1cS1lbThoVEV0V3lwa2JkdkMtdTJGUXhyOERGT3FyaEFLUDJmaXhDQ3FLcldUSFRGODBYcTJIZVhmSkNYcUlMZXRpZVhmLW9NRnBUTzEyRlVDWXowTVhyNEZGOEdvSW4tLWhJVWFCT2xhVm13QTZVRUF2ZmtuSEJDNU8zSmUybHJhVFBFU1ZZNzJPSl9oamoyamlJMzd3ZHowTHM2YWhlMDlHTjZmdGhuVmNScEh30gG-AUFVX3lxTE1UQTlxUVZVRjVxLWVtOGhURXRXeXBrYmR2Qy11MkZReHI4REZPcXJoQUtQMmZpeENDcUtyV1RIVEY4MFhxMkhlWGZKQ1hxSUxldGllWGYtb01GcFRPMTJGVUNZejBNWHI0RkY4R29Jbi0taElVYUJPbGFWbXdBNlVFQXZma25IQkM1TzNKZTJscmFUUEVTVlk3Mk9KX2hqajJqaUkzN3dkejBMczZhaGUwOUdONmZ0aG5WY1JwSHc?oc=5",
+     "source": "PBS"
     }
    ],
-   "view": "Reports of expanded nuclear facilities and upcoming summits are keeping the focus on the Korean peninsula. Market reaction is currently negligible, with volatility and currency pairs showing almost no movement in response to these developments.",
-   "viewBase": "Reports of expanded nuclear facilities and upcoming summits are keeping the focus on the Korean peninsula. Market reaction is currently negligible, with volatility and currency pairs showing almost no movement in response to these developments.",
+   "view": "North Korea is expanding its nuclear weapons program and preparing for potential diplomatic visits to China. Markets are showing a moderate reaction to these developments as the regional currency weakens and global volatility remains elevated.",
+   "viewBase": "North Korea is expanding its nuclear weapons program and preparing for potential diplomatic visits to China. Markets are showing a moderate reaction to these developments as the regional currency weakens and global volatility remains elevated.",
    "levelBase": "medium"
   },
   {
    "id": "transatlantic",
    "label": "Transatlantic relations",
-   "attention": 0.63,
-   "attentionChange": 0.43,
-   "reaction": 0.03,
+   "attention": 0.78,
+   "attentionChange": 0.15,
+   "reaction": 0.23,
    "levelAuto": "medium",
    "trend": [
-    -0.21,
     -0.39,
     -0.43,
     -0.03,
@@ -2569,56 +2572,57 @@
     -0.01,
     0.15,
     0.2,
-    0.63
+    0.63,
+    0.78
    ],
    "assets": [
     {
      "name": "Euro vs. dollar",
      "dir": -1,
-     "move": -0.8,
-     "text": "−0.8%",
-     "z": 0.48,
+     "move": -2.23,
+     "text": "−2.2%",
+     "z": 1.39,
      "page": "crypto",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-19"
     },
     {
      "name": "Gold",
      "dir": 1,
-     "move": -5.39,
-     "text": "−5.4%",
-     "z": 0.85,
+     "move": -15.29,
+     "text": "−15.3%",
+     "z": 2.56,
      "page": "metals",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     },
     {
      "name": "S&P 500",
      "dir": -1,
-     "move": -2.04,
-     "text": "−2.0%",
-     "z": 0.56,
+     "move": -10.92,
+     "text": "−10.9%",
+     "z": 2.85,
      "page": "markets",
-     "asOf": "2026-11-13"
+     "asOf": "2026-11-20"
     }
    ],
    "headlines": [
     {
-     "title": "EU governments approve trade deal with Indonesia to offset Trump tariffs",
-     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNRnRZZmk5aUVnWkxwOUx3YkE1S3ZwTlF1b2cwNE5RTjM1dE5tSERlZ0RObU8xTERqdUpaN0tMYWF3N1VZUTI1ZE1VQUNWY3BLb0VjbkRYQkoyajRBMjRuaEtrTzJuaGpLOERCcnNLbkVhUVRnOFlMbHhYU2duc2V3MWljcG81MUU0MEpzc3lOZFBhbDBSeGpJYjJNaWl3WjF1a002WGF2VVAtSERiX2NQOU8tZUNRalN60gG-AUFVX3lxTFBfY3BqSmFLU0RaVTh1VmVFeDdRLW83dXQ5OVItc2VTcXRHTDZ0ZG40N1I4cDJSMk1yLUlYM0tKb2JPVjQzdTNyU1pDUWRHM0lHb3NULWw2SjRwaFhPYjdUYXJtWmlFQ3p6NmE2VXRkVS1sM2V5ZHhnejlfOVZzX1dZVkFya2ljN3lRUXVUV3NYcFltSDN1SlhMT2g3Rm9YR1NxMEpZVDhheS05ZVJzSXhwMFFpRi1Wc1Q3THdqd3c?oc=5",
-     "source": "Al Jazeera"
+     "title": "Trump diverges from NATO statement, emphasizing Ukraine mustn’t expand war",
+     "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPSWg1NTJPR0x6RXN2T0JIOXd6OUI0cGdkcUh2clZJbWZBUGZVdTZkX3plemh4NEtOLUxIRHctM3dCbUFzMHBWb2Rya3Y2UDZKUXhab2plWG9HZUNxN3ZJMF90d2p1djNQaW5QbThDeW00NVJ4MXNBSnowaUxWeVBzT0paSTZaTGdqN2wzbEdaSzNGUVQwVGRuUHlYTllBZGhLWXFVb1gtaERxblNnQVFscVR3?oc=5",
+     "source": "POLITICO.eu"
     },
     {
-     "title": "Russia Says Europe Is in ‘Humiliating Decline’ as Trump, Putin, and Xi Meet",
-     "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNOExlaFQ5R3M4eUZ6eDZlNnRXOU1hdkVONjUxclRkNTFhNWVaWDJSRzd5QnRfdnBQMkZpSHdKdVpEVnJqRUtlcmIyQ3Bnd1BLbUZTZUk3YnU1UXk2S3BsMVZLSFowTWtPZlBtU3pQN2ZjR3VyMEo5UWpHSzRXd09IODFSb0VpYm56SHFfRG5adXlrOFN5YjZDTHlpeUprSGpkXzZIb2RqLVM1UWtEUkt5YXFZbE9sV3Y1STRmX2p1RUJtZGRHSnRURGcyLWZOYUNfYm5xYg?oc=5",
+     "title": "Trump Urges Putin to ‘Pull Back’ Military Aggression in Europe",
+     "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQVEVNcXpOUV9lSWZ0M2lPUjlNeWludVpCOTdTUUE2NFpRSXlqV2V5Q25uUGxydk13Z2NiV2wxUjd4cnFncTBNbzBwenZydWRQLUVkN2k4OHBuMUpNcmRoMm5YWWVrVkNsb1JfakVRTVVSb1lKMXNvbjk3SVJQMWVKTnpITWhKT1IzdkN1Q0ZDdk5kVDVCV1lkWVNIdGtrZU5pMy1GVG9KZEpFWDNaVEZ0NEVHaw?oc=5",
      "source": "Time Magazine"
     },
     {
-     "title": "Trump’s Plan to Lower Drug Prices in U.S. Is Leading to Fewer New Drugs in Europe",
-     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNTDhRMllfZEhCQWpqaF9pYWRMVERlSmFJa3h5UGlwSmwxdVVkR05jeWRwY01tNG1Bd1pXV3RCbHZwNnZOLXpwQzBWeGpOX0d4am55Nzc1VUZIWlQ0ZW1wZld1UUJmVzdwcnNQQ18yNE85S043VURlYTd1ZElQZ1N4WEdCN3YwdVVkbE02R0N0VGpkaGUwTFRvS1BXTjNPWE94SndJbmtZUWhzZEp5dmpsZTBNVDdhd3hyOEthN1ZSZw?oc=5",
-     "source": "WSJ"
+     "title": "Trump’s NATO 3.0 Delayed as Expected US Troop Cuts in Europe Shrink to 5,000",
+     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQMlVRdDBKYms1RTdjTDBYVU1uMS10SlFvUDg3NEo4OGMwQlNFYTVEXzZTenVfMzFnVFpadm4zZkJWZnlXYTRwRlZCVTFoVENkNlctLU9YYnlBV3dPY3Bqa29NbXVXYzQ2N0YzcHhfV0dQbUNXNEx5TC11NGJBbmpNelBEbm1GRFdEN2RsWVhiSXRjQlZFRlpZ?oc=5",
+     "source": "Hungarian Conservative"
     }
    ],
-   "view": "European leaders are navigating shifting trade policies and diplomatic pressures following new initiatives from Washington. Investors remain neutral for now, as currency and equity markets show little change in response to the evolving alliance dynamics.",
-   "viewBase": "European leaders are navigating shifting trade policies and diplomatic pressures following new initiatives from Washington. Investors remain neutral for now, as currency and equity markets show little change in response to the evolving alliance dynamics.",
+   "view": "The United States is reviewing its military posture in Europe while calling for a reduction in regional hostilities. Investors are showing some concern as the euro and equity markets move in a manner consistent with shifting alliance dynamics.",
+   "viewBase": "The United States is reviewing its military posture in Europe while calling for a reduction in regional hostilities. Investors are showing some concern as the euro and equity markets move in a manner consistent with shifting alliance dynamics.",
    "levelBase": "medium"
   }
  ],
